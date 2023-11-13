@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "推送消息",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

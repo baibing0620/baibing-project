@@ -1,0 +1,38 @@
+<view class="container">
+    <view class='switcher'>
+   <view class='triangle'></view>
+ 
+    <swiper bindchange="handelSwpierChange" class='swiper' display-multiple-items="3" previous-margin="50rpx" next-margin="50rpx" current="{{activeindex}}">
+ 
+<!--空标签-->
+    <block>
+        <swiper-item class="swiper-item"></swiper-item>
+    </block>
+ 
+    <block wx:for="{{dataLists.level.vipRightsConfig}}" wx:key="*this" class="icon-box">
+      <swiper-item class="swiper-item flexc" >
+            <view class="flexcColumn img-item {{activeindex == index?'img-item-current':''}}"  data-index="{{ index }}" bindtap="changeIndex">
+                <view class="icon-item">
+                    <text class="iconfont {{ item.icon }} iconImg"></text>
+                </view>
+                <view class="name cf ellipsis1">{{ item.rights_name }}</view>
+                <view class="mlc" wx:if="{{activeindex != index}}"></view>
+            </view>
+        </swiper-item>
+    </block>
+    <!--空标签-->
+    <block>
+        <swiper-item class="swiper-item"></swiper-item>
+    </block>
+</swiper>
+
+</view>
+<view class="box1">
+    <view class="duixiang">权益对象</view>
+    <view class="huiyuan">{{ dataLists.level.level_name }}</view>
+</view>
+<view class="box2">
+    <view class="explain">权益说明</view>
+    <view class="shuoming">{{ dataLists.level.vipRightsConfig[activeindex].rights_remark }}</view>
+</view>
+</view>

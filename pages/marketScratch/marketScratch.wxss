@@ -1,0 +1,274 @@
+/* centerControl/marketScratch/marketScratch.wxss */
+
+/* page header*/
+
+.header {
+    position: relative;
+    width: 750rpx;
+    height: 728rpx;
+    background: red url('https://facing-1256908372.file.myqcloud.com//image/20171206/6ba596078ed35175.png') no-repeat;
+    background-size: 100%;
+}
+.num-tip{
+    color: #E1724E;
+    font-weight: bold;
+    width:630rpx;
+    height:60rpx;
+    background:#F2EBD6;
+    border-radius:10rpx;
+    text-align: center;
+    line-height: 60rpx;
+}
+
+.header-title {
+    position: absolute;
+    top: 362rpx;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #555;
+    font-size: 36rpx;
+    font-weight: 600;
+}
+
+.red-body {
+    /*padding-bottom: 30rpx;*/
+    width: 750rpx;
+    height: auto;
+    background-color: rgb(206, 46, 20);
+}
+
+.content-container {
+    position: relative;
+    top: -112px;
+    min-height: 400rpx;
+    background: url('https://facing-1256908372.file.myqcloud.com//image/20171206/cf84084b95e6761e.png') repeat-y center;
+    background-size: 92%;
+}
+
+.content-header {
+    margin: 0 auto;
+    width: 715rpx;
+    height: 18rpx;
+    border-radius: 6rpx;
+    background-color: #edd4b6;
+}
+
+.content-padding-box {
+    padding: 0 58rpx;
+    padding-bottom: 30px;
+}
+
+.description-container {
+    margin-top: 26rpx;
+    padding: 24rpx;
+    min-height: 126rpx;
+    border-radius: 10rpx;
+    background-color: #edd4b6;
+    font-size: 24rpx;
+    line-height: 1.7em;
+    color: #803808;
+    text-align: left;
+}
+
+/* scratch content */
+
+.scratch-container {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 48rpx;
+    padding-top: 30rpx;
+    height: 230rpx;
+    border-radius: 4rpx;
+    background: url('https://facing-1256908372.file.myqcloud.com//image/20171206/15401a8cb7b0f180.png') no-repeat;
+    background-size: 100%;
+}
+
+.scratch {
+    margin: 0 auto;
+    opacity: 1;
+    transition: .5s;
+    z-index: 1;
+}
+
+.scratch-content-container {
+    position: absolute;
+    top: 30rpx;
+}
+
+.scratch-content {
+    font-size: 45rpx;
+    line-height: 180rpx;
+    font-weight: 500;
+    color: #999;
+    text-align: center;
+}
+
+.start-button {}
+
+.none {
+    opacity: 0;
+}
+
+.share-board{
+    margin-top: 42rpx;
+    padding: 60rpx 0 40rpx;
+    border-radius: 10rpx;
+    background-color: #edd4b6;
+}
+.share-name{
+    color: #623500 !important;
+}
+.share-num{
+    color: #EF3214 !important;
+}
+/* winner list */
+
+.winner-list {
+    margin-top: 42rpx;
+    padding: 40rpx 0;
+    min-height: 126rpx;
+    border-radius: 10rpx;
+    background-color: #edd4b6;
+}
+
+.winner-list-header {
+    position: relative;
+    width: 100%;
+    font-size: 30rpx;
+    color: #803808;
+    font-weight: 600;
+    text-align: center;
+    z-index: 1;
+}
+
+.winner-list-header-shadow {
+    position: absolute;
+    left: calc( 50% - 80rpx);
+    top: 20rpx;
+    width: 160rpx;
+    height: 30rpx;
+    background: #e5c196;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.winner-list-item-header {
+    margin-top: 45rpx;
+    margin-bottom: 26rpx;
+    color: #803808;
+    font-size: 26rpx;
+}
+
+.winner-list-item {
+    margin-bottom: 26rpx;
+    font-size: 24rpx;
+    color: #b58a6c;
+    letter-spacing: 1px;
+}
+
+.Sharing {
+    width: 122rpx;
+    height: 138rpx;
+    background-image: url('https://facing-1256908372.file.myqcloud.com//image/20191118/7bda7a6ec294692c.png');
+    background-size: 100%;
+    position: fixed;
+    top: 50%;
+    margin-top: -130;
+    right: 0;
+    z-index: 999;
+}
+
+.ShareToWechat {
+    width: 750rpx;
+    height: 356rpx;
+    background-color: #ffffff;
+    border-radius: 30rpx 30rpx 0px 0px;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.weixin {
+    width: 140rpx;
+    height: 154rpx;
+    text-align: center;
+    position: relative;
+}
+
+.shareButton {
+    opacity: 0;
+    position: absolute;
+    width: 200rpx;
+    height: 200rpx;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+}
+
+.ShareToWechat-box {
+    height: 100%;
+    z-index: 1001;
+}
+
+.shareTitle {
+    font-size: 28rpx;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #000000;
+    font-family: PingFangSC-Regular;
+}
+
+.pengyouquan {
+    width: 120rpx;
+    height: 152rpx;
+    text-align: center;
+}
+
+.pengyouquan view {
+    color: #000000;
+}
+
+.weixin view {
+    color: #000000;
+}
+
+.weixin image {
+    width: 98rpx;
+    height: 98rpx;
+}
+
+.pengyouquan image {
+    width: 98rpx;
+    height: 98rpx;
+}
+
+.mcl {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.fix-home-page {
+    position: absolute;
+    top: 20px;
+    right: 20rpx;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    border-radius: 50rpx;
+    color: white;
+    height: 70rpx;
+    min-width: 70rpx;
+    line-height: 70rpx;
+}
+
+.fix-audioPlayer {
+    position: absolute;
+    top: 140rpx;
+    right: 20rpx;
+    z-index: 100;
+}
+

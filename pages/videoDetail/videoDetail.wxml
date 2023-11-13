@@ -1,0 +1,63 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+        <!-- <view wx:elif='{{ isFromNotice && !cardInfo }}' class="fr28 cf card-list bold" style="color: #fd9a33" bindtap="toCardList">
+            <text class="iconfont icon-fanhui1 fr26"></text>
+            返回名片列表
+        </view> -->
+        <template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+        <view wx:else class="layout flexColumn flex1">
+            <swiper wx:if="{{ swiper }}" class='swiper flex1' current-item-id='{{ id }}' bindchange='hasChange' bindanimationfinish='changeVideo'>
+                <block wx:for='{{ list }}' wx:key='{{ item.id }}' wx:if='{{ item.id }}'>
+                    <swiper-item item-id='{{ item.id }}'>
+                        <view class='item flexcColumn' catchtap='hideShare'>
+                            <block wx:if="{{ item.video_url && video }}">
+                                <view hidden='{{ showCover }}' class='flexcColumn flex1'>
+                                    <video wx:if="{{ !isIOS }}" style='height: {{ item.height }}rpx; width: {{ item.width }}rpx;' direction="{{ item.direction }}" autoplay class='video' id="myVideo" src="{{ item.video_url }}" enable-progress-gesture='' bindended='onVideoEndOrError' binderror='onVideoEndOrError'></video>
+                                </view>
+                                <view class='remind flexc fr24'>
+                                    {{ list[ index + 1 ].id ? "滑动切换视频" : "" }}
+                                </view>
+                            </block>
+                            <view class='videoImageBox' wx:else>
+                                <!-- <image mode="aspectFill" class='videoImage' src='{{ item.video_image_url }}'></image> -->
+                                <image class='videoImageLoading' src='/imgs/loading.gif'></image>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view wx:for='{{ list }}' wx:key='{{ item.id }}' wx:if='{{ item.video_url }}' hidden='{{ showCover }}'>
+                <video wx:if="{{ isIOS }}" style='height: {{ item.height }}rpx; width: {{ item.width }}rpx; {{ isFromShare ? "transform: translateY(29rpx);" : "" }}' direction="{{ item.direction }}" autoplay class='view video' id="myVideo" src="{{ item.video_url }}" enable-progress-gesture='' bindended='onVideoEndOrError' binderror='onVideoEndOrError'></video>
+            </view>
+            <view wx:if="{{ !beid }}" class='buttons flexc fr34'>
+                <view class='share btn flex1 flexc' catchtap='showShare'>
+                    <text class='iconfont icon-fenxiang1'></text>
+                    {{ relayNum }}
+                </view>
+                <view class='like btn flex1 flexc {{ hasLiked ? "hasLiked" : "" }}' catchtap='clickLike'>
+                    <text class='iconfont icon-xin'></text>
+                    {{ likeNum }}
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{ !beid }}" class='shareView flexc {{ showShare ? "" : "hideShare" }}'>
+            <button class='shareItem flexcColumn fr26 c6 active' open-type="share">
+                <image src='https://facing-1256908372.file.myqcloud.com//image/20181108/55b5f2dc124171a2.png?imageView2/2/w/600'></image>
+                微信好友
+            </button>
+            <view class='shareItem flexcColumn fr26 c6 active' catchtap='previewImage'>
+                <image src='https://facing-1256908372.file.myqcloud.com//image/20181019/3c51955b4d7fa3bd.png?imageView2/2/w/600'></image>
+                朋友圈
+            </view>
+        </view>
+        <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='coverHide'>
+            <component-poster src='{{ painting }}' themeColor='{{ extConfig.themeColor }}' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+        </view>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

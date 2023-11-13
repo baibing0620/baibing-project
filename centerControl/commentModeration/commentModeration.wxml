@@ -1,0 +1,27 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+
+  <view class="item bcf" wx:for='{{ commentList }}' wx:key='id'>
+    <view class='flexb'>
+      <view class='flex'>
+        <image class='avatar' mode='' src='{{ ShowImg.cropImgWH(item.member.avatar, 60, 60) }}'></image>
+        <view class='nickname fr26'>{{ item.member.nickname }}</view>
+      </view>
+      <view class='fr22 cbd'>{{ item.createtime }}</view>
+    </view>
+    <view class='content fr26 c3'>{{ item.content }}</view>
+    <view class='bar flex'>
+      <view class='refuse fr28' bindtap='comfirm' data-id='{{ item.id }}' data-index='{{ index }}' data-audit='2'>拒绝</view>
+      <view class='pass fr28' bindtap='comfirm' data-id='{{ item.id }}' data-index='{{ index }}' data-audit='1'>通过</view>
+    </view>
+  </view>
+
+  <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+</block>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

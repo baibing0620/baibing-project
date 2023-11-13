@@ -1,0 +1,44 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle }}" wx:if="{{ showStyle != 1 }}"/>
+<block wx:else>
+    <template is="initShow" wx:if="{{ loadStyle != 'loading' && list.length < 1 }}"  data="{{ showStyle: 2, showNoMsg:'您还没有佣金记录，快去努力分销吧！',showImg:'https://facing-1256908372.file.myqcloud.com//image/20201110/f906dbe76ef054a1.png'}}"/>
+    <block wx:else>
+        <view class="list">
+            <view wx:for="{{ list }}" wx:key="id" class="item bcf" data-id="{{ item.id }}" catchtap="toDetail">
+                <view class="top flex fr30 c3 bold">
+                    <view class="avatar">
+                        <component-image src="{{ item.member.avatar || item.member.avatar_url }}" placeholder></component-image>
+                    </view>
+                    【购买人】{{ item.member.nickname }}
+                </view>
+                <view class="middle flexb">
+                    <view class="flexcColumn">
+                        <view class="fr40 bold c3">{{ item.order_money }}</view>
+                        <view class="fr26 c9">订单金额(元)</view>
+                    </view>
+                    <view class="flexcColumn relative">
+                        <view wx:if="{{ item.level && item.level != 0 }}" class="fr24 {{ item.orderGoods.cancled == 1 ?'cred':'c9' }} level">{{ item.orderGoods.cancled == 1 ?'订单退款，佣金已退还':item.level+ '级返佣'}}</view>
+                        <view class="{{item.orderGoods.cancled == 1 ?'arrow-back':'arrow'}}"></view>
+                    </view>
+                    <view wx:if='{{ item.distribution_type == 2 }}' class="flexcColumn">
+                        <view class="fr40 bold {{ item.orderGoods.cancled == 1 ? 'cb3' : 'c-1F94FD' }}">{{ item.distribution_credit }}</view>
+                        <view class="fr26 c9">分销返佣(积分)</view>
+                    </view>
+                    <view wx:else class="flexcColumn">
+                        <view class="fr40 bold {{ item.orderGoods.cancled == 1 ? 'cb3' : 'c-1F94FD' }}">{{ item.distribution_money }}</view>
+                        <view class="fr26 c9">分销返佣(元)</view>
+                    </view>
+                </view>
+                <view class="bottom flexb">
+                    <view class="fr26 c6">{{ item.distribution_time }}</view>
+                    <view class="fr26 c6">查看详情<text class="iconfont icon-jinru fr28"></text></view>
+                </view>
+            </view>
+        </view>
+        <template is="moreData" data="{{ loadStyle: loadStyle , loadOverText: '已显示全部佣金记录' }}"/>
+    </block>
+</block>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,14 @@
+<include src="/comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class='header'>
+  <image mode='aspectFill' class='header-bg {{isBgLoaded ? "" : "header-bg-hidden"}}' src='https://facing-1256908372.file.myqcloud.com//image/20190403/8976c4efad6a8da0.jpg' bindload='handleBgLoaded'></image>
+  <image class='header-icon-circle' src='https://facing-1256908372.file.myqcloud.com//image/20190403/1deb1eaa04c36ba2.png'></image>
+  <view class='header-icon-right iconfont icon-dui1 cf'></view>
+  <view class='header-icon-text fr32 cf flexc'>已开通</view>
+  <view class='header-info fr26 cf flexc'>您的名片还有{{ cdk_end_days || '--' }}天到期</view>
+</view>
+<view class='text flexc fr26 c1a'>如无新CDKey  请联系{{ help_mobile || '--' }}</view>
+<button class='bind-button btn-none' bindtap='handleToBind'>重新绑定CDKey</button>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

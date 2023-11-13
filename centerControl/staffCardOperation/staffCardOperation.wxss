@@ -1,0 +1,81 @@
+page {
+    background: #f7f7f7;
+    padding: 30rpx;
+    box-sizing: border-box;
+}
+
+.container {
+    background: #fff;
+    border-radius: 20rpx;
+    /* height: 326rpx; */
+    box-shadow: 0 10rpx 16rpx rgba(0, 0, 0, 0.1);
+    /* padding: 0 50rpx; */
+    position: relative;
+}
+.container>view>view>view>text{
+    margin-right: 10rpx;
+}
+.container image {
+    width: 140rpx;
+    height: 140rpx;
+    border-radius: 50%;
+}
+
+.fr46 {
+    font-size: 46rpx;
+}
+
+.fr26,.fr46 {
+    line-height: 100%;
+}
+.status{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 140rpx;
+    height: 50rpx;
+    border-top-left-radius: 20rpx;
+    border-bottom-right-radius: 20rpx;
+    background: #ff9b1f;
+    text-align: center;
+    line-height: 50rpx;
+}
+.public{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 140rpx;
+    height: 50rpx;
+    border-top-right-radius: 20rpx;
+    border-bottom-left-radius: 20rpx;
+    background: #ff9b1f;
+    text-align: center;
+    line-height: 50rpx;
+}
+.btn{
+    width:500rpx;
+    height: 90rpx;
+    border-radius: 6rpx;
+    background: #ff9b1f;    
+}
+button[disabled]:not([type]){
+    background: #d9d9d9;
+}
+.operation{
+	height: 74rpx;
+    text-align: center;
+	background-color: #f7f7f7;
+	border-radius: 0px 0px 20rpx 20rpx;
+}
+
+.operation>view {
+    height: 40rpx;
+}
+
+.operation>view:not(:last-of-type) {
+    border-right: 1rpx solid #cccccc;
+}
+
+.operation>view>text {
+    margin-right: 14rpx;
+}

@@ -1,0 +1,72 @@
+page{
+	background: #f3f6f5; 
+}
+.express-overview{
+	background-color: white;
+	height: 130rpx;
+	padding:0 40rpx;
+	padding-top: 24rpx;
+	margin-bottom: 20rpx;
+}
+.express-overview>view:first-child{
+	margin-bottom: 10rpx;
+}
+.express-des{
+  background-color: white;
+}
+.express-info-item{
+  position: relative;
+}
+.progress-item{
+  position: absolute;
+	width: 80rpx;
+	height: 100%;
+}
+.point-top{
+  height: 30rpx;
+}
+.progress-item>.point-top,.progress-item>.point-bottom{
+    border-left: 1rpx solid #d9d9d9;
+}
+.point{
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+.express-info-text{
+  margin-left: 80rpx;
+  padding:  30rpx 0;
+  border-bottom: 1rpx solid #ccc;
+  box-sizing: border-box;
+  width: 669rpx;
+  padding-right: 40rpx;
+}
+.express-info-item:first-of-type{
+  padding-top: 40rpx;
+}
+.express-info-item:first-of-type >.express-info-text{
+  color: #5dce72;
+  padding-top: 0;
+}
+
+
+
+.express-info-item:first-of-type .point{
+  top: 0;
+  background-color: #5dce72;
+}
+
+.express-info-item:first-of-type .point-top{
+  height: 0;
+}
+.express-info-item:last-of-type>.express-info-text{
+  border-bottom: none;
+}
+.express-info-item:last-of-type .point-bottom{
+  border-left: none;
+}
+
+
+
+

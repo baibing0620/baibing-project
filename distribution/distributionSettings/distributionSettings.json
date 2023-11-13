@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "商品配送设置",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-steps": "/components/steps/steps"
+    }
+}

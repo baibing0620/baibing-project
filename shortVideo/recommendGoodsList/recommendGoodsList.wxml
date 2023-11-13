@@ -1,0 +1,32 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="search-box flexc w100 bc-main" style="background-color:{{diyConfig.navigationBarBC}}">
+    <view catchtap="selectResult" class="search-goods flexb fr24">
+        <input style="display: block;color:#fff" class='flex1 cf' placeholder='请输入商品名称' placeholder-class='cf5' confirm-type="搜索" bindconfirm="selectResult" bindinput="bindKeywords" />
+        <icon type="search" size="15" color="rgba(255,255,255,0.7)" />
+    </view>
+</view>
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<scroll-view wx:else scroll-y="true" style="height: {{scrollHeight}}px;" bindscrolltolower="lower">
+    <radio-group bindchange="radioChange">
+        <view wx:for="{{goodsList}}" class="border-b" >
+            <radio color="#FF9B1F" value="{{item.id}}"></radio>
+            <view class="goods-item">
+                <image style="width: 170rpx; height: 168rpx;" mode="scaleToFill" src="{{item.thumb.url}}"></image>
+                <view class="item-content">
+                    <view class="goods-content">{{item.title}}</view>
+                    <view class="goods-price"><span>¥</span>{{item.marketprice}}</view>
+                </view>
+            </view>
+        </view>
+    </radio-group>
+    <view class="no-goods" wx:if="{{goodsList.length==0}}">
+        <image style="width: 400rpx;height:400rpx" src="https://facing-1256908372.file.myqcloud.com//image/20181130/e6477652b067cf2a.png" mode="aspectFill"></image>
+        <view class="fr30 c9" style="margin-top:10px">商品列表暂无商品</view>
+    </view>
+    
+</scroll-view>
+<cover-view class='submitBox fr34 cf flexc' catchtap='submit'>
+    <cover-view>确定</cover-view>
+</cover-view>

@@ -1,0 +1,44 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module = 'price'>
+  var change = function(money){
+  var _money = money.split(".")[0]
+  var price = money
+  if(_money.length>3){
+    price = parseFloat(_money).toLocaleString()+'.'+money.split(".")[1]
+  }
+    return price
+  }
+
+  module.exports = {
+  change: change,
+};
+</wxs>
+<view class="goods flexb w100">
+    <block wx:for="{{goodsList}}" wx:key="id">
+        <view class="goods-item flexbColumn" bindtap='goodsnav' data-goods-id="{{item.id}}"> 
+            <view class="goods-img">
+                <component-image src="{{ item.thumb }}" placeholder></component-image>
+            </view>
+            <view class="goods-title fr28 c3 ellipsis1">{{item.title}}</view>
+            <view class="goods-sale w100 flexb" hidden="{{item.is_put_in_points_mall == 1}}">
+            	<text class="fr24 cb3">已售{{item.sales}}</text>
+                <text class="fr34 c-orange" >￥{{price.change(item.productprice)}}</text>
+            </view>
+            <view class="credit-sales w100 flexb" wx:if="{{item.is_put_in_points_mall == 1}}">
+            	<text class="fr24 cb3">已售{{item.sales}}</text>
+            </view>
+            <view  class=" credit-price w100 flex" wx:if="{{item.is_put_in_points_mall == 1}}">
+                <view class='fr28 c-orange' >{{item.consume_integral}}积分<text wx:if="{{item.consume_price!=0}}">+{{item.consume_price}}元</text></view> 
+            </view>     
+            <view class="limit-flag" wx:if="{{item.istime==1}}">
+                秒杀
+            </view>
+            <view class="limit-flag" wx:if="{{item.is_bargain==1}}">
+                砍价
+            </view>
+            <view class="limit-flag" wx:if="{{item.is_groupbuy!=0}}">
+                拼团
+            </view>
+        </view>
+    </block>
+</view>

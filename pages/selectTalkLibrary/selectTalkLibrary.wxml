@@ -1,0 +1,49 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{showStyle:showStyle}}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:else>
+
+    <!-- <view class='input-layout' style='background-color: {{ extConfig.navigationBarBC }}'>
+        <view class='input-box flexb'>
+            <input class='fr24 input' value='{{ value }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='请输入商品名称搜索'></input>
+            <view class='iconfont icon-sousuo search' catchtap='search'></view>
+        </view>
+    </view> -->
+    <view class='my-talk'>
+        <view class='flexb select-title'>
+            <view class='fr26 c3 bold'>我的话术库</view>
+            <view catchtap='navAddMyTalk' class='fr26 c-main flex'>添加个人话术
+                <text style='padding-left:6rpx' class='iconfont fr20 icon-bofang5'></text>
+            </view>
+        </view>
+        <view wx:if="{{myList.library.length == 0}}" class="fr26 cc flexc" style='height:90rpx;'>
+            您还没有添加个人话术
+        </view>
+        <block wx:else>
+            <view wx:for='{{ myList.library }}' wx:key='{{ item.id }}' data-index='{{ index }}' class='item {{ item.selected ? "item-selected" : "" }} flexc active' catchtap='select' data-type="1">
+                <view class='checkBox {{ item.selected ? "checkBox-selected icon-gouxuan2" : "" }} iconfont flexc'></view>
+                <view class='info flex1 fr26 c6'>
+                  {{item.content}}
+                </view>
+            </view>
+        </block>
+    </view>
+    <view class='company-talk' wx:for="{{EnterpriseList}}" wx:key="this" wx:for-index="idx">
+        <view class='fr26 c3 bold'>{{item.name}}</view>
+        <view wx:for='{{ item.library }}' wx:for-item="itemLibrary" wx:key='this' data-idx='{{idx}}' data-index='{{ index }}' class='item {{ itemLibrary.selected ? "item-selected" : "" }} flexc active' catchtap='select' data-type="2">
+            <view class='checkBox {{ itemLibrary.selected ? "checkBox-selected icon-gouxuan2" : "" }} iconfont flexc'></view>
+            <view class='info flex1 fr26 c6'>
+             {{itemLibrary.content}}
+            </view>
+        </view>
+    </view>
+
+    <view class='holder'></view>
+
+    <view class='btn flexc cf fr32' catchtap='confirm'>立即发送</view>
+
+</block>
+
+<component-messageToast></component-messageToast>

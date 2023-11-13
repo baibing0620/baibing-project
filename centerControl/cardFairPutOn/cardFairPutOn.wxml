@@ -1,0 +1,57 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{ showStyle: showStyle }}" wx:if="{{ showStyle != 1}}" />
+        <block wx:else>
+            <view class="bf">
+                <view class="profession-layout">
+                    <view class="flex profession">
+                        <view class="label c40 fr30">行业</view>
+                        <view class="fr30 cc profession-name flexb flex1" bindtap="bindMenuClick">
+                            <view class="indus {{ indusIndex[0] < 0 ? '' : 'c3' }}">{{ indusIndex[0] < 0 ? "请选择名片所处的行业" : indus[indusIndex[0]].pindus_name + " | " + indus[indusIndex[0]].cindus_name[indusIndex[1]] }}</view>
+                            <view class="iconfont icon-xiala c40"></view>
+                        </view>
+                    </view>
+                    <view class="slider flex {{ sliderShow ? '' : sliderNone ? 'slider-hide'+' '+'slider-none' : 'slider-hide' }}">
+                        <block wx:if="{{ indus && indus.length > 0 }}">
+                            <view class="slider-left flex {{ indusIndex[0] < 0 ? 'slider-left-rightHidden' : '' }}">
+                                <view class="slider-item fr28 {{ indusIndex[0] == index ? 'slider-item-current' : 'c3' }}" wx:for="{{ indus }}" wx:key="{{ index }}" data-index="{{ index }}" catchtap="bindTabsMenuClick">{{ item.pindus_name }}</view>
+                            </view>
+                            <view class="slider-right {{ indusIndex[0] < 0 ? 'slider-right-hidden' : ''}}">
+                                <view class="slider-item fr28 {{ indusIndex[1] == index ? 'slider-item-current2' : 'c3' }}" wx:for="{{ indus[indusIndex[0]].cindus_name }}" wx:key="{{ index }}" data-index="{{ index }}" catchtap="bindTabsMenuClick2">{{ item }}</view>
+                            </view>
+                        </block>
+                        <view wx:else class="slider-loading-layout flexc flex1">
+                            <image class="slider-loading" src="/imgs/loading.gif"></image>
+                        </view>
+                    </view>
+                </view>
+                
+                <view class="flex info-layout">
+                    <view class="label c40 fr30">服务说明</view>
+                    <view class="flex1 flex tags-layout">
+                        <view wx:for="{{ data.tags || [] }}" wx:key="{{ index }}" class="info-tag fr26 c6 {{ deleteMode ? 'tags-deleteMod' : '' }}" bindtap="bindDeleteModeChange">
+                            {{ item }}
+                            <view wx:if="{{ deleteMode }}" class="info-tag-delete iconfont icon-cha c-fairMain" data-index="{{ index }}" catchtap="bindDeleteTag"></view>
+                        </view>
+                        <view wx:if="{{ inputMode }}" class="info-tag">
+                            <input class="info-tag-input fr26 c6" value="{{ inputValue }}" auto-focus="{{ true }}" maxlength="4" type="text" bindblur="finishInput"></input>
+                        </view>
+                        <view wx:if="{{ data.tags.length < 4 }}" class="tag-add fr28 c-fairMain flex {{ data.tags.length > 0 ? 'tag-add1' : '' }}"><view bindtap="startInput">+ 添加说明</view></view>
+                    </view>
+                </view>
+            </view>
+
+            <view wx:if="{{ deleteMode }}" class="slider-layout-cover" bindtap="bindDeleteModeClose"></view>
+
+            <view wx:if="{{ sliderShow }}" class="slider-layout-cover" bindtap="bindHideSlider"></view>
+
+            <view class="submit cf bc-fairMain flexc" bindtap="submit">立即投放</view>
+
+        </block>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

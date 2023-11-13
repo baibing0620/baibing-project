@@ -1,0 +1,9 @@
+<import src='../../template/initShow/initShow.wxml' />
+<form bindsubmit="formSubmit">
+    <view class='recommend-name-title fr24'>
+        模块名称
+    </view>
+    <input name="infoModuleName" value="{{infoModuleName}}" placeholder-class='placeholder-class' placeholder='请输入模块名称'/>
+    <button form-type="submit" class='fr34 cf btn bc-1F94FD'>保存</button>
+</form>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,189 @@
+@import '/comm/base.wxss';
+@import '../../iconfont/iconfont.wxss';
+
+.list{
+    width: 100%;
+    height: 100%;
+}
+.list>.select{
+    width: 100%;
+    height: 90rpx;
+    box-shadow: 0rpx 1rpx 0rpx 0rpx #e5e5e5;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 799;
+    background-color: #fff;
+}
+.list>.select>view{
+    flex: 1;
+}
+.list>.select>view>picker{
+    width: 100%;
+    height: 36rpx;
+    text-align: center;
+    font-size: 26rpx;
+    line-height: 34rpx;
+    /*font-weight: bolder;*/
+    border-right: 1rpx solid #dbdbdb;
+    box-sizing: border-box;
+}
+.list>.select>.select_goods>view{
+    width: 100%;
+    height: 36rpx;
+    text-align: center;
+    font-size: 26rpx;
+    line-height: 34rpx;
+    border-right: none;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*position: relative;*/
+}
+.list>.select>.select_goods>.isCheck{
+    color: #333;
+    /*font-weight: bolder;*/
+}
+.list>.select>.select_goods>view>radio{
+     margin-right: -12rpx;
+ }
+.list>.select>.select_goods>view>i{
+    /*position: absolute;*/
+    font-size: 30rpx;
+}
+/*.list>.select>.select_goods>view>i:last-of-type{*/
+    /*font-size: 42rpx;*/
+/*}*/
+/*.list>.select>.select_num>picker>view{*/
+/*!*display: inline-block;*!*/
+/*width: 100%;*/
+/*height: 36rpx;*/
+/*text-align: center;*/
+/*font-size: 26rpx;*/
+/*line-height: 30rpx;*/
+/*!*font-weight: bolder;*!*/
+/*border-right: 1rpx solid #dbdbdb;*/
+/*box-sizing: border-box;*/
+/*}*/
+/*.list>.select>.select_time>picker>view{*/
+/*!*display: inline-block;*!*/
+/*width: 100%;*/
+/*height: 36rpx;*/
+/*text-align: center;*/
+/*font-size: 26rpx;*/
+/*line-height: 30rpx;*/
+/*!*font-weight: bolder;*!*/
+/*border-right: 1rpx solid #dbdbdb;*/
+/*box-sizing: border-box;*/
+/*}*/
+/*.list>.select>.select_goods>picker>view{*/
+/*!*display: inline-block;*!*/
+/*width: 100%;*/
+/*height: 36rpx;*/
+/*text-align: center;*/
+/*font-size: 26rpx;*/
+/*line-height: 30rpx;*/
+/*!*font-weight: bolder;*!*/
+/*}*/
+/*.list>.select .iconf{*/
+    /*display: inline-block;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-left: 8rpx solid transparent;*/
+    /*border-right: 8rpx solid transparent;*/
+    /*border-top: 11rpx solid #333333;*/
+    /*border-radius: 6rpx;*/
+    /*margin-bottom: 5rpx;*/
+    /*margin-left: 11rpx;*/
+    /*transition: all 0.1s linear;*/
+/*}*/
+/*.list>.select .top{*/
+    /*transform: rotate(180deg);*/
+/*}*/
+
+.list>.goods{
+    width: 100%;
+    height: 210rpx;
+    padding: 30rpx;
+    box-sizing: border-box;
+    border-top: 1rpx solid #f0f0f0;
+    display: flex;
+}
+.list>.goods>.goods_left{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.list>.goods>.goods_mid{
+    flex: 2;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.list>.goods>.goods_right{
+    flex: 6;
+    height: 100%;
+    padding: 0 30rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+.list>.goods>.goods_right>.goods_right_title{
+    /*font-family: PingFangSC-Medium;*/
+    font-size: 30rpx;
+    line-height: 35rpx;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.list>.goods>.goods_right>.goods_right_type_2{
+    /*display: inline-block;*/
+    width: 70rpx;
+    /*height: 28rpx;*/
+    background-color: #ebfaff;
+    border-radius: 4rpx;
+    /*border: solid 1rpx #3bcaff;*/
+    box-sizing: border-box;
+    font-size: 20rpx;
+    line-height: 26rpx;
+    text-align: center;
+    color: #3bcaff;
+}
+.list>.goods>.goods_right>.goods_right_type_1{
+    /*display: inline-block;*/
+    width: 70rpx;
+    /*height: 28rpx;*/
+    background-color: #fff5e8;
+    border-radius: 4rpx;
+    /*border: solid 1rpx #ff9b1f;*/
+    box-sizing: border-box;
+    font-size: 20rpx;
+    line-height: 26rpx;
+    text-align: center;
+    color: #ff9b1f;
+}
+.list>.goods>.goods_right>.goods_right_num{
+    display: flex;
+    position: relative;
+}
+.list>.goods>.goods_right>.goods_right_num>view{
+    /*font-family: PingFangSC-Regular;*/
+    font-size: 24rpx;
+    color: #999999;
+    line-height: 100%;
+    /*margin-right: 61rpx;*/
+}
+.list>.goods>.goods_right>.goods_right_num>view:last-of-type{
+    position: absolute;
+    left: 163rpx;
+    bottom: 0;
+}
+

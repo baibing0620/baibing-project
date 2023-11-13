@@ -1,0 +1,4 @@
+<view class="check myclass" bindtap='changeCheck' style="background: {{checked==true?bgColor:unBgColor}};border-color: {{checked==true?bgColor:'#e5e5e5'}}; {{height/2}}rpx;height: {{height}}rpx;width: {{width}}rpx">
+    <view class="circle" style="height: {{height-1}}rpx;border-color: {{checked==true?bgColor:'#e5e5e5'}};width: {{height-1}}rpx;float:{{checked==true?'right':'left'}}"></view>
+    <view class='switch-content' style='height: {{height-1}}rpx;{{checked==true?"padding-left:"+padding:"padding-right:"+padding}}rpx;font-size:{{fontSize}}rpx'>{{checked==true?onText:offText}}</view>
+</view>

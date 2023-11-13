@@ -1,0 +1,30 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml"/>
+<view class="container">
+  <swiper indicator-dots autoplay interval="{{5000}}">
+        <block wx:for="{{AppointmentGoodsItemList.banner}}" wx:key="id">
+            <swiper-item catchtap='previewImage' data-url="{{item.imgUrl}}">
+                <image src="{{ShowImg.cropImgWH(item.imgUrl,750,500)}}" class="head-img" mode="aspectFill" />
+            </swiper-item>
+        </block>
+    </swiper>
+	<!-- <image class="head-img" src="{{ShowImg.cropImgWH(item.imgUrl,750,500)}}" mode="aspectFill"></image> -->
+<view class="main-detail">
+    <view style="margin: 30rpx 0;" class="fr34 c3">{{AppointmentGoodsItemList.title}}</view>
+    <view class="flexb">
+        <view class="fr24 c9">{{AppointmentGoodsItemList.people_num}}人预约过</view>
+        <view class="fr32 fw600" style="color: #fe5b36">{{AppointmentGoodsItemList.deposit > 0 ?'￥'+AppointmentGoodsItemList.deposit:'免费' }}</view>
+    </view>
+    <view  class="fr24 c80 dtail-intro">{{AppointmentGoodsItemList.introduce}}</view>
+</view>
+<view style="margin:30rpx 25rpx 0">
+   <diy-rich-text InRichTextData="{{AppointmentGoodsItemList.detail}}" />
+</view>
+<view class="bottom-box flex">
+	<view class="bottom-phone iconfont icon-lianxi cb3" wx:if="{{phone.length > 0}}" bindtap="call"></view>
+	<button open-type="contact" show-message-card class="bottom-phone iconfont icon-kefu1 cb3" wx:if="{{customService == 1}}"></button>
+	<view style="flex:3" class="bottom-phone" bindtap="resevation" data-id="{{AppointmentGoodsItemList.id}}">立即预约</view>
+</view>
+</view>
+
+<component-messageToast></component-messageToast>

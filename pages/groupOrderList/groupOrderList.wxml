@@ -1,0 +1,44 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<view class="container w100">
+    <view class="order-tab flex fr24 w100 c6">
+        <view class="flex1" catchtap="tabChange" data-index="{{item.status}}"  wx:for="{{tabBar}}" wx:key="status">
+            <text class="{{activeStatus==item.status?'active-tab':''}} ">{{item.title}}</text>
+        </view>
+    </view>
+
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关拼团信息'}}" wx:if="{{showStyle!=1&&orderList.length==0}}" />
+ 
+    <view class="w100" wx:else>
+        <view wx:for="{{orderList}}" wx:key="gbid" class="order-item w100" catchtap="navToDetail" data-gbid="{{item.gbid}}" data-gid="{{item.gid}}" data-status="{{item.status}}" data-groupbuy="{{item.is_groupbuy}}">
+            <view class="item-title fr24 flexb">
+                <text class="c3">截止时间： {{item.deadline}}</text> 
+                <text class="c9" wx:if="{{item.status==0}}">拼团失败</text>
+                <text class="c-orange" wx:if="{{item.status==1}}">拼团中，还差{{item.limit_num-item.count}}人</text>
+                <text class='c-orange' wx:if="{{item.status==2}}">拼团成功</text>
+            </view>
+            <view class="order-detail w100 fr24 flex">
+                <image class="order-pic" src="{{ShowImg.cropImgWH(item.thumb_url,160,160)}}"></image>
+                <view class="order-text flex1 flexaColumn">
+                    <view class="order-goods-title ellipsis1">
+                        {{item.title}}
+                    </view>
+                    <view  class="c9 fr24 flexb" >
+                        <view>×{{item.total}}</view>
+                        <view>￥{{item.groupbuy_price}}</view>
+                    </view>
+                </view> 
+            </view>
+            <view class="item-total flexe c3 fr24">
+                (含运费￥{{item.express_price}})总计<text class="c-orange">￥{{item.total_price}}</text>
+            </view>
+        </view>
+        <template is="moreData" data="{{loadStyle:loadStyle}}" /> 
+    </view>
+</view>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

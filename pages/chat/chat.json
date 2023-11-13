@@ -1,0 +1,11 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "component-loading": "./../../components/loading/loading",
+    "component-remind": "/components/remind/remind",
+    "component-toHomePage": "/components/toHomePage/toHomePage",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

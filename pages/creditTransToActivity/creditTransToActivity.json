@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "兑换",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-switchTab": "./../../components/switchTab/switchTab",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

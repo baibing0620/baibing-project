@@ -1,0 +1,30 @@
+<include src="../../comm/comm.wxml" />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg"></wxs>
+<view class="search-box flexc w100 bc-1F94FD">
+        <view class="search-goods flexb fr24" catchtap="searchGoodsList">
+            <input style="display: block;color:#fff" class='flex1 cf' placeholder='请输入商品名称' placeholder-style='color: rgba(255,255,255,0.5)' confirm-type="搜索" bindconfirm="search" bindinput="bindKeywords" />
+            <icon type="search" size="15" color="rgba(255,255,255,0.7)" />
+        </view>
+    </view>
+<template is="initShow" data="{{showStyle:showStyle, showText: '暂无相应商品'}}" wx:if="{{showStyle!=1 && goodsList.length == 0}}" />
+<block wx:else>
+    <view class="goodsList" wx:for="{{goodsList}}" wx:key="{{item.id}}" bindtap="gotoPriview"  data-goodId="id">
+        <image src="{{ShowImg.cropImgWH(item.thumb_url, 171, 171)}}" mode="scaleToFill" style="width: 171rpx; height: 171rpx; position: relative; border-radius: 4rpx;">
+            <view class="flag fr22 cf flexc" wx:if="{{item.isNewGoods}}">
+                    新品
+            </view>
+        </image>
+        <view class="desWords">
+                <view class="desWordsTitle ellipsis2">{{item.title}}</view>
+                <view class="desWordsType"><text style="color: #999">类别：</text>{{item.pcate}}{{item.ccateId && item.ccateId != '0'?'>>'+item.ccateName :''}}</view>
+        </view>
+        <view class="preview">
+            <view class="previewContent"><text class="iconfont icon-yulanmoren fr30" style="color: #ff9b1f; vertical-align:-2rpx;"></text> 预览</view>
+        </view>
+    </view>
+    <template is="moreData" data="{{loadStyle: loadStyle, loadOverText: '已显示全部选品商品'}}" />
+</block>
+
+
+<component-messageToast></component-messageToast>

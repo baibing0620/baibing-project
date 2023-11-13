@@ -1,0 +1,29 @@
+page{
+    background: #ffffff;
+}
+.recommend-name-title{
+    padding: 45rpx 0 20rpx 30rpx;
+    box-sizing: border-box;
+    color: #1a1a1a;
+}
+input{
+    width: 690rpx;
+	height: 91rpx;
+	background-color: #f7f7f7;
+	border-radius: 6rpx;
+	border: 1px solid#d9d9d9;
+    margin: 0 auto;
+    padding-left:30rpx;
+    box-sizing:border-box;
+    font-size: 32rpx;
+}
+.placeholder-class{
+    color: #999999;
+    font-size: 30rpx;
+}
+.btn{
+    width: 500rpx;
+	height: 90rpx;
+	border-radius: 8rpx;
+    margin-top: 140rpx;
+}

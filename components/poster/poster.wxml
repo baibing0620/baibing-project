@@ -1,0 +1,6 @@
+<cover-view class='box'>
+    <cover-image mode='widthFix' src='{{ shareUrl }}' class='image {{ready?"opacity":""}}' catchtap='close' bindload="ready"></cover-image>
+    <cover-image wx:if='{{ !ready }}' src='/imgs/loading.gif' class='loading'></cover-image>
+    <cover-view wx:else class='btn' style='background-color: {{ themeColor }}' catchtap='save'>保存海报</cover-view>
+</cover-view>
+<painter palette="{{src}}" class="canvasdrawer" bind:imgOK="eventGetImage"/>

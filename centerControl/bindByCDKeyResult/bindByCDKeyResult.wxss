@@ -1,0 +1,73 @@
+page {
+  background-color: #fff;
+}
+
+.fr26, .fr32 {
+  line-height: 100%;
+}
+
+.header {
+  width: 100vw;
+	height: 503rpx;
+}
+
+.header-bg {
+  width: 100vw;
+	height: 503rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: .3s;
+}
+
+.header-bg-hidden {
+  opacity: 0;
+}
+
+.header-info {
+  position: absolute;
+  top: 306rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header-icon-circle {
+  position: absolute;
+  height: 208rpx;
+  width: 208rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60rpx;
+}
+
+.header-icon-right {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 108rpx;
+  font-size: 70rpx;
+  line-height: 100%;
+}
+
+.header-icon-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 186rpx;
+  font-weight: bold;
+}
+
+.text {
+  margin-top: 26rpx;
+}
+
+.bind-button {
+  margin: 76rpx auto 0 auto;
+  width: 470rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  color: #fff;
+  font-size: 30rpx;
+  background-color: #ff9b1f;
+}

@@ -1,0 +1,14 @@
+{
+    "navigationBarTitleText": "分销中心",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-poster": "/components/poster/poster",
+        "component-toHomePage": "/components/toHomePage/toHomePage",
+        "component-image": "/components/image/image"
+    }
+}

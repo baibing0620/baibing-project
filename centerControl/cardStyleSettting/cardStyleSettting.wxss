@@ -1,0 +1,96 @@
+page{
+	background:  #f5f5f5;
+    padding-bottom: 60rpx;
+}
+.card-setting{
+    width: 100%;
+	height: 100%;
+	border-radius: 12rpx;
+	position: relative;
+}
+
+.card-choose{
+	border: 4rpx solid #1F94FD;
+	border-radius: 12rpx;
+}
+.card-deault{
+	margin-top: 120rpx;
+	width:  220rpx;
+	height: 392rpx;
+	box-sizing: border-box;
+	margin-right: 25rpx;
+}
+.card-deault:nth-child(-n + 3) {
+	margin-top: 0
+}
+.card-deault:nth-child(3n) {
+	margin-right: 0
+}
+.card-setting-image{
+	width: 100%;
+	height: 100%;
+	border-radius: 12rpx;
+	overflow: hidden;
+}
+.card-icon{
+  	position: absolute;
+	color: #fff;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	border-left: 25rpx solid transparent;
+	border-bottom: 20rpx solid transparent;
+	border-top: 20rpx solid #1F94FD;
+	border-right: 25rpx solid #1F94FD;
+}
+.card-icon >text{
+  position: absolute;
+  top: -11rpx;
+}
+.card-setting button{
+	width: 172rpx;
+	height: 50rpx;
+	border-radius: 50rpx;
+	line-height: 50rpx;
+	margin-top: 40rpx;
+}
+.fr16{
+	font-size: 16rpx;
+}
+.card-button-choose{
+	background: #1F94FD;
+	color: #fff;
+}
+.card-button-default{
+	border: 1rpx solid #e6e6e6;
+	background: #fff;
+	color: #999;
+}
+.more-card{
+	position: relative;
+	margin-top: 60rpx;
+	text-align: center;
+}
+.more-card::before,.more-card::after{
+	content: "";
+	position: absolute;
+	top: 14rpx;
+	width: 80rpx;
+	background: #dadada;
+	height: 1rpx;
+}
+.more-card::after{
+	right: 40rpx;
+}
+.more-card::before{
+	left: 30rpx;
+}
+.confirm-btn{
+	width: 600rpx;
+	height: 90rpx;
+	border-radius: 6rpx;
+	background: #1F94FD;
+	line-height: 90rpx;
+	margin-top: 120rpx;
+}

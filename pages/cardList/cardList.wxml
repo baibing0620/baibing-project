@@ -1,0 +1,30 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+ 
+
+<view class='container w100 clean-btn' >
+    <template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle==0||showStyle==3}}" />
+
+    <view class="no-card-box" wx:elif="{{showStyle==2&&cardList.length==0}}">
+      
+      <image class="card-empty" src="/imgs/bitmap.png" /> 
+
+      <view class="fr26 c9">您还未添加任何名片</view>
+      <view class="go-btn fr30 cf" style="background-color:{{diyConfig.themeColor}}" bindtap='toAbout'>进入公司官网</view>
+    </view> 
+    <view class='w100 background' wx:else>
+      <!-- <view wx:if="{{ openCardMarket }}" class="cardFair" bindtap="toCardFair"></view> -->
+      <view wx:for="{{cardList}}" bindtap='toCard' wx:key="id" data-index="{{index}}">
+        <view class="card-layout">
+          <view class="from-user fr24 {{diyConfig.isWhiteBC?'c9':'cf5'}}">{{item.create_time+' 来自于 '+item.fromUser.nickname}} </view>
+          <card-item class="cardItem" userInfo="{{item.card}}" isStart="{{item.is_like}}" index="{{index}}" bindstartEvent="starCard"/>
+        </view>
+      </view>
+      <template is="moreData" data="{{loadStyle:loadStyle}}" />
+    </view>
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+ </view>
+    
+

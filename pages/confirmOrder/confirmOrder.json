@@ -1,0 +1,9 @@
+{
+	"navigationBarTitleText": "确认订单",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

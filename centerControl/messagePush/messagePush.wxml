@@ -1,0 +1,115 @@
+<wxs src="../../tools/showTagBg.wxs" module="showTagBg" />
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/format.wxs" module="format" />
+<form bindsubmit="pushMessage">
+    <view class='continer'>
+        <view class='fr24 c3'>推送人群</view>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{pushTag}}">
+            <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 c3'>{{pushTag[index]}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+        <view class='tag-message' bindtap='navTag' wx:if="{{index == 1}}">
+            <block wx:if="{{messagePushTag.length != 0}}">
+                <view class='tags w100'>
+                    <view wx:for='{{messagePushTag}}' wx:key='{{ index }}' class='fr24 tag' style=" background:{{showTagBg.showBg(item.type)}}">
+                        {{ item.name }}
+                    </view>
+                </view>
+                <view class='flexe fr24 cb3'>修改标签
+                    <text class='iconfont fr24 icon-you'></text>
+                </view>
+            </block>
+            <view wx:else class='flexe fr28 c-main'>选择标签
+                <text class='iconfont fr28 icon-you'></text>
+            </view>
+        </view>
+        <view style='margin:30rpx 0' class='fr24 c3'>推送标题</view>
+        <input name="title" class='fr28 c3' placeholder-class="input-placeholder" placeholder='请输入推送标题,不超过12个字' maxlength='12' />
+        <view style='margin:30rpx 0' class='fr24 c3'>推送人</view>
+        <input name="user_name" class='fr28 c3' placeholder-class="input-placeholder" placeholder='请输入推送人名称,不超过7个字' maxlength='7' />
+        <view style='margin:30rpx 0' class='fr24 c3'>推送时间</view>
+        <input class='fr28 c80' value="{{format.formatDay(pushDate)}}" disabled='true' />
+        <view style='margin:30rpx 0' class='fr24 c3'>推送内容</view>
+        <view class='textarea-view'>
+            <textarea style='height:260rpx' class='font-normal' name='pushInfo' bindinput="changeContent" value='{{ pushInfo }}' placeholder='请输入推送内容' placeholder-class='placeholder-color placeholder' maxlength='60'>
+                <text style='position:absolute;bottom:0;right:0'>{{pushInfo.length}}/60</text>
+            </textarea>
+        </view>
+        <view style='margin:30rpx 0' class='fr24 c3'>推送消息跳转模块</view>
+        <picker bindchange="bindModuleChange" value="{{moduleIndex}}" range="{{moduleTag}}">
+            <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 c3'>{{moduleTag[moduleIndex]}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+        <block wx:if="{{skip_path_key_config[moduleTag[moduleIndex]] == 2}}">
+            <view style='margin:30rpx 0' class='fr24 c3'>类型</view>
+            <view class='flexb'>
+                <view bindtap='moduleTypeChange' data-index="{{index}}" wx:for="{{moduleType[2].name}}" wx:key='{{index}}' class="type fr28 c80 {{index == moduleType[2].activeIndex ? 'moduleActive' : ''}}">{{item}}</view>
+            </view>
+            <block wx:if="{{moduleType[2].activeIndex == 1 && moduleDiy.length > 0}}">
+                <view style='margin:30rpx 0' class='fr24 c3'>选择页面</view>
+                <picker bindchange="bindDiyChange" value="{{diyIndex}}" range-key="title" range="{{moduleDiy}}">
+                    <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                        <text class='fr28 c3'>{{moduleDiy[diyIndex].title}}</text>
+                        <view class="iconfont icon-xiala1 c9 fr24"></view>
+                    </view>
+                </picker>
+            </block>
+        </block>
+        <block wx:if="{{skip_path_key_config[moduleTag[moduleIndex]] == 3}}">
+            <view style='margin:30rpx 0' class='fr24 c3'>类型</view>
+            <view class='flexb'>
+                <view bindtap='moduleTypeChange' data-index="{{index}}" wx:for="{{moduleType[3].name}}" wx:key='{{index}}' class="type fr28 c80 {{index == moduleType[3].activeIndex ? 'moduleActive' : ''}}">{{item}}</view>
+            </view>
+            <block wx:if="{{moduleType[3].activeIndex == 1}}">
+                <view style='margin:30rpx 0' class='fr24 c3'>选择资讯</view>
+                <view data-name='selectNewsToSend' catchtap='navigate'>
+                    <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                        <text class='fr28 c80'>{{transInfoData}}</text>
+                        <view class="iconfont icon-xiala1 c9 fr24"></view>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <block wx:if="{{skip_path_key_config[moduleTag[moduleIndex]] == 4}}">
+            <view style='margin:30rpx 0' class='fr24 c3'>类型</view>
+            <view class='flexb'>
+                <view bindtap='moduleTypeChange' data-index="{{index}}" wx:for="{{moduleType[4].name}}" wx:key='{{index}}' class="type fr28 c80 {{index == moduleType[4].activeIndex ? 'moduleActive' : ''}}">{{item}}</view>
+            </view>
+            <block wx:if="{{moduleType[4].activeIndex == 1}}">
+                <view style='margin:30rpx 0' class='fr24 c3'>选择商品</view>
+                <view data-name='selectGoodsToSend' catchtap='navigate'>
+                    <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                        <text class='fr28 c80'>{{transShopData}}</text>
+                        <view class="iconfont icon-xiala1 c9 fr24"></view>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <block wx:if="{{skip_path_key_config[moduleTag[moduleIndex]] == 8}}">
+            <view style='margin:30rpx 0' class='fr24 c3'>类型</view>
+            <view class='flexb'>
+                <view bindtap='moduleTypeChange' data-index="{{index}}" wx:for="{{moduleType[8].name}}" wx:key='{{index}}' class="type fr28 c80 {{index == moduleType[8].activeIndex ? 'moduleActive' : ''}}">{{item}}</view>
+            </view>
+            <block wx:if="{{moduleType[8].activeIndex == 1}}">
+                <view style='margin:30rpx 0' class='fr24 c3'>选择服务</view>
+                <view data-name='selectServiceToSend' catchtap='navigate'>
+                    <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                        <text class='fr28 c80'>{{transServiceData}}</text>
+                        <view class="iconfont icon-xiala1 c9 fr24"></view>
+                    </view>
+                </view>
+            </block>
+        </block>
+    </view>
+     <view class="message-btn {{isIphoneX?'fix-iphonex-button':''}}">
+     <!-- (预估推送{{num}}人) -->
+         <button formType="submit" disabled='{{pushEnable}}' class='btn fr34 cf'>推送消息 </button>
+    </view>
+    <view style='height:{{isIphoneX?"68rpx":"0"}};'></view>
+</form>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,32 @@
+@import '/comm/base.wxss';
+.card {
+    width: 650rpx;
+    background: #FFFFFF;
+    box-shadow: 0 3rpx 25rpx 0 rgba(42, 53, 66, 0.12);
+    border-radius: 10rpx;
+    overflow: hidden;
+}
+
+.card-avatar {
+    height: 640rpx;
+    width: 100%;
+}
+
+.card-info {
+    padding: 30rpx;
+    flex-wrap: nowrap;
+    max-width: 100%;
+}
+
+.card-info-name {
+    line-height: 56rpx;
+}
+
+.card-info-position {
+    line-height: 48rpx;
+    flex-shrink:0
+}
+
+.card-info-other {
+    line-height: 44rpx;
+}

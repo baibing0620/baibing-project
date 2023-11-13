@@ -1,0 +1,108 @@
+.fr22 {
+  line-height: 22rpx;
+}
+
+.fr28 {
+  line-height: 28rpx;
+}
+
+.fr30 {
+  line-height: 30rpx;
+}
+
+.fr50 {
+  line-height: 50rpx;
+}
+
+.top {
+  box-sizing: border-box;
+  position: relative;
+  text-align: center;
+  padding-top: 60rpx;
+}
+
+.bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.bg1 {
+  height: 300rpx;
+  width: 100%;
+}
+
+.bg2 {
+  height: 160rpx;
+  width: 100%;
+}
+
+.middle {
+  height: 280rpx;
+}
+
+.middle-item {
+  height: 160rpx;
+  width: 660rpx;
+  border-radius: 20rpx;
+  margin: 0 auto;
+  position: relative;
+  top: -80rpx;
+  box-shadow: 0 10rpx 10rpx rgba(42, 53, 66, .1);
+}
+
+.middle-item>view {
+  width: 329rpx;
+  text-align: center;
+}
+
+.middle-line {
+  width: 1rpx;
+  height: 120rpx;
+}
+
+.btn {
+  width: 320rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  margin: -20rpx auto;
+  border-radius: 80rpx;
+
+}
+
+.menu {
+  margin-top: 10rpx;
+}
+
+.menu-item {
+  box-sizing: border-box;
+  height: 120rpx;
+  width: 100%;
+  margin-bottom: 2rpx;
+  padding: 0 30rpx;
+}
+
+.menu-item > view > i {
+  margin-right: 10rpx;
+}
+
+.margin1 {
+  margin-bottom: 32rpx;
+}
+
+.margin2 {
+  margin-bottom: 22rpx;
+}
+
+.color {
+  color: #fa775f;
+}
+.cbless{
+  color: #ff9a1c;
+}
+.bc-bless-main{
+  background: #ff9a1c;
+}
+

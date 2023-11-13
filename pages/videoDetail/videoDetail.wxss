@@ -1,0 +1,161 @@
+page {
+    background-color: #2b3541;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    height: 100vh;
+}
+
+.layout {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.item {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.buttons {
+    height: 130rpx;
+    box-sizing: border-box;
+    border-top: 1rpx solid #3e5169;
+}
+
+.buttons>.btn {
+    height: 100%;
+    position: relative;
+    color: #536f91;
+}
+
+.like::after {
+    content: "";
+    position: absolute;
+    width: 1rpx;
+    height: 100rpx;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #3b597b;
+}
+
+.buttons .iconfont {
+    font-size: 48rpx;
+    color: #fff;
+    margin-right: 20rpx;
+}
+
+.remind {
+    height: 88rpx;
+    width: 100%;
+    color: #536f91;
+}
+
+.videoImageBox {
+    height: 480rpx;
+    width: 480rpx;
+    border-radius: 8rpx;
+    overflow: hidden;
+    position: relative;
+}
+
+.videoImage {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.videoImage::after {
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.videoImageLoading {
+    height: 38rpx;
+    width: 38rpx;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.buttons .hasLiked {
+    color: #ff9b1f;
+}
+
+.hasLiked .iconfont {
+    color: #ff9b1f;
+}
+
+.shareView {
+    height: 218rpx;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    transition: .3s;
+}
+
+.shareView::after {
+    content: "";
+    width: 1rpx;
+    height: 120rpx;
+    background-color: #f0f0f0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.shareItem {
+    width: 296rpx;
+    height: 176rpx;
+    line-height: 100%;
+    padding: 0;
+    border-radius: 0;
+    margin: 0;
+    background-color: white;
+}
+
+.shareItem>image {
+    height: 60rpx;
+    width: 60rpx;
+    margin-bottom: 18rpx;
+}
+
+.hideShare {
+    transform: translateY(100%);
+}
+
+.view {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    transform: translateY(-109rpx);
+    background-color: red;
+}
+
+.card-list {
+    line-height: 26rpx;
+    padding: 26rpx 30rpx;
+    width: 300rpx;
+}
+

@@ -1,0 +1,106 @@
+{
+  "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": false,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "disableUseStrict": false,
+    "useStaticServer": true,
+    "showES6CompileOption": false,
+    "useCompilerPlugins": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.15.0",
+  "appid": "wxec424eed4f53ff46",
+  "projectname": "转介绍获客-标准版",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "拼团商品 陈",
+          "pathName": "pages/goodsdetail/goodsdetail",
+          "query": "id=3496&cardId=64&beid=1049",
+          "scene": null
+        },
+        {
+          "name": "普通商品",
+          "pathName": "pages/goodsdetail/goodsdetail",
+          "query": "id=3205&cardId=64&beid=1049",
+          "scene": null
+        },
+        {
+          "name": "pages/memberFeature/memberFeature",
+          "pathName": "pages/memberFeature/memberFeature",
+          "query": "id=3205&cardId=64&beid=1049",
+          "scene": null
+        },
+        {
+          "name": "pages/receiveMemberCard/receiveMemberCard",
+          "pathName": "pages/receiveMemberCard/receiveMemberCard",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/memberCard/memberCard",
+          "pathName": "pages/memberCard/memberCard",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/growthValue/growthValue",
+          "pathName": "pages/growthValue/growthValue",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personInfo/personInfo",
+          "pathName": "pages/personInfo/personInfo",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
+}

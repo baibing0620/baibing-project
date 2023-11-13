@@ -1,0 +1,31 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{showStyle:showStyle,showNoMsg:"暂无推荐商品"}}' wx:if='{{ showStyle != 1 && list.length == 0 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+
+    <view class='input-layout bc-1F94FD'>
+        <view class='input-box flexb'>
+            <input class='fr24 input' value='{{ value }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='请输入商品名称搜索'></input>
+            <view class='iconfont icon-sousuo search' catchtap='search'></view>
+        </view>
+    </view>
+
+    <view wx:for='{{ list }}' wx:key='{{ item.id }}' data-index='{{ index }}' class='item {{ item.selected ? "item-selected" : "" }} flexc active' catchtap='select'>
+        <view class='checkBox {{ item.selected ? "checkBox-selected icon-gouxuan2" : "" }} iconfont flexc'></view>
+        <image mode="aspectFill" class='image' src='{{ ShowImg.cropImgWH(item.thumb, 180, 180) }}'></image>
+        <view class='info flex1'>
+            <view class='title fr30 c3 ellipsis2'>{{ item.title }}</view>
+        </view>
+    </view>
+
+    <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+
+    <view class='holder'></view>
+
+    <view disabled="{{disabled}}" class='btn flexc cf fr32 bc-1F94FD' catchtap='confirm'>完成</view>
+
+</block>
+
+<component-messageToast></component-messageToast>

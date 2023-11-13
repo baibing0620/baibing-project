@@ -1,0 +1,43 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{showStyle:showStyle}}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+
+  <view class='input-layout' style="background-color: {{ '#1F94FD' || extConfig.navigationBarBC }}">
+    <view class='input-box flexb'>
+      <input class='fr24 input' value='{{ posterName }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='请输入海报名称'></input>
+      <view class='iconfont icon-sousuo search' catchtap='search'></view>
+    </view>
+  </view>
+  <scroll-view class="tab-box fr28 c9 w100" scroll-x="true">
+      <block wx:for="{{categoryList}}" wx:key='id'>
+          <view class="tab-item" data-index="{{item.t_id}}" bindtap="activeTopTap">
+              <view style="background-color:{{actvieIndex==item.t_id?mainColor:''}}" class="{{actvieIndex==item.t_id?'news-item-active':''}}">
+                  {{item.t_name}}
+              </view>
+          </view>
+      </block>
+  </scroll-view>
+  <block>
+      <view class="news-componet flexb" >
+        <view class='poster-box' wx:for="{{posterList}}" wx:key='id' data-item='{{ item }}' bindtap='previewImage'>
+          <view class='poster fr26 c3' wx:if="{{ item.p_type==actvieIndex }}">
+            <image mode='aspectFill' src='{{ ShowImg.cropImgWH(item.image_url,230,308) }}'></image>
+            <view class='ellipsis2'>{{ item.name }}</view>
+          </view>
+        </view>
+      </view>
+  </block>
+  
+
+  <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+</block>
+
+<view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='coverHide'>
+  <component-poster src='{{ palette }}' themeColor='{{ extConfig.themeColor }}' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+</view>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

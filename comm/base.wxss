@@ -1,0 +1,717 @@
+@import '/comm/extend.wxss';
+.tsdt3 {
+	transition-duration: .3;
+}
+
+.white {
+	color: white;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.normal {
+	font-weight: normal;
+}
+
+.opacity1 {
+	opacity: .1;
+}
+
+.opacity2 {
+	opacity: .2;
+}
+
+.opacity6 {
+	opacity: .6;
+}
+
+.line {
+	text-decoration: line-through;
+}
+
+.f10 {
+	font-size: 10px;
+	/*line-height: 11px;*/
+}
+
+.f11 {
+	font-size: 11px;
+	/*line-height: 11px;*/
+}
+
+.f12 {
+	font-size: 12px;
+	/*line-height: 12px;*/
+}
+
+.f13 {
+	font-size: 13px;
+	/*line-height: 13px;*/
+}
+
+.f14 {
+	font-size: 14px;
+	/*line-height: 14px;*/
+}
+
+.f15 {
+	font-size: 15px;
+	/*line-height: 15px;*/
+}
+
+.f16 {
+	font-size: 16px;
+	/*line-height: 16px;*/
+}
+
+.f17 {
+	font-size: 17px;
+	/*line-height:17px;*/
+}
+
+.f22 {
+	font-size: 22px;
+	/*line-height: 22px;*/
+}
+
+.f24 {
+	font-size: 24px;
+	/*line-height: 22px;*/
+}
+
+.f25 {
+	font-size: 25px;
+	/*line-height: 22px;*/
+}
+
+.fr14 {
+	font-size: 14rpx;
+}
+
+.fr16 {
+	font-size: 16rpx;
+}
+
+.fr18 {
+	font-size: 18rpx;
+}
+
+.fr20 {
+	font-size: 20rpx;
+}
+
+.fr22 {
+	font-size: 22rpx;
+}
+
+.fr24 {
+	font-size: 24rpx;
+}
+
+.fr26 {
+	font-size: 26rpx;
+}
+
+.fr27 {
+	font-size: 27rpx;
+}
+
+.fr28 {
+	font-size: 28rpx;
+}
+
+.fr30 {
+	font-size: 30rpx;
+}
+
+.fr32 {
+	font-size: 32rpx;
+}
+
+.fr34 {
+	font-size: 34rpx;
+}
+
+.fr36 {
+	font-size: 36rpx;
+}
+
+.fr38 {
+	font-size: 38rpx;
+}
+
+.fr40 {
+	font-size: 40rpx;
+}
+
+.fr42 {
+	font-size: 42rpx;
+}
+
+.fr44 {
+	font-size: 44rpx;
+}
+
+.fr46 {
+	font-size: 46rpx;
+}
+
+.fr50 {
+	font-size: 50rpx;
+}
+
+.fr52 {
+	font-size: 52rpx;
+}
+
+.fr56 {
+	font-size: 56rpx;
+}
+
+.fr60 {
+	font-size: 60rpx;
+}
+
+.fr62 {
+	font-size: 62rpx;
+}
+
+.fr66 {
+	font-size: 66rpx;
+}
+
+.fr80 {
+	font-size: 80rpx;
+}
+
+.fw500 {
+	font-weight: 500;
+}
+
+.flex1 {
+	flex: 1;
+}
+
+.fw {
+	flex-wrap: wrap;
+}
+
+.jcfs {
+	justify-content: flex-start !important;
+}
+
+.jcfe {
+	justify-content: flex-end !important;
+}
+
+.jcc {
+	justify-content: center !important;
+}
+
+.aifs {
+	align-items: flex-start !important;
+}
+
+.asfs {
+	align-self: flex-start !important;
+}
+
+.aife {
+	align-items: flex-end !important;
+}
+
+.asfe {
+	align-self: flex-end !important;
+}
+
+.aic {
+	align-items: center !important;
+}
+
+.asc {
+	align-self: center !important;
+}
+
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.flexc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flexb {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.flexa {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.flexe {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.flexColumn {
+	display: flex;
+	flex-direction: column;
+}
+
+.flexcColumn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.flexaColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.flexbColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.fs0 {
+	flex-shrink: 0;
+}
+
+.c6 {
+	color: #666666;
+}
+
+.c9 {
+	color: #999999;
+}
+
+.c1a {
+	columns: #1a1a1a;
+}
+
+.c3 {
+	color: #333333;
+}
+
+.c5 {
+    color: #555555;
+}
+
+.c36 {
+	color: #363636
+}
+
+.c40 {
+	color: #404040;
+}
+
+.c4d {
+	color: #4d4d4d;
+}
+
+.cbd {
+	color: #bdbdbd;
+}
+
+.ccb {
+	color: #cbcbcb;
+}
+
+.ccd {
+	color: #cdcdcd;
+}
+
+.cc {
+	color: #cccccc;
+}
+
+.c0 {
+	color: #000000;
+}
+
+.cf {
+	color: #ffffff;
+}
+
+.c80 {
+	color: #808080;
+}
+
+.cb3 {
+	color: #b3b3b3;
+}
+
+.cb2 {
+	color: #b2b2b2;
+}
+
+.cbf {
+	color: #bfbfbf;
+}
+
+.cd9 {
+	color: #d9d9d9;
+}
+
+.c-orange {
+	color: #ff3600;
+}
+
+.c-red {
+	color: #ff3d3d;
+}
+
+.c-main {
+	color: #ff4d1d;
+}
+
+.cmain {
+	color: #ff9b1f;
+}
+
+.c-fairMain {
+	color: #c29844;
+}
+
+.c25 {
+	color: #25baf1;
+}
+
+.limit-flag {
+	position: absolute;
+	top: 10rpx;
+	display: flex;
+	align-items: center;
+	background: #f74c31;
+	padding: 10rpx 20rpx;
+	font-size: 12px;
+	line-height: 12px;
+	color: white;
+}
+
+.bcf {
+	background: #ffffff;
+}
+
+.bcr {
+	background: #ee4130;
+}
+
+.bcy {
+	background: #ff9300;
+}
+
+.bcf0 {
+	background-color: #f0f0f0;
+}
+
+.bce5 {
+	background-color: #e5e5e5;
+}
+
+.bc-main {
+	background-color: #ff9b1f;
+}
+
+.bc-fairMain {
+	background-color: #c29844;
+}
+
+.b-shadow {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ellipsis1 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+}
+
+.ellipsis2 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.ellipsis3 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
+
+.ellipsis4 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	overflow: hidden;
+}
+
+.active-btn {
+	opacity: 0.8;
+}
+
+.round {
+	border-radius: 50%;
+}
+
+.border-b {
+	border-bottom: 1rpx solid #ebebeb;
+}
+
+.border-r {
+	border-right: 1rpx solid #ebebeb;
+}
+
+.border-bottom {
+	border-bottom: 1rpx solid #f0f0f0;
+}
+
+.border-orange {
+	border: 1rpx solid #ff3600;
+}
+
+.border-greey {
+	border: 1rpx solid #b2b2b2;
+}
+
+.bf {
+	background-color: #ffffff;
+}
+
+.w25 {
+    width: 25%;
+}
+
+.w33 {
+	width: 33.3%;
+	box-sizing: border-box;
+}
+
+.w50 {
+	width: 50%;
+	box-sizing: border-box;
+}
+
+.w100 {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.brt {
+	border: 1rpx solid red;
+}
+
+.text-through {
+	text-decoration: line-through;
+}
+
+.tal {
+	text-align: left;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.tac {
+	text-align: center;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.tar {
+	text-align: right;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.dilb {
+	display: inline-block;
+}
+
+.noml {
+	margin-left: 0 !important;
+}
+
+.nomr {
+	margin-right: 0 !important;
+}
+
+.fw600 {
+	font-weight: 600;
+}
+
+/* 遮罩 */
+
+.cover {
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	display: none;
+}
+
+.cover-show {
+	display: block;
+}
+
+/* 弹窗 */
+
+.dialog-label {
+	width: 100%;
+	line-height: 90rpx;
+	text-align: center;
+	color: #fff;
+	font-size: 30rpx;
+	font-weight: bold;
+	position: relative;
+}
+
+.dialog-back {
+	position: absolute;
+	left: 0rpx;
+	padding: 0 40rpx;
+	top: 50%;
+	transform: translateY(-50%) rotateY(180deg);
+	color: white;
+	font-family: "iconfont" !important;
+	font-size: 30rpx;
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.dialog-back::before {
+	content: "\e64b";
+}
+
+.dialog-button {
+	border-top: 1rpx solid #f0f0f0;
+	height: 99rpx;
+	display: flex;
+	align-items: center;
+}
+
+.dialog-button>view {
+	position: relative;
+	box-sizing: border-box;
+	flex: 1;
+	text-align: center;
+	line-height: 99rpx;
+	font-size: 30rpx;
+	font-weight: bold;
+	background-color: #fafafa;
+}
+
+.dialog-button>view>button {
+	width: 100%;
+	line-height: 99rpx;
+	font-size: 30rpx;
+	font-weight: bold;
+	background: none;
+}
+
+.dialog-button>view::after {
+	position: absolute;
+	content: "";
+	height: 50rpx;
+	width: 1rpx;
+	background-color: #f0f0f0;
+	top: 25rpx;
+	right: 0
+}
+
+.dialog-button>view:last-child::after {
+	background: none;
+}
+
+.dialog-button>view:active {
+	background-color: #f0f0f0;
+}
+
+.dialog {
+	border-radius: 10rpx;
+	overflow: hidden;
+	position: fixed;
+	bottom: 50%;
+	right: 50%;
+	z-index: 1001;
+	transition: .3s;
+	transform-origin: 100% 100%;
+	transform: translate(50%, 40%);
+	opacity: 1;
+}
+
+.dialog-hide {
+	bottom: 100%;
+	transform: translate(50%, -10%);
+	opacity: 0;
+}
+
+.dialog-hide2 {
+	bottom: 210rpx;
+	right: 40rpx;
+	opacity: 0;
+	transition: .8s;
+	transform: translate(0, 0) perspective(300rpx) rotateX(-75deg) scale(.01, .01);
+}
+
+.active:active {
+	background-color: #fafafa;
+}
+
+.suspension-menu {
+	position: fixed;
+	right: 30rpx;
+	bottom: 80rpx;
+	z-index: 501;
+}
+
+.relative {
+	position: relative;
+}
+
+.lh100 {
+    line-height: 100%;
+}
+
+.lh1 {
+    line-height: 1;
+}
+
+.c-theme-color {
+	color: var(--theme-color);
+}
+
+.dis-btn {
+    background: #ccc !important;
+    color: #fff;
+}

@@ -1,0 +1,91 @@
+.container {
+  min-height: 100vh;
+  background-color: #F7F7F7;
+  padding-bottom: 200rpx;
+}
+
+.person-info-box {
+  padding: 0 30rpx;
+  background-color: #fff;
+}
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40rpx 0;
+  color: #333333;
+  border-bottom: 1rpx solid #F7F7F7;
+}
+.image{
+  width: 60rpx;
+  height: 60rpx;
+}
+.image image{
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+.info-item .info-item-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* .info-item .image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  overflow: hidden;
+} */
+.info-item view:last-child {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.info-item-right {
+  text-align: right;
+}
+
+.info-item button {
+  width: 120rpx;
+  height: 50rpx;
+  background: #07C261;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  line-height: 50rpx;
+  margin: 0;
+}
+
+.info-two {
+  padding: 0 30rpx;
+  margin-top: 12rpx;
+  background-color: #fff;
+}
+.c-ff4{
+  color: #FF4E4D;
+}
+
+.btn-box {
+  width: 100%;
+  height: 130rpx;
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+.btn-box .btn {
+  width: 690rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background: #1F94FD;
+  border-radius: 10px;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+}

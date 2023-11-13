@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加新员工",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

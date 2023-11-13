@@ -1,0 +1,141 @@
+.fr26 {
+    line-height: 26rpx;
+}
+
+.fr28 {
+    line-height: 28rpx;
+}
+
+.fr34 {
+    line-height: 34rpx;
+}
+
+.fr100 {
+    font-size: 100rpx;
+    line-height: 100rpx;
+}
+
+.color {
+    color: #11c1e1;
+}
+
+.width {
+    width: 570rpx;
+}
+
+.width2 {
+    width: 600rpx;
+}
+
+.box {
+    box-sizing: border-box;
+    width: 670rpx;
+    border-radius: 10rpx;
+    border: 1rpx solid #e6e6e6;
+    margin: 40rpx auto;
+    align-items: center;
+    padding-top: 60rpx;
+    padding-bottom: 60rpx;
+}
+
+.title {
+    margin-bottom: 150rpx
+}
+
+.input-box {
+    height: 100rpx;
+    padding-bottom: 50rpx;
+    border-bottom: 1rpx solid #f0f0f0;
+    margin-bottom: 50rpx
+}
+
+.form-picker {
+    width: 600rpx
+}
+
+.input-picker {
+    height: 100rpx;
+    line-height: 100rpx;
+}
+
+.input-box input {
+    height: 100%;
+    /* margin-left: 20rpx; */
+    width: 500rpx;
+}
+
+.icon-xiangqing {
+    width: 26rpx;
+    height: 26rpx;
+    display: block;
+}
+
+.margin1 {
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+.margin3 {
+    margin-bottom: 50rpx;
+}
+
+.margin2 {
+    margin-bottom: 100rpx;
+}
+
+.btn1 {
+    margin-left: 18rpx;
+}
+
+.btn2 {
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    border-radius: 10rpx;
+}
+
+.with-drawal {
+    background: #ff9a1c;
+}
+
+.cd9 {
+    color: #d9d9d9;
+}
+
+.bless-message {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 128rpx;
+    position: static;
+    z-index: 100;
+    top: 0;
+    left: 35rpx;
+    background: #3c5470;
+    box-shadow: 0 4rpx 10rpx rgba(42, 53, 66, 0.1);
+    opacity: 1;
+    transition: .4s;
+}
+
+.bless-message image {
+    width: 106rpx;
+    height: 82rpx;
+    padding: 0 20rpx 0 20rpx;
+}
+
+.hide {
+    transform: translateY(-50rpx);
+    opacity: 0;
+    transition: .8s;
+    top: -120rpx;
+}
+
+.share-btn {
+    width: 170rpx;
+    height: 60rpx;
+    background: #ff9b1f;
+    padding: 0;
+    line-height: 60rpx;
+    border-radius: 4rpx;
+    box-shadow: 0 6rpx 6rpx 0 rgba(0, 0, 0, 0.2);
+}

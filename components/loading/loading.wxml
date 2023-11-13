@@ -1,0 +1,4 @@
+<view class='loading fr24 cc flexc'>
+  <image src='/imgs/loading.gif'></image>
+  正在加载…
+</view>

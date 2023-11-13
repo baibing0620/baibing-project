@@ -1,0 +1,230 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="showImg" />
+<!-- 顶部名片信息框 -->
+<view wx:if='{{!isAdmin}}' class='cardInfo-layout bcf'>
+    <view class='cardInfo flex1'>
+        <view class='cardInfo-nickname iconfont fr52 c1a' bindtap='toCard'>{{ userInfo.toUser.realname }}</view>
+        <view class='cardInfo-position fr26 c80'>{{ userInfo.toUser.position }}</view>
+    </view>
+    <view class='cardInfo-button-group flex'>
+        <view wx:if='{{ userInfo.toUser.mobile }}' class='cardInfo-button cardInfo-button-style-1' data-mobile='{{ userInfo.toUser.mobile }}' catchtap='toCall'>
+            <view class='flexc cf fr26'>
+                <text class='iconfont icon-blackPhone fr26'></text>电话
+            </view>
+        </view>
+        <view wx:if='{{ userInfo.toUser.wechat }}' class='cardInfo-button cardInfo-button-style-2' data-wechat='{{ userInfo.toUser.wechat }}' catchtap='toWechat'>
+            <view class='flexc cf fr26'>
+                <text class='iconfont icon-jia1 fr26'></text>微信
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 聊天窗 -->
+<scroll-view class='view-msg' style='height: {{ height }}' scroll-y bindscrolltoupper='getMoreMessage' bindscrolltolower='bindscrolltoLower' lower-threshold='120' scroll-with-animation scroll-into-view='{{ gotoViewId }}' bindtouchstart='closeMoreEditor'>
+    <view class='msg-layout'>
+        <component-loading wx:if='{{ loading }}'></component-loading>
+        <view wx:for='{{ msgList }}' wx:key='index' hidden='{{ (item.from_user == fromUser && item.msg_type == 1) || ( item.msg_type == 1 && !item.content.auto_reply_desc && item.content.auto_reply_func == 0) }}'>
+            <view wx:if='{{ !item.hideTime }}' class='time fr24 c9'>{{ item.createtime }}</view>
+            <view class='{{ item.from_user == fromUser ? "self" : "other" }}'>
+                <!-- 客户状态 -->
+                <view class="toUserStatucBox flexc" wx:if='{{ item.type === "status" }}'>
+                    <view wx:if='{{ item.status == 1 }}' class='toUserStatus fr24 cf'>客户正在名片中...消息可用名片内弹窗触达</view>
+                    <view wx:elif='{{ item.status == 0 }}' class='toUserStatus fr24 cf'>客户刚离开名片不久，您的消息会以服务通知发送至客户微信哦~</view>
+                    <view wx:elif='{{ item.status == 2 }}' class='toUserStatus toUserStatus-doubleLine fr24 cf'>
+                        <block wx:if='{{ userInfo.toUser.mobile }}'>客户已离开名片很久了，请您以<text data-mobile='{{ userInfo.toUser.mobile }}' catchtap='toCall'>电话联系{{userInfo.toUser.mobile}}</text></block>
+                        <block wx:else>客户已离开名片且未留下电话号码，请用其它方式联系</block>
+                    </view>
+                </view>
+                <!-- 还没发送的内容 -->
+                <view wx:elif='{{ item.type === "readyToSend"  }}' class="readyToSend flexc bf">
+                    <image mode="aspectFill" src="{{ item.content.url }}"></image>
+                    <view class="readyToSend-layout flex1 flex">
+                        <view class='readyToSend-title ellipsis2 fr30 c3 bold'>{{ item.content.title }}</view>
+                        <view class='readyToSend-info flexb'>
+                            <view class='readyToSend-price fr26'>
+                                {{ item.content.type === "shop" ? "￥" + item.content.price : "" }}
+                            </view>
+                            <view class='readyToSend-send fr28 flexc active' data-index='{{ index }}' catchtap='sendReadyToSend'>
+                                {{ item.content.type === "shop" ? "发送商品" : "发送资讯" }}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view wx:elif='{{item.type === "official"}}' class="readyToSend flexc bf">
+                    <image mode="aspectFill" src="{{ official.url }}"></image>
+                     <view class="readyToSend-layout flex1 flex">
+                        <view class='readyToSend-title ellipsis2 fr30 c3 bold'>{{ official.title }}</view>
+                        <view class='readyToSend-info flexb'>
+                            <view class='readyToSend-price fr26'>
+                            </view>
+                            <view class='readyToSend-send fr28 flexc active' data-index='{{ index }}' catchtap='sendReadyToSend' data-type="official">
+                               发送官网
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <!-- 已发送的内容 -->
+                <block wx:else>
+                    <view class='avatar' bindtap='{{ item.from_user == fromUser ? "toSelf" : "toSee" }}'>
+                        <image src='{{ item.from_user == fromUser ? showImg.cropImgWH(userInfo.formUser.avatar, 84, 84) : showImg.cropImgWH(userInfo.toUser.avatar, 84, 84) }}'></image>
+                    </view>
+                    <!-- 发送的图片 -->
+                    <view wx:if='{{ item.content.type && item.content.type == "image" }}' class="img-service">
+                        <view style='width:{{ item.width || item.content.width }}rpx; height:{{ item.height || item.content.height }}rpx' class='imageBox'>
+                            <image class='sending' wx:if='{{ item.from_user == fromUser && item.sending }}' src='../../imgs/loading.gif'></image>
+                            <view wx:if='{{ (item.content.imgStatus === 1 || item.content.imgStatus === -1 || item.imageLoaded !== 1) }}' class='flexc imageCover'>
+                                <progress wx:if='{{ item.content.imgStatus === 1 }}' percent='{{ item.content.imgProgress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+                                <view wx:elif='{{ item.content.imgStatus === -1 }}' class='imgError flexcColumn fr24 cf' data-index='{{ index }}' catchtap='reUploadMyImgs'>
+                                    {{ item.content.errorMsg }}
+                                    <!-- <br/>点击重新发送 -->
+                                </view>
+                                <image class='imageLoading' wx:elif='{{ item.imageLoaded !== 1 }}' src='../../imgs/loading.gif'></image>
+                            </view>
+                            <image class='image' mode='aspectFit' data-index='{{ index }}' style='width:{{ item.width || item.content.width }}rpx; height:{{ item.height || item.content.height }}rpx' bindload='imageLoad' lazy-load src='{{ item.content.url }}' catchtap='previewImage'></image>
+                        </view>
+                          <view wx:if="{{item.from_user == fromUser && item.msg_type == 3}}" class='fr22 flexe cc intelligent-customer-service'><text class='iconfont icon-zhinengkefu'></text><text>智能回复</text></view>
+                    </view>
+                    <!-- 发送的资讯/商品/官网 -->
+                    <view wx:elif='{{ item.content.type && (item.content.type === "shop" || item.content.type === "info" || item.content.type === "service" || item.content.type === "official") }}' data-type='{{ item.content.type }}' data-id='{{ item.content.id }}' class='goods flexc' catchtap='navByMsg'>
+                        <i class='angle'></i>
+                        <image class='sending' wx:if='{{ item.from_user == fromUser && item.sending }}' src='../../imgs/loading.gif'></image>
+                        <image mode="aspectFill" src='{{ item.content.url }}' class='goodsCover'></image>
+                        <view class='goodsInfo flex1'>
+                            <view class='goodsTitle fr30 c3 ellipsis2'>{{ item.content.title }}</view>
+                            <view wx:if='{{ item.content.type == "shop" }}' class='goodsPrice fr26'>
+                                ￥{{ item.content.price }}
+                            </view>
+                            <view wx:elif='{{ item.content.type == "info" }}' class='newsDetail flex fr26'>
+                                查看详情
+                                <view class='iconfont icon-you fr26 flec'></view>
+                            </view>
+                            <view wx:elif='{{ item.content.type == "service" }}' class='Detail flex fr26'>
+                                查看详情
+                                <view class='iconfont icon-you fr26 flec'></view>
+                            </view>
+                            <view wx:elif='{{ item.content.type == "official" }}' class='newsDetail flex fr26'>
+                                进入官网
+                                <view class='iconfont icon-you fr26 flec'></view>
+                            </view>
+                        </view>
+                    </view>
+                    <!-- 自动回复和文字内容 -->
+                    <view wx:else class="msg-service">
+                        <view class='message c40'>
+                            <i class='angle'></i>
+                            <image class='sending' wx:if='{{ item.from_user == fromUser && item.sending }}' src='../../imgs/loading.gif'></image>
+                            <view class='message-layout' data-message='{{ item.msg_type && item.msg_type == 1 ? item.content.auto_reply_desc : item.content.type && item.content.type == "text" ?  item.content.content: item.content }}' catchlongtap='copyMessage'>
+                                {{ item.msg_type && item.msg_type == 1 ? item.content.auto_reply_desc : item.content.type && item.content.type == "text" ? item.content.content: item.content }}
+                                <view wx:if="{{item.from_user != fromUser && item.msg_type == 4}}">
+                                    <view wx:if="{{item.has_send != 1}}" data-msgIndex="{{index}}" catchtap="sendPhoneNumber" class="send-button fr28 cf flexc">一键发送手机号</view>
+                                    <view wx:else class="has-send-button fr28 iconfont icon-dui flexc"><text style="padding-left: 10rpx">已发送手机号</text></view>
+                                </view>
+                            </view>
+                            <view wx:if='{{ item.msg_type && item.msg_type == 1 && item.content.auto_reply_func > 0 }}' class='msg-menu fr26 c1a'>
+                                <view class='fr22 c9'>通过我的名片您还可以：</view>
+                                <view wx:if='{{ item.content.auto_reply_func & 1 }}' class='menu-item c3 flexb'>
+                                    <view class='menu-item-title' catchtap='toCard'>
+                                        <i class='iconfont icon-card icon-color-1 fr26'></i>
+                                        进入我的名片
+                                    </view>
+                                </view>
+                                <view wx:if='{{ item.content.auto_reply_func & 8 }}' class='menu-item c3 flexb' catchtap='toSite'>
+                                    <view class='menu-item-title'>
+                                        <i class='iconfont icon-wangzhanxuanzhong icon-color-2 fr26'></i>
+                                        查看我们公司的官网
+                                    </view>
+                                </view>
+                                <view wx:if='{{ item.content.auto_reply_func & 2 }}' class='menu-item c3 flexb' catchtap='toInfo'>
+                                    <view class='menu-item-title'>
+                                        <i class='iconfont icon-chanpin icon-color-3 fr26'></i>
+                                        查看我们公司的最新资讯
+                                    </view>
+                                </view>
+                                <view wx:if='{{ item.content.auto_reply_func & 4 }}' class='menu-item c3 flexb' catchtap='toProduct'>
+                                    <view class='menu-item-title'>
+                                        <i class='iconfont icon-shangcheng icon-color-4 fr26'></i>
+                                        了解我们的产品
+                                    </view>
+                                </view>
+                            </view>
+                            <view wx:if='{{ item.content.auto_reply_func & 16 || item.content.auto_reply_func & 32 }}' class='menu-button fr24 c6'>
+                                <view wx:if='{{ item.content.auto_reply_func & 16 && userInfo.toUser.mobile_is_show == 1}}' data-mobile='{{ item.content.mobile }}' catchtap='toCall'>
+                                    <i class='iconfont icon-dianhua fr24 color-o'></i>
+                                    拨打电话
+                                </view>
+                                <view wx:if='{{ item.content.auto_reply_func & 32 }}' data-wechat='{{ item.content.wechat }}' catchtap='toWechat'>
+                                    <i class='iconfont icon-weixin fr24 color-o'></i>
+                                    添加微信
+                                </view>
+                            </view>
+                        </view>
+                        <view wx:if="{{item.from_user == fromUser && item.msg_type == 3}}" class='flexe cc intelligent-customer-service'><text style='padding-top:2rpx' class='iconfont icon-zhinengkefu fr28'></text><text class='fr22'>智能回复</text></view>
+                    </view>
+                </block>
+            </view>
+        </view>
+    </view>
+    <view id='{{ toViewId }}' class='holder'></view>
+</scroll-view>
+
+<!-- 底部框 -->
+<form bindsubmit='sendMessage' report-submit>
+    <view class='editorBox {{ moreEditor ? "" : "moreEditorHide" }}'>
+        <view class='editor flex'>
+            <view class='iconfont icon-biaoqing c80 active flexc' catchtap='openEmoji'></view>
+            <view class="textareaBox flex" style='{{ messageFocus ? "border-color:" + extConfig.themeColor : "" }}'>
+                <textarea class='textarea fr30 c3' name='message' auto-height cursor-spacing='{{ 8 }}' value='{{ input }}' maxlength='{{ -1 }}' bindinput='bindInput' bindfocus='bindFocus' bindblur='bindBlur' show-confirm-bar='{{ 0 }}'></textarea>
+            </view>
+            <view class='iconfont icon-jiahaox c80 active flexc' catchtap='openMoreOther'></view>
+            <button class='button bg-o' form-type='submit'>发送</button>
+        </view>
+        <view class='moreEditor'>
+            <view wx:if='{{ moreEditor === 1 }}' class='emojiBox'>
+                <swiper class='swiper' indicator-dots indicator-color='#ebebeb' indicator-active-color='#ff9b1f'>
+                    <block wx:for='{{ emoji }}' wx:key='{{ index }}'>
+                        <swiper-item>
+                            <view class='flex emojiItem'>
+                                <view wx:for='{{ item }}' wx:key='{{ index }}' class='emoji flexc' data-emoji='{{ item }}' catchtap='emojiInput'>
+                                    {{ item }}
+                                </view>
+                                <view class='emoji flexc deleteInput' style='top: {{ screenHeight * 0.05 + 200 }}rpx' catchtap='deleteInput'>
+                                    <image src='/imgs/btn_delete.png'></image>
+                                </view>
+                            </view>
+                        </swiper-item>
+                    </block>
+                </swiper>
+            </view>
+            <view wx:if='{{ moreEditor === 2 }}' class='moreBox flex'>
+                <view class='flexcColumn moreBoxItem fr24 c80' catchtap='uploadMyImgs'>
+                    <view class='iconfont icon-image flexc c9 bcf'></view>
+                    图片
+                </view>
+                <view class='flexcColumn moreBoxItem fr24 c80' data-name='selectGoodsToSend' catchtap='navigate'>
+                    <view class='iconfont icon-shangcheng flexc c9 bcf'></view>
+                    商品
+                </view>
+                <view class='flexcColumn moreBoxItem fr24 c80' data-name='selectNewsToSend' catchtap='navigate'>
+                    <view class='iconfont icon-chanpin flexc c9 bcf'></view>
+                    资讯
+                </view>
+                <view class='flexcColumn moreBoxItem fr24 c80' data-name='selectServiceToSend' catchtap='navigate'>
+                    <view class='iconfont icon-chanpin flexc c9 bcf'></view>
+                    服务
+                </view>
+                <view class='flexcColumn moreBoxItem fr24 c80' catchtap='sendOfficial'>
+                    <view class='iconfont icon-xitongicon_guanwangguanli flexc c9 bcf'></view>
+                    官网
+                </view>
+                <view wx:if="{{isAdmin}}" class='flexcColumn moreBoxItem fr24 c80' data-name='selectTalkLibrary' catchtap='navigate'>
+                    <view class='iconfont icon-xiaoxi flexc c9 bcf'></view>
+                    话术库
+                </view>
+            </view>
+        </view>
+    </view>
+</form>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast toUser="{{ userInfo.toUser.id }}"></component-messageToast>

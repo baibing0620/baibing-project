@@ -1,0 +1,97 @@
+<!--pages/customerPool/customerPool.wxml-->
+<wxs module="formatTag">
+    function showTag(type) {
+        type = parseInt(type)
+        switch (type) {
+            case 1:
+                return '#59d14c'
+                break;
+            case 2:
+                return '#46d7c8'
+                break;
+            case 3:
+                return '#d1c94c'
+                break;
+            case 4:
+                return '#5c7df8'
+                break;
+            case 5:
+                return '#ff69ac'
+                break;
+            case 6:
+                return '#6b48ff'
+                break;
+            case 7:
+                return '#e59572'
+                break;
+            default:
+                return '#ff9b1f'
+                break;
+        }
+
+    }
+    module.exports = {
+        showTag: showTag
+    }
+</wxs>
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<view wx:else style="margin: bottom: 130rpx;">
+  <view style="display: flex; justify-content: space-around; border-bottom: 1rpx solid #f2f2f2; padding-bottom: 20rpx;">
+    <block wx:for="{{contentList}}" wx:key="id">
+      <view class="category-item {{actvieIndex==index?'cmain':''}}" data-index="{{item.id}}" bindtap="activeTap" style="color:{{actvieIndex==index?cmain:''}}">
+        <view class="fw600 fr34 showTop">{{item.name}}</view>
+        <view wx:if="{{ actvieIndex==index }}" class="fr32 {{ actvieIndex==index?'shows':'hides' }}"></view>
+      </view>
+    </block>
+  </view>
+  <view class='input-layout'>
+    <view class='input-box flexb'>
+      <input class='fr24 input' value='{{ claimName }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='请输入客户昵称'></input>
+      <view class='iconfont icon-sousuo search' bindtap='search'></view>
+    </view>
+  </view>
+  <view style="margin: 40rpx 20rpx 30rpx 20rpx; padding-bottom: 20rpx; border-bottom: 1rpx solid #f2f2f2; display: flex; justify-content: space-between;">
+    <view class="fw600 c6 fr34">共有{{customerNum}}位客户</view>
+    <view wx:if="{{actvieIndex==1}}" class="cmain fr34" bindtap="addGoTo">新增客户</view>
+  </view>
+  <view class="fr32 c6 checkedCur" style="margin: 20rpx 24rpx;">
+    <checkbox-group bindchange="checkboxAllChange">
+      <checkbox value="{{checkdAll}}" checked="{{checkdAllflag}}" color="{{checkdColor}}"/>全选
+    </checkbox-group>
+  </view>
+  <view class="customerPool" wx:for="{{ list }}" wx:key="index">
+    <view class="checkedCur">
+      <checkbox-group data-id="{{item.id}}" bindchange="checkboxOneChange">
+        <checkbox value="{{item.id}}" checked="{{item.checked}}" color="{{checkdColor}}"/>
+      </checkbox-group>
+    </view>
+    <view data-detail="{{item}}" catchtap="goTomsg">
+      <view><text class="name fr34 fw600">{{item.name}}</text></view>
+      <view>
+        <text class="cf bcr fr24" style="border-radius: 20rpx; padding: 5rpx 10rpx; margin: 0 20rpx 0 0; display: inline-block; background:{{item.color}};" wx:for="{{item.tag_name}}" wx:key="index">{{item.name}}</text>
+      </view>
+      <view class="compony fr30">公司名称:{{item.c_name||'--'}}</view>
+      <view class="time fr30">入池时间:{{item.c_time}}</view>
+    </view>
+    <view wx:if="{{actvieIndex==0}}" class="claim bc-main cf fr30" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}" bindtap="claim">认领客户</view>
+    <view wx:if="{{actvieIndex==1}}" class="claim bc-main cf fr30" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}" bindtap="claim">退回客户</view>
+  </view>
+</view>
+<view class="bullet" wx:if="{{claimOff_Ok}}">
+  <view>
+    <view wx:if="{{actvieIndex==0}}">你确定要<text wx:if="{{ one_allClaim }}">批量认领{{checkdAllLen}}条</text><text wx:if="{{ !one_allClaim }}">认领【{{checkdName}}】</text>吗？</view>
+    <view wx:if="{{actvieIndex==1}}">你确定要<text wx:if="{{ one_allClaim }}">批量退回{{checkdAllLen}}条</text><text wx:if="{{ !one_allClaim }}">退回【{{checkdName}}】</text>吗？</view>
+    <view>
+      <text bindtap="claimOff">取消</text>
+      <text class="cmain" bindtap="claimOk">确定</text>
+    </view>
+  </view>
+</view>
+<view wx:if="{{ allClaim&&actvieIndex==0 }}" class="allClaim bc-main cf fr38" bindtap="allClaims">批量认领</view>
+<view wx:if="{{ allClaim&&actvieIndex==1 }}" class="allClaim bc-main cf fr38" bindtap="allClaims">批量退回</view>
+<template is="moreData" data="{{loadStyle:loadStyle}}" />
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

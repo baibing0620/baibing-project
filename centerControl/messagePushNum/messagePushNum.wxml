@@ -1,0 +1,68 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<wxs module="customerStatus">
+    function showStatusText(status) {
+        status = parseInt(status);
+        switch (status) {
+            case 1:
+                return '意向客户'
+                break;
+            case 2:
+                return '目标客户'
+                break;
+            case 3:
+                return '已成交客户'
+                break;
+            default:
+                return '其他'
+        }
+
+    }
+    module.exports = {
+        showStatusText: showStatusText
+    }
+</wxs>
+<view class="search-box flexc w100" style="background-color:{{diyConfig.navigationBarBC}}">
+    <view class='fr30 cf flex1 flexc'>{{total}}个客户</view>
+    <view class="search-goods flexb fr24" catchtap="search">
+        <input style="display: block;color:#333" class='flex1 cf' placeholder='请输入用户名搜索' placeholder-class='cf5' confirm-type="搜索" bindconfirm="search" bindinput="bindKeywords" />
+        <text class='iconfont  icon-sousuo' catchtap='search'></text>
+    </view>
+</view>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关推送信息'}}" wx:if="{{showStyle!=1&&customerList.length==0}}" />
+<block wx:else>
+    <block wx:for="{{customerList}}" wx:key="{{item.id}}">
+        <view class='item bcf w100 flex {{item.disabled == 1?"disable":""}}' catchtap='toDetail' data-index="{{index}}">
+            <view wx:if="{{item.gender &&item.gender  != '0'}}" class='flexc ' style="position:relative; background:#fff;width:96rpx;height:96rpx;border-radius:50%;border:3rpx solid {{item.gender == 1?'#4bd7ff':item.gender == 2?'#ff9ccb ':''}}">
+                <view class="flexc iconfont {{item.gender == 1?'icon-nan':item.gender == 2?'icon-nv':''}} cf fr22" style="position:absolute;left:-4rpx;bottom:6rpx; width:24rpx;height:24rpx;border-radius:50%;border:3rpx solid #fff;background:{{item.gender == 1?'#4bd7ff':item.gender == 2?'#ff9ccb ':''}}"></view>
+                <image class='user-avatar' src='{{ShowImg.cropImgWH(item.member.avatar, 92, 92)}}' />
+            </view>
+            <view wx:else>
+                <image class='avatar' src='{{ShowImg.cropImgWH(item.member.avatar, 100, 100)}}' />
+            </view>
+            <view class='flexb text-box flex1'>
+                <view class='fr30 c3'>
+                    <view class='ell mb28 bold'>{{item.name}}</view>
+                    <view class='fr26 c80 flex mb22 act ell'>
+                        <view wx:for="{{statusList}}" wx:for-item="statusItem">
+                            <view wx:if="{{statusItem.status_id == item.status}}" class='border-right'>{{statusItem.user_status}}</view>
+                        </view>
+                        共{{item.interact_num}}次互动
+                    </view>
+                    <!-- <view class='fr26 c80 ell'>{{item.event_type?item.event_type.tpl1:'暂无互动信息'}}</view> -->
+                </view>
+                <view class='percent flexcColumn fr24 cc'>
+                    <view class='fr44 fw600' style='color:{{extConfig.themeColor}}'>{{item.cooperRate}}%</view>
+                    智能成交率
+                </view>
+            </view>
+        </view>
+    </block>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+</block>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

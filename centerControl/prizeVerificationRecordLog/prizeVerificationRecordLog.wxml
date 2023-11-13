@@ -1,0 +1,26 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:if='{{ showStyle == 1 }}'>
+    <component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+    <view class='list'>
+        <view wx:for='{{ list }}' wx:key='id' class='item bcf'>
+            <view class='info fr30'>
+                <view class='label c9'>核销详情：</view>
+                <view class='flex1 c1a content ellipsis1'>{{ item.description }}</view>
+            </view>
+            <view class='info fr30'>
+                <view class='label c9'>核销时间：</view>
+                <view class='flex1 c1a content'>{{ item.create_time }}</view>
+            </view>
+            <view class='info fr30'>
+                <view class='label c9'>核销备注：</view>
+                <view class='flex1 c9 content ellipsis2'>{{ item.remark }}</view>
+            </view>
+        </view>
+    </view>
+    <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+</block>
+
+<component-messageToast></component-messageToast>

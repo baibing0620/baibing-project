@@ -1,0 +1,75 @@
+
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="card-box w100">
+  <div class="w100 flexc">
+    <view class="oneself-card">
+      <image class="user-avator" src='{{userInfo.avatarUrl ? ShowImg.cropImgWH(userInfo.avatarUrl, 650, 640) : ShowImg.cropImgWH(userInfo.avatar_url, 650, 640)}}' mode="aspectFill" catchtap='previewImg' />
+      <view class='flex' style='margin:36rpx 30rpx'>
+        <view class="user-name fr36">{{userInfo.name}}</view>
+        <view class="fr28" style="color:{{diyConfig.themeColor}};line-height:28rpx;margin-left:20rpx;">
+          {{userInfo.position}}
+        </view>
+      </view>
+      <view class="fr24 c9" bindtap='makePhoneCall' style='margin-left:30rpx;line-height:24rpx;'>{{userInfo.mobile||'--'}}</view>
+        <view class="fr24 c9 flex1 ellipsis1" style='margin:18rpx 0 0 30rpx;line-height:24rpx;'>{{userInfo.company||'--'}}</view>
+    </view>
+  </div>
+
+</view>
+<view class="content w100">
+  <view class="more-info" wx:if="{{showInfo}}" >
+    <view class="more-info-item flexb">
+      <view class="fr26 info-item-text flex">
+        <view class="iconfont icon-dianhua fr32" style="color:{{diyConfig.themeColor}}"></view>
+        <view class="c6" style="color:{{diyConfig.isWhiteBC?'#666':'#fff'}}">{{baseInfo.mobile||'--'}}</view>
+      </view>
+      <view class="fr24 copy-btn " style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}}" bindtap='makePhoneCall'>拨打</view>
+    </view>
+
+    <view class="more-info-item flexb">
+      <view class="fr26 info-item-text flex">
+        <view class="iconfont icon-weixin fr32" style="color:{{diyConfig.themeColor}}"></view>
+        <view class="c6" style="color:{{diyConfig.isWhiteBC?'#666':'#fff'}}">{{baseInfo.wechat||'--'}}</view>
+      </view>
+      <view class="fr24 copy-btn " style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}}" data-text="wechat" bindtap="copyText"> 复制</view>
+    </view>
+    <view class="more-info-item flexb">
+      <view class="fr26 info-item-text flex">
+        <view class="iconfont icon-youxiang fr32" style="color:{{diyConfig.themeColor}}"></view>
+        <view class="c6" style="color:{{diyConfig.isWhiteBC?'#666':'#fff'}}">{{baseInfo.email||'--'}}</view>
+      </view>
+      <view class="fr24 copy-btn " style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}}" data-text="email" bindtap="copyText">复制</view>
+    </view>
+    <view class="more-info-item flexb">
+      <view class="iconfont icon-gongsi2 fr32" style="color:{{diyConfig.themeColor}}"></view>
+      <view class="fr26 info-item-text flex">
+
+        <view class="c6" style="color:{{diyConfig.isWhiteBC?'#666':'#fff'}}">{{baseInfo.company||'--'}}</view>
+      </view>
+       <view class="fr24 copy-btn " style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}}" data-text="company" bindtap="copyText">复制</view>
+    </view>
+    <view class="more-info-item flexb" wx:for="{{showAdress?baseInfo.addresses:[baseInfo.addresses[0]]}}">
+      <view class="{{index==0?'iconfont icon-dizhi1':''}} fr32" style="color:{{diyConfig.themeColor}};width:32rpx"></view>
+      <view class="fr26 info-item-text flex">
+        <view class="c6" style="color:{{diyConfig.isWhiteBC?'#666':'#fff'}}">{{item||'--'}}</view>
+      </view>
+      <view catchtap='showMordeAddress' style='padding:0 30rpx' wx:if="{{index == 0 && baseInfo.addresses.length>1}}" class='iconfont {{showAdress?"icon-zhiding":"icon-open"}}'></view>
+      <view class="fr24 copy-btn " data-index='{{index}}' wx:if="{{baseInfo.lnglats[index] &&baseInfo.lnglats[index][0] &&baseInfo.lnglats[index][1] && baseInfo.lnglats != '[]'}}" style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}}" data-text="addresses" bindtap="openLocation">导航</view>
+      <view wx:else class="fr24 copy-btn " style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}}" data-text="addresses" data-index="{{index}}" bindtap="copyAddress">复制</view>
+    </view>
+    <view class="fr24 c9 text-center {{diyConfig.isWhiteBC?'cb3':'cf_2'}}" style="line-height: 22rpx;padding-bottom: 40rpx;" bindtap="hideInfoBox">
+      收起名片信息
+    </view>
+  </view>
+  <view class="flexc fr24 c9" bindtap="showInfoBox" style="line-height: 22rpx;padding-top:40rpx;" wx:else>
+    查看更多名片信息
+  </view>
+  <view class="share-and-save w100 flexc">
+    <button class="share-btn-save clean-btn" style="color:{{diyConfig.themeColor}};border-color:{{diyConfig.themeColor}};background-color:rgba(0,0,0,0);" open-type="share">分享名片</button>
+    <view class="share-btn-save cf" style="background-color:{{diyConfig.themeColor}};" bindtap="addPhoneContact">存入手机通讯录</view>
+  </view>
+</view>
+
+<view class="flexc w100" wx:if="{{openTechSupport==1}}">
+    <view class="fr26 cc" style="text-align: center;margin: 20rpx 0;">{{techSupportText}}</view>
+</view>

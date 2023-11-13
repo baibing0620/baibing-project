@@ -1,0 +1,5 @@
+<component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+<include src="../../template/index/index.wxml" />
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

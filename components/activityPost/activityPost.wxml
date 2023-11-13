@@ -1,0 +1,1 @@
+ <component-poster src='{{ palette }}' themeColor='#fd9a33' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>

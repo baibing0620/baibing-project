@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "用户分析",
+  "usingComponents": {
+    "ec-canvas": "/centerControl/ec-canvas/ec-canvas",
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

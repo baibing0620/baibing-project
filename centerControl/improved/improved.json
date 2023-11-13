@@ -1,0 +1,12 @@
+{
+    "navigationBarTitleText": "励志海报",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-switchTab": "./../../components/switchTab/switchTab",
+            "component-switchTabs": "./../../components/switchTab2/switchTab2",
+            "painter": "/components/painter/painter"
+    }
+}

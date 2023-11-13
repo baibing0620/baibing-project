@@ -1,0 +1,62 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'还没有添加个人商品分类',showImg:'https://facing-1256908372.file.myqcloud.com//image/20201127/05a6463668232cce.png',showBtn:'立即添加分类', btnBcColor: '#1F94FD'}}" wx:if="{{showStyle!=1&&categoryList.length==0&tabIndex==0}}" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无选品商品分类',showImg:'https://facing-1256908372.file.myqcloud.com//image/20201127/05a6463668232cce.png'}}" wx:elif="{{showStyle!=1&&categoryList.length==0&tabIndex==1}}" />
+<block wx:else>
+    <!--  个人分类  -->
+    <view wx:if="{{tabIndex == 0}}" style="{{taberStatus ? 'padding-top: 90rpx' : ''}}">
+            <view class='container' wx:for="{{categoryList}}" wx:key="id">
+                    <view class='flex' style='height:192rpx;padding-left: 30rpx'>
+                        <image class='img' src="{{ShowImg.cropImgWH(item.thumb_url,120,120)}}"></image>
+                        <view class='flex1 flexb'>
+                            <view class='flex1'>
+                                <view style="margin-bottom:22rpx" class='fr34 c3 bold ellipsis1'>{{item.name}}</view>
+                                <view wx:if="{{item.parentid != '0'}}" style="margin-bottom:10rpx" class="fr28 cmain ellipsis1">上级：{{item.parentName}}</view>
+                                <view class='fr28 c80'>入口排序数字<text class='c-main fr26'>{{item.displayorder}}</text>
+                                </view>
+                            </view>
+                            <view class="revover-type asfs {{item.enabled == 1?'show':'hide'}} fr24">
+                                {{item.enabled == 1?'显示中':'隐藏中'}}
+                            </view>
+                        </view>
+                    </view>
+                    <view class='operation flex fr28 cb3'>
+                        <view class='flex1' bindtap='delRule' data-id="{{item.id}}" data-index="{{index}}">
+                            <text class='iconfont icon-shanchu1 fr26'></text>删除</view>
+                        <view class='flex1' bindtap='changeRule' data-id="{{item.id}}" data-index="{{index}}">
+                            <text class='iconfont icon-yanjing fr26'></text>{{item.enabled == 1?"隐藏":"显示"}}</view>
+                        <view class='flex1' bindtap='editRule' data-id="{{item.id}}">
+                            <text class='iconfont icon-bianji1 fr26'></text>编辑</view>
+                    </view>
+                </view>
+                <button catchtap='navAdd' class='message-btn fr34 cf'>添加分类</button>
+    </view>
+
+    <!--  选品分类  -->
+    <view wx:if="{{tabIndex == 1}}" style="{{taberStatus ? 'padding-top: 90rpx' : ''}}">
+        <view class='container' wx:for="{{categoryList}}" wx:key="this">
+            <view class='flex' style='height:192rpx;padding-left: 30rpx'>
+                <image class='img' src="{{ShowImg.cropImgWH(item.thumb_url,120,120)}}"></image>
+                <view class='flex1 flexb'>
+                     <view class='flex1'>
+                        <view style="margin-bottom:22rpx" class='fr34 c3 bold ellipsis1'>{{item.name}}</view>
+                        <view wx:if="{{item.parentid != '0'}}" style="margin-bottom:10rpx" class="fr28 cmain ellipsis1">上级：{{item.parent.name}}</view>
+                        <view class='fr28 c80'>入口排序数字<text class='c-main fr26'>{{item.displayorder}}</text>
+                        </view>
+                    </view>
+                    <view class="revover-type asfs {{item.enabled == 1?'show':'hide'}} fr24">
+                        {{item.enabled == 1?'显示中':'隐藏中'}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+
+
+
+
+</block>
+<component-messageToast></component-messageToast>
+<component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick" wx:if="{{taberStatus}}"></component-switchTab>

@@ -1,0 +1,77 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<template is="initShow" data="{{ showStyle: showStyle }}" wx:if="{{ showStyle != 1 }}" />
+<view class="container" wx:else>
+    <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+    <view class="goods-box">
+        <block wx:for="{{orderDetail.goods}}" wx:for-item="goods" wx:key="goodsid">
+            <view class="order-detail flex fr24 " catchtap='toGoods' data-id="{{goods.goodsid}}">
+                <image class="order-pic" src="{{ShowImg.cropImgWH(goods.thumb,160,160)}}"></image>
+                <view class="flexaColumn flex1 order-text ">
+                    <view class="flexb w100 fr24 c3">
+                        <view class="ellipsis2" style="width:362rpx">
+                            {{goods.title}}
+                        </view>
+                        <view class="price asfs">￥{{goods.price}}</view>
+                    </view>
+                    <view class="flexb c9 w100">
+                        <view wx:if="{{goods.optionname !=''&&goods.optionname!=null}}" class="c6 ellipsis2" style="width:362rpx">
+                            规格 {{goods.optionname}}
+                        </view>
+                        <view class="{{goods.optionname ?'':'w100'}}" style="text-align:right">×{{goods.total}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <view class="item-total fr24 c9 w100">
+            <view class="total-item">
+                <view>
+                    商品小计：
+                </view>
+                <view>
+                    ￥{{Format.float2(orderDetail.goodsTotalMoney)}}
+                </view>
+            </view>
+            <view class="total-item">
+                <view>
+                    运费：
+                </view>
+                <view>
+                    ￥{{orderDetail.dispatchprice}}
+                </view>
+            </view>
+            <view class="total-item">
+                <view>
+                    优惠：
+                </view>
+                <view>
+                    ￥{{orderDetail.coupon_id ==0 ?'0.00':orderDetail.coupon_money}}
+                </view>
+            </view>
+        </view>
+        <view class="pay-total fr28 c6">
+            <text style="margin-right: 45rpx">共{{orderDetail.goods.length}}件商品</text>
+            实付 :
+            <text class="c-danger" wx:if="{{orderDetail.paytype==4}}"> {{orderDetail.credit}}积分 </text>
+            <text class="c-orange" wx:else> ￥{{orderDetail.price}} </text>
+        </view>
+    </view>
+    <view class="order-info fr24 c9">
+        <view>订单编号:
+            <text class="c-black"> {{orderDetail.ordersn}}</text>
+        </view>
+        <view>下单时间:
+            <text class="c-block"> {{orderDetail.createtime}}</text>
+        </view>
+        <view>支付方式:
+            <text wx:if="{{orderDetail.paytype==0}}">微信支付</text>
+            <text wx:elif="{{orderDetail.paytype==3}}"> 会员卡余额支付</text>
+            <text wx:elif="{{orderDetail.paytype==4}}">积分兑换</text>
+        </view>
+    </view>
+</view>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

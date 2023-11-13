@@ -1,0 +1,95 @@
+.board {
+    width: 100vw;
+    padding: 42rpx 0 40rpx;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    border-radius: 30rpx 30rpx 0 0;
+    z-index: 3;
+}
+
+.buttons {
+    display: flex;
+    padding: 0 30rpx;
+}
+
+.button {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    height: 84rpx;
+    color: #ffffff;
+    font-size: 32rpx;
+    line-height: 100%;
+    border-radius: 42rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12rpx;
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+
+.bc-ff0007 {
+    background:linear-gradient(180deg,rgba(255,119,65,1),rgba(255,22,22,1));
+    box-shadow:0px 10px 26px 0px rgba(120,1,12,0.36);
+}
+
+.bc-ff8100 {
+    background:linear-gradient(180deg,rgba(255,175,15,1),rgba(234,124,14,1));
+    box-shadow:0px 10px 12px 0px rgba(114,64,4,0.3);
+}
+
+.inviteLayout {
+    margin-top: 48rpx;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.inviteLayout::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.inviteList {
+    display: flex;
+    padding: 0 40rpx;
+}
+
+.invite {
+    width: 78rpx;
+    margin-right: 36rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.invite:last-child {
+    margin-right: 0;
+}
+
+.avatar {
+    width: 78rpx;
+    height: 78rpx;
+    border-radius: 50%;
+}
+
+.nickname {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 20rpx;
+    line-height: 40rpx;
+    margin-top: 6rpx;
+    color: #ffffff;
+    text-align: center;
+}
+
+.num {
+    font-size: 20rpx;
+    color: #FFE400;
+    line-height: 100%;
+}

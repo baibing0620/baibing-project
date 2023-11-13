@@ -1,0 +1,351 @@
+button.container {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: medium;
+    text-align: left;
+    text-decoration: none;
+    line-height: normal;
+    border-radius: 0;
+    overflow: hidden;
+    color: #000;
+    background-color: #f8f8f8;
+}
+
+page {
+    background: #f8f8f8;
+}
+
+.container {
+    position: relative;
+}
+
+.header {
+    position: relative;
+    margin-bottom: 30rpx;
+    top: 0;
+    width: 100%;
+    height: 310rpx;
+    font-weight: 500;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.mask-img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 310rpx;
+    z-index: 110;
+}
+
+.user-img-box {
+    position: absolute;
+    top: 60rpx;
+    left: 30rpx;
+    height: 134rpx;
+    display: flex;
+    z-index: 120;
+}
+
+.img-border {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+    /* border: 5rpx solid #fff; */
+    background: white;
+    overflow: hidden;
+    /* margin-left: 36rpx; */
+}
+
+.img-text {
+    height: 134rpx;
+    margin-left: 30rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.header .edit-btn {
+    position: absolute;
+    top: 60rpx;
+    right: 30rpx;
+    width: 120rpx;
+    height: 40rpx;
+    border: 1rpx solid #4A4A4B;
+    border-radius: 20rpx;
+    z-index: 130;
+    text-align: center;
+    line-height: 40rpx;
+    font-size: 24rpx;
+    font-weight: 500;
+    color: #333333;
+}
+.header .edit-btn text {
+    font-size: 22rpx;
+    margin-right: 10rpx;
+}
+.header .vip-level {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    margin: 0 auto;
+    width: 700rpx;
+    height: 80rpx;
+    box-sizing: border-box;
+    background: linear-gradient(93deg, #3B3E4A 0%, #404350 47%, #23262C 100%);
+    border-radius: 20rpx 20rpx 0 0;
+    color: #E6CB9B;
+    font-weight: 500;
+    z-index: 140;
+    font-size: 26rpx;
+    padding: 0 32rpx 0 40rpx;
+}
+.header .vip-level text:first-child {
+    font-size: 26rpx;
+    color: #fff;
+    margin-right: 16rpx;
+}
+.sign-in-box {
+    width: 236rpx;
+    height: 100rpx;
+    border-left: 1rpx solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+.sign-in-box>view {
+    width: 176rpx;
+    height: 66rpx;
+    position: relative;
+}
+
+.sign-in-box>.sign-num {
+    position: fixed;
+    top: 90rpx;
+    right: 150rpx;
+    z-index: 200;
+    display: none;
+}
+
+.sign-in-box>.show-sign-num {
+    display: block;
+}
+
+.sign-in-box .sign {
+    display: block;
+    z-index: 100;
+    width: 176rpx;
+    height: 66rpx;
+    border: 2rpx solid #fff;
+    border-radius: 60rpx;
+    line-height: 66rpx;
+}
+
+.lineitem {
+    width: 700rpx;
+    margin: 0 auto;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.lineitem>view, .lineitem>navigator {
+    background: white;
+}
+
+.mylineitem {
+    padding: 50rpx 30rpx 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 700rpx;
+    height: 100rpx;
+    box-sizing: border-box;
+}
+
+.order-item {
+    border-radius: 20rpx;
+}
+.lineitem-center {
+    height: 200rpx;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+.lineitem-center .flexcColumn {
+    padding: 0 30rpx;
+}
+
+.lineitem-bottom {
+    display: flex;
+    height: 100rpx;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 30rpx;
+    padding-left: 30rpx;
+    border-bottom: 1rpx solid #ebebeb;
+    line-height: 100rpx;
+}
+
+.lineitem-bottom>.iconfont {
+    font-size: 30rpx;
+}
+
+.lineitem-bottom>text.fw {
+    margin-left: 12rpx;
+    flex: 1;
+}
+
+.setting-btn {
+    margin-left: 12rpx;
+    flex: 1;
+    text-align: left;
+    padding: 0;
+    background-color: #fff;
+}
+
+.lineitem .version {
+    height: 60rpx;
+    width: 100%;
+    color: #bbb;
+    background: rgba(0, 0, 0, 0);
+    text-align: center;
+}
+
+.fw {
+    font-weight: 500;
+}
+
+.ico {
+    font-size: 68rpx;
+    color: #f74a44;
+    margin-bottom: 10rpx;
+}
+
+.fr30 {
+    font-size: 30rpx;
+}
+
+.fr26 {
+    font-size: 26rpx;
+}
+
+.c4d {
+    color: #4d4d4d;
+}
+
+.c80 {
+    color: #808080;
+}
+
+.cff {
+    color: #fff;
+}
+
+.mt20 {
+    margin-top: 20rpx;
+}
+
+.mb20 {
+    margin-bottom: 20rpx;
+    border-bottom: none;
+}
+
+.img-text-bottom , .img-text-creditLevel {
+    padding: 0 20rpx 0 50rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    background: linear-gradient(0deg, #FFCD8E 0%, #FFEABF 100%);
+    border-radius: 20rpx;
+    text-align: center;
+    position: relative;
+    color: #7B5222;
+}
+
+.img-text-bottom::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -4rpx;
+    height: 43rpx;
+    width: 43rpx;
+    background: url(https://facing-1256908372.file.myqcloud.com//image/20201103/5cb712cc376776d9.png);
+    background-size: 100%;
+    border-radius: 50%;
+}
+
+
+
+.img-text-creditLevel::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -4rpx;
+    height: 43rpx;
+    width: 43rpx;
+    background: url(https://facing-1256908372.file.myqcloud.com//image/20201103/658ef393d6abe254.png);
+    background-size: 100%;
+    border-radius: 50%;
+}
+
+.integral-presentation {
+    letter-spacing: 1rpx;
+    color: #7d96b3;
+    padding: 0 30rpx;
+    border-right: 1rpx solid #7d96b3;
+}
+
+.integral-presentation:last-of-type {
+    border-right: none;
+}
+
+.level {
+    box-sizing: border-box;
+    height: 40rpx;
+    background-color: rgb(0, 0, 0, .2);
+    border: 1rpx solid #F8D6B7;
+    border-radius: 20rpx;
+    padding: 0 20rpx;
+    color: #F8D6B7;
+    line-height: 100%;
+    margin-left: 20rpx;
+}
+
+.profileMenuArr-list {
+    width: 700rpx;
+    margin: 30rpx auto 30rpx;
+    padding: 20rpx 0;
+    border-radius:20rpx;
+    background: white;
+}
+
+.profileMenuArr-list .active {
+    height: 172rpx;
+}
+
+.opensettingbtn {
+    width: 25%;
+    background: #fff;
+    height: 172rpx;
+}
+.personalIcon {
+    margin-bottom: 26rpx;
+    color: #333;
+    font-size: 48rpx;
+    line-height: 48rpx;
+}
+.personalTitle {
+    line-height: 26rpx;
+    color: #555555;
+}
+.pb68 {
+    padding-bottom: 68rpx;
+}
+.orderImgBox {
+    width: 75rpx;
+    height: 75rpx;
+    margin-bottom: 16rpx;
+}

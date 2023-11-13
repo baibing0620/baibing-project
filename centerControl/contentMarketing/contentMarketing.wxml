@@ -1,0 +1,30 @@
+<view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ themeColor }}'>
+        <view class='c4d'>
+          销售渠道占比
+        </view>
+      </view>
+      <component-switchTabs props='{{ MarketingSwitchTabCommon }}' bind:myevent="marketingChange"></component-switchTabs>
+      <view class="channel-percentage">
+        <view wx:for="{{channelList}}" wx:key="id" wx:for-index="index" class="channel">
+          <view class="channel-value channel-value{{index}}">{{item.value}}%</view>
+          <view class="channel-label">{{item.name}}</view>
+        </view>
+      </view>
+      <view class='count title flexb' style='border-left: 8rpx solid {{ themeColor }}'>
+        <view class='c4d'>
+          短视频转化效率
+        </view>
+      </view>
+      <view class="canvas-line"  style='height:580rpx;'>
+        <ec-canvas id="mychart-video" canvas-id="mychart-video" ec="{{ec}}"></ec-canvas> 
+      </view>
+      <view class='count title flexb' style='border-left: 8rpx solid {{ themeColor }}'>
+        <view class='c4d'>
+          内容转化效率
+        </view>
+      </view>
+      <view class="canvas-line"  style='height:580rpx;'>
+        <ec-canvas id="mychart-content" canvas-id="mychart-content" ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>

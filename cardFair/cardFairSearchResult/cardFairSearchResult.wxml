@@ -1,0 +1,83 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1}}" />
+
+        <block wx:else>
+            <view class="input-layout flexc">
+                <input type="text" class="input fr26" bindfocus="bindHideSlider" value="{{ inputValue }}" bindinput="bindInput" placeholder="请输入企业名称 / 行业 / 服务 / 地域等...">
+                    <view class="iconfont icon-sousuo fr34 cf" bindtap="bindSearch"></view>
+                </input>
+            </view>
+
+            <view class="tabs-layout">
+                <view class="flex tabs bcf">
+                    <view class="flex1 tab fr28 c3 active" data-mode="indus" bindtap="bindMenuClick">
+                        {{ indusIndex[0] === -1 ? "全部行业" : indusIndex[1] === -1 ? indus[indusIndex[0]].pindus_name : indus[indusIndex[0]].cindus_name[indusIndex[1]] }}
+                        <text class="iconfont icon-xiala1 fr16"></text>
+                    </view>
+                    <view class="flex1 tab fr28 c3 active" data-mode="area" bindtap="bindMenuClick">
+                        {{ areaIndex[0] === -1 ? "全部区域" : areaIndex[1] === -1 ? area[areaIndex[0]].province : area[areaIndex[0]].city[areaIndex[1]] }}
+                        <text class="iconfont icon-xiala1 fr16"></text>
+                    </view>
+                    <view class="flex1 tab fr28 c3 active" bindtap="bindHideSlider">
+                        <picker bindchange="bindSortChange" value="{{ sortIndex }}" range="{{ sortMode }}" range-key="label">
+                            {{ sortMode[sortIndex].label }}
+                            <text class="iconfont icon-xiala1 fr16"></text>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="slider flex {{ sliderShow ? '' : sliderNone ? 'slider-hide'+' '+'slider-none' : 'slider-hide' }}">
+                    <block wx:if="{{ sliderMode === 'indus' ? (indus && indus.length > 0) : (area && area.length > 0) }}">
+                        <view class="slider-left flex1">
+                            <view class="slider-item fr28 {{ currentIndex[0] == -1 ? 'slider-item-current' : 'c3' }}" data-index="-1" bindtap="bindTabsMenuClick">{{ sliderMode === 'indus' ? "全部行业" : "全部区域" }}</view>
+                            <view class="slider-item fr28 {{ currentIndex[0] == index ? 'slider-item-current' : 'c3' }}" wx:for="{{ sliderMode === 'indus' ? indus : area }}" wx:key="{{ index }}" data-index="{{ index }}" bindtap="bindTabsMenuClick">{{ sliderMode === 'indus' ? item.pindus_name : item.province }}</view>
+                        </view>
+                        <view class="slider-right flex1">
+                            <view class="slider-item fr28 {{ currentIndex[1] == -1 ? 'slider-item-current2' : 'c3' }}" data-index="-1" bindtap="bindTabsMenuClick2">全部</view>
+                            <view class="slider-item fr28 {{ currentIndex[1] == index ? 'slider-item-current2' : 'c3' }}" wx:for="{{ sliderMode === 'indus' ? indus[currentIndex[0]].cindus_name : area[currentIndex[0]].city }}" wx:key="{{ index }}" data-index="{{ index }}" bindtap="bindTabsMenuClick2">{{ item }}</view>
+                        </view>
+                    </block>
+                    <view wx:else class="slider-loading-layout flexc flex1">
+                        <image class="slider-loading" src="/imgs/loading.gif"></image>
+                    </view>
+                </view>
+            </view>
+
+            <template is="initShow" wx:if="{{ loadStyle != 'loading' && list.length < 1 }}" data="{{ showStyle: 2, showNoMsg:'没有检索到相关名片',showImg:'https://facing-1256908372.file.myqcloud.com//image/20181224/e68c85c15c03dfc3.png'}}"/>
+
+            <block wx:else>
+                <view wx:for="{{ list }}" wx:key="{{ item.id }}" class="card bcf" data-cardid="{{ item.card_id }}" data-beid="{{ item.beid }}" bindtap="toDetail">
+                    <image mode="aspectFill" src="{{ ShowImg.cropImgWH(item.card.avatar_url, 140, 140) }}" class="avatar"></image>
+                    <view class="name-layout flex">
+                        <view class="name fr40 c40 bold">{{ item.card.name }}</view>
+                        <view wx:if="{{ item.member.gender && item.member.gender != 0 }}" class="iconfont fr18 cf flexc {{ item.member.gender == 1 ? 'male icon-nan1' : 'female icon-nvsheng' }}"></view>
+                    </view>
+                    <view class="job fr26 c-fairMain">{{ item.card.position }}</view>
+                    <view class="company fr26 c3">{{ item.company }}</view>
+                    <view class="tags fr30 bold">{{ item.tags }}</view>
+                    <view class="flex fr24 cb3 info">
+                        <view><text class="fr24 iconfont icon-yanjing"></text>{{ item.page_views }}</view>
+                        <view><text class="fr24 iconfont icon-favorite"></text>{{ item.collection_num }}</view>
+                    </view>
+                </view>
+
+
+                <block wx:if="{{ loadStyle === 'loadOver' }}">
+                    <view class="fr24 c9 flexc bottomHolder">行业精英的互动平台，欢迎您的加入</view>
+                </block>
+
+                <block wx:else>
+                    <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+                </block>
+            </block>
+            <view wx:if="{{ sliderShow }}" class="slider-layout-cover" bindtap="bindHideSlider"></view>
+
+        </block>
+
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

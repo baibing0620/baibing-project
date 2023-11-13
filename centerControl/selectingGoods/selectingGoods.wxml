@@ -1,0 +1,47 @@
+<include src="../../comm/comm.wxml" />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg"></wxs>
+<wxs module="checkHas">
+    function isNan(msg){
+        if(msg.length == 0){
+            return true
+        }else{
+            return false
+        }
+    }
+    module.exports = { 
+        isNan: isNan
+    } 
+</wxs>
+<view class="search-box flexc w100  bc-1F94FD" >
+        <view class="search-goods flexb fr24" catchtap="search">
+            <input style="display: block;color:#fff" class='flex1 cf' placeholder='请输入商品名称' confirm-type="搜索" placeholder-style='color: rgba(255,255,255,0.5)' bindconfirm="search" bindinput="bindKeywords" />
+            <icon type="search" size="15" color="rgba(255,255,255,0.7)" />
+        </view>
+    </view>
+<template is="initShow" data="{{showStyle:showStyle, showNoMsg: '暂无相关商品', showImg: 'https://facing-1256908372.file.myqcloud.com//image/20201127/d54845534cdcc819.png'}}" wx:if="{{showStyle!=1}}" />
+<block wx:else>
+    <view class="goodsList" wx:for="{{goodsList}}" wx:key="{{item.id}}">
+        <!-- <checkbox></checkbox> -->
+        <view class="biggerBox" catchtap="handleChangeSelect" data-index="{{index}}">
+                <view class='checkBox {{ item.isSelected ? "checkBox-selected icon-gouxuan2" : "" }} iconfont flexc'></view>
+        </view>
+        <view class="flexb" style="width: 100%" bindtap="gotoPriview" data-goodId="{{item.id}}">
+                <image src="{{ShowImg.cropImgWH(item.thumb_url, 171, 171)}}" mode="scaleToFill" style="width: 171rpx; height: 171rpx; position: relative;border-radius: 4rpx;">
+                        <view class="flag fr22 cf flexc" wx:if="{{item.isNewGoods}}">
+                               新品
+                        </view>
+                    </image>
+                    <view class="desWords">
+                            <view class="desWordsTitle ellipsis2">{{item.title}}</view>
+                            <view class="desWordsType"><view class="c9 mb10" wx:if="{{item.hasOption == 1}}">多规格</view><text style="color: #999">类别：</text>{{item.pcate}}{{item.ccateId && item.ccateId != '0'?'>>'+item.ccateName :''}}</view>
+                    </view>
+                    <view class="preview">
+                        <view class="previewContent"><text class="iconfont icon-yulanmoren fr30" style="color: #ff9b1f; vertical-align:-2rpx;"></text> 预览</view>
+                    </view>
+        </view>
+    </view>
+    <template is="moreData" data="{{loadStyle: loadStyle, loadOverText: '已显示全部商品'}}" />
+</block>
+<button class="saveBtn {{checkHas.isNan(addGoods) ? 'bgBtnDis' : 'bgBtn'}}" type="primary" catchtap="gotoEdit" disabled="{{checkHas.isNan(addGoods)}}">保存(已选择{{addGoods.length ? addGoods.length : 0}}件商品)</button>
+<component-messageToast></component-messageToast>

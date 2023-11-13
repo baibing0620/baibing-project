@@ -1,0 +1,97 @@
+<!--pages/editPoolDetail/editPoolDetail.wxml-->
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src='../../template/initShow/initShow.wxml' />
+<view class="addCustomerPool">
+  <view class="add_must p20">
+    <view class="name flexB">
+      <view><text class="fr34 B0">客户名称</text><text class="fr34 c-red" style="line-height: 21rpx;">*</text></view>
+      <view>
+        <input class="fr34" style="text-align: right;" value="{{pool.name}}" bindinput="inputNameValue" placeholder="请输入姓名"></input>
+      </view>
+    </view>
+    <view class="tpl flexB">
+      <view><text class="fr34 B0">联系电话</text><text class="fr34 c-red" style="line-height: 21rpx;">*</text></view>
+      <view>
+        <input class="fr34" style="text-align: right;" value="{{pool.tpl}}" bindinput="inputTplValue" placeholder="请输入联系电话"></input>
+      </view>
+    </view>
+    <view class="source flexB">
+      <view><text class="fr34 B0">客户来源</text><text class="fr34 c-red" style="line-height: 21rpx;">*</text></view>
+      <view>
+        <view class="section">
+          <picker bindchange="bindSourceChange" value="{{index}}" range="{{poolSource}}">
+            <view class="picker fr34">
+              {{poolSource[sourceIndex]||pool.source||'选择来源'}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class="grade flexB">
+      <view><text class="fr34 B0">客户等级</text><text class="fr34 c-red" style="line-height: 21rpx;">*</text></view>
+      <view>
+        <view class="section">
+          <picker bindchange="bindGradeChange" value="{{index}}" range="{{poolGrade}}">
+            <view class="picker fr34">
+              {{poolGrade[gradeIndex]||pool.grade||'选择等级'}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="add_other p20">
+    <view class="name flexB">
+      <view><text class="fr34 B0">公司名称</text></view>
+      <view>
+        <input class="fr34" style="text-align: right;" value="{{pool.compony}}" bindinput="inputComponyValue" placeholder="请输入公司名称"></input>
+      </view>
+    </view>
+    <view class="tpl flexB">
+      <view><text class="fr34 B0">微信号</text></view>
+      <view>
+        <input class="fr34" style="text-align: right;" value="{{pool.wxchat}}" bindinput="inputWxchatValue" placeholder="请输入微信号"></input>
+      </view>
+    </view>
+    <view class="source flexB">
+      <view><text class="fr34 B0">年龄</text></view>
+      <view>
+        <view class="section">
+          <picker bindchange="bindAgeChange" value="{{index}}" range="{{poolAge}}">
+            <view class="picker fr34">
+              {{poolAge[ageIndex]||pool.age||'选择年龄'}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class="grade flexB">
+      <view><text class="fr34 B0">性别</text></view>
+      <view>
+        <view class="section">
+          <picker bindchange="bindSexChange" value="{{index}}" range="{{poolSex}}">
+            <view class="picker fr34">
+              {{poolSex[sexIndex]||pool.sex||'选择性别'}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class="grade flexB">
+      <view><text class="fr34 B0">职业</text></view>
+      <view>
+        <view class="section">
+          <picker bindchange="bindJobChange" value="{{index}}" range="{{poolJob}}">
+            <view class="picker fr34">
+              {{poolJob[jobIndex]||pool.job||'选择职业'}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="tac cf bcy save" bindtap="save">保存</view>
+</view>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

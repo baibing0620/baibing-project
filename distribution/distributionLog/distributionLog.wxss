@@ -1,0 +1,115 @@
+page {
+    background-color: #F7F7F7;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20rpx;
+}
+
+.fr24, .fr26, .fr28, .fr40 {
+    line-height: 100%;
+}
+
+.relative {
+    position: relative;
+}
+
+.item {
+    width: 690rpx;
+    overflow: hidden;
+    box-shadow: 0 0 15rpx 0 rgba(153, 153, 153, 0.1);
+    border-radius: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+.item:last-child {
+    margin-bottom: 0;
+}
+
+.top {
+    box-sizing: border-box;
+    height: 104rpx;
+    border-bottom: 1rpx solid #F4F4F4;
+    padding: 0 30rpx;
+}
+
+.avatar {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    margin-right: 20rpx;
+    overflow: hidden;
+}
+
+.middle {
+    height: 184rpx;
+    padding: 0 70rpx;
+}
+
+.middle>.flexcColumn:first-child {
+    align-items: flex-start;
+}
+
+.middle>.flexcColumn:last-child {
+    align-items: flex-end;
+}
+
+.middle>.flexcColumn:first-child>.bold, .middle>.flexcColumn:last-child>.bold {
+    margin-bottom: 30rpx;
+}
+
+.arrow, .arrow-back {
+    height: 2rpx;
+    width: 160rpx;
+    background-color: #bfbfbf;
+    position: relative;
+}
+
+.arrow::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 14rpx solid #CDCDCD;
+    border-top: 7rpx solid transparent;
+    border-bottom: 7rpx solid transparent;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(100%, -50%);
+}
+
+.arrow-back::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-right: 14rpx solid #CDCDCD;
+    border-top: 7rpx solid transparent;
+    border-bottom: 7rpx solid transparent;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-100%, -50%);
+}
+
+.level {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 50%;
+    top: -12rpx;
+    transform: translate(-50%, -100%);
+}
+
+.bottom {
+    box-sizing: border-box;
+    height: 84rpx;
+    border-top: 1rpx solid #F4F4F4;
+    padding: 0 30rpx;
+}
+
+.cred {
+    color: #ff341f;
+}

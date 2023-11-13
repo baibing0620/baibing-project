@@ -1,0 +1,22 @@
+<view class="item flex active" data-style='1' catchtap='changeStyle'>
+    <image src="https://facing-1256908372.file.myqcloud.com//image/20181105/32a1dc5eacc19a47.png?imageView2/2/w/300"></image>
+    <view class="info fr24 c9">
+        <view class="title fr36 c40 bold">长屏视频</view>
+        适合个人个性视频展示
+    </view>
+    <view class="checkBox iconfont {{ style == 1 ? 'icon-gouxuan4' : '' }} flexc"></view>
+</view>
+<view class="item flex active" data-style='2' catchtap='changeStyle'>
+    <image src="https://facing-1256908372.file.myqcloud.com//image/20181105/cbe4dfb73a6cd41d.png?imageView2/2/w/300"></image>
+    <view class="nfo fr24 c9">
+        <view class="title fr36 c40 bold">宽屏视频</view>
+        适合企业宣传片视频展示
+    </view> 
+    <view class="checkBox iconfont {{ style == 2 ? 'icon-gouxuan4' : '' }} flexc"></view>
+</view>
+<view class="bottom fr24 cb3">
+    <text class="c4d">温馨提示：</text>视频样式的不同，会导致上传封面图尺寸的不通，请选择一种样式后，并不要随意修改
+</view>
+
+<view class="button flexc fr32 cf" catchtap='setCardVideoConfig'>确认选择</view>
+<component-messageToast></component-messageToast>

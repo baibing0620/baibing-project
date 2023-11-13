@@ -1,0 +1,49 @@
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+<view class="container w100">
+  <view class="header">
+    <view class="level-list">
+      <scroll-view scroll-x="true" style="width: 100%;height:180rpx" class="level-scroll">
+        <view wx:for="{{levelData.levelAll}}" wx-for:index="{{index}}" wx:key="id" class="level-item">
+          <view class="circle {{ item.active ? 'active-circle' : '' }}">
+            <progress wx:if="{{index != levelData.levelAll.length - 1}}" class="changtiao" percent="{{ item.percent }}" activeColor="#fff" backgroundColor="#D6A44E"  stroke-width="3" />
+            <text wx:if="{{item.active}}" class="iconfont icon-duihao3"></text>
+          </view>
+          <view class="fr26 ellipsis1">{{ item.level_name }}</view>
+          <view class="fr26">{{ item.level_start }}</view>
+        </view>
+      </scroll-view> 
+    </view>
+  </view>
+  
+  <view class="data-box">
+    <view class="data-detail">
+      <view class="data-left">
+        <view class="fr60 c3">{{ levelData.levelGrow }}</view>
+        <view class="fr30 c6">当前{{grow_name}}</view>
+      </view>
+      <view class="data-right">
+        <view> 固定规则获取<text>{{ levelData.fixRuleTotal }}</text></view>
+        <!-- <view>购物综合评级<text>0</text></view> -->
+        <view>动态规则获取<text>{{ levelData.dynamicRuleTotal }}</text></view>
+        <!-- <view>其他规则获取<text>0</text></view> -->
+      </view>
+    </view>
+    <view class="time-box">
+    
+      计算周期：{{ levelData.cycle }} <text class="iconfont icon-tanhao"></text>
+    </view>
+  </view>
+
+  <view class="growth-box">
+    <view class="growth-title">{{grow_name}}获取</view>
+    <view class="buy-box" wx:for="{{ levelData.vipGrowLogConfig.fix_rule }}">
+      <view class="c6 fr26"><text class="iconfont icon-shangpin5"></text>{{item.info}}</view>
+    </view>
+    <view class="buy-box" wx:for="{{ levelData.vipGrowLogConfig.dynamic_rule }}">
+      <view class="c6 fr26"><text class="iconfont icon-shangpin5"></text>{{item.info}}</view>
+    </view>
+  </view>
+</view>
+
+<component-messageToast></component-messageToast>

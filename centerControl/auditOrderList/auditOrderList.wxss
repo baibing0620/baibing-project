@@ -1,0 +1,98 @@
+
+page {
+	padding-bottom: 50rpx;
+}
+
+.item {
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20rpx;
+    padding: 0 30rpx;
+    background-color: #fff;
+}
+
+/* .item:first-child {
+    margin-top: 20rpx;
+} */
+
+/* .item:last-child {
+    margin-bottom: 0;
+} */
+
+.info-top {
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    padding: 30rpx 0;
+}
+
+.info-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-bottom {
+    border-bottom: 1rpx solid #EEEEEE;
+    box-sizing: border-box;
+    padding: 30rpx 0;
+    line-height: 1;
+}
+
+.labels {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    /* width: 100%; */
+    /* line-height: 44rpx; */
+    /* text-align-last: justify; */
+    position: relative;
+    margin-bottom: 30rpx;
+    font-size: 30rpx;
+    font-weight: 500;
+    color: #999999;
+}
+
+.contents {
+    box-sizing: border-box;
+    /* padding-left: 22rpx; */
+    /* max-width: 500rpx; */
+}
+
+.content {
+    margin-bottom: 30rpx;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    font-size: 30rpx;
+    color: #333333;
+    font-weight: 500;
+    text-align: right;
+}
+
+.content-address {
+    /* white-space: normal; */
+    max-width: 500rpx;
+}
+
+.label:last-child, .content:last-child {
+    margin-bottom: 0;
+}
+
+/* .label::after {
+    content: "：";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(100%, -50%);
+} */
+
+.info-detail {
+    display: flex;
+    align-items: center;
+    font-size: 30rpx;
+    font-weight: 500;
+    color: #F6271D;
+}

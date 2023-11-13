@@ -1,0 +1,113 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+    <component-toHomePage style="position: fixed; top: 0; z-index: 999" wx:if='{{ isFromShare }}'></component-toHomePage>
+
+    <button class='container w100 clean-btn' formType="submit">
+        <!-- <view wx:elif='{{ isFromNotice && !cardInfo }}' class="fr28 cf card-list bold" style="color: #fd9a33" bindtap="toCardList">
+            <text class="iconfont icon-fanhui1 fr26"></text>
+            返回名片列表
+        </view> -->
+        <template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+        <view wx:else class="layout flexColumn flex1">
+            <swiper autoplay="{{swiperAutoplay}}" interval="{{swiperInterval}}" wx:if="{{ swiper }}" vertical="true" class='swiper flex1' current-item-id='{{ id }}' bindchange='hasChange' bindanimationfinish='changeVideo'>
+                <block wx:for='{{ list }}' wx:key='{{ item.id }}' wx:if='{{ item.id }}'>
+                    <swiper-item item-id='{{ item.id }}'>
+                        <view class='item flexcColumn'>
+                            <block wx:if="{{ item.address && video }}">
+                                <view hidden='{{ showCover }}' class='flexcColumn flex1'>
+                                    <video
+                                        id="myVideo"
+                                        class='video'
+                                        src="{{ item.address }}"
+                                        catchtap='hideShare'
+                                        autoplay
+                                        style='height: {{videoheight}}px; width: 750rpx;'
+                                        bindloadedmetadata='metaVideo'
+                                        binderror='onVideoEndOrError'>
+                                    </video>
+                                </view>
+                            </block>
+                            <view class='videoImageBox' wx:else>
+                                <image class='videoImageLoading' src='/imgs/loading.gif'></image>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view wx:if="{{ !beid }}" class="operation">
+                <view class="operation-item">
+                    <view class="item-icon" catchtap='clickComment'>
+                        <text class='iconfont item-iconfont icon-pinglun2'></text>
+                    </view>
+                    <view class="item-text">{{ commentTotal }}</view>
+                </view>
+                <view class="operation-item">
+                    <view class='item-icon {{ hasLiked ? "hasLiked" : "" }}' catchtap='clickLike'>
+                        <text class='iconfont item-iconfont icon-xin'></text>
+                    </view>
+                    <view class="item-text">{{ likeNum }}</view>
+                </view>
+                <view class="operation-item">
+                    <view class="item-icon" catchtap='showShare'>
+                        <text class='iconfont item-iconfont icon-fenxiang1'></text>
+                    </view>
+                    <view class="item-text">{{ forward }}</view>
+                </view>
+            </view>
+            <view wx:if="{{ goodsInfo.id }}" class="video-goods" catchtap="toGoodsDetails">
+                <view>
+                    <image style="width: 100rpx; height: 100rpx;" mode="scaleToFill" src="{{goodsInfo.thumb_url}}"></image>
+                </view>
+                <view class="video-goods-content">
+                    <view class="goods-name ellipsis2">{{goodsInfo.title}}</view>
+                    <view class="goods-price">¥{{goodsInfo.productprice}}</view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{ !beid }}" class='shareView flexc {{ showShare ? "" : "hideShare" }}'>
+            <button class='shareItem flexcColumn fr26 c6 active' open-type="share">
+                <image src='https://facing-1256908372.file.myqcloud.com//image/20181108/55b5f2dc124171a2.png?imageView2/2/w/600'></image>
+                微信好友
+            </button>
+            <view class='shareItem flexcColumn fr26 c6 active' catchtap='previewImage'>
+                <image src='https://facing-1256908372.file.myqcloud.com//image/20181019/3c51955b4d7fa3bd.png?imageView2/2/w/600'></image>
+                海报
+            </view>
+        </view>
+        <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='coverHide'>
+            <component-poster src='{{ image }}' themeColor='{{ extConfig.themeColor }}' bind:close='coverHide'></component-poster>
+        </view>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>
+<view scroll-y="{{true}}" class="comment-dialog {{comment? '' : 'comment-show'}}">
+    <view class="comment-dialog-head">
+        <view>全部评论{{total}}条</view>
+        <view catchtap='closeComment' class="iconfont icon-cha2"></view>
+    </view>
+    <scroll-view scroll-y="true" style="height: {{commentHeight}}px" bindscrolltolower="getMore">
+        <view wx:for="{{commentList}}" class="comment-info">
+            <view style="padding-left: 30rpx">
+                <image style="width: 70rpx; height: 70rpx;border-radius: 50%" mode="aspectFill" src="{{item.userInfo.avatar}}"></image>
+            </view>
+            <view class="comment-content">
+                <view class="comment-nickname">{{item.userInfo.nickname}}</view>
+                <view class="comment-comment">{{item.comment}}</view>
+                <view class="comment-time">{{item.create_time}}</view>
+            </view>
+        </view>
+        <view wx:if="{{total == 0}}" style="text-align: center;padding-top: 50px;color:#999999">
+            暂无评论
+        </view>
+    </scroll-view>
+    <view class="comment-bottom">
+        <view class="search-goods flexb fr24">
+            <text class='iconfont icon-xie'></text>
+            <input value="{{userComment}}" bindinput="setComment" focus style="display: block;color:#333" class='flex1 cf' placeholder='献上你的热评一条..' placeholder-class='cf5' />
+        </view>
+        <button catchtap='addShortVideoComment' style="background-color: #FF764D;font-size: 28rpx;margin: 0 0 0 20rpx;color: #FFFFFF">发表</button>
+    </view>
+</view>

@@ -1,0 +1,171 @@
+<wxs module="formatTag">
+    function showTag(type) {
+        type = parseInt(type)
+        switch (type) {
+            case 1:
+                return '#59d14c'
+                break;
+            case 2:
+                return '#46d7c8'
+                break;
+            case 3:
+                return '#d1c94c'
+            case 4:
+                return '#5c7df8'
+            case 5:
+                return '#ff69ac'
+            default:
+                return '#ff9b1f'
+        }
+
+    }
+    module.exports = {
+        showTag: showTag 
+    }
+</wxs>
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml" />
+<view class='info-card' style='background-color: {{ extConfig.navigationBarBC }}'>
+    <view class='border-bottom'>
+        <view class='info-layout relative flex'>
+            <view wx:if="{{userInfo.gender &&userInfo.gender != ' 0'}}" class='flexc' style="background:#fff;width:106rpx;height:106rpx;border-radius:50%;border:3rpx solid {{userInfo.gender == 1?'#4bd7ff':userInfo.gender == 2?'#ff9ccb ':''}}">
+                <view class="flexc iconfont {{userInfo.gender == 1?'icon-nan':userInfo.gender == 2?'icon-nv':''}} cf fr22" style="position:absolute;left:4rpx;bottom:10rpx; width:24rpx;height:24rpx;border-radius:50%;border:3rpx solid #fff;background:{{userInfo.gender == 1?'#4bd7ff':userInfo.gender == 2?'#ff9ccb ':''}}"></view>
+                <image catchtap='previewImg' data-preview-url="{{ userInfo.member.avatar }}" class='avatar' src='{{ ShowImg.cropImgWH(userInfo.member.avatar, 100, 100) }}'></image>
+            </view>
+            <view wx:else>
+                <image class='avatar' src='{{ ShowImg.cropImgWH(userInfo.member.avatar, 100, 100) }}'></image>
+            </view>
+            <view class='info'>
+                <view class='nickname fr36 cf ellipsis2'>
+                    {{ userInfo.member.nickname || '--' }}
+                </view>
+                <view wx:if="{{ userInfo.remark }}" style='margin-top:24rpx;' class='fr24 white70'>
+                    {{ userInfo.remark }}
+                </view>
+            </view>
+            <picker bindchange="bindPickerChange" value="{{customerStatusIndex}}" range="{{status}}" range-key="user_status">
+                <view class='mark fr26 flex' style='color: {{ extConfig.themeColor }}'>
+                    {{ customerStatusIndex == -1 ? '请选择' : status[customerStatusIndex].user_status }}
+                    <i class='iconfont icon-xiala1'></i>
+                </view>
+            </picker>
+        </view> 
+        <view class='tags' bindtap='{{ touristMode ? "" : "navTag" }}'>
+            <view wx:for='{{userInfo.tags}}' wx:key='index' class='fr24 tag' style="background:{{formatTag.showTag(item.type)}}">
+                {{ item.name }}
+            </view>
+            
+            <view style='text-align:right' class='tag-placeholder fr28 flex1'>
+                + 添加标签
+            </view>
+        </view>
+        <view style='display:flex;justify-content:flex-end;margin:10rpx 0 20rpx'></view>
+    </view>
+    <view class='detail relative'>
+        <view class='fr26 white70 flex'>
+            <i class='iconfont icon-weixin fr26' style='color: {{ extConfig.themeColor }}'></i>
+            <view class='name'>{{ userInfo.name ||'--'}}</view>
+            <i style='margin-left:10rpx;' class='fr24 white40'>( {{userInfo.gender?userInfo.gender == 1?'男 | ':userInfo.gender == 2?'女 | ':'保密 | ':''}}{{cityArray[userInfo.age]}} )</i>
+        </view>
+        <view class='fr26 white70' bindtap="makePhoneCall">
+            <i class='iconfont icon-shouji1 fr26' style='color: {{ extConfig.themeColor }}'></i>
+            {{ userInfo.phone ||'--'}}
+        </view>
+        <view class='fr26 white70'>
+            <i class='iconfont icon-gongsi2 fr26' style='color: {{ extConfig.themeColor }}'></i>
+            {{ userInfo.company ||'--'}}
+        </view>
+        <view class='fr26 white70' wx:if="{{ userInfo.birthday != '0000-00-00' }}">
+            <i class='iconfont icon-birthday fr26' style='color: {{ extConfig.themeColor }}'></i>
+            {{ userInfo.birthday ||'--'}}
+        </view>
+        <view class='fr26 white70'>
+            <i class='iconfont icon-youxiang fr26' style='color: {{ extConfig.themeColor }}'></i>
+            {{ userInfo.email ||'--'}}
+        </view>
+        <view wx:if="{{ !touristMode }}" class='fr26 edit flex' style='color: {{ extConfig.themeColor }}' catchtap='toEdit'>
+            修改
+            <i class='iconfont icon-xiala1'></i>
+        </view>
+        <canvas id='canvas' canvas-id='canvas' hidden='{{ hideCanvas }}'></canvas>
+    </view>
+</view>
+<component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+<view hidden='{{ !(switchTab.currentIndex == 0 || switchTab.currentIndex == 1) }}' class='dynamics-user relative list-common'>
+    <view class='dynamics-user-layout' style='border-color: {{ extConfig.themeColor }}'>
+        <view wx:for='{{ switchTab.currentIndex == 0 ? crmUserDynamic.data : crmFollowList.data }}' wx:key="index" class='dynamics-user-item'>
+            <view class='dynamics-user-time fr24 c9'>
+                <view class='dot' style='background-color: {{ extConfig.themeColor }}'>
+                    <view style='box-shadow: 0 0 0 3rpx {{ extConfig.themeColor }};'></view>
+                </view>
+                {{ item.period_end_time || item.create_time + ( item.fromCard && item.from_card != 0 ? " < -- by: " + item.fromCard.name + "-- >" : "") }}
+            </view>
+            <view wx:if="{{ switchTab.currentIndex == 1 && item.is_admin_follow == 1 }}" class="fr28 c3 mb20 bold">公司给你推进了一条跟进消息</view>
+            <view><text class="c9 fr28"wx:if="{{ switchTab.currentIndex == 1 && item.is_admin_follow == 1 }}" >{{item.informationInfo.cardInfo.name}}添加的客户信息：</text> <text class='dynamics-user-content fr28 c3'>{{ item.content || item.detail }}</text></view>
+           
+        </view>
+    </view>
+    <view wx:if='{{ (switchTab.currentIndex == 0 && crmUserDynamic.data.length < 1) || (switchTab.currentIndex == 1 && crmFollowList.data.length < 1) }}' class='fr24 c9' style='text-align: center; margin-top: 30%'>
+        暂无数据
+    </view>
+</view>
+<view class='suspension-box flexcColumn'>
+    <view style='color:{{extConfig.themeColor}}' class='suspension-item mb20 iconfont icon-lianxi fr34 ' bindtap='makePhoneCall' wx:if="{{userInfo.phone}}">
+        <view style='color:{{diyConfig.themeColor}}' class='fr22 fw500'>电话</view>
+    </view>
+</view>
+<view class='holder'></view>
+<form bindsubmit='addCrmUserFollowList'>
+    <view class='input-view {{ showAddFollow ? "" : "input-view-hide" }}'>
+        <view class='input-view-title flexc'>添加跟进</view>
+        <view class='input-view-layout'>
+            <textarea name='content' class='c3 fr26 font-normal' value='{{ content }}' placeholder-class='cc' bindinput="contentInput" placeholder='请输入...'></textarea>
+        </view>
+        <view class="input-view-more flexb">
+            <view class="input-view-more-lebal">
+                <view class="fr30 c3">指定时间提醒我</view>
+                <view wx:if="{{ remind }}" style="margin-top: 26rpx;" class="fr24 c9">跟进事件将在<text style="color: {{ extConfig.themeColor }}">{{ between }}</text>提醒</view>
+            </view>
+            <switch bindchange="switchChange" name="remind" color="#fd9a33"/>
+        </view>
+        <view class="input-view-picker {{ remind ? '' : 'input-view-picker-hide' }} flexb">
+            <picker mode="date" value="{{ inputDate }}" start="{{ dateToday }}" bindchange="bindDateChange" name="date">
+                <view class="picker fr26 c3 flexb">
+                    {{ inputDate }}
+                    <text class="iconfont icon-xiala1 fr18 cc"></text>
+                </view>
+            </picker>
+            <picker mode="time" value="{{ inputTime }}" start="{{ timeStart }}" bindchange="bindTimeChange" name="time">
+                <view class="picker fr26 c3 flexb">
+                    {{ inputTime }}
+                    <text class="iconfont icon-xiala1 fr18 cc"></text>
+                </view>
+            </picker>
+        </view>
+        <button class='input-view-btn cf fr26' style='background-color: {{ contentLength > 0 ? extConfig.themeColor : "#ccc" }}' form-type='submit'>
+            保存
+        </button> 
+    </view>
+    <view wx:if='{{ showAddFollow }}' class='input-view-cover' catchtap='hideAddFollow'></view>
+</form>
+<view class="btns flex cf fr30 {{isIphoneX?'fix-iphonex-button':''}}" style='background-color: {{ extConfig.themeColor }}'>
+    <view wx:if="{{ !touristMode }}" class='flexc flex1' catchtap='showAddFollow'>
+        <i class='iconfont icon-tianjiashipinhechupintujiahao fr30'></i>
+        添加跟进
+    </view>
+    <view class='flexc flex1' catchtap='toAI'>
+        <i class='iconfont icon-shuju1 fr30'></i>
+        AI分析
+    </view>
+    <view wx:if="{{ !touristMode }}" class='flexc flex1' catchtap='toChat'>
+        <i class='iconfont icon-sixin fr30'></i>
+        私信
+        <view class='msg-total' wx:if='{{ userInfo.notReadMsgTotal && userInfo.notReadMsgTotal != 0 }}'>
+            {{ userInfo.notReadMsgTotal }}
+        </view>
+    </view>
+</view>
+ <view style='height:{{isIphoneX?"68rpx":""}}'></view>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

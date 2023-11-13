@@ -1,0 +1,69 @@
+page{
+  background-color: #f7f7f7;
+}
+.container{
+    padding-top: 108rpx;
+}
+.order-tab{
+    position: fixed;
+    top: 0;
+    background: white;
+    height: 90rpx;
+     line-height: 90rpx; 
+    text-align: center;
+    box-shadow: 0 0 10rpx rgba(0,0,0,0.16);
+    z-index: 10;
+}
+.active-tab{
+    box-sizing: border-box;
+    padding-bottom: 16rpx;
+    border-bottom: 3rpx solid #ee4130;
+    color: #ee4130;
+    font-size: 28rpx;
+}
+.order-item{
+    background: white;
+    border-bottom: 1rpx solid #e2e2e2;
+    border-top: 1rpx solid #e2e2e2;
+    margin-bottom: 20rpx;
+}
+.item-title{
+    height: 80rpx;
+    line-height: 80rpx;
+    margin: 0 30rpx;  
+}
+.order-detail{
+    padding: 30rpx;
+    border-top: 1rpx solid #eaeaea;
+}
+
+.order-detail .order-pic{
+    display: block;
+    width: 160rpx;
+    height: 160rpx;   
+}
+
+.order-detail .order-text{
+    margin-left: 20rpx;
+    height: 160rpx;  
+}
+.order-goods-title{
+   word-break:break-all;
+    line-height: 32rpx;
+    max-height: 64rpx;
+}
+
+.order-item .item-total{
+    margin: 0 20rpx;
+    line-height: 40rpx;
+    padding:20rpx 0;
+    border-top: 1rpx solid #eaeaea;
+}
+
+.cf7{
+    color: #f74c31;
+}
+
+
+
+

@@ -1,0 +1,26 @@
+function showBg(type) {
+    type = parseInt(type);
+    switch (type) {
+        case 1:
+            return '#59d14c'
+            break;
+        case 2:
+            return '#46d7c8'
+            break;
+        case 3:
+            return '#d1c94c'
+            break;
+        case 4:
+            return '#5c7df8'
+            break;
+        case 5:
+            return '#ff69ac'
+            break;
+        default:
+            return '#ff9b1f'
+    }
+
+}
+module.exports = {
+    showBg: showBg
+}

@@ -1,0 +1,114 @@
+page {
+  background: #fff;
+  padding-bottom: 100rpx;
+}
+
+.continer {
+  padding: 30rpx;
+}
+
+.form-picker {
+  width: 100%;
+  height: 80rpx;
+  margin-top: 30rpx;
+  border-radius: 4rpx;
+  padding: 0 30rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  box-sizing: border-box;
+}
+
+input {
+  height: 76rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  padding: 0 30rpx;
+  border-radius: 4rpx;
+}
+
+.input-placeholder {
+  color: #b3b3b3;
+}
+
+.textarea-placeholder {
+  color: #b3b3b3;
+}
+.textarea-view {
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+  padding: 19rpx 30rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  border-radius: 4rpx;
+}
+
+.textarea-view>textarea {
+  width: 100%;
+  color: #333;
+  line-height: 46rpx;
+  font-size: 28rpx;
+}
+
+.font-normal {
+  font-weight: normal;
+}
+.fr24{
+  line-height: 100%;
+}
+.message-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.btn {
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+    background-color: #ff9b1f;
+}
+.fr24{
+  line-height: 100%;
+}
+.tag-message{
+  background: #fcfcfc;
+  border-width: 0 1rpx 1rpx 1rpx;
+  border-style: solid;
+  border-color: #ebebeb;
+  padding: 36rpx 30rpx;
+}
+.c-main{
+    color: #ff9b1f;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.tag {
+  height: 35rpx;
+  line-height: 35rpx;
+  padding: 0 10rpx;
+  position: relative;
+  margin-right: 14rpx;
+  margin-bottom: 14rpx;
+  border-radius: 2rpx;
+  color: #fff;
+}
+
+.type{
+     width: 330rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+     background-color: #f7f7f7;
+     text-align: center;
+     border:1rpx solid #ebebeb;
+}
+.moduleActive{
+    background: #ff9b1f;
+    color: #fff;
+    border: none;
+}
+button[disabled]:not([type]){
+    background: #ff9b1f;
+}

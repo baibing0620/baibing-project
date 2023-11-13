@@ -1,0 +1,41 @@
+@import '/iconfont/iconfont.wxss';
+@import '/comm/base.wxss';
+.card {
+    width: 690rpx;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border-radius: 20rpx;
+    box-shadow: 2rpx 2rpx 12rpx 0 rgba(3, 10, 19, 0.1);
+    position: relative;
+}
+
+.card-name {
+    line-height: 60rpx;
+    max-width: 394rpx;
+}
+
+.card-position {
+    line-height: 48rpx;
+    max-width: 394rpx;
+}
+
+.card-info-icon {
+    width: 28rpx;
+    flex-shrink: 0;
+}
+
+.card-info-title, .card-info-icon {
+    line-height: 44rpx;
+}
+
+.card-avatar {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 50%;
+    position: absolute;
+    top: 50rpx;
+    right: 60rpx;
+    box-sizing: border-box;
+    border: 2rpx solid #EEEEEE;
+    overflow: hidden;
+}

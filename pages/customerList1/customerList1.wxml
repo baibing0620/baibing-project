@@ -1,0 +1,31 @@
+<!--pages/customerList/customerList.wxml-->
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src='../../template/initShow/initShow.wxml' />
+
+<view class="customerList">
+  <view class='input-layout'>
+    <view class='input-box flexb'>
+      <input class='fr24 input' value='{{ claimName }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='请输入客户昵称'></input>
+      <view class='iconfont icon-sousuo search' bindtap='search'></view>
+    </view>
+  </view>
+  <view class="fr36 fw600 c0" style="text-align: left;margin: 24rpx 0 24rpx 0;text-indent: 30rpx;">全部</view>
+    <view style="margin-bottom: 120rpx;">
+      <radio-group bindchange="radioChange">
+        <label class="weui-cell weui-check__label" wx:for="{{customerList}}" wx:key="index" class="list_child {{index==len?'bB':''}}">
+          <view class="list_child_child">
+            <!-- <image src="" style="width: 80rpx; height: 80rpx; border-radius: 50rpx; background: skyblue;"></image> -->
+            <text class="fr30 c0 ml20" style="line-height: 80rpx;">{{item.name}}</text>
+          </view>
+          <view class="weui-cell__hd">
+            <radio value="{{item.card_id}}" color="#ff9b1f"/>
+          </view>
+        </label>
+      </radio-group>
+      <template is="moreData" data="{{loadStyle:loadStyle}}" />
+    </view>
+    <view class="tac cf bcy save" bindtap="save">保存</view>
+</view>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

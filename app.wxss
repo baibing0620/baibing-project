@@ -1,0 +1,80 @@
+@import './iconfont/iconfont.wxss';
+@import './comm/comm.wxss';
+@import './comm/base.wxss';
+page {
+    font-family: 'Microsoft YaHei';
+    background-color: #f3f6f5; 
+    font-weight: 500;
+    --theme-color: #ff3636;
+    --sub-color: #ffb847;
+    --btn-color:#fff;
+
+}
+
+text,view{
+	word-break: break-all;
+}
+.c-waring{
+	color:#ff9300;
+}
+.c-danger{
+	color: #ee4130;
+}
+.bc-waring{
+  background:#ff9300;
+}
+.bc-danger{
+  background:#ee4130;
+}
+.bc-c{
+	background: #cccccc;
+}
+button::after{
+    content: none;
+}
+button[disabled]:not([type]) {
+  color: white;
+  background-color:#cccccc;
+  
+}
+.clean-btn{
+  padding: 0;
+  margin: 0;
+  line-height: 100%;
+  border-radius:0;
+  background: rgba(0, 0, 0, 0);
+
+}
+/* .fix-iphonex-button {
+  padding-bottom:68rpx!important;
+} */
+.fix-iphonex-button {
+    bottom:68rpx !important;
+    z-index: 111;
+}
+.fix-iphonex-button::after {
+    content: ' ';
+    position: fixed;
+    display: block;
+    bottom: 0 !important;
+    height: 68rpx !important;
+    width: 100%;
+    z-index: 111;
+    background: #fff;
+}
+
+button.container {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: medium;
+  text-align: left;
+  text-decoration: none;
+  line-height: normal;
+  border-radius: 0;
+  overflow: hidden;
+  color: #000;
+  background-color: transparent;
+}

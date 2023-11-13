@@ -1,0 +1,133 @@
+.mt14 {
+    margin-top: 14rpx;
+}
+
+.mt18 {
+    margin-top: 18rpx;
+}
+
+.lineHeight {
+    line-height: 36rpx;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.item {
+    box-sizing: border-box;
+    width: 690rpx;
+    border-radius: 16rpx;
+    padding: 38rpx 34rpx 20rpx 30rpx;
+    margin-top: 30rpx;
+    transition: .1s;
+    position: relative;
+}
+
+.title {
+    font-weight: 600;
+    line-height: 48rpx;
+}
+
+.button {
+    height: 48rpx;
+    background-color: #1F94FD;
+    padding: 0 15rpx;
+    border-radius: 6rpx;
+    font-weight: 500;
+}
+
+.tag {
+    height: 42rpx;
+    background-color: #F7F7F7;
+    border: 1rpx dashed rgba(220, 220, 220, 1);
+    border-radius: 6rpx;
+    padding: 0 12rpx;
+    box-sizing: border-box;
+    margin-right: 14rpx;
+}
+
+.tag:last-child {
+    margin-right: 0;
+}
+
+.total {
+    color: #999999;
+    line-height: 42rpx;
+}
+
+.line {
+    margin-top: 38rpx;
+    margin-bottom: 20rpx;
+    height: 1rpx;
+    background-color: #E6E7EB;
+}
+
+.icon {
+    height: 26rpx;
+    width: 26rpx;
+    display: inline-block;
+    margin-right: 16rpx;
+    line-height: 100%;
+    position: relative;
+    top: 5rpx;
+}
+
+.explain {
+    display: flex;
+}
+
+.goodsList {
+    opacity: 1;
+    overflow: hidden;
+    transition: .1s;
+}
+
+.goodsList-hidden {
+    height: 0;
+    opacity: 0;
+}
+
+.spread {
+    font-size: 26rpx;
+    line-height: 34rpx;
+    margin-left: 30rpx;
+    color: #9A9A9A;
+    transform: rotate(0deg);
+    transition: .1s;
+}
+
+.spreaded {
+    transform: rotate(-180deg);
+}
+
+.goodsEntry {
+    height: 46rpx;
+    padding: 0 20rpx;
+    border: 1rpx solid #1F94FD;
+    border-radius: 23rpx;
+    position: absolute;
+    top: 18rpx;
+    right: 0;
+}
+
+.canvasPainter {
+    position: absolute;
+    top: -9999rpx;
+}
+
+.newUserGet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 110rpx;
+    height: 34rpx;
+    background:linear-gradient(0deg,rgba(255,205,142,1) 0%,rgba(255,234,191,1) 100%);
+    border-radius:16rpx 0px 10px 0px;
+    text-align: center;
+    line-height: 34rpx;
+    color: #8C4A09;
+    font-size: 20rpx;
+}

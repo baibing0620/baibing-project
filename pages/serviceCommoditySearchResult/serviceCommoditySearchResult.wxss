@@ -1,0 +1,163 @@
+.fr20, .fr22, .fr26, .fr36 {
+    line-height: 100%;
+}
+
+.c-18191a {
+    color: #18191a;
+}
+
+.c-1d2023 {
+    color: #1d2023;
+}
+
+.c-797c80 {
+    color: #797c80
+}
+
+.c-a7a9ab {
+    color: #a7a9ab
+}
+
+.c-ff3e26 {
+    color: #ff3e26;
+}
+
+.icon-dianzan2 {
+    margin-right: 6rpx;
+}
+
+.layout {
+    width: 100vw;
+    height: 100rpx;
+    box-sizing: border-box;
+    padding-left: 30rpx;
+}
+
+.input-layout {
+    width: 598rpx;
+    height: 60rpx;
+    background-color: #f4f4f6;
+    border-radius: 60rpx;
+    box-sizing: border-box;
+    padding-right: 30rpx;
+}
+
+.search {
+    padding-left: 30rpx;
+    padding-right: 20rpx;
+    height: 100%;
+}
+
+.search-input {
+    height: 100%;
+}
+
+.search-cancel {
+    height: 100%;
+}
+
+.goods-list {
+    margin: 30rpx auto 0 auto;
+    width: 702rpx;
+    overflow: hidden;
+}
+
+.goods-item {
+    overflow: hidden;
+    border-radius: 0 10rpx 10rpx 10rpx;
+    width: 340rpx;
+    height: 474rpx;
+    position: relative;
+    margin-right: 22rpx;
+    margin-top: 22rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.goods-item:nth-child(2-n) {
+    margin-top: 0;
+}
+
+.goods-item:nth-child(2n) {
+    margin-right: 0;
+}
+
+.goods-recommend {
+    position: absolute;
+    width: 68rpx;
+	height: 30rpx;
+	border-radius: 0rpx 0rpx 15rpx 0rpx;
+    left: 0;
+    top: 0;
+    background-color: #f24c3c;
+}
+
+.goods-thumb {
+    border-radius: 10rpx 10rpx 0 0;
+    overflow: hidden;
+    width: 340rpx;
+	height: 237rpx;
+    display: block;
+}
+
+.goods-detail {
+    width: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    position: relative;
+    flex: 1;
+}
+
+.goods-title-layout {
+    margin-top: 10rpx;
+}
+
+.goods-title {
+    line-height: 72rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.goods-content {
+    line-height: 32rpx;
+    color: #606972;
+}
+
+.goods-tags-layout {
+    height: 40rpx;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: hidden;
+    left: 0rpx;
+    bottom: 30rpx;
+    padding-left: 20rpx;
+    padding-right: 10rpx;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.goods-tags {
+    box-sizing: border-box;
+    font-size: 22rpx;
+    color: #a7a9ab;
+    min-width: 95rpx;
+	height: 40rpx;
+	background-color: #f1f4f7;
+    border-radius: 18.5rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10rpx;
+    margin-top: 20rpx;
+    padding:0 12rpx;
+    line-height:100%;
+}
+
+.goods-tags:nth-child(-n+3) {
+    margin-top: 0;
+}
+
+.goods-tags:last-child {
+    margin-right: 0;
+}

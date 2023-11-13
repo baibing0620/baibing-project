@@ -1,0 +1,87 @@
+<include src="/comm/comm.wxml" />
+<view class='item-box flexb bcf active' catchtap='toNewPage' data-page="cardEditor">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-bianji1 bc1'></text>名片编辑
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view>
+
+<view wx:if="{{ videoIfOpen }}" class='item-box flexb bcf active' catchtap='toNewPage' data-page="videoList">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-shipin1 bc2'></text>名片视频
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view>
+
+<view class='item-box flexb bcf active' catchtap='toNewPage' data-page="cardStyleSettting">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-style bc3'></text>名片样式
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view>
+
+<view class='item-box flexb bcf active' catchtap='toNewPage' data-page="cardPoster">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-mingpian bc4'></text>名片海报
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view>
+
+<view wx:if="{{ control.openCardMarket }}" class='item-box flexb bcf active' catchtap='toNewPage' data-page="cardFairSelf">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-yuelan bc5'></text>名片投放
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view>
+
+<view class='item-box flexb bcf active' catchtap='toNewPage' data-page="recommendedManagement">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-dianzan21 bc6'></text>产品推荐
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view>
+<!-- 
+<view class='item-box flexb bcf active' catchtap='toNewPage' data-page="sharingLanguage">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-demo06 bc3'></text>产品分享语
+    </view>
+    <view class="info fr24 cb3">
+        <text class='iconfont icon-jinru'></text>
+    </view>
+</view> -->
+
+<!-- 浏览记录开关 -->
+<view class='item-box flexb bcf active mt20'>
+    <view class="title bold fr34 c3 flex">
+       首页浏览记录
+    </view>
+    <view style='width:100rpx' class="info fr24 cb3">
+        <switch color='#1F94FD' bindchange="browseSwitch" style="transform: scale(0.75)" checked="{{switchL}}" />
+    </view>
+</view>
+
+<view wx:if='{{ card_open_way == 2 }}' class='item-box flexb bcf active mt20' catchtap='toNewPage' data-page="bindByCDKeyResult">
+    <view class="title bold fr34 c3 flex">
+        <text class='iconfont icon-youxiaoqi bc7'></text>
+        名片有效期
+    </view>
+    <view class="info cb3">
+        <text class='info-text fr24'>剩余{{ cdk_end_days || '--' }}天</text>
+        <text class='iconfont icon-jinru fr32'></text>
+    </view>
+</view>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

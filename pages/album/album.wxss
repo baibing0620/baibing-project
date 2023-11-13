@@ -1,0 +1,18 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15rpx 15rpx 0;
+}
+
+.photo {
+    width: 230rpx;
+    height: 230rpx;
+    margin-right: 15rpx;
+    margin-bottom: 15rpx;
+    box-sizing: border-box;
+    border: 1rpx solid #e5e5e5;
+}
+
+.photo:nth-child(3n) {
+    margin-right: 0;
+}

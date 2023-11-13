@@ -1,0 +1,43 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1}}" />
+<block wx:else>
+
+    <view class="tabbar-layout flex bcf">
+        <view class="tabbar flex flex1">
+            <view wx:for="{{ tabbar }}" wx:key="id" class="tab-item flex1 flexc {{ currentIndex == index ? 'tab-item-selected' : '' }}" data-index="{{ index }}" catchtap="tabClick">{{ item }}</view>
+        </view>
+        <view class="tab-button fr24 flexc active {{ showCompleted ? 'cmain' : 'cc' }}" catchtap="showCompleted"><text class="iconfont icon-yulan fr30"></text>显示已跟进</view>
+    </view>
+    <block>
+        <view wx:for="{{ list }}" wx:key="id" class="item bcf" data-index="{{ index }}" catchtap="closeMore">
+            <view class="item-info-layout flexb">
+                <view class="item-info flex">
+                    <image class="avatar" src="{{ ShowImg.cropImgWH(item.crmUserMember.avatar, 50, 50) }}"></image>
+                    <view class="nickname fr26 c0">{{ item.crmUserMember.nickname }}</view>
+                </view>
+                <view class="item-more flexc" data-index="{{ index }}" catchtap="clickMore">
+                    <view class="item-dot"></view>
+                    <view class="item-menu {{ menuCurrent == index ? '' : 'item-menu-hide' }}">
+                        <view wx:if="{{ item.completed != 1 }}" class="item-menu-item fr26 cf flexc" data-index="{{ index }}" data-type="cancel" catchtap="clickMenuItem">完成跟进</view>
+                        <view class="item-menu-item fr26 cf flexc" data-index="{{ index }}" data-type="delete" catchtap="clickMenuItem">删除跟进</view>
+                    </view>
+                </view>
+            </view>
+            <view class="item-content-layout">
+                <view class="item-content fr32 c0">{{ item.content }}</view>
+                <view class="item-timeAndStatus {{ item.completed == 1 ? 'item-timeAndStatus-completed' : '' }} fr24 flex"><view class="iconfont icon-shijian2 item-icon {{ item.completed == 1 ? 'item-icon-completed' : '' }} cf flexc"></view>{{ item.remind_time }} {{ item.completed == 1 ? "已完成" : "待处理" }}</view>
+            </view>
+        </view>
+    </block>
+
+    <!-- <block wx:if="{{ loadStyle === 'loadOver' }}">
+        <view class="fr24 c9 flexc bottomHolder">行业精英的互动平台，欢迎您的加入</view>
+    </block>
+    <block wx:else> -->
+        <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+    <!-- </block> -->
+</block>
+
+<component-messageToast></component-messageToast>

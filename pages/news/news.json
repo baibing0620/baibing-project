@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-bless-bag-comm": "/components/blessBagComm/blessBagComm",
+    "component-messageToast": "/components/messageToast/messageToast",
+    "component-toHomePage": "/components/toHomePage/toHomePage",
+    "component-menu": "/components/menu/menu"
+  }
+}

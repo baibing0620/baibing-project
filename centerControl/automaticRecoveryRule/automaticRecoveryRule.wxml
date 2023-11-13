@@ -1,0 +1,46 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view  wx:if="{{showStyle!=1&&ruleList.length==0}}">
+    <view style="font-size: 12px;color: #666666;margin-top: 260rpx; text-align:center;" wx:if="{{showStyle==0}}">
+        <image style="width:160rpx;height:160rpx;" src="/imgs/pageLoading.gif" />
+    </view>
+    <view class='flexcColumn' wx:if="{{showStyle==2}}">
+        <image class='img' src="https://facing-1256908372.file.myqcloud.com//image/20181119/88d916aba82ec6a6.png"></image>
+        <view class='fr26 c9'>您还没有添加回复规则</view>
+    </view>
+    <view style="font-size: 12px;color: #cccdce;margin-top: 200rpx; text-align:center;" wx:if="{{showStyle==3}}">
+        <view>
+            <text class="iconfont icon-wuxian" style="font-size:160rpx;"></text>
+        </view>
+        <view>网络连接错误</view>
+        <view style="margin-top:50rpx;">
+            <button bindtap="networkFaildRealod" style="margin:auto;width:260rpx; heigh:60rpx;line-height:60rpx;font-size:30rpx; border-radius:30rpx;color:#FD9A33;border:1rpx solid #FD9A33;">刷新</button>
+        </view>
+    </view>
+</view>
+<block wx:else>
+    <view class='container' wx:for="{{ruleList}}" wx:key="this">
+        <view class='flexb' style='padding:26rpx 0 0 30rpx'>
+            <view class='fr24 cc'>匹配字段</view>
+            <view class="revover-type {{item.relation == 1?'contain':'equal'}} fr24">{{item.relation == 1?'包含':'等于'}}</view>
+        </view>
+        <view style='padding:0 30rpx 26rpx'>
+            <view style='margin:8rpx 0 14rpx' class='fr32 c3 ellipsis1 bold'>{{item.keywords}}</view>
+            <view style='line-height:44rpx' class='fr26 c80' wx:if="{{item.reply_type == 1}}">回复内容：{{item.reply_content}}
+            </view>
+            <view class='fr26 c80 flex' wx:else>回复图片：
+                <image style='width:120rpx;height:120rpx' src="{{ShowImg.cropImgWH(item.reply_img_url,120,120)}}"></image>
+            </view>
+        </view>
+        <view class='operation flex fr26 cb3'>
+            <view class='flex1' bindtap='delRule' data-id="{{item.id}}" data-index="{{index}}">
+                <text class='iconfont icon-shanchu1 fr26'></text>删除</view>
+            <view class='flex1' bindtap='editRule' data-id="{{item.id}}">
+                <text class='iconfont icon-bianji1 fr26'></text>编辑</view>
+        </view>
+    </view>
+    <template is="moreData" data="{{loadStyle:loadStyle,loadOverText:'加载完毕'}}" />
+</block>
+<button catchtap='navAddRecoveryRule' class='message-btn fr34 cf'>添加回复规则</button>
+<component-messageToast></component-messageToast>

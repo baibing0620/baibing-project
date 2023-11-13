@@ -1,0 +1,73 @@
+page{
+    background: #fff;
+    padding-bottom: 100rpx;
+}
+.container{
+    padding: 10rpx 30rpx;
+}
+.title{
+    padding: 40rpx 0;
+    border-bottom: 1rpx dashed #e6e6e6;
+}
+.wx-switch-input {
+    width: 84rpx !important;
+    height: 46rpx !important;
+}
+
+.wx-switch-input::before {
+    width: 80rpx !important;
+    height: 42rpx !important;
+}
+
+.wx-switch-input::after {
+    width: 40rpx !important;
+    height: 40rpx !important;
+}
+.container>input,.input{
+    width: inherit;
+    height: 90rpx;
+    border: 1rpx solid #d9d9d9;
+    border-radius: 6rpx;
+    background: #f7f7f7;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+}
+
+.input-placeholder {
+  color: #cccccc;
+  font-size: 28rpx;
+}
+.form-picker {
+  width: inherit;
+  height: 90rpx;
+  border-radius: 4rpx;
+  padding: 0 30rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  box-sizing: border-box;
+}
+.mb40{
+    margin: 40rpx 0;
+}
+.btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.btn>button:first-of-type {
+    color: #ff9b1f;
+    background: #fff5e8;
+    border-top: 1rpx solid #ff9b1f;
+}
+
+.btn>button:last-of-type {
+    background: #ff9b1f;
+    color: #fff;
+}
+
+.btn>button {
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+}

@@ -1,0 +1,250 @@
+function px2rpx(size) {
+    if (!size || size == 0) {
+        return
+    }
+    size = Math.round(size * 2);
+    return size + 'rpx'
+}
+function ad6objClass(obj) {
+    if (!obj) {
+        return
+    }
+    var flexDirectionClass = ['fdRow', 'fdRowReverse', 'fdColumn', 'fdColumnReverse'],
+        flexWrapClass = ['fwNowrap', 'fwWrap', 'fwWrapReverse'],
+        justifyContentClass = ['jcFlexStart', 'jcFlexEnd', 'jcCenter', 'jcSpaceBetween', 'jcSpaceAround'],
+        alignItemsClass = ['aiFlexStart', 'aiFlexEnd', 'aiCenter', 'aiBaseline', 'aiStretch'],
+        allClass = [];
+    allClass[0] = flexDirectionClass[parseInt(obj.flexDirection)];
+    allClass[1] = flexWrapClass[parseInt(obj.flexWrap)];
+    allClass[2] = justifyContentClass[parseInt(obj.justifyContent)];
+    allClass[3] = alignItemsClass[parseInt(obj.alignItems)];
+    return allClass;
+}
+function ad4objClass(key) {
+    if (!key) {
+        return
+    }
+    key = key.toString();
+    var listTyle = {
+        '1': 'p1',
+        '2': 'p2',
+        '3': 'p3',
+        '4': 'p4',
+    }
+    return listTyle[key];
+}
+function ad1objClass(obj) {
+    var layoutClass = ['', 's1', 's2h', 's2v', 's4h', 's4v', 's8h', 's8v', 's16'],
+        alignClass = ['', 'fl', 'fr'],
+        allClass = [];
+    allClass[0] = layoutClass[parseInt(obj.layout)];
+    allClass[1] = alignClass[parseInt(obj.align)];
+    return allClass;
+}
+
+function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+}
+
+function formatDate(n, format = 'YYYY-MM-DD hh:mm:ss') {
+    var date = getDate(n);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    // return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+    return format.replace('YYYY', formatNumber(year))
+        .replace('MM', formatNumber(month))
+        .replace('DD', formatNumber(day))
+        .replace('hh', formatNumber(hour))
+        .replace('mm', formatNumber(minute))
+        .replace('ss', formatNumber(second))
+}
+
+function formatDay(n) {
+    var date = getDate(n);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    return [year, month, day].map(formatNumber).join('-');
+}
+function float(num) {
+    if (num) {
+        return parseFloat(num)
+    } else return 0;
+}
+function float2(num) {
+    if (num) {
+        num = parseFloat(num);
+        return num.toFixed(2)
+    } else return 0;
+
+
+}
+
+function totalMoney(totalMoney, deliveryPrice, couponMoney, discount = 10, boxPrice = 0) {
+    var money = totalMoney;
+    boxPrice = boxPrice ? parseFloat(boxPrice) : 0;
+    totalMoney = parseFloat(totalMoney) + boxPrice;
+    totalMoney = countMone(totalMoney, deliveryPrice, couponMoney, discount);
+    totalMoney = totalMoney.toFixed(2);
+    if (money != 0 && totalMoney <= 0) {
+        totalMoney = 0.01;
+    }
+    if (money == 0 && totalMoney <= 0 ) {
+        totalMoney = 0.00
+    }
+    return totalMoney;
+
+} 
+function countMone(totalMoney, deliveryPrice, couponMoney, discount = 10) {
+    totalMoney = totalMoney ? parseFloat(totalMoney) : 0;
+    deliveryPrice = deliveryPrice ? parseFloat(deliveryPrice) : 0;
+    couponMoney = couponMoney ? parseFloat(couponMoney) : 0;
+    discount = parseFloat(discount) / 10;
+    var moneyAll = totalMoney * discount + deliveryPrice - couponMoney;
+    return moneyAll
+}
+
+function indexBc (obj){
+    if(obj.type==1){
+        return 'background-color:'+obj.bgColor;
+    }
+    else return 'background-image:url('+obj.path+')';
+}
+function toArry (int){
+    int = parseInt(int);
+    var arry = [];
+    for (var i = 0; i < int; i++) {
+        arry.push(1)
+    }
+    return arry
+}
+function getCarInfo(cartList) {
+    var count = 0,
+        totalMoney = 0;
+    for (var i = 0; i < cartList.length; i++) {
+        var goodsNum = parseInt(cartList[i].addNum);
+        var  goodsPrice = parseFloat(cartList[i].price);
+        count += goodsNum;
+        totalMoney += goodsNum * goodsPrice;
+    }
+    var cartInfo = {
+        count: count,
+        totalMoney: parseFloat(totalMoney.toFixed(2)),
+        _totalMoney: totalMoney.toFixed(2)
+    }
+    return cartInfo;
+};
+function getTotalMoney(num, price) {
+
+    var num = parseInt(num),
+        price = parseFloat(price);
+    var totalMoney = num*price;
+    return totalMoney.toFixed(2);
+
+}
+
+
+function toNumber(num){
+    if (num) {
+        return parseFloat(num) 
+    }
+    else{
+        return 0 
+    }
+    
+}
+function m2Km(m) {
+    m = parseInt(m);
+    if (m >= 0) {
+        m = (m / 1000).toFixed(2);
+    } else m = 0
+
+    return m;
+}
+function toJson(aa){
+   
+    if(!aa){
+        return;
+    }
+    return JSON.parse(aa)
+}
+function toInt(n){
+    if(n){
+        return parseInt(n)
+    }else{
+        return 0
+    }
+}
+function getArryValue(array,index){
+   
+    if(index>=0){
+        index = parseInt(index);
+    }
+    else {
+        index = 0;
+    }
+    
+    return array[index];
+  
+}
+function showWeight(weight){
+    if(weight==0||!weight){
+        weight = ''
+    }
+    else if(weight>=1000){
+        weight = '重量:' +(weight/1000).toFixed(2)+'kg';
+    }
+    else if(weight>0&&weight<1000){
+        weight = '重量:' +parseInt(weight)+'g';
+    }
+    return weight
+}
+function parseIntNav(componentInfo){
+  return parseInt(componentInfo.box_width) + parseInt(componentInfo.padding_top) + parseInt(componentInfo.padding_bottom)
+}
+function overNum(){
+  
+}
+
+function formatSales(number) {
+    if (isNaN(parseInt(number))) {
+        return 0
+    } else if (number > 10000) {
+        return (number / 10000).toFixed(1) + 'w'
+    } else {
+        return number
+    }
+}
+
+module.exports = {
+    m2Km:m2Km,
+    px2Rpx: px2rpx,
+    ad6objClass: ad6objClass,
+    ad4objClass: ad4objClass,
+    ad1objClass: ad1objClass,
+    formatDate: formatDate,
+    formatDay: formatDay,
+    float: float,
+    float2: float2,
+    totalMoney:totalMoney,
+    indexBc:indexBc,
+    toArry:toArry,
+    getCarInfo:getCarInfo,
+    getTotalMoney:getTotalMoney,
+    toNumber:toNumber,
+    toJson:toJson,
+    toInt:toInt,
+    getArryValue:getArryValue,
+    showWeight:showWeight,
+    parseIntNav: parseIntNav,
+    formatSales: formatSales
+
+};

@@ -1,0 +1,194 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+
+        <template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}"></template>
+
+        <view class="container w100" style='padding-bottom:{{isIphoneX?"188rpx":"120rpx"}}' wx:elif="{{canBuy}}">
+
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+        
+            <block wx:if="{{contentType==1}}">
+               <view class="rich-text-view w100">
+                    <view class="content-title fr36 c3">
+                        {{title}}
+                    </view>
+                    <view class="flexb w100 content-other">
+                        <view class="fr22 c9">
+                            <text wx:if="{{description}}">作者 {{description}} · </text>
+                            <text>浏览数 {{sales||0}}</text>
+                        </view>
+                        <button class="iconfont icon-share c6" bindtap="shareCard"></button>
+                    </view>
+                    
+                    <view class="border-line w100 flex c9">
+                        <view style="margin-right:30rpx;"></view> ·
+                        <view style="margin-left:30rpx;"></view>
+                    </view>
+                </view>
+                <view style="padding: 0 20rpx;" class="w100">
+                    <block wx:for="{{contentList}}" wx:key="index">
+                        <image src="{{ShowImg.cropImgW(item.image.url,600)}}" mode="widthFix" style="width: 100%;margin-top:{{index && contentList[index-1].type=='text'?'10rpx':0}};" wx:if="{{item.type=='image'}}" data-preview-url="{{item.image.url}}" data-src="{{item.src}}" catchtap="previewImage" />
+                        <block wx:if="{{item.type=='text'}}">
+                            <view class="image-text-text w100 c6" wx:for="{{item.content}}" wx:key="{{index}}">
+                                <text selectable>{{item}}</text>
+                            </view>
+                        </block>
+                    </block>
+                </view>
+            </block>
+            <block wx:elif="{{contentType==0}}">
+                <view class="rich-text-view w100">
+                    <view class="content-title fr36 c3">
+                        {{title}}
+                    </view>
+                    <view class="flexb w100 content-other">
+                        <view class="fr22 c9">
+                            <text wx:if="{{description}}">作者 {{description}} · </text>
+                            <text>浏览数 {{sales||0}}</text>
+                        </view>
+                        <button class="iconfont icon-share c6" bindtap="shareCard"></button>
+                    </view>
+                    
+                    <view class="border-line w100 flex c9">
+                        <view style="margin-right:30rpx;"></view> ·
+                        <view style="margin-left:30rpx;"></view>
+                    </view>
+                </view>
+                <view style="padding:0 20rpx;" >
+                    <diy-rich-text InRichTextData="{{contentList}}" /> 
+                </view>
+
+            </block>
+            <view class="linkGoodsList flexcColumn w100" wx:if="{{is_content_marketing == 1}}">
+                <view class="goodsDetail flex" wx:for="{{link_goods_id}}" wx:key="id" data-id="{{item.id}}" bindtap="navGoodsdetail">
+                    <image class="linkImg" src="{{ShowImg.cropImgW(item.bindingUrl,180)}}"></image>
+                    <view class="flex1">
+                        <view class="ellipsis2 goodsTitle fr30">{{item.title}}</view>
+                        <view class="fr24" class="goodsSales fr24">销量{{item.sales}}</view>
+                        <view class="flexb w100">
+                        <view>
+                            <text class="realPrice fr34"> <text class="fr24">¥</text>{{item.productprice}}</text>
+                            <text class="productPrice fr24">¥{{item.marketprice}}</text>
+                        </view>
+                        <view class="toCart fr24">
+                            <text class="iconfont icon-gouwuche3 fr30"></text>
+                            <text >购买</text>
+                        </view>
+                        
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="linkGoodsList flexcColumn w100" wx:if="{{ssg_id != 0}}">
+                <view class="goodsDetail flex" wx:for="{{serverList}}" wx:key="id" wx:for-item="item" wx:for-index="index" data-id="{{item.id}}" bindtap="navServerdetail">
+                    <image class="linkImg" wx:if="{{item.img_url.url}}" src="{{ShowImg.cropImgW(item.img_url.url,180)}}"></image>
+                    <view class="flex1">
+                        <view class="ellipsis2 goodsTitle fr30">{{item.service_name}}</view>
+                        <view class="fr24" class="goodsSales fr24 flex">
+                            <view wx:for='{{item.label}}' wx:index="cellindex" wx:key="index" class="goods-tags">
+                                {{item}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+
+            <block wx:if="{{isShowArticleComment}}">
+            <view class="content-zan flexcColumn" wx:if="{{!showZan}}">
+                <view bindtap='clickZan' class="iconfont icon-dianzan1" style='font-size:88rpx;color:#ccc;text-align:right;'></view>
+                <view class="fr28 c9" style='text-align:right;'>赞一下吧（{{zanNum}}）</view>
+            </view> 
+                <view class="content-zan flexcColumn"  wx:if="{{showZan}}" style='color:#f72930;'>
+                <view bindtap='cancelZan' class="iconfont icon-dianzan" style='font-size:88rpx;text-align:right;'></view>
+                <view class="fr28 c9" style='text-align:right;'>{{(zanNum)}}</view>
+            </view> 
+            <view class="content-comment flexb">
+                <view class='fr28 c4d'>{{total}}条评论
+                    <text class="iconfont icon-dian1" style="font-size:16rpx;padding:0 15rpx"></text>精选评论</view>
+                <button class='content-btn fr24' catchtap='showModal'>我要评论</button>
+            </view>
+            <view class='fr28 c9 flexcColumn' style='background-color:#fafafa'>
+                <block wx:if="{{total<1}}">
+                    <image class='content-no-communication-image' src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20180410/40b5611cfbb551a8.png',159,151)}}" mode='aspectFit'></image>
+                    快来抢沙发呀！
+                </block>
+                <view class='content-communication flex' wx:for="{{commontList}}" wx:key="{{index}}" wx:if="{{total>0}}">
+                    <image class='asfs' src='{{ShowImg.cropImgWH(item.user.avatar,70,70)}}'></image>
+                    <view class='fr24 flex1 c3' style='border-bottom:1rpx solid #e6e6e6;padding:0 30rpx 30rpx 0;width:590rpx'>
+                        <view>{{item.user.nickname}}</view>
+                        <view class='cb3' style='margin-top:8rpx'>{{Format.formatDate(item.createtime*1000)}}</view>
+                        <view class='fr28' style='margin-top:18rpx;line-height:45rpx'>{{item.comment}}</view>
+                        <block wx:if="{{item.reply || item.reply == 'null'}}">
+                        <view class='flex'>
+                            <view class='label'></view>
+                            <text class='fr24 c9'>作者回复</text>
+                        </view>
+                        <view class='fr28'>{{item.reply.comment}}</view>
+                        <view class='c9' style='margin-top:12rpx'>{{item.reply.time}}</view>
+                        </block>
+                    </view>
+                </view>
+                <template is="moreData" data="{{loadStyle:loadStyle}}" wx:if="{{total>0}}"/>
+            </view>
+            </block>
+            <view class="bottom-box flexb fr30 cf {{isIphoneX?'fix-iphonex-button':''}}" wx:if="{{priceForm}}">
+                <view class="appointment-service iconfont icon-shijian fr28 bc-main" style="background-color:{{priceForm.buy.isOpen?mainColor:''}};" wx:if="{{priceForm.appointment.isOpen}}" catchtap="toAppointment">
+                    {{priceForm.appointment.title}}
+                </view>
+                <view wx:if="{{priceForm.share.isOpen}}">
+                    <button class="share-service iconfont icon-share fr28 bc-main" style="background-color:{{priceForm.buy.isOpen?mainColor:''}};" open-type="share">
+                        {{priceForm.share.title}}
+                    </button>
+                </view>
+                <view class="navigation-service iconfont icon-daohang fr28 bc-main" style="background-color:{{priceForm.buy.isOpen?mainColor:''}};" wx:if="{{priceForm.navigation.isOpen}}" catchtap="toNavigation">
+                    {{priceForm.navigation.title}}
+                </view>
+                <view class="custom-service iconfont icon-hujiao fr28 bc-main" style="background-color:{{priceForm.buy.isOpen?mainColor:''}};" wx:if="{{priceForm.contact.isOpen}}" catchtap="callPhone">
+                    {{priceForm.contact.title}}
+                </view>
+                <view class="buy-service fr28 bc-main" wx:if="{{priceForm.buy.isOpen}}" style="flex:2" catchtap="toPay">
+                    {{priceForm.buy.title}} ￥{{Format.float2(priceForm.buy.productprice)}}
+                </view>
+
+                <view class="enter-service  fr32 bc-main mainColor" wx:if="{{news_contact_open == 1 && !has_add_wechat}}" catchtap="navAddWechat">
+                <image src="../../imgs/icon_weix.png"></image>
+                  添加微信
+                </view>
+            </view>
+        </view>
+        <!--评论弹框 -->
+        <view class="content-modal-box" wx:if="{{showContentModal}}" bindtap='closeModal'>
+            <form bindsubmit="formSubmit">
+                <view class="comment-box" catchtap='showModal'>
+                    <textarea class='fr26 c6' bindblur="bindTextAreaBlur" placeholder="您的评论将对所有人显示" maxlength='-1' name="textarea" />
+                    <button class='fr30' formType="submit">提交</button>
+                </view>
+            </form>
+        </view>
+        <component-remind wx:if="{{ showRemind }}"></component-remind>
+        <component-messageToast></component-messageToast>
+        <!-- 海报 -->
+        <view class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+          <component-poster src='{{ palette }}' themeColor='#fd9a33' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+        </view>
+        <!-- H5链接 -->
+        <view class='mlc w100' wx:if='{{linkOpen}}' bindtap='closeLinkBox'></view>
+        <view class="w100 linkBox flexColumn" wx:if="{{linkOpen}}" bindtap="closeH5">
+          <view class="w100 linkContainer flexColumn">
+            <view class="linkTitle">分享链接</view>
+            <view class="linkUrl fr30">{{linkUrl}}</view>
+            <view class="w100 fr26 linkInfo">分享链接可分享至朋友圈、好友</view>
+            <view class="btnBottom flex fr34">
+              <view class="btnCancel flex1" bindtap="closeLinkBox">取消</view>
+              <view class="btnConfirm flex1" bindtap="copyLinkUrl">立即复制</view>
+            </view>
+          </view>
+        </view>
+    </button>
+</form>
+            

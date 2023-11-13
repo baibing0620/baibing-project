@@ -1,0 +1,311 @@
+page{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.container{
+	width: 100%;
+  /* height: 100%; */
+	box-sizing: border-box;
+	background: white;
+  padding-bottom: 100rpx;
+}
+.food-cover{
+	display: block;
+	height: 500rpx;
+	width: 750rpx;
+}
+.content{
+	width: 100%;
+	box-sizing: border-box;
+	padding:10rpx 30rpx;
+}
+.food-title{
+	margin-top: 30rpx;
+	display: block;
+}
+.food-tag{
+	display: flex;	
+}
+.food-tag>text{
+	color: #f74d33;
+	border: 1rpx solid #f74d33;
+	line-height: 36rpx;
+	display: block;
+	margin-top: 20rpx;
+	padding:0 10rpx;
+}
+.price{
+	width: 100%;
+	box-sizing: border-box;
+	color: #f74d33;
+	margin:40rpx 0;
+}
+.shop-cart{
+	width: 242rpx;
+	height: 56rpx;
+	border-radius: 28rpx;
+  /*position: relative;*/
+}
+.bcfb{
+  background: #fbd35b;
+}
+.red-dot{
+  display: inline-block;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: red;
+  opacity:0;
+}
+
+.food-des{
+	width: 100%;
+	box-sizing: border-box;
+	padding: 30rpx;
+	border-top: 1rpx solid #e6e6e6;
+}
+.food-des>text{
+	display: block;
+}
+.cart-detail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+
+.cart-detail .mask {
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  box-sizing: border-box;
+}
+.cart-detail .clean-cart{
+  background: #ebebeb;
+}
+.cart-detail .clean-cart>text{
+  padding:20rpx 30rpx;
+}
+.cart-detail .list {
+  box-sizing: border-box;
+  padding-bottom: 120rpx;
+  max-height: 700rpx;
+  width: 100%;
+  background: #f7f7f7;
+  transition: all 0.6s ease-in-out;
+}
+.cart-detail .list .item {
+  height: 90rpx;
+  padding: 0 30rpx;
+  background-color: white;
+  box-sizing: border-box;
+  border-bottom:1rpx solid #eee;
+}
+.cart-detail .list .item .total {
+  box-sizing: border-box;
+  padding-right: 30rpx;
+}
+.cart-detail .list .item .icon-jian, .cart-detail .list .item .icon-jiahao {
+  font-size:20px;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 50%;
+  display:block;
+
+  padding:0 10rpx;
+}
+
+.cart-detail .list .item .num {
+  text-align: center;
+  padding:0 10rpx;
+  font-size: 36rpx;
+}
+.cart {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  background: rgb(102,102,102);
+}
+
+.cart .data {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.cart .data .icon {
+  position: relative;
+  margin-left: 40rpx;
+  top: -20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(0,0,0,0.9);
+  border-radius: 50%;
+}
+
+.cart .data .icon .icon-gouwuche1 {
+  width: 70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 70rpx;
+  color:white;
+}
+.cart .data .icon .count {
+  position: absolute;
+  left: 70rpx;
+  top: -10rpx;
+  width: 36rpx;
+  height: 36rpx;
+  padding:6rpx;
+  background: #f45044;
+  border-radius: 50%;
+  text-align: center;
+  
+}
+.cart .data .cart-total {
+  color: red;
+  margin-left: 10rpx;
+}
+.cart button {
+  width: 200rpx;
+  height: 100rpx;
+  font-size: 40rpx;
+  background: #ff6101;
+  color: white;
+  -webkit-appearance: none;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:0;
+}
+button.start-price{
+  font-size: 26rpx;
+  color: #ffffff;
+}
+button::after {
+  padding:0;
+  border:none;
+}
+button[disabled][type="default"], wx-button[disabled]:not([type]) {
+  background: #eeeeee;
+}
+/* 规格模态框 */
+.modal-spec-bottom .icon-jian{
+  position: relative;
+  display: none;
+  transition: all 1s ease-in-out;
+
+}
+@keyframes myfirst
+{
+from {right:-20px;}
+to {right: 0;}
+}
+.goods-container .goods .add-cart .reduce-icon-active,.modal-spec-bottom .reduce-icon-active{
+  display: block;
+  animation: myfirst 0.1s;
+  
+}
+.modal-spec-box{
+  z-index: 1000;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background-color: rgba(0,0,0,0.3);
+}
+.modal-spec-content{
+  width: 600rpx;
+  box-sizing: border-box;
+  background: white;
+  margin-bottom: 100rpx;
+  border-radius: 20rpx;
+}
+.modal-goods-title{
+  text-align: center;
+  height: 100rpx;
+  line-height: 80rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  padding-top: 16rpx;
+}
+.spec-scroll-box{
+  height: 300rpx;
+  box-sizing: border-box;
+  padding-left:30rpx;
+}
+.spec-scroll-height1{
+  padding-top: 40rpx;
+  height:260rpx;
+}
+.spec-scroll-height3{
+  height:520rpx;
+}
+
+.spec-title{
+  line-height: 24rpx;
+}
+.spec-item-values{
+  flex-wrap: wrap;
+  margin-top: 28rpx;
+  padding-bottom: 14rpx;
+}
+.spec-item-values>.values{
+  width: 160rpx;
+  height: 50rpx;
+  margin-right: 24rpx;
+  border:1rpx solid #cfcfcf;
+  line-height: 50rpx;
+  text-align: center;
+  margin-bottom: 24rpx;
+
+}
+.modal-spec-bottom{
+  border-radius: 0 0 30rpx 30rpx;
+  padding: 0 30rpx;
+  height: 100rpx;
+  background-color: #f7f7f7;
+}
+.modal-spec-bottom .iconfont{
+  background: rgb(255,245,243);
+  padding: 0 10rpx;
+  font-size: 36rpx;
+  
+}
+.spec-item-values>.spec-active{
+  background: rgb(255,245,243);
+  color: #f74d33;
+  border-color: #f74d33;
+}
+.fix-qrcode {
+  position: fixed;
+  top: 60px;
+  right: 20rpx;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  border-radius: 50rpx;
+  color: white;
+  height: 70rpx;
+  min-width: 70rpx;
+  line-height: 70rpx;
+}
+.no-sale{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  height: 100%;
+  width: 100%;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  background: rgba(20, 20, 0, 0.6);
+}

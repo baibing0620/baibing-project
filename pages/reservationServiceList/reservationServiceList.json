@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "预约服务列表",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-toHomePage": "/components/toHomePage/toHomePage",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-bless-bag-comm": "/components/blessBagComm/blessBagComm",
+        "component-menu": "/components/menu/menu"
+    }
+}

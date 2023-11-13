@@ -1,0 +1,103 @@
+page {
+    background-color: #2a3542;
+}
+
+.fr22, .fr24, .fr26, .fr28, .fr30, .fr36, .fr40, .fr50 {
+    line-height: 100%;
+}
+
+.cblue {
+    color: #497bb6
+}
+
+.title {
+    padding: 50rpx 0 36rpx 0;
+}
+
+.content {
+    margin-top: 24rpx;
+}
+
+.percents {
+    margin-top: 60rpx;
+}
+
+.percent {
+    height: 210rpx;
+    width: 210rpx;
+    box-sizing: border-box;
+    border: 1px dotted #ff9b1f;
+    border-radius: 20rpx;
+}
+
+.flexEnd {
+    align-items: flex-end;
+}
+
+.title2 {
+    margin-top: 70rpx;
+}
+
+.goodList {
+    margin-top: 50rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30rpx; 
+}
+
+.goodItem {
+    box-sizing: border-box;
+    height: 230rpx;
+    width: 690rpx;
+    padding: 28rpx 20rpx;
+    border: 1px dotted #ff9b1f;
+    border-radius: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+.goodItem:last-child {
+    margin-bottom: 0;
+}
+
+.goodImage {
+    width: 170rpx;
+    height: 170rpx;
+    border-radius: 6rpx;
+    background-color: #ccc;
+    margin-right: 20rpx;
+}
+
+.goodInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.goodTitle {
+    position: relative;
+    line-height: 46rpx;
+    margin-top: -9rpx;
+    height: 92rpx;
+}
+
+.goodPrice {
+    color: #ff3d3d;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.percent2 {
+    border-right: 1rpx solid #404a55;
+}
+
+.percent2:last-child {
+    border-right: 0;
+}
+
+.percent2 .cblue {
+    margin-top: 16rpx;
+}
+

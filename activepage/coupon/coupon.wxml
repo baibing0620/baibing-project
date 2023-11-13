@@ -1,0 +1,67 @@
+<view class="navigation"></view>
+<view class="wrapper" wx:if="{{!isReceive &&!isExpire &&!isChecked   }}">
+    <view class="title">亳州退役军人汽车购车优惠券</view>
+    <image src="https://anhuidaowei.com/media/b58b8985ebda962e63ce803b2650766.png" class="coupon" mode="" />
+    <image src="https://anhuidaowei.com/media/746b5128bad9a9ab5f025ed3655059a.png" class="coupon-button" bind:tap="receiveCoupon" mode="" />
+    <image class="check-store" src="https://anhuidaowei.com/media/80f55c3a24f03090cc1356788e7a0c0.png" mode="" />
+</view>
+<view class="cancel-wrapper" wx:if="{{isReceive ||isExpire || isChecked  }}">
+    <view class="title">
+        <view>购车优惠券</view>
+        <view class="check" wx:if="{{!isChecked && !isExpire}}" bind:tap="handleChecked">核销购车</view>
+        <view class="checked" wx:if="{{isChecked && !isExpire }}">券已使用</view>
+        <view class="checked" wx:if="{{isExpire}}">券已过期</view>
+        <view class="checked" wx:if="{{isEnd}}">券已过期</view>
+    </view>
+    <view class="notice">线下购车时出示此码</view>
+    <image src="https://anhuidaowei.com/media/0601429838a76e9d35377f06b56b84c.jpg" class="ercode {{ isExpire || isChecked ?'ercode-cover' :'' }} " mode="" />
+    <view class="id">{{showErCodeId}}</view>
+    <view class="notice-bottom" wx:if="{{!isChecked && !isExpire }}">领取成功，可在【亳州中小企业服务中心公众号】查看</view>
+    <view class="used" wx:if="{{isChecked && !isExpire }}">该券已使用</view>
+    <view class="used" wx:if="{{isExpire}}">已过期，请<view class="receiveAgain" wx:if="{{isExpire}}" bind:tap="receiveCoupon">重新领取</view>
+    </view>
+    <image class="check-store" src="https://anhuidaowei.com/media/80f55c3a24f03090cc1356788e7a0c0.png" bind:tap="mapNavigation" mode="" />
+</view>
+<image class="attention" src="https://anhuidaowei.com/media/8fd43680568e6415ea4afc97083a493.png" bind:tap="jumpAttention" mode="" />
+<image src="https://anhuidaowei.com/media/6460f04d068e767fbafa7d09a1de92c.png" class="coupon-text" mode="" />
+<root-portal wx:if="{{showCheckedModal}}">
+    <view class="popup" bindtap="handleCheckedClosed">
+        <view class="check-modal">
+            <view class="check-title">请到店内由工作人员核实确认后核销</view>
+            <view class="check-text">
+                请确保满足核销使用条件，一经核销不可再次使用
+            </view>
+            <view class="bottom-button">
+                <view class="cancle-button" bind:tap="handleCheckedClosed">取消</view>
+                <view class="check-button" bind:tap="confirmChecked">仍要核销</view>
+            </view>
+        </view>
+    </view>
+</root-portal>
+<root-portal wx:if="{{reloadPhoneNumberVisible}}">
+    <view class="popup">
+        <view class="check-modal">
+            <view class="check-title">未获取到您的手机号</view>
+            <view class="check-text">
+                是否重新获取
+            </view>
+            <view class="bottom-button">
+                <button open-type="getPhoneNumber" class="check-button" bindgetphonenumber="getPhoneNumber">确定</button>
+            </view>
+        </view>
+    </view>
+</root-portal>
+
+<root-portal wx:if="{{receiveSuccess}}">
+    <view class="popup">
+        <view class="check-modal">
+            <view class="check-title">领取成功</view>
+            <view class="check-text">
+                可在【亳州中小企业服务中心公众号】查看
+            </view>
+            <view class="bottom-button">
+                <button class="check-button" bind:tap="closeReceiveSuccess">确定</button>
+            </view>
+        </view>
+    </view>
+</root-portal>

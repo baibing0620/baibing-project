@@ -1,0 +1,47 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src='../../template/initShow/initShow.wxml' />
+
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:else>
+		 <view wx:for="{{ orderList }}" wx:key="id" class="item" data-path="orderManageDetail" data-id="{{ item.id }}" catchtap="nav">
+            <view class="info-bottom fr30 c6 flexb">
+                下单时间:  {{ item.createtime || item.create_time }}
+                <view class="info-detail">
+									<view wx:if="{{ item.status == 4 }}">待审核</view>
+                
+									<text class="iconfont icon-jinru c9 fr24" style="margin-left: 20rpx;"></text>
+                </view>
+            </view>
+            <view class="info-top">
+                <view class="info-info">
+                    <view class="labels fr26 c9">
+												<view class="label">收货人</view>
+												<view class="label">手机号</view>
+                        <view class="label">订单金额</view>
+                        <view class="label">订单类型</view>
+                    </view>
+                    <view class="contents fr26 c3">
+                        <block>
+                            <view class="content">{{ item.address_realname }}</view>
+                            <view class="content">{{ item.address_mobile }}</view>
+                            <view class="content" wx:if="{{item.paytype == 4}}">
+                                <text>{{item.goods[0].consume_integral}}积分</text>  
+                                <text  wx:if="{{item.paytype==4&&item.goods[0].consume_price!=0}}">+{{item.goods[0].consume_price}}元</text>
+                            </view> 
+                            <view class="content" wx:else>{{ item.price }}元</view>
+                            <view class="content" wx:if="{{item.selected_products_type == 3}}"> <text style="color: #ff9b1f">自营商品订单</text></view>
+                            <view class="content" wx:if="{{item.selected_products_type == 1}}"> <text>平台商品订单</text></view>
+                        </block>
+                    </view>
+                </view>
+            </view>
+        </view>
+</block>
+
+
+<component-messageToast></component-messageToast>
+
+

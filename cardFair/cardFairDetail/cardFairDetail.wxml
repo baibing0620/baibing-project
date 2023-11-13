@@ -1,0 +1,173 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module="page">
+    function transformPage(type){
+        switch(type){
+            case 1:
+              return 'about'
+              break;
+               case 2:
+              return 'mall'
+              break;
+               case 3:
+              return 'bbs'
+              break;
+               case 4:
+              return 'takeAwayMenu'
+              break;
+               case 5:
+              return 'reservationServiceList'
+              break;
+                case 6:
+              return 'news'
+              break;
+        }
+    }
+    module.exports = {
+        transformPage: transformPage
+    }
+</wxs>
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <block wx:if="{{ noCard }}">
+            <block wx:if="{{ fromShare }}">
+                <view wx:if="{{ fromCardId }}" class="fr28 cf card-list bold" style="color:{{diyConfig.themeColor}}" bindtap="toCard">
+                    <text class="iconfont icon-fanhui1 fr26"> </text> 返回名片
+                </view>
+                <view wx:else class="fr28 cf card-list bold" style="color:{{diyConfig.themeColor}}" bindtap="toCardList">
+                    <text class="iconfont icon-fanhui1 fr26"> </text> 返回名片列表
+                </view>
+            </block>
+            <image src='/imgs/bitmap.png' class='no-card'/>
+            <view class='fr26 c9 flexc'>您还未添加任何名片</view>
+        </block>
+        <block wx:else>
+            <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关信息'}}" wx:if="{{showStyle!=1&&tag.length==0}}" />
+            <block wx:else>
+                <block wx:if="{{ fromShare }}">
+                    <view wx:if="{{ fromCardId }}" class="fr28 cf card-list bold" style="color:{{diyConfig.themeColor}}" bindtap="toCard">
+                        <text class="iconfont icon-fanhui1 fr26"> </text> 返回名片
+                    </view>
+                    <view wx:else class="fr28 cf card-list bold" style="color:{{diyConfig.themeColor}}" bindtap="toCardList">
+                        <text class="iconfont icon-fanhui1 fr26"> </text> 返回名片列表
+                    </view>
+                </block>
+                <view wx:else class="fr28 cf card-list bold"></view>
+                <diy-card2 diyConfig="{{ diyConfig }}" userInfo="{{ baseInfo }}" baseInfo="{{ baseInfo }}" />
+                <view class="content w100" style='background:{{ diyConfig.isWhiteBC?"":"url("+bgimg+") repeat-y center"}}'>
+                    <view class="view-user-list flexc" style="border-color:{{diyConfig.isWhiteBC?'#f0f0f0':'rgba(255,255,255,0.1)'}}">
+                        <view class="flexb fr26 c9 view-user-text w100">
+                            <view class="{{ diyConfig.isWhiteBC?'cb3':'c9' }}">
+                                <block wx:if="{{ status }}">
+                                    {{ baseInfo.page_views || 0 }}人浏览
+                                </block>
+                            </view>
+                            <view class="flex">
+                                <view style="color:{{baseInfo.iHasCollect==1?diyConfig.themeColor:''}}">
+                                    <view class="iconfont fr30 icon-shoucang2 {{diyConfig.isWhiteBC?'cbf':'cf'}} {{baseInfo.iHasCollect==1 && iHasCollectClick ?'great':''}}" style="color:{{baseInfo.iHasCollect==1?diyConfig.themeColor:''}}" bindtap='changeCollect'></view>
+                                </view>
+                                <view class="{{ diyConfig.isWhiteBC?'cbf':'cf' }}" style="color:{{ baseInfo.iHasCollect==1?diyConfig.themeColor:'' }}; width: 100rpx" bindtap='changeCollect'>
+                                    收藏<block wx:if="{{ status }}">{{ baseInfo.collection_num || 0 }}</block>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+
+                    <view class="item-box  introduce-oneself" wx:if="{{mediaInfo.description}}" style="padding-top: 40rpx;">
+                        <view class="title-tag fr28" style="border-color:{{diyConfig.themeColor}};margin-bottom:28rpx;">
+                            <view class="title-tag-text {{diyConfig.isWhiteBC?'c4d':'cf'}}">
+                                个人介绍
+                            </view>
+                        </view>
+                        <view wx:for="{{mediaInfo.descriptionArr}}" wx:key='id' class="fr26 introduce-text {{diyConfig.isWhiteBC?'c80':'cf_7'}}">
+                            {{item}}
+                        </view>
+                        <view class="voice-box" wx:if='{{ mediaInfo.hasVoice }}'>
+                            <component-audioPlayer src='{{ mediaInfo.voiceUrl.url }}' title='{{ mediaInfo.voiceUrl.id }}' themeColor='{{ diyConfig.themeColor }}' slideColor="{{ diyConfig.isWhiteBC?'#e6e6e6':'#4c4c4c' }}" color="{{ diyConfig.isWhiteBC?'':'#fff' }}" cardId='{{ cardId }}' dontNeedCount="{{ true }}"></component-audioPlayer>
+                        </view>
+                    </view>
+                    <view wx:if="{{ videoList.length > 0 }}" class="item-box video-box">
+                        <view class="title-tag fr28" style="border-color: {{diyConfig.themeColor}}">
+                            <view class="title-tag-text {{diyConfig.isWhiteBC?'c4d':'cf'}}">
+                                我的视频
+                            </view>
+                        </view>
+                        <view class="my-video flex">
+                            <view wx:if='{{ videoList.length == 1 && videoShowStyle == 2 }}' class="videoAlone" data-id='{{ videoList[0].id }}' bindtap="toVideoDetail">
+                                <image mode="aspectFill" src="{{ ShowImg.cropImgWH(videoList[0].video_image_url, 690, 430) }}"></image>
+                                <view class="video-cover"></view>
+                                <view class='video-shadow'></view>
+                                <view class="iconfont icon-bofang6"></view>
+                                <view class="videoAlone-title">{{ videoList[0].video_title }}</view>
+                                <view class="videoAlone-time videoStyle2-time fr24 cf">
+                                    {{ videoList[0].video_duration }}
+                                </view>
+                            </view>
+                            <scroll-view wx:elif='{{ videoShowStyle == 2 }}' class="videoStyle2" scroll-x bindscrolltolower="getMoreVideo">
+                                <view wx:for="{{ videoList }}" wx:key="{{ item.id }}" class='videoStyle2-box'>
+                                    <view data-id="{{ item.id }}" class="videoStyle2-item" bindtap="toVideoDetail">
+                                        <image mode="aspectFill" src="{{ ShowImg.cropImgWH(item.video_image_url, 516, 322) }}"></image>
+                                        <view class="video-cover"></view>
+                                        <view class='video-shadow'></view>
+                                        <view class="iconfont icon-bofang6"></view>
+                                        <view class="videoAlone-title videoStyle2-title">
+                                            {{ item.video_title }}
+                                        </view>
+                                        <view class="videoAlone-time videoStyle2-time fr24 cf">
+                                            {{ item.video_duration }}
+                                        </view>
+                                    </view>
+                                    <image class="shadowImage" src="/imgs/w-shadow.png"></image>
+                                </view>
+                            </scroll-view>
+                            <scroll-view wx:elif='{{ videoShowStyle == 1 }}' class="videoStyle1" scroll-x bindscrolltolower="getMoreVideo">
+                                <view wx:for="{{ videoList }}" wx:key="{{ item.id }}" data-id="{{ item.id }}" class="videoStyle1-item" bindtap="toVideoDetail">
+                                    <image mode="aspectFill" src="{{  ShowImg.cropImgWH(item.video_image_url, 276, 410)  }}"></image>
+                                    <view class="video-cover"></view>
+                                    <view class='video-shadow'></view>
+                                    <view class="iconfont icon-bofang5 flexc cf"></view>
+                                    <view class="videoAlone-title videoStyle1-title">
+                                        {{ item.video_title }}
+                                    </view>
+                                    <view class="videoAlone-time videoStyle1-time fr24 cf">
+                                        {{ item.video_duration }}
+                                    </view>
+                                </view>
+                            </scroll-view>
+                        </view>
+                    </view>
+                    <view class="item-box" wx:if="{{tag.length>0}}">
+                        <view class="title-tag fr28" style="border-color: {{diyConfig.themeColor}}">
+                            <view class="title-tag-text {{diyConfig.isWhiteBC?'c4d':'cf'}}">
+                                服务说明
+                            </view>
+                        </view>
+                        <view class="my-tag flex">
+                            <view class="text-box fr26" wx:for="{{tag}}" wx:key='{{index}}'>
+                                <view class='flex' style="color: {{diyConfig.themeColor}}">
+                                    {{item.tagName}}
+                                </view>
+                                <view class="text-box-bc" style="background: {{diyConfig.themeColor}}"></view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="item-box" wx:if="{{mediaInfo.imageList.length > 0}}">
+                        <view class="title-tag fr28" style="border-color: {{diyConfig.themeColor}}">
+                            <view class="title-tag-text {{diyConfig.isWhiteBC?'c4d':'cf'}}">
+                                我的照片
+                            </view>
+                        </view>
+                        <view class="my-imgs flexb {{ imageShowStyle == 1 ? 'my-imgs1' : '' }}">
+                            <image mode="aspectFill" src="{{ imageShowStyle == 1 ? ShowImg.cropImgWH(item, 690, 520) : ShowImg.cropImgWH(item, 340, 340) }}" wx:for="{{mediaInfo.imageList}}" wx:key='id' data-preview-url="{{item}}" bindtap="previewImag" />
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </block>
+        
+    </button>
+</form>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

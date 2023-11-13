@@ -1,0 +1,48 @@
+page {
+    background: #f5f5f5;
+}
+
+.continer {
+    width: 710rpx;
+    height: 216rpx;
+    background: #fff;
+    margin-bottom: 10rpx;
+    padding: 25rpx 30rpx;
+    box-sizing: border-box;
+    line-height: 52rpx;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10rpx;
+    border: 1rpx solid #e6e6e6;
+}
+
+.message-status {
+    width: 136rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    border-radius: 25rpx;
+    position: absolute;
+    right: -22rpx;
+    padding-left: 10rpx;
+}
+
+.continer>view>text:nth-of-type(2) {
+    margin: 0 6rpx 0 8rpx;
+}
+
+.fr32 {
+    line-height: 100%;
+}
+
+.message-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.btn {
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+    background-color: #1F94FD;
+}

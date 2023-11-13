@@ -1,0 +1,98 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1&&!detail.id}}" />
+<view class='page' wx:else>
+    <view class="container">
+        <view class="main">
+            <view class="introduce">
+                <image src="{{ShowImg.cropImgWH(detail.userInfo.avatar_url,120,120)}}"></image>
+                <view>
+                    <view class="fr20 c3">{{detail.userInfo.nickname}}</view>
+                    <view class="fr18 c6">我想收下此礼物，价格多少就等你帮我砍！</view>
+                </view>
+            </view>
+            <view class="header" catchtap='toGoods' data-id="{{detail.goods_id}}">
+                <image class='pic' src="{{ShowImg.cropImgWH(detail.goods.thumb_url,120,120)}}"></image>
+                <view class="header-right flexbColumn">
+                    <view class='c3 fr30 ellipsis2'>
+                        {{detail.goods.title}}
+                    </view>
+                    <view class='content-bottom c9 fr26'>销量{{detail.goods.sales}}件</view>
+                    <view class="felxb">
+                        <view class="c9 fr24" style='text-decoration:line-through;'>￥{{detail.goods.productprice}}</view>
+                        <view class="fr26" style="color: #ee4130">
+                            【砍完￥{{detail.end_price}}】
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class='spellgroup'>现价:
+                <text>￥</text>
+                <text style='font-size:50rpx;font-weight: 600'>{{detail.now_price}}</text>
+            </view>
+            <view class="spellgroupcase" wx:if="{{detail.status==1}}">{{timeStr}}</view>
+            <view class="bargain" wx:if="{{detail.status==1}}">还需要{{detail.limit_num-friendsList.length}}个好友帮忙砍价</view>
+            <view class='posparent'>
+                <scroll-view class="scroll-view_H pos" scroll-x>
+                    <block wx:if="{{friendsList.length>0}}">
+                        <view class='scroll-view-item_H' wx:for="{{friendsList}}" wx:key="{{index}}">
+                            <view class="flexbColumn" style="align-items: center;">
+                                <image class='viewimg' src='{{ShowImg.cropImgWH(item.userInfo.avatar_url,100,100)}}'></image>
+                                <view class="viewimg-tips">-{{item.bargain_money}}</view>
+                            </view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <view class='scroll-view-item_H'>
+                            <view class="flexbColumn" style="align-items: center;">
+                                <image class='viewimg' src='/imgs/no-body.png'></image>
+                                <view class="viewimg-tips">?</view>
+                            </view>
+                        </view>
+                    </block>
+                </scroll-view>
+            </view>
+            <button class='btn bgred ' hover-class="active-btn" disabled wx:if="{{!canBuy}}">{{reason}}</button>
+            <block wx:elif="{{type==1}}">
+                <button class='btn bgred ' hover-class="active-btn" open-type="share" wx:if="{{detail.status==1}}">邀请好友帮忙砍价</button>
+                <view class='fr32 cff' style="margin-top:58rpx;text-align: center;" wx:if="{{detail.status==2}}">已砍到最低价，请及时付款</view>
+                <button class='btn bgred ' hover-class="active-btn" disabled wx:if="{{detail.status==3}}">可砍价时间已结束，请支付</button>
+                <button class='btn bgred ' hover-class="active-btn" disabled wx:if="{{detail.status==0}}">砍价订单已被取消</button>
+                <button class='btn bgred ' hover-class="active-btn" disabled wx:if="{{detail.status==4}}">砍价订单已创建</button>
+            </block>
+            <button class='btn bgred' hover-class="active-btn" disabled wx:elif="{{type==2}}">已帮过TA</button>
+            <button class='btn bgred' hover-class="active-btn" wx:elif="{{type==3&&detail.status==1}}" catchtap="showBargain">帮TA砍价</button>
+
+            <button class='btn bgred' disabled wx:elif="{{type==3&&detail.status==2}}">砍价已完成</button>
+        </view>
+        <view class='footer'>
+            <navigator class="iconfont icon-shouye c6" url="{{homepage}}" open-type="switchTab"></navigator>
+            <block wx:if="{{type==1}}">
+                <view catchtap="buyNow" wx:if="{{canBuy&&detail.status!=0&&detail.status!=4}}">立即购买</view>
+                <view wx:else catchtap="toBargainGoods">查看其它砍价商品</view>
+            </block>
+            <view wx:else catchtap="toBargainGoods">我也要参加</view>
+        </view>
+    </view>
+    <view class="bargain-dialog flexc" wx:if="{{canBuy&&needBargain&&type==3&&detail.status==1}}">
+        <view class="bargain-content flexcColumn">
+            <block wx:if="{{bargainMoney<0}}">
+                <view class="iconfont icon-xiaolian fr34 cff"> 帮砍价</view>
+                <view class="fr30 c3 mt38">我想买下这个礼物，请帮我砍价！</view>
+                <view class="fr34 bargain-btn bgred" hover-class="active-btn" catchtap="friendsBargain">帮TA砍价</view>
+            </block>
+            <block wx:else>
+                <view class="iconfont icon-weibiaoti116 fr34 cff"> 砍价成功</view>
+                <view class="fr30 c3 mt38">您帮{{detail.userInfo.nickname}}砍掉了</view>
+                <text class="cff fr40 mt38">￥{{bargainMoney}}</text>
+            </block>
+            <view class="close-btn c9 fr30" catchtap="closeBargainDiolog">x</view>
+        </view>
+    </view>
+</view>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

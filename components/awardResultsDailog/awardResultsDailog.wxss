@@ -1,0 +1,27 @@
+@import '/comm/base.wxss';
+.resultContainer {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, .6);
+    z-index: 1000;
+    align-items: center;
+}
+
+.resultBox {
+    width: 610rpx;
+    height: 268rpx;
+    border-radius: 40rpx;
+    background: url("https://facing-1256908372.file.myqcloud.com//image/20200106/5af33d4f398520c5.png") no-repeat center center;
+    background-size: 610rpx 268rpx;
+    color: #fff;
+    letter-spacing: 1rpx;
+    margin-top: 300rpx;
+    align-items: center;
+}
+
+.resultInfo {
+    width: 80%;
+    text-align: center;
+}

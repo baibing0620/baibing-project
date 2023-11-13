@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "商品重要参数",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-steps": "/components/steps/steps"
+    }
+}

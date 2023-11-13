@@ -1,0 +1,27 @@
+@import "/iconfont/iconfont";
+
+.remindToAdd {
+  height: 72rpx;
+  width: 430rpx;
+  position: fixed;
+  z-index: 900;
+  top: 0;
+  right: 30rpx;
+  overflow: hidden;
+}
+
+.remindToAdd .image {
+  height: 72rpx;
+  width: 430rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.btn {
+  height: 60rpx;
+  width: 66rpx;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

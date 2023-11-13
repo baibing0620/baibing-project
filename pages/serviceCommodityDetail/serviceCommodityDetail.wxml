@@ -1,0 +1,80 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is='initShow' data='{{showStyle: showStyle}}' wx:if='{{showStyle != 1}}'></template>
+        <block wx:if='{{showStyle == 1}}'>
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+            <view class="fix-qrcode iconfont icon-erweima flexc fr30" bindtap="previewQRCode">
+          </view>
+            <swiper class='banner' autoplay circular indicator-dots indicator-color='rgba(255,255,255,.6)' indicator-active-color='#fff' interval='{{3000}}' >
+                <block wx:for='{{data.img_url}}' wx:key='index'>
+                    <swiper-item>
+                        <image class='banner-image' mode='aspectFill' src='{{ ShowImg.cropImgWH(item.url, 750, 522) }}' />
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view class='info-layout bcf'>
+                <view class='title-layout flex'>
+                    <view class='info flex1'>
+                        <view class='title fr40 c-1d2023'>{{data.description}}</view>
+                        <view class='detail fr28 c-919599'>{{data.present}}</view>
+                    </view>
+                    <view class='like-layout flexc'>
+                        <view class='like flexcColumn c-ff3e26' bindtap='handleLikeClick'>
+                            <view class='like-icon fr56 iconfont {{data.like_status == 1 ? "icon-dianzan2" : "icon-like"}} {{!loadAnimationWithPageLoad && data.like_status == 1 ? "like-animation" : ""}}'></view>
+                            <view class='like-total fr28'>{{data.like_number}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class='tags flex fr22 c-a7a9ab'>
+                    <view wx:for='{{data.label}}' wx:key='index' class='tags-item'>
+                        {{item}}
+                    </view>
+                </view>
+            </view>
+            <view class='tab-bar bcf flex fr30'>
+                <view wx:for='{{data.comment}}' wx:key='index' data-index='{{index}}' bindtap='handleTabClick' class='tab-bar-item {{index == currentTabIndex ? "tab-bar-item-selected" : ""}}'>
+                    {{item.moduleName}}
+                </view>
+            </view>
+            <view class='content bcf'>
+                <view class='rich-text-layout'>
+                    <diy-rich-text InRichTextData="{{data.comment[currentTabIndex].contentItem}}" wx:if="{{data.comment[currentTabIndex].contentItem}}" />
+                </view>
+                <image wx:if='{{data.comment[currentTabIndex].guidedImg.image_url}}' mode='widthFix' class='content-image' src='{{data.comment[currentTabIndex].guidedImg.image_url}}' data-url='{{data.comment[currentTabIndex].linkPage}}' bindtap='handleNav' />
+            </view>
+            <!-- <image class='ad-poster' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190409/4aaddaf6e8c5a91e.png' bindtap='handleNavToCardApply' /> -->
+            <block wx:if='{{showChat || data.phone || data.if_reserve == 1}}'>
+                <view class='holder' />
+                <view class='button-layout flex bcf'>
+                    <block wx:if='{{showChat}}'>
+                        <view wx:if='{{hasBindPhone}}' class='chat button-mini flex1' bindtap='handleNavToChat'>
+                            <view class='button-mini-icon iconfont icon-liaotian fr38'></view>
+                            <view class='button-mini-text fr22'>在线咨询</view>
+                        </view>
+                        <button wx:else class='chat button-mini button-default-clear flex1' hover-class='none' open-type='getPhoneNumber' bindgetphonenumber="handleGetPhoneNumber">
+                            <view class='button-mini-icon iconfont icon-liaotian fr38'></view>
+                            <view class='button-mini-text fr22'>在线咨询</view>
+                        </button>
+                    </block>
+                    <view wx:if='{{data.phone}}' class='phone button-mini flex1' bindtap='handlePhoneCall'>
+                        <view class='button-mini-icon iconfont icon-dianhua3 fr38'></view>
+                        <view class='button-mini-text fr22'>电话咨询</view>
+                    </view>
+                    <view wx:if='{{data.if_reserve == 1}}' class='button cf' bindtap='handleSubmit'>
+                        <view class='button-icon iconfont icon-tianxie fr32'></view>
+                        <view class='button-text fr32'>立即预约</view>
+                    </view>
+                </view>
+            </block>
+             <view class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+                <component-poster src='{{ painting }}' themeColor='#fd9a33' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+            </view>
+
+        </block>
+        <component-remind wx:if='{{ showRemind }}'></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

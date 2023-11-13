@@ -1,0 +1,14 @@
+<view wx:if="{{isShow}}" class="macMask" bindtap="handleHide"></view>
+<view wx:if="{{isShow}}" class="layout">
+    <view class="layout-content">
+        <view class="closeBtn"  bindtap="handleHide">
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191211/0f8a85bb9e03f4a6.png"></image>
+        </view>
+        <view class="text-center c1a fr38">{{ title }}</view>
+        <view class="mt70">
+            <input type="number" placeholder="{{ placeholder }}" class=" text-center layout-content-input" placeholder-class="cb3 fr28" bindinput="handleInputChange"/>
+        </view>
+        <view wx:if="{{tip}}" class="cb3 fr24 mt36">{{tip}}</view>
+        <view class="submit white fr30 text-center" bindtap="getValue">{{ btnVal }}</view>
+    </view>
+</view>

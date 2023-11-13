@@ -1,0 +1,35 @@
+<template name="moreData">
+    <view class="flexc load-style" style="font-size: 12px; padding: 30rpx 0;color: #999999;">
+        <text wx:if="{{loadStyle=='loadMore'}}">上拉加载更多</text>
+        <block wx:elif="{{loadStyle=='loadOver'}}">
+            <view wx:if="{{loadOverText}}" class='fr24 load-over'><text style='padding:0 30rpx;background:{{background?background:"#f5f5f5"}};'>{{loadOverText}}</text></view>
+            <text wx:else>加载完毕</text>
+        </block>
+        <image src="/imgs/loading.gif" style="width:40rpx;height: 40rpx; display:block;" wx:else />
+    </view>
+</template>
+<template name="initShow">
+    <view style="font-size: 12px;color: #666666;margin-top: 260rpx; text-align:center;" wx:if="{{showStyle==0}}">
+        <image style="width:160rpx;height:160rpx;" src="/imgs/pageLoading.gif" />
+    </view>
+    <block wx:if="{{showStyle==2}}">
+        <view class='flexcColumn' wx:if="{{showImg}}">
+            <image style='width: 310rpx;height: 310rpx;margin: 200rpx 0 80rpx;' src="{{showImg}}"></image>
+            <view class='fr30 c9'>{{showNoMsg?showNoMsg:'暂无相关信息'}}</view>
+            <button wx:if="{{showBtn}}" catchtap='navAdd' style='width:536rpx;height:90rpx;background:{{ btnBcColor || "#ff9b1f"}};font-size:34rpx;color:#fff;margin-top:140rpx'>{{showBtn}}</button>
+        </view>
+        <view wx:else style="font-size: 12px;color: #666666;margin-top: 200rpx; text-align:center;">
+            {{showNoMsg?showNoMsg:'暂无相关信息'}}
+        </view>
+    </block>
+    <view style="font-size: 12px;color: #cccdce;margin-top: 200rpx; text-align:center;" wx:if="{{showStyle==3}}">
+        <view>
+            <image style="width:160rpx;height:160rpx;" src="/imgs/wuxian.png" />  
+            <!-- <text class="iconfont icon-wuxian" style="font-size:160rpx;"></text> -->
+        </view>
+        <view>网络连接错误</view>
+        <view style="margin-top:50rpx;">
+            <button bindtap="onPullDownRefresh" style="margin:auto;width:260rpx; heigh:60rpx;line-height:60rpx;font-size:30rpx; border-radius:30rpx;color:#FD9A33;border:1rpx solid #FD9A33;">刷新</button>
+        </view>
+    </view>
+</template>

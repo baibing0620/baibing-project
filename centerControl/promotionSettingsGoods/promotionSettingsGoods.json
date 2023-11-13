@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "商品促销设置",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-steps": "/components/steps/steps",
+        "component-picker": "/components/pickerDateAndTime/pickerDateAndTime"
+    }
+}

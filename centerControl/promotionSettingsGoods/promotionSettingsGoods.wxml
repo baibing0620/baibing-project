@@ -1,0 +1,65 @@
+<include src="../../comm/comm.wxml" />
+<component-messageToast></component-messageToast>
+<component-steps chooseIndex="4" completeIndex="3"></component-steps>
+<view class='container'>
+    <view class='flexb title'>
+        <view class='fr32 c3 bold '>是否进行促销活动</view>
+        <switch color='#ff9b1f' checked="{{isOpen}}" bindchange="freeChange" />
+    </view>
+    <block wx:if="{{isOpen}}">
+        <view class='fr24 cb3}} bold mb40'>选择促销类型</view>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeStock}}">
+            <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 {{index == -1?"cb3":"c3"}}'>{{index == -1?'请选择促销类型':typeStock[index]}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+        <view class='fr24 {{((index == 0&& startTime)||(index == 1 && groupTime)||(index == 2&&bargainTime))?"cb3":"c3"}} bold mb40'>选择促销时间</view>
+        <block wx:if="{{index == 0}}">
+            <component-picker time="{{startTime}}" placeholder="选择活动开始时间" bind:change="changeStart"></component-picker>
+            <view style='margin-top:30rpx'>
+                <component-picker time="{{endTime}}" placeholder="选择活动结束时间" bind:change="changeEnd"></component-picker>
+            </view>
+        </block>
+        <block wx:elif="{{index == 1}}">
+            <!-- <component-picker placeholder="选择成团有效时间" bind:change="changeGroup"></component-picker> -->
+            <picker bindchange="changeGroup" value="{{groupIndex}}" range="{{group}}">
+                <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                    <text class='fr28 {{groupIndex == -1?"cb3":"c3"}}'>{{groupIndex == -1?'选择拼团有效时间':group[groupIndex]}}</text>
+                    <view class="iconfont icon-xiala1 c9 fr24"></view>
+                </view>
+            </picker>
+            <view class='input flexb' style='margin-top:30rpx'>
+                <input type="digit" value="{{groupPrice}}" class='fr30 flex1 c3' placeholder='请输入拼团价格' bindinput="changeGroupPrice" />
+                <view class='fr28 c3'>元</view>
+            </view>
+            <view class='input flexb' style='margin-top:30rpx'>
+                <input type="number" value="{{limitNum}}" class='fr30 flex1 c3' placeholder='请设置拼团上限人数，100人内' bindinput="changeNum" />
+                <view class='fr28 c3'>人</view>
+            </view>
+        </block>
+        <block wx:elif="{{index == 2}}">
+            <!-- <component-picker placeholder="选择砍价有效时间" bind:change="changeBargain"></component-picker> -->
+            <picker bindchange="changeBargain" value="{{barginIndex}}" range="{{bargain}}">
+                <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                    <text class='fr28 {{barginIndex == -1?"cb3":"c3"}}'>{{barginIndex == -1?'选择砍价有效时间':bargain[barginIndex]}}</text>
+                    <view class="iconfont icon-xiala1 c9 fr24"></view>
+                </view>
+            </picker>
+            <view class='input flexb' style='margin-top:30rpx'>
+                <input type="digit" value="{{bargainPrice}}" class='fr30 flex1 c3' placeholder='请输入砍价价格' bindinput="changeBargainPrice" />
+                <view class='fr28 c3'>元</view>
+            </view>
+            <view class='input flexb' style='margin-top:30rpx'>
+                <input type="number" value="{{limitNum}}" class='fr30 flex1 c3' placeholder='请设置砍价上限人数，100人内' bindinput="changeNum" />
+                <view class='fr28 c3'>人</view>
+            </view>
+        </block>
+        <view class='fr24 {{order?"cb3":"c3"}} bold mb40'>商品排序</view>
+        <input type="number" value="{{order}}" class='fr30 c3' placeholder='请设置0~100的数字，数字越大商品越靠前' bindinput='changeOrder' />
+    </block>
+</view>
+<view class='btn flex'>
+    <button catchtap='backSteps' class='flex1 fr34'>上一步</button>
+    <button disabled='{{disabled}}' catchtap='nextSteps' style='flex:2'>{{edit?"立即编辑":"立即添加"}}</button>
+</view>

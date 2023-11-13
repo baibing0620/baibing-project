@@ -1,0 +1,78 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is='initShow' data='{{showStyle: showStyle}}' wx:if='{{showStyle != 1}}'></template>
+        <block wx:if='{{showStyle == 1}}'>
+            <block wx:for='{{data.form_config}}' wx:key='index'>
+                <!-- text -->
+                <block wx:if='{{"text" == item.formType}}'>
+                    <view class='layout'>
+                        <view class='label'>{{item.title}}</view>
+                        <input class='input flex1' value='{{item.value}}' placeholder-class='c-c2c5cc' placeholder='{{item.tipText}}' data-index='{{index}}' bindinput="handleValueChange" />
+                    </view>
+                </block>
+                <!-- textarea -->
+                <block wx:elif='{{"textarea" == item.formType}}'>
+                    <view class='layout'>
+                        <view class='label'>{{item.title}}</view>
+                        <textarea class='textarea flex1 {{item.value ? "" : "textarea-holderFix"}}' value='{{item.value}}' placeholder-class='c-c2c5cc weight-normal' placeholder='{{item.tipText}}' data-index='{{index}}' bindinput="handleValueChange" />
+                    </view>
+                </block>
+                <!-- checkbox -->
+                <block wx:elif='{{"checkbox" == item.formType}}'>
+                    <view class='layout'>
+                        <view class='label'>{{item.title}}</view>
+                        <view class='check-group'>
+                            <block wx:for='{{item.options}}' wx:for-item='option' wx:for-index='optionIndex' wx:key='{{optionIndex}}'>
+                                <view class='iconfont check-item {{option.checked ? "check-item-checked" : ""}}' data-index='{{index}}' data-itemindex='{{optionIndex}}' bindtap='handleCheckGroupClick'>{{option.name}}</view>
+                            </block>
+                        </view>
+                    </view>
+                </block>
+                <!-- radio -->
+                <block wx:elif='{{"radio" == item.formType}}'>
+                    <view class='layout'>
+                        <view class='label'>{{item.title}}</view>
+                        <picker class='input flex1' mode="selector" value='{{item.valueData || ""}}' range='{{item.options}}' range-key='name' data-index='{{index}}' bindchange="handlePickerChange">
+                            <view class='picker-layout flex'>
+                                <view class='picker flex1 flex {{item.value ? "" : "c-c2c5cc"}}'>{{item.value || item.tipText}}</view>
+                                <view class='iconfont icon-xiala2'></view>
+                            </view>
+                        </picker>
+                    </view>
+                </block>
+                <!-- date -->
+                <block wx:elif='{{"date" == item.formType}}'>
+                    <view class='layout'>
+                        <view class='label'>{{item.title}}</view>
+                        <picker class='input flex1' mode="date" value="{{item.value}}" start="2015-09-01" data-index='{{index}}' bindchange="handleValueChange">
+                            <view class='picker-layout flex'>
+                                <view class='picker flex1 flex {{item.value ? "" : "c-c2c5cc"}}'>{{item.value || item.tipText}}</view>
+                                <view class='iconfont icon-xiala2'></view>
+                            </view>
+                        </picker>
+                    </view>
+                </block>
+                <!-- region -->
+                <block wx:elif='{{"region" == item.formType}}'>
+                    <view class='layout'>
+                        <view class='label'>{{item.title}}</view>
+                        <picker class='input flex1' mode="region" value='{{item.valueData || ""}}' data-index='{{index}}' bindchange="handleRegionChange">
+                            <view class='picker-layout flex'>
+                                <view class='picker flex1 flex {{item.value ? "" : "c-c2c5cc"}}'>{{item.value || item.tipText}}</view>
+                                <view class='iconfont icon-xiala2'></view>
+                            </view>
+                        </picker>
+                    </view>
+                </block>
+            </block>
+
+            <view class='submit flexc cf fr34' bindtap='handleSubmit'>立即提交</view>
+        </block>
+        <component-remind wx:if='{{ showRemind }}'></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

@@ -1,0 +1,10 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+  <view class="c0 user-info-main" >
+    <view style="width:100%;{{'height: ' + globalData.statusBarHeight + 'px'}} "></view>
+    <view bindtap="navigate" style="height:{{globalData.getMenuButtonBoundingClientRect}}px" class="flex iconfont icon-fanhui2"></view>
+  </view>
+<view style="height:{{439 - height*2}}rpx" class="navigation"></view>
+<image class="qr-img {{load == 'over'?'opacity':''}}" show-menu-by-longpress catchtap="preview" src="{{qrcode}}"></image>
+<painter palette="{{palette}}" class="canvasdrawer" bind:imgOK="eventGetImage"/>
+
+

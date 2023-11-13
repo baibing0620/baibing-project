@@ -1,0 +1,63 @@
+.fr24, .fr26, .fr28, .fr30 {
+  line-height: 100%;
+}
+
+page{
+  padding-top: 30rpx;
+}
+
+.item {
+  width: 710rpx;
+  box-sizing: border-box;
+  margin-bottom: 10rpx;
+  margin-left: 20rpx;
+  border-radius: 10rpx;
+  padding: 30rpx 30rpx 0 30rpx;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  background-color: #ccc;
+}
+
+.nickname {
+  color: #ff9b1f;
+}
+
+.content {
+  margin-top: 5rpx;
+  line-height: 50rpx;
+  margin-bottom: 13rpx;
+}
+
+.bar {
+  box-sizing: border-box;
+  height: 90rpx;
+  border-top: 1rpx solid #f5f5f5;
+  justify-content: flex-end;
+}
+
+.refuse {
+  box-sizing: border-box;
+  width: 140rpx;
+  height: 60rpx;
+  line-height: 57rpx;
+  border: 1rpx solid #fe0002;
+  text-align: center;
+  border-radius: 4rpx;
+  color: #fe0002;
+  margin-right: 30rpx;
+}
+.pass {
+  width: 140rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 4rpx;
+  color: #fff;
+  background-color: #3bcaff;
+}

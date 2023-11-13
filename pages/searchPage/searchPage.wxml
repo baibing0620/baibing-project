@@ -1,0 +1,15 @@
+<include src="../../comm/comm.wxml" />
+<view class="container flexc">
+	<view class="search-box flex flex1">
+		<view class="input-box  flex1 flex">
+			<icon type="search" size="13" color="#999"/>
+			<input class="search-input f14" placeholder	="请输入关键字搜索"  placeholder-style="color:#999"  confirm-type="搜索"  bindconfirm="searchGoods" focus="{{true}}" bindinput="getKeyWord"/>
+		</view>
+		<button class="cancel-btn f14 flexc" catchtap="searchGoods">搜索</button>
+	</view>
+</view>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>
+

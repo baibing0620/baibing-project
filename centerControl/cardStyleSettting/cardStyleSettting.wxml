@@ -1,0 +1,23 @@
+<include src="/comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="flex" style="padding: 30rpx 20rpx;">
+	<block wx:for="{{cardStyleUrl}}" wx:key="id" wx:if="{{ display[index] }}">
+    <view bindtap="chooseCard" data-index="{{index}}" class="{{index == chooseIndex ? 'card-choose ' : ''}} card-deault">
+      <view class="card-setting flexb ">
+          <view class="card-setting-image" catchtap="previewImg" data-index="{{ index }}">
+            <component-image src="{{ item }}" placeholder></component-image>
+          </view>
+          <view wx:if="{{index ==chooseIndex}}" class="card-icon">
+            <text class="iconfont icon-gouxuan3 fr16"></text>
+          </view>
+          <button class="fr24 {{index ==chooseIndex? 'card-button-choose ':'card-button-default'}}">{{cardName[index]}}</button>
+      </view>
+    </view>
+    </block>
+</view>
+
+<button bindtap="saveChoose" class="confirm-btn fr30 cf bold">确认选择</button>
+<view class="fr22 c9 more-card">展示的样式为企业设置，更多名片样式持续更新中</view>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

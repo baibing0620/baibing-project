@@ -1,0 +1,1167 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src="../../template/initShow/initShow.wxml" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1&&!goods.id}}" />
+
+        <block wx:else>
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+            <view class="container w100">
+                <modal-video src="{{videoSrc}}" bind:closeMe="closeVideo" wx:if="{{playVideo}}" />
+                <view class="fix-home-page iconfont icon-shouye1 flexc fr36" bindtap='navHomePage'></view>
+                <view class="fix-qrcode iconfont icon-erweima flexc fr30" bindtap="previewQRCode" wx:if="{{open_qr_code==1&&isFrom!='integralMall'}}">
+                </view>
+                <view class="container-swiper-bg">
+                    <swiper current="{{currentIndex}}" bindchange="swiperBindchange" indicator-active-color="#f74c31" autoplay="{{true}}" circular="{{true}}" style="height:750rpx;width:100%;">
+                        <block wx:for="{{banners}}" wx:key="id">
+                            <swiper-item style="position: relative;">
+                                <view class="action-play flexc" bindtap="showVideo" wx:if="{{item.src}}" data-src="{{item.src}}">
+                                    <image class="play-img" src="{{playUrl}}" />
+                                </view>
+                                <image src="{{ShowImg.cropImgWH(item.url,750,750)}}" class="slide-image" mode="aspectFill" bindtap="previewImage" data-img-index="{{index}}" />
+                            </swiper-item>
+                        </block>
+                    </swiper>
+
+                    <view class="custom-indicator fr24" wx:if="{{banners.length > 1}}">{{customIndex}}/{{banners.length}}</view>
+                    
+                </view>
+                <open-vip vipPrice="{{vipInfo.vipPrice}}" wx:if="{{vipInfo&&vipInfo.userIsVip==0}}" />
+
+                <view class="new-marketing flex new-collage {{groupbuytimes[0].timeType == 3 ? 'new-seckill-over': ''}}" wx:if="{{isGroupBuy!=0}}">
+                    <view class="new-marketing-left-group flex">
+                        <view class="new-marketing-left-price-group">
+                            <view class="lh1">
+                                <label class="fr34 mr10 bold">¥</label>{{Format.float(groupBuyPrice)}}</view>
+                            <view class="new-marketing-left-tip-content fr24">原价
+                                <label style="text-decoration:line-through;">¥{{Format.float(goods.price)}}</label>
+                            </view>
+                        </view>
+                        <view class="new-marketing-left-tip-group">
+                            <view class="new-marketing-left-tip-title bf fr20" style="position:relative;top:10rpx" wx:if="{{isGroupBuy==3}}">{{Format.float(groupBuyPrice)}}元抽奖</view>
+                            <view class="new-marketing-left-tip-title bf fr20" style="position:relative;top:10rpx" wx:else>{{groupBuyLimitNum}}人拼团</view>
+                            <view class="cf fr24" style="position:relative;top:12rpx" wx:if="{{isGroupBuy==3}}">
+                                剩余{{Format.formatSales(goods.total)}}件
+                            </view>
+                            <view class="cf fr24" style="position:relative;top:12rpx" wx:else>
+                                销量{{Format.formatSales(goods.sales)}}件
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-marketing-right">
+                        <view wx:if="{{groupbuytimes[0].timeType == 1}}" class="flexColumn new-collage-right-not-started fr30">
+                            <view style="margin-bottom:6rpx">活动开始时间</view>
+                            <view class="fr28">{{groupbuytimes[0].startTime}}</view>
+                        </view>
+                        <view wx:elif="{{groupbuytimes[0].timeType == 2}}" class="flexColumn new-collage-right-not-started new-collage-right-time">
+                            <view class="fr26 new-collage-right-time-title">{{isGroupBuy == 3?'开奖倒计时': '距结束仅剩'}}
+                                <block wx:if="{{groupbuytimes[0].day != 0}}">
+                                    <text class="fr30">{{groupbuytimes[0].day}}</text>天</block>
+                            </view>
+                            <view class="fr28 flexc">
+                                <label class="count-down">{{groupbuytimes[0].hr}}</label>
+                                <label class="m01">:</label>
+                                <label class="count-down">{{groupbuytimes[0].min}}</label>
+                                <label class="m01">:</label>
+                                <label class="count-down">{{groupbuytimes[0].sec}}</label>
+                                <label class="m01">:</label>
+                                <label class="count-down">
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </label>
+                            </view>
+                        </view>
+                        <view wx:if="{{groupbuytimes[0].timeType == 3}}" class="flexc" style="height: 100%">
+                            <image src="https://facing-1256908372.file.myqcloud.com//image/20200723/31ee4a80d29c195a.png" style="width: 110rpx;height: 110rpx"></image>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="new-marketing flex new-seckill {{times[0].timeType == 3 ? 'new-seckill-over': ''}}" wx:elif="{{goods.istime==1 && times[0].timeShown &&(isFrom!='integralMall')}}">
+                    <view class="new-marketing-left flex">
+                        <view class="new-marketing-left-price">
+                            <label class="fr34 mr10">¥</label>{{Format.float(goods.price)}}</view>
+                        <view class="new-marketing-left-tip flexColumn">
+                            <view class="new-marketing-left-tip-title bf fr20">限时秒杀</view>
+                            <view wx:if="{{goods.marketPrice>0}}" class="new-marketing-left-tip-content fr24" style="margin-top: 6rpx;">
+                                市场价
+                                <label style="text-decoration:line-through;">¥{{Format.float(goods.marketPrice)}}</label>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-marketing-right">
+                        <view wx:if="{{times[0].timeType == 1}}" class="flexColumn new-collage-right-not-started fr30">
+                            <view style="margin-bottom:6rpx">活动开始时间</view>
+                            <view class="fr28">{{times[0].startTime}}</view>
+                        </view>
+                        <view wx:elif="{{times[0].timeType == 2}}" class="flexColumn new-collage-right-not-started new-collage-right-time">
+                            <view class="fr26 new-collage-right-time-title">距结束仅剩
+                                <block wx:if="{{times[0].day != 0}}">
+                                    <text class="fr30">{{times[0].day}}</text>天</block>
+                            </view>
+                            <view class="fr28 flexc">
+                                <label class="count-down">{{times[0].hr}}</label>
+                                <label class="m01">:</label>
+                                <label class="count-down">{{times[0].min}}</label>
+                                <label class="m01">:</label>
+                                <label class="count-down">{{times[0].sec}}</label>
+                                <label class="m01">:</label>
+                                <label class="count-down">
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </label>
+                            </view>
+                        </view>
+                        <view wx:if="{{times[0].timeType == 3}}" class="flexc" style="height: 100%">
+                            <image src="https://facing-1256908372.file.myqcloud.com//image/20200723/31ee4a80d29c195a.png" style="width: 110rpx;height: 110rpx"></image>
+                        </view>
+                    </view>
+                </view>
+
+                <!-- 砍价 -->
+                <view wx:elif="{{is_bargain==1}}" class="new-bargain">
+                    <image src="https://facing-1256908372.file.myqcloud.com//image/20200723/ccce3a544466e89c.png" class="new-bargain-bi"></image>
+                    <view class="new-bargain-content flex">
+                        <view class="flexColumn new-bargain-left">
+                            <view class="fr50 bold" style="margin-bottom:8rpx">
+                                <label class="fr34" style="margin-right:6rpx">¥</label>{{Format.float(bargain_price)}}</view>
+                            <view class="fr24">单买价
+                                <label class="line">¥{{Format.float(goods.price)}}</label>
+                            </view>
+                        </view>
+                        <view class="new-bargain-right flexc fr32 cf">
+                            <label class="new-bargain-right-re">好友帮砍
+                                <label style="margin-left: 12rpx">最高可砍
+                                    <label class="fr40">{{Format.float2(goods.price-bargain_price)}}</label>元</label>
+                            </label>
+                        </view>
+                    </view>
+                </view>
+
+                <view wx:elif="{{is_put_in_points_mall == 1}}" class="goods-price">
+                    <view class="goods-sell-price lh1 fr50">{{consume_integral}}
+                        <label class="fr34">积分</label>
+                        <view wx:if="{{consume_price!=0}}" class="goods-sell-price fr50">
+                            <label class="fr34" style="margin: 0 10rpx"> + ¥</label>{{Format.float(consume_price)}}</view>
+                    </view>
+                    <view class="goods-sales-details c9 fr26">
+                        <text class="line">   原价￥{{!goods.price && goods.price != 0 ? '--' : goods.price}}</text>
+                        <span style="margin-left:20rpx">销量{{goods.sales}}件</span>
+                    </view>
+                </view>
+
+                <view class="goods-price" wx:elif="{{vipInfo&&vipInfo.userIsVip==1}}">
+                    <view class="sales c9 fr28 flex">已售 {{!goods.sales && goods.sales != 0 ? '--' : goods.sales}} 件
+                        <view class="c6" style="padding-left: 40rpx;">原价:￥{{!goods.price && goods.price != 0 ? '--' : goods.price}}</view>
+                    </view>
+                    <view class="price flex">
+                        <view class="fr24 flex">
+                            <view class="vip-price-tags">会员价</view>
+                            ￥
+                            <view class="fr40">{{!vipInfo.vipPrice && vipInfo.vipPrice != 0 ? '--' : vipInfo.vipPrice}}</view>
+                        </view>
+                    </view>
+
+                </view>
+                <view class="goods-price flexb" wx:else>
+                    <view>
+                        <view class="goods-sell-price lh1 fr50">
+                            <label class="fr34">¥</label>{{Format.float(goods.price)}}
+                        </view>
+                        <view class="goods-sales-details fr26 c9">
+                            <span wx:if="{{goods.marketPrice>0}}">市场价</span>
+                            <span class="line" wx:if="{{goods.marketPrice>0}}">¥{{Format.float(goods.marketPrice)}}</span>
+                            <span style="margin-left:20rpx">已售{{goods.sales}}件</span>
+                        </view>
+                    </view>
+                    <button class="iconfont icon-share c9 fr30" open-type="share"></button>
+                </view>
+
+                <view class="goods-info w100">
+                    <view class="title flexb fr30 c3">
+                        <view class="flex1 flexb">
+                            <view class="flex">
+                                <view class="ellipsis1 goods-title fr34 bold flex1">{{goods.title || '--'}}</view>
+                                <view class="credit-can-get" wx:if="{{is_consumption_get_credit == 1 && can_get_credit}}">
+                                    赚{{can_get_credit}}积分
+                                    <view class="sanjiao"></view>
+                                </view>
+                            </view>
+                            <button wx:if="{{ isGroupBuy != 0 || is_bargain != 0 || goods.istime != 0 }}" class="iconfont icon-share c9 fr30" open-type="share"></button>
+                        </view>
+
+                    </view>
+
+                    <view class="desc-content">
+                        <text class="fr26 c9 desc-item">{{goods.desc}}</text>
+                    </view>
+
+                    <view class="credit-sales" wx:if="{{is_put_in_points_mall == 1}}">
+                        <text class="iconfont icon-jifen creditIcon"></text> {{consume_integral}}积分
+                        <text wx:if="{{is_put_in_points_mall==1 &&consume_price!=0}}">+{{consume_price}}元兑换</text>
+                    </view>
+
+                </view>
+
+                <view class="fr24 c9 tags-box w100 flexb" wx:if="{{tags.length>0}}" bindtap="showServiceBox">
+                    <view class='ellipsis1 flex flex1'>
+                        <block wx:for="{{tags}}" wx:key="{{item.index}}">
+                            <text class="iconfont icon-gouxuan fr24 c-main">
+                  <text class="c9" style="padding-left: 4rpx;"> {{item}}</text>
+                            </text>
+                        </block>
+                    </view>
+                    <text class="iconfont icon-you" style='margin-right:0;'></text>
+                </view>
+                <view style="margin-top: 10rpx;" class="w100" wx:if="{{related_virtual_goods&&isVirtualGoods==1}}">
+                    <course-detail detail="{{related_virtual_goods}}" />
+                </view>
+
+
+                <!-- 拼团 -->
+                <view class="new-group-box bf lh1" wx:if="{{isGroupBuy==1 && goodsGroupBuyList.length > 0}}">
+                    <view class="new-evaluate-title flexb">
+                        <view class="new-evaluate-title-name fr30 c3">已有{{groupPeopleTotal}}人参与活动</view>
+                        <view catchtap="viewGroupList" wx:if="{{goodsGroupBuyList.length > 0}}">
+                            <text class="fr24 c9">查看全部</text>
+                            <text class="iconfont icon-you c9 fr26" style="margin-left: 12rpx;"></text>
+                        </view>
+                    </view>
+                    <view class="fr26 c9 flexc" wx:if="{{goodsGroupBuyList.length == 0}}" style="padding-top: 33rpx;">暂时没有人开团，快来开团吧</view>
+                    <swiper autoplay circular vertical duration="400" interval="{{interval}}" style="padding-top:30rpx;height: {{swiperHeight}}">
+                        <swiper-item wx:for="{{groupList}}" wx:key="id" wx:for-item="groupItem">
+                            <view wx:for="{{groupItem}}" wx:key="id" class="new-group-box-content flexb">
+                                <view class="content-user flex">
+                                    <view class="content-user-head flex" style="width: {{item.userHead.length*62}}rpx">
+                                        <block wx:for="{{item.userHead}}" wx:key="id">
+                                            <image class="{{index == 0? '':'content-user-head-img'}}" wx:if="{{item.id}}" src="{{ShowImg.cropImgWH(item.head,80,80)}}" style="left: {{60*(index)}}rpx"></image>
+                                            <view wx:else class="content-user-head-add flexc" style="left: {{60*(index)}}rpx">
+                                                <text class="iconfont icon-tianjia cf fr36"></text>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="content-user-info flexColumn" wx:if="{{saleState.canBuy!=0 && item.status=='1'}}">
+                                        <view class="fr30 bold">
+                                            <text class="c3 content-user-info-name" style="margin-right:20rpx">{{item.users[0].name}}</text>还差
+                                            <label style="color:var(--theme-color)">{{item.subUserCount}}人</label>成团</view>
+                                        <view class="fr26 c9 flexc" style="margin-top:10rpx">
+                                            {{item.timeShown}}:
+                                            <frame-ms height='40rpx'></frame-ms>
+                                        </view>
+                                    </view>
+                                    <view wx:else class="content-user-info fr30 bold c3" style="margin-right:20rpx">{{item.users[0].name}}</view>
+                                </view>
+                                <view wx:if="{{saleState.canBuy!=0 && item.status=='1'}}" class="content-join fr26" catchtap="toGroupBuy" data-gb-id="{{item.id}}">去参团</view>
+                                <view wx:elif="{{saleState.canBuy!=0 && item.status=='2'}}" class="content-join fr26" catchtap="toGroupBuy">去开团</view>
+                            </view>
+                        </swiper-item>
+                    </swiper>
+                </view>
+                <!-- 私密团  -->
+                <view wx:elif="{{isGroupBuy==2 && privateGroupList && privateGroupList.length > 0}}" class="private-group-box bf">
+                    <view class="private-group-title fr30 c3 bold">{{groupBuyLimitNum}}人拼单，可直接参与</view>
+                    <view class="group-info-card" style="background:{{bgcolor}}">
+                        <block wx:if="{{privateGroupStatus == 2}}">
+                            <view class="card-title c3 fr34 bold">
+                                拼团成功
+                            </view>
+                        </block>
+                        <block wx:elif="{{privateGroupStatus == 0}}">
+                            <view class="card-title c3 fr34 bold">
+                                拼团失败
+                            </view>
+                        </block>
+                        <block wx:else>
+                            <view class="card-title c3 fr34 bold">
+                                已开团，好友特享价
+                                <text style="color: #FF3636">￥{{Format.float(groupBuyPrice)}}</text>
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    优惠倒计时：
+                                    <text wx:if="{{privateGroupbuytimes[0].day>0}}">{{privateGroupbuytimes[0].day}}天</text>{{privateGroupbuytimes[0].hr}}：{{privateGroupbuytimes[0].min}}：{{privateGroupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <scroll-view class="friends-list" scroll-x>
+                            <block wx:for="{{privateGroupList}}" wx:key="id">
+                                <view wx:if="{{item.id}}" class="friends-item">
+                                    <image src="{{ShowImg.cropImgWH(item.avatar,70,70)}}"></image>
+                                    <view class="friends-name ellipsis1 c3 fr24">{{item.nickname}}</view>
+                                </view>
+                                <view wx:else class="friends-item">
+                                    <view class="add-friends flexc">
+                                        <text class="iconfont icon-tianjia cc fr28"></text>
+                                    </view>
+                                    <view class="friends-name c3 fr24"></view>
+                                </view>
+                            </block>
+                        </scroll-view>
+                        <view class="dotted-line"></view>
+                        <view class="group-guarantee c9 fr26">
+                            邀请好友参团 · 人满发货 · 拼团失败退款
+                        </view>
+                        <view class="half-circle half-circle-left"></view>
+                        <view class="half-circle half-circle-right"></view>
+                    </view>
+                    <view wx:if="{{privateGroupStatus==2 || privateGroupStatus==0}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        邀请好友开团
+                    </view>
+                    <view wx:else class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        <view wx:if="{{currentHeadcount == 1}}" class="group-info-invitation-tip cf fr20 flexc">私密团需要邀请才可成团</view>
+                        <view wx:else class="group-info-invitation-tip cf fr20 flexc">仅差{{frequency}}位好友参团即可发货</view>
+                        邀请好友助力({{currentHeadcount}}/{{groupBuyLimitNum}})
+                    </view>
+                </view>
+                <!-- 抽奖大团 wx:elif="{{isGroupBuy==3 && lotteryGroupType == 1}}" -->
+                <view wx:elif="{{isGroupBuy==3 && lotteryGroupType == 1}}" class="private-group-box bf">
+                    <view class="private-group-title flexb fr30 c3">
+                        <text wx:if="{{groupbuytimes[0].timeType == 1}}" class="bold">历史活动参与人数{{Format.formatSales(groupPeopleTotal)}}人</text>
+                        <view wx:elif="{{groupbuytimes[0].timeType == 2}}">
+                            <view class="fr30 bold" style="color:#343434">{{currentHeadcount}}人正在参与抽奖</view>
+                            <view class="fr26 c6">最低参与{{groupBuyLimitNum}}人才会进行抽奖</view>
+                        </view>
+                        <text wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus == 0}}" class="bold">参团人数未满，团已解散</text>
+                        <text wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus == 1}}" class="bold">抽奖中，请稍后</text>
+                        <text wx:else class="bold">{{groupTotal}}人参与，{{winPrizeNum}}人中奖</text>
+                        <text catchtap="showGroupRule" class="c9 fr24">抽奖规则 <text class="iconfont icon-you fr26"></text></text>
+                    </view>
+                    <view class="group-info-card" style="background: {{bgcolor}}">
+                        <block wx:if="{{groupbuytimes[0].timeType == 1}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 活动未开始
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    距离活动开始：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 2 && !userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 已开团，特享抽奖价
+                                <text style="color: #FF3636">￥{{Format.float(groupBuyPrice)}}</text>
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    活动倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 2 && !waitLottery && userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 已参团，邀请好友参团
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    活动倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 2 && waitLottery && userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 等待开奖
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    开奖倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus==0}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 参团人数未满，团已解散
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus==1}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 抽奖中，请稍后
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && !groupWinning}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 已开奖，中奖人数{{winPrizeNum}}人
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && groupWinning}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 恭喜中奖
+                            </view>
+                        </block>
+                        <scroll-view class="friends-list" scroll-x>
+                            <block wx:for="{{privateGroupList}}" wx:key="id">
+                                <view wx:if="{{item.id}}" class="friends-item">
+                                    <image src="{{ShowImg.cropImgWH(item.avatar||item.head,70,70)}}"></image>
+                                    <view class="friends-name c3 fr24">{{Format.formatInterception(item.nickname||item.name)}}</view>
+                                </view>
+                                <view wx:else class="friends-item">
+                                    <view class="add-friends flexc">
+                                        <text class="iconfont icon-tianjia cc fr28"></text>
+                                    </view>
+                                    <view class="friends-name c3 fr24"></view>
+                                </view>
+                            </block>
+                        </scroll-view>
+                        <view class="dotted-line"></view>
+                        <view class="group-guarantee c9 fr26">
+                            参团抽奖 · 中奖发货 · 未中奖退款
+                        </view>
+                        <view class="half-circle half-circle-left"></view>
+                        <view class="half-circle half-circle-right"></view>
+                    </view>
+                    <view wx:if="{{groupbuytimes[0].timeType == 1}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        邀请好友
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 2 && !userJoin}}" class="group-info-invitation flexc cf fr34" catchtap="toGroupBuy">
+                        立即参团抽奖
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 2 && userJoin}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        <view wx:if="{{!waitLottery}}" class="group-info-invitation-tip cf fr20 flexc">邀请好友参团，满足人数后进行抽奖</view>
+                        <view wx:else class="group-info-invitation-tip cf fr20 flexc">邀请好友参团，提升中奖概率</view>
+                        邀请好友参团抽奖
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus == 1}}" class="group-info-invitation flexc cf fr34">
+                        抽奖中，请稍后
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus == 2}}" class="group-info-invitation flexc cf fr34" catchtap="winningList">
+                        查看中奖名单
+                    </view>
+                    <view wx:if="{{groupbuytimes[0].timeType == 2 && waitLottery && userJoin}}" class="flexc lh1 fr28" style="padding-top:30rpx; color: #9A9A9A" catchtap="groupLeaderboard">
+                        邀请排行榜
+                        <text class="iconfont icon-you fr28"></text>
+                    </view>
+                </view>
+                <!-- 抽奖小团 自己未开团 -->
+                <view wx:elif="{{isGroupBuy==3 && lotteryGroupType == 2 && privateGroupList.length == 0}}" class="new-group-lottery-box bf lh1">
+                    <view class="new-evaluate-title flexb">
+                        <view class="new-evaluate-title-name fr30 c3">历史活动参与人数{{Format.formatSales(groupPeopleTotal)}}人</view>
+                        <view catchtap="showGroupRule">
+                            <text class="fr24 c9">抽奖规则</text>
+                            <text class="iconfont icon-you c9 fr26" style="margin-left: 12rpx;"></text>
+                        </view>
+                    </view>
+                    <swiper wx:if="{{groupList.length > 0}}" autoplay circular vertical duration="400" interval="{{interval}}" style="padding-top:30rpx;height: {{swiperHeight}}">
+                        <swiper-item wx:for="{{groupList}}" wx:for-item="groupItem" wx:key="id">
+                            <view wx:for="{{groupItem}}" wx:key="id" class="new-group-box-content flexb" style="align-items: center">
+                                <view class="content-user flex">
+                                    <view class="content-user-head flex" style="width: {{item.userHead.length*62}}rpx">
+                                        <block wx:for="{{item.userHead}}" wx:key="id">
+                                            <image class="{{index == 0? '':'content-user-head-img'}}" wx:if="{{item.id}}" src="{{ShowImg.cropImgWH(item.head,80,80)}}" style="left: {{60*(index)}}rpx"></image>
+                                            <view wx:else class="content-user-head-add flexc" style="left: {{60*(index)}}rpx">
+                                                <text class="iconfont icon-tianjia cf fr36"></text>
+                                            </view>
+                                        </block>
+                                    </view>
+                                </view>
+                                <view class="flexColumn" style="align-items:flex-end">
+                                    <view class="fr30 bold" style="padding-bottom:8rpx; color: #343434">
+                                        <text style="color: #FF3636">{{item.users.length}}</text>人拼团{{item.status==1?'中':item.status==2?'成功':''}}</view>
+                                    <view class="fr26" style="color: #9A9A9A">{{item.end_time}}拼团{{item.status==1?'中':item.status==2?'成功':''}}</view>
+                                </view>
+                            </view>
+                        </swiper-item>
+                    </swiper>
+                    <view wx:if="{{groupbuytimes[0].timeType == 1}}" class="group-lottery flexc fr30 cf" style="background:#CCCCCC">
+                        活动未开始
+                    </view>
+                    <view wx:else class="group-lottery flexc fr30 cf" catchtap="toGroupBuy">
+                        立即开团抽奖
+                    </view>
+                </view>
+                <!-- 抽奖小团 自己开团 wx:elif="{{isGroupBuy==3 && lotteryGroupType == 2}}" -->
+                <view wx:elif="{{isGroupBuy==3 && lotteryGroupType == 2 && privateGroupList.length > 0}}" class="private-group-box bf">
+                    <view class="private-group-title flexb fr30 c3">
+                        <text wx:if="{{groupbuytimes[0].timeType == 1}}" class="bold">历史活动参与人数{{Format.formatSales(groupPeopleTotal)}}人</text>
+                        <text wx:if="{{groupbuytimes[0].timeType == 2 && !userJoin}}" class="bold">历史活动参与人数{{Format.formatSales(groupPeopleTotal)}}人</text>
+                        <text wx:elif="{{groupbuytimes[0].timeType == 2 && !waitLottery && userJoin}}" class="bold">还缺{{groupBuyLimitNum-currentHeadcount}}人参与抽奖</text>
+                        <view wx:elif="{{groupbuytimes[0].timeType == 2 && waitLottery && userJoin}}">
+                            <view class="fr30 bold" style="color:#343434">拼团成功，{{currentHeadcount}}团正在参与抽奖</view>
+                            <view class="fr26 c6">最低参与{{groupBuyLimitNum}}团才会进行抽奖</view>
+                        </view>
+                        <text wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus == 1}}" class="bold">抽奖中，请稍后</text>
+                        <text wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus==0 && isCondition == 2}}" class="bold">参团团数未满，团已解散</text>
+                        <text wx:else class="bold">{{groupTotal}}团参与，{{winningTotal}}团中奖</text>
+                        <text catchtap="showGroupRule" class="c9 fr24">抽奖规则<text class="iconfont icon-you fr26"></text></text>
+                    </view>
+                    <view class="group-info-card" style="background:{{bgcolor}}">
+                        <view wx:if="{{groupHead.nickname}}" class="group-info-card-top flexc fr30" style="background:{{bgtopcolor}}">{{groupHead.nickname}}的私密抽奖团</view>
+                        <block wx:if="{{groupbuytimes[0].timeType == 2 && !waitLottery && userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 已开团，邀请好友参团
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    活动倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:if="{{groupbuytimes[0].timeType == 2 && !waitLottery && !userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 已开团，快来入团参与抽奖
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    活动倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:if="{{groupbuytimes[0].timeType == 2 && waitLottery && !userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 团已满，快去开团参与抽奖吧
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    活动倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 2 && waitLottery && userJoin}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 拼团成功，等待开奖
+                            </view>
+                            <view class="flexc countdown-box">
+                                <view class="countdown-sign"></view>
+                                <view class="fr26 c3 countdown-time flexc">
+                                    开奖倒计时：
+                                    <text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：
+                                    <frame-ms height='40rpx'></frame-ms>
+                                </view>
+                                <view class="countdown-sign"></view>
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus==1}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 抽奖中，请稍后
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus==0 && isCondition == 2}}">
+                            <view class="card-title c3 fr34 bold">
+                                参团团数未满，团已解散
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && !groupWinning}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 已开奖，中奖{{winningTotal}}团
+                            </view>
+                        </block>
+                        <block wx:elif="{{groupbuytimes[0].timeType == 3 && groupWinning}}">
+                            <view class="card-title c3 fr34 bold">
+                                <text class="iconfont icon-choujiang fr34 c-theme-color"></text> 恭喜中奖
+                            </view>
+                        </block>
+                        <scroll-view class="friends-list" scroll-x>
+                            <block wx:for="{{privateGroupList}}" wx:key="id">
+                                <view wx:if="{{item.id}}" class="friends-item">
+                                    <image src="{{ShowImg.cropImgWH(item.avatar,70,70)}}"></image>
+                                    <view class="friends-name c3 fr24">{{Format.formatInterception(item.nickname)}}</view>
+                                    <view wx:if="{{item.ishead}}" class="group-head cf fr16">团长</view>
+                                </view>
+                                <view wx:else class="friends-item">
+                                    <view class="add-friends flexc">
+                                        <text class="iconfont icon-tianjia cc fr28"></text>
+                                    </view>
+                                    <view class="friends-name c3 fr24"></view>
+                                </view>
+                            </block>
+                        </scroll-view>
+                        <view class="dotted-line"></view>
+                        <view class="group-guarantee c9 fr26">
+                            参团抽奖 · 中奖发货 · 未中奖退款
+                        </view>
+                        <view class="half-circle half-circle-left"></view>
+                        <view class="half-circle half-circle-right"></view>
+                    </view>
+                    <view wx:if="{{groupbuytimes[0].timeType == 2 && !waitLottery && userJoin}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        <view class="group-info-invitation-tip cf fr20 flexc">仅差{{frequency}}位好友即可满团参与抽奖</view>
+                        邀请好友参团抽奖
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 2 && waitLottery && userJoin}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        <view class="group-info-invitation-tip cf fr20 flexc">邀请更多好友开团，可提升中奖概率</view>
+                        邀请好友开团抽奖
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 2 && !waitLottery && !userJoin && lotterygbid!=0}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        立即参团
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 2 && !waitLottery && !userJoin}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        立即开团
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 2 && waitLottery && !userJoin}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+                        立即开团
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 3 && groupStatus == 1}}" class="group-info-invitation flexc cf fr34">
+                        抽奖中，请稍后
+                    </view>
+                    <view wx:elif="{{groupbuytimes[0].timeType == 3}}" class="group-info-invitation flexc cf fr34" catchtap="winningList">
+                        查看中奖名单
+                    </view>
+                    <view wx:if="{{groupbuytimes[0].timeType == 2 && waitLottery && userJoin}}" class="flexc lh1 fr28" style="padding-top:30rpx; color: #9A9A9A" catchtap="groupLeaderboard">
+                        邀请排行榜
+                        <text class="iconfont icon-you fr28"></text>
+                    </view>
+                </view>
+
+                <view wx:if="{{swiperContent.length > 0 && swiperShow}}" class="swiper-bg">
+                    <swiper wx:if="{{swiperContent.length > 0 && swiperShow}}" class="swiper" autoplay indicator-dots circular indicator-color="rgba(0,0,0,0.3)" indicator-active-color="#f74c31">
+                        <block wx:for="{{swiperContent}}" wx:key="{{item.id}}">
+                            <swiper-item class="swiper-item">
+                                <image src="{{ShowImg.cropImgWH(item.img_url, 750, 250)}}" mode="aspectFill" class="swiper-item-image" data-link-type="{{item.link_type}}" data-room-id="{{item.live_id}}" data-eventparam="{{ item.event_param }}" data-url="{{item.page}}" bindtap="handleSwiperClick"
+                                />
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                </view>
+
+                <view class="recommend-container" wx:if="{{ open_recommend && recommend_detail && recommend_detail.length }}">
+                  <view class="recommend-head flex">
+                    <view class="recommend-lable"></view>
+                    <view class="recommend-title c3 bold fr34">{{ recommend_title }}</view>
+                  </view>
+
+                  <scroll-view scroll-x="true" class="recommend-goods-list w100 flex" wx:if="{{ recommend_type == 1 }}">
+                    <block wx:for="{{recommend_detail}}" wx:key="id">
+                      <view class="recommend-good-detail" data-id="{{item.id}}" bindtap="toGoods">
+                        <image src="{{ShowImg.cropImgWH(item.thumb_url,218,218)}}" class="recommend-good-img" />
+                        <view class="flexbColumn recommend-good-info">
+                          <view class="ellipsis2 c3 fr26" style="white-space: normal">{{ item.title }}</view>
+                          <view class="fr26 bold recommend-good-price">￥{{item.productprice}}</view>
+                        </view>
+                      </view>
+                    </block>
+                  </scroll-view>
+
+                  <view class="content-list" wx:if="{{ recommend_type == 2 }}">
+                    <block wx:for="{{recommend_detail}}" wx:key="id">
+                      <view class="news-componet flexb" data-id="{{item.id}}" bindtap="toContent">
+                          <view class="flexbColumn flex1 news-context">
+                              <view class="ellipsis2 news-title c3 fr32">{{item.title}}</view>
+                              <view class="news-other flexb w100">
+                                  <text class="fr20 news-tag" wx:if="{{item.recommand_title}}">{{item.recommand_title}}</text>
+                                  <view class="fr24 c9">
+                                      <text wx:if="{{item.description}}">{{item.description}} ·</text>
+                                      <text>浏览 {{item.sales||0}}</text>
+                                  </view>
+                              </view>
+                          </view>
+                          <image src="{{ShowImg.cropImgWH(item.thumb_url,250,160)}}" class="news-imgs" />
+                      </view>
+                  </block>
+                  </view>
+
+                  <scroll-view scroll-x="true"  class='goods-list flexb' wx:if="{{ recommend_type == 3 }}">
+                    <view wx:for='{{recommend_detail}}' wx:key='{{item.id}}' class='goods-item bcf' data-id='{{item.id}}' bindtap='handleNavToDetail'>
+                        <image class='goods-thumb' mode='aspectFill' src='{{item.img_url.url + "?imageView2/1/w/334/h/237"}}'></image>
+                        <view class='goods-detail'>
+                            <view class='goods-title-layout flexb c-ff3e26'>
+                                <view class='recommend-goods-title fr32 c-1d2023 flex1'>
+                                    {{item.service_name}}
+                                </view>
+                                <view class='goods-like flex fr26'>
+                                    <view class='iconfont icon-dianzan2 fr22'></view>
+                                    {{item.like_number}}
+                                </view>
+                            </view>
+                            <view class='goods-content fr22 ellipsis1'>{{item.description}}</view>
+                        </view>
+                    </view>
+                  </scroll-view> 
+
+                </view>
+
+                <view class="menu flex w100">
+                    <view class="menu-item {{(optionDesc.length>0||isOpenComment==1)&&menuActiveType==0?'active':''}}" data-type='0' bindtap="tapChange">
+                        <view class="title">商品详情</view>
+                    </view>
+                    <view class="menu-item {{menuActiveType==1?'active':''}}" data-type='1' bindtap="tapChange" wx:if="{{optionDesc.length>0}}">
+                        <view class="border"></view>
+                        <view class="title">规格参数</view>
+                    </view>
+                    <view class="menu-item {{menuActiveType==2?'active':''}}" data-type='2' bindtap="tapChange" wx:if="{{isOpenComment==1}}">
+                        <view class="border"></view>
+                        <view class="title">评价</view>
+                    </view>
+                </view>
+                <view wx:if="{{menuActiveType==0}}" class="w100">
+                    <diy-rich-text InRichTextData="{{detailImgs}}" wx:if="{{desType==0}}" />
+                    <block wx:else>
+                        <image src="{{ShowImg.cropImgW(item.url,750)}}" mode="widthFix" class="goods-detail-item" bindtap="previewDetailImage" data-index="{{index}}" wx:for="{{detailImgs}}" wx:key="id" />
+                    </block>
+                </view>
+                <view wx:elif="{{menuActiveType==1}}" class="goods-specifications-box w100">
+                    <image src="{{ShowImg.cropImgW(optionDesc,750)}}" class="goods-detail-item" mode="widthFix" wx:if="{{optionDescType==1}}" bindtap="previewDesImg" data-preview-url="{{optionDesc}}" />
+                    <block wx:else>
+
+                        <view class="goods-specifications-item fr28 c6" wx:for="{{optionDesc}}" wx:key="id">
+                            {{item}}
+                        </view>
+                    </block>
+
+                </view>
+                <block wx:elif="{{menuActiveType==2}}">
+                    <view class="goods-evaluate flex">
+                        <view class="goods-evaluate-rate flexcColumn">
+                            <view class="fr40">{{commentTotal.rate == null?0:commentTotal.rate}}%</view>
+                            <view class="fr26">好评率</view>
+                        </view>
+                        <view class="flex1 flex fr24" style="flex-wrap: wrap;">
+                            <view data-type='all' class="goods-evaluate-category {{checkCommentType == 'all'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                                全部 {{commentTotal.all}}
+                            </view>
+                            <view data-type='good' class="goods-evaluate-category {{checkCommentType == 'good'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                                好评 {{commentTotal.good}}
+                            </view>
+                            <view data-type='middle' class="goods-evaluate-category {{checkCommentType == 'middle'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                                中评 {{commentTotal.middle}}
+                            </view>
+                            <view data-type='bad' class="goods-evaluate-category {{checkCommentType == 'bad'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                                差评 {{commentTotal.bad}}
+                            </view>
+                        </view>
+                    </view>
+                    <block wx:for="{{comments}}" wx:for-item="itemComment">
+                        <view class="flexb" style="margin: 32rpx 30rpx">
+                            <view class="flexb">
+                                <image class="goods-img-box" src="{{ShowImg.cropImgWH(itemComment.user.avatar,100,100)}}"></image>
+                                <view class="flexbColumn" style="height:70rpx;margin-left: 20rpx">
+                                    <view class="fr26 c3">{{itemComment.user.nickname}}</view>
+                                    <view class="fr24 c9">{{Format.formatDate(itemComment.createtime*1000)}}</view>
+                                </view>
+                            </view>
+                            <view class="fr28">
+                                <block wx:for="{{[1,2,3,4,5]}}" wx:key="{{item}}">
+                                    <text data-index="{{index+1}}" class="iconfont {{index < itemComment.rate?'icon-star-solid-copy':'icon-shoucang1'}}" bindtap="changeXing" style="margin-left: 8rpx;color:#f2df0b"></text>
+                                </block>
+                            </view>
+                        </view>
+                        <view class="fr28 goods-evaluate-content">{{itemComment.comment}}</view>
+                    </block>
+                    <view class="fr26 c9 flexc" wx:if="{{comments.length==0}}" style="margin-top: 20rpx;">无相关评论信息</view>
+                    <template is="moreData" data="{{loadStyle:loadStyle}}" wx:if="{{comments.length!=0}}" />
+                </block>
+
+                <view class="new-bottom-bar {{isIphoneX?'fix-iphonex-button':''}}" wx:if="{{has_virtual_goods_order>0}}">
+                    <view class="bar-menu c9 bar-menu-one">
+                        <view class="new-menu-item" catchtap="navHomePage">
+                            <text class="iconfont icon-shouye fr36 c9"></text>
+                            <text class="fr20">首页</text>
+                        </view>
+                    </view>
+                    <view class="new-bottom-bar-right">
+                        <view class="new-bottom-bar-right-buy-now-one flexc cf fr30 bold lh1" catchtap="toCourse">
+                            查看课程
+                        </view>
+                    </view>
+                </view>
+                <view class="new-bottom-bar flexc {{isIphoneX?'fix-iphonex-button':''}}" wx:elif="{{is_put_in_points_mall == 1}}">
+                    <view class="bar-menu c9 bar-menu-one">
+                        <view class="new-menu-item" catchtap="navHomePage">
+                            <text class="iconfont icon-shouye fr36 c9"></text>
+                            <text class="fr20">首页</text>
+                        </view>
+                    </view>
+                    <view class="new-bottom-bar-right">
+                        <view class="new-bottom-bar-right-buy-now-one flexc cf fr30 bold lh1" catchtap="toggleCartPanel">
+                            <text wx:if="{{is_put_in_points_mall == 1 && consume_price == 0}}">立即兑换</text>
+                            <text wx:else>立即换购</text>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="new-bottom-bar {{isIphoneX?'fix-iphonex-button':''}}" wx:elif="{{isGroupBuy!=0}}">
+                    <view class="bar-menu c9 bar-menu-two">
+                        <view class="new-menu-item" catchtap="navHomePage">
+                            <text class="iconfont icon-shouye fr36 c9"></text>
+                            <text class="fr20">首页</text>
+                        </view>
+                        <view class="new-menu-item" wx:if="{{goods_chat_model_change == 1 && !has_add_wechat}}" bindtap='navAddWechat'>
+                            <text class="iconfont icon-kefu fr36 c9"></text>
+                            <text class="fr20">客服</text>
+                        </view>
+                        <view class="new-menu-item" catchtap="toMycart" hidden="{{isVirtualGoods==1}}">
+                            <text class="iconfont icon-gouwuche fr36 c9"></text>
+                            <text class="fr20">购物车</text>
+                        </view>
+                    </view>
+                    <view class="new-bottom-bar-right" wx:if="{{saleState.canBuy==0}}">
+                        <view class="flexc" style="height: 100%">
+                            <view class="flexc new-bottom-bar-right-remind fr30 cf prohibit lh1">
+                                <text wx:if="{{saleState.reason == '商品已经被卖光'}}">已售空</text>
+                                <text wx:elif="{{saleState.reason == '限时拼团尚未开始' && isGroupBuy == 3}}">限时活动尚未开始</text>
+                                <text wx:elif="{{saleState.reason == '限时拼团已经结束' && isGroupBuy == 3}}">限时活动已经结束</text>
+                                <text wx:else>{{saleState.reason}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-bottom-bar-right lh1" wx:else>
+                        <view class="new-bottom-bar-right-addcart flexcColumn lh1-1" catchtap="toggleCartPanel">
+                            <text class="fr24">￥{{Format.float(goods.price)}}</text>
+                            <text class="fr28" style="font-weight: bold;">单独购买</text>
+                        </view>
+                        <view class="new-bottom-bar-right-buy-now flexcColumn {{!hasGroup?'lh1-1':'lh1'}} {{(isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 1)?'dis-view':''}}" catchtap="toGroupBuy">
+                            <text wx:if="{{isGroupBuy == 1 && !hasGroup}}" class="fr24">￥{{Format.float(groupBuyPrice)}}</text>
+                            <text wx:elif="{{isGroupBuy == 2 && privateGroupList.length == 0}}" class="fr24">￥{{Format.float(groupBuyPrice)}}</text>
+                            
+                            <text wx:if="{{isGroupBuy == 1}}" class="fr28" style="font-weight: bold;">{{hasGroup?'查看拼团': '立即开团'}}</text>
+                            <text wx:elif="{{isGroupBuy == 2}}" class="fr28" style="font-weight: bold;">
+          <text wx:if="{{privateGroupList && privateGroupList.length > 0}}">
+            <text wx:if="{{privateGroupStatus==2 || privateGroupStatus==0}}">邀请好友开团</text>
+                            <text wx:else>邀请好友参团</text>
+                            </text>
+                            <text wx:else>立即开团</text>
+                            </text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 1 && (groupbuytimes[0].timeType == 1 || (groupbuytimes[0].timeType == 2 && userJoin))}}" class="fr28" style="font-weight: bold;">邀请好友</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 1 && groupbuytimes[0].timeType == 2 && !userJoin}}" class="fr28" style="font-weight: bold;">参团抽奖</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 1 && groupbuytimes[0].timeType == 3}}" class="fr28" style="font-weight: bold;">中奖名单</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2 && privateGroupList.length == 0}}" class="fr28" style="font-weight: bold;">立即开团</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2 && !waitLottery && !userJoin&&lotterygbid!=0}}" class="fr28" style="font-weight: bold;">立即参团</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2 && !waitLottery && !userJoin&&lotterygbid==0}}" class="fr28" style="font-weight: bold;">立即开团</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2 && waitLottery && !userJoin}}" class="fr28" style="font-weight: bold;">立即开团</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2}}" class="fr28" style="font-weight: bold;">邀请好友</text>
+                            <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 3}}" class="fr28" style="font-weight: bold;">中奖名单</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="new-bottom-bar {{isIphoneX?'fix-iphonex-button':''}}" wx:elif="{{is_bargain==1}}">
+                    <view class="bar-menu c9 bar-menu-two">
+                        <view class="new-menu-item" catchtap="navHomePage">
+                            <text class="iconfont icon-shouye fr36 c9"></text>
+                            <text class="fr20">首页</text>
+                        </view>
+                        <view class="new-menu-item" wx:if="{{goods_chat_model_change == 1 && !has_add_wechat}}" bindtap='navAddWechat'>
+                            <text class="iconfont icon-kefu fr36 c9"></text>
+                            <text class="fr20">客服</text>
+                        </view>
+                        <view class="new-menu-item" catchtap="toMycart" hidden="{{isVirtualGoods==1}}">
+                            <text class="iconfont icon-gouwuche fr36 c9"></text>
+                            <text class="fr20">购物车</text>
+                        </view>
+                    </view>
+                    <view class="new-bottom-bar-right" wx:if="{{saleState.canBuy==0}}">
+                        <view class="flexc" style="height: 100%">
+                            <view class="flexc new-bottom-bar-right-remind fr30 cf prohibit lh1">
+                                {{saleState.reason == '商品已经被卖光'? '已售空': saleState.reason}}
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-bottom-bar-right" wx:else>
+                        <view class="new-bottom-bar-right-addcart flexcColumn lh1-1" catchtap="toggleCartPanel">
+                            <text class="fr24">￥{{Format.float(goods.price)}}</text>
+                            <text class="fr28" style="font-weight: bold;">原价购买</text>
+                        </view>
+                        <view class="new-bottom-bar-right-buy-now flexcColumn {{bargain_now_price<=0?'lh1-1':'lh1'}}" catchtap="toShowBargainDialog">
+                            <text wx:if="{{bargain_now_price<=0}}" class="fr24">￥{{Format.float(bargain_now_price>0?bargain_now_price:bargain_price)}}</text>
+                            <text class="fr28" style="font-weight: bold;">{{bargain_now_price>0?'查看砍价':'发起砍价'}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="new-bottom-bar {{isIphoneX?'fix-iphonex-button':''}}" wx:else>
+                    <view class="bar-menu c9 {{isVirtualGoods==1?'bar-menu-one':''}}">
+                        <view class="new-menu-item" catchtap="navHomePage">
+                            <text class="iconfont icon-shouye fr36 c9"></text>
+                            <text class="fr20">首页</text>
+                        </view>
+                        <view class="new-menu-item" wx:if="{{goods_chat_model_change == 1 && !has_add_wechat}}" bindtap='navAddWechat'>
+                            <text class="iconfont icon-kefu fr36 c9"></text>
+                            <text class="fr20">客服</text>
+                        </view>
+                        <view class="new-menu-item" catchtap="toMycart" hidden="{{isVirtualGoods==1}}">
+                            <text class="iconfont icon-gouwuche fr36 c9"></text>
+                            <text class="fr20">购物车</text>
+                        </view>
+                    </view>
+                    <view wx:if="{{saleState.canBuy==0}}">
+                        <view class="flexc" style="height: 100%">
+                            <view class="flexc new-bottom-bar-right-remind fr30 cf lh1 prohibit {{isVirtualGoods==1?'w543':''}}">
+                                {{saleState.reason == '商品已经被卖光'? '已售空': (saleState.reason== '限时秒杀已经结束'? '活动已结束':saleState.reason)}}
+                            </view>
+                        </view>
+                    </view>
+                    <view wx:elif="{{goods.istime==1 && times[0].timeShown}}">
+                        <button wx:if="{{times[0].timeType == 1}}" class="flexc lh1 new-bottom-bar-right-remind fr30 cf {{times[0].hasRemind?'':'prohibit'}} {{isVirtualGoods==1?'w543':''}}" catchtap="secondKillReminder">
+                            秒杀提醒
+                        </button>
+                        <view wx:elif="{{times[0].timeType == 2}}" class="new-bottom-bar-right">
+                            <view class="new-bottom-bar-right-buy-now-one flexc bold fr30 lh1" data-type="1" catchtap="toggleCartPanel">
+                                立即购买
+                            </view>
+                        </view>
+                        <view wx:if="{{times[0].timeType == 3}}" class="flexc" style="height: 100%">
+                            <view class="flexc new-bottom-bar-right-remind fr30 cf prohibit {{isVirtualGoods==1?'w543':''}} lh1">
+                                活动已结束
+                            </view>
+                        </view>
+                    </view>
+                    <view wx:else class="new-bottom-bar-right">
+                        <block wx:if="{{!(isVirtualGoods==1||hasForm==1||customization)}}">
+                            <view class="new-bottom-bar-right-addcart bold fr30 lh1" data-type="0" catchtap="toggleCartPanel">
+                                加入购物车
+                            </view>
+                            <view class="new-bottom-bar-right-buy-now bold fr30 lh1" data-type="1" catchtap="toggleCartPanel">
+                                立即购买
+                            </view>
+                        </block>
+                        <block wx:else>
+                            <view class="new-bottom-bar-right-buy-now-one flexc bold fr30 lh1 {{hasForm==1?'new-bottom-bar-right-buy-now-one-w430':''}}" data-type="1" catchtap="toggleCartPanel">
+                                立即购买
+                            </view>
+                        </block>
+                    </view>
+                </view>
+
+                <view style='height:{{isIphoneX?"188rpx":"120rpx"}}'></view>
+            </view>
+
+            <!--弹框-->
+            <view class="page-mask" wx:if="{{showDialog}}">
+                <view class="flex1" bindtap="toggleCartPanel"></view>
+                <view class="dialog1">
+                    <view class="flexb media">
+                        <view class="media-body flex">
+                            <image class="img-thumbnail" src="{{ShowImg.cropImgWH(goodsThumb,160,160)}}" bindtap="previewDesImg" data-preview-url="{{goodsThumb}}" />
+                            <view class="media-context flexaColumn fr28">
+                                <view class="c-waring" wx:if="{{ is_put_in_points_mall == 1}}">{{consume_integral}}积分
+                                    <text wx:if="{{is_put_in_points_mall==1 &&consume_price!=0}}">+ {{consume_price}}元</text> </view>
+                                <view class="c-waring" wx:elif="{{vipInfo&&vipInfo.userIsVip==1}}">￥{{vipInfo.vipPrice}}</view>
+                                <view class="c-waring" wx:else>￥{{addCartPrice}}</view>
+                                <view class="flex fr26">
+                                    <view style="padding-right: 20rpx;">库存:{{addCartStocks}} </view>
+                                    <view>{{Format.showWeight(weight)}}</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="media-close flexc" bindtap="toggleCartPanel">
+                            <text class="iconfont icon-x" style="width:60rpx;height:60rpx;font-size:50rpx; color:#999999;"></text>
+                        </view>
+                    </view>
+                    <view class="options fr28" wx:if="{{options.length>0}}">
+                        <block wx:for="{{options}}" wx:for-item="spec">
+                            <view>{{spec.title}}</view>
+                            <view class="item-values">
+                                <view wx:for="{{spec.items}}" wx:for-item="item" data-spec-id="{{spec.id}}" wx:key="{{item.id}}" data-item-id="{{item.id}}" class="values {{item.isSelected ?'active' : ''}}" bindtap="selectSpecItem">
+                                    {{item.title}}
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                    <view class="buy-num fr28 c-danger " wx:if="{{bargainDialog}}">
+                        一次只可砍价1件
+                    </view>
+
+                    <view class="buy-num flexb fr32" wx:elif="{{isVirtualGoods!=1 && is_put_in_points_mall == 0}}">
+                        <view>{{isFrom=='integralMall'?'兑换':'购买'}}数量：</view>
+                        <view class="quantity flex">
+                            <text class="minus" bindtap="changeCartGoodsNum" data-type="minus">-</text>
+                            <input class="num" value="{{buyNum}}" type="number" bindblur="changeBuyNum" />
+                            <text class="plus" bindtap="changeCartGoodsNum" data-type="plus">+</text>
+                        </view>
+                    </view>
+                    <view class="dialog1-btn-box" wx:if="{{ is_put_in_points_mall == 1}}">
+                        <view class="buy-btn credit-btn" bindtap="exchangeGoods">
+                            <text wx:if="{{consume_price==0}}">立即兑换</text>
+                            <text wx:else>立即换购</text>
+                        </view>
+                    </view>
+                    <view class="dialog1-btn-box" wx:elif="{{bargainDialog}}">
+                        <view class="buy-btn bc-danger" bindtap="bargainNow">立即发起砍价</view>
+                    </view>
+                    <view class="dialog1-btn-box" wx:else>
+                        <view class="bc-waring buy-btn" bindtap="addToCart" hidden="{{isVirtualGoods==1||hasForm==1||customization||sourceType!=0}}">加入购物车</view>
+                        <view class="bc-danger buy-btn" bindtap="buyNow">{{customization?'去定制':'立即购买'}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="modal-service-box" wx:if="{{showModalService}}">
+                <view class="close-service fr24 c3" bindtap="closeServiceBox"></view>
+                <view class="service-box fr28 c6 w100">
+                    <view class="service-title">服务说明</view>
+                    <view class="service-item" wx:for="{{tags}}">
+                        <text class="iconfont icon-gouxuan fr28 c-main"> </text> {{item}}
+                    </view>
+                </view>
+            </view>
+
+            <!-- 遮罩层 -->
+            <view class="{{isMask}}" catchtap="hideMask"></view>
+            <!-- 购买 加入购物车 弹窗 -->
+            <view class="new-purchase-box bf {{purchaseBox? 'show-new-purchase-box': ''}}" wx:if="{{purchaseBox}}">
+                <view class="new-purchase-box-head {{isVirtualGoods==1?'noBorder':''}}">
+                    <view class="new-purchase-box-head-info flexc">
+                        <view class="new-purchase-box-head-info-img">
+                            <image src="{{ShowImg.cropImgWH(goodsThumb,160,160)}}" mode="aspectFit" catchtap="previewDesImg" data-preview-url="{{goodsThumb}}"></image>
+                        </view>
+                        <view class="new-purchase-box-head-info-detail">
+                            <view wx:if="{{is_put_in_points_mall == 1}}" class="fr50 bold c-theme-color">{{consume_integral}}
+                                <label class="fr34">积分</label>
+                                <label wx:if="{{consume_price && consume_price > 0}}" class="fr34">+¥</label>
+                                <text wx:if="{{consume_price && consume_price > 0}}">{{Format.float(consume_price)}}</text>
+                            </view>
+                            <view wx:elif="{{vipInfo&&vipInfo.userIsVip==1}}" class="fr50 bold c-theme-color">
+                                <label class="fr34">¥</label>{{Format.float(vipInfo.vipPrice)}}</view>
+                            <view wx:elif="{{isGroupBuy!=1 && isgroup}}" class="fr50 bold c-theme-color">
+                                <label class="fr34">¥</label>{{Format.float(groupBuyPrice)}}</view>
+                            
+                            <view wx:elif="{{is_bargain==1 && bargainDialog}}" class="fr50 bold c-theme-color">
+                                <label class="fr34">¥</label>{{Format.float(bargain_price)}}</view>
+                            <view wx:else class="fr40 bold c-theme-color">
+                                <label class="fr34">¥</label>{{Format.float(addCartPrice)}}</view>
+                            <view class="fr32 bold ellipsis2">{{goods.title}}</view>
+                        </view>
+                    </view>
+                    <view class="new-purchase-box-head-close" catchtap="hideMask">
+                        <text class="iconfont icon-close2 fr48"></text>
+                    </view>
+                </view>
+                <scroll-view class="new-options fr28" wx:if="{{options.length>0}}" scroll-y="true">
+                    <block wx:for="{{options}}" wx:for-item="spec" wx:key="index">
+                        <view class="new-options-title fr32 bold">{{spec.title}}</view>
+                        <view class="new-list">
+                            <view class="new-item-values">
+                                <view wx:for="{{spec.items}}" wx:for-item="item" data-spec-id="{{spec.id}}" wx:key="id" data-item-id="{{item.id}}" class="fr26 c3 new-values {{item.isSelected ?'new-active' : ''}}" catchtap="selectSpecItem">
+                                    <view class="new-active-bg" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}"></view>
+                                    <view class="new-active-title" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}">{{item.title}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                </scroll-view>
+                <view wx:if="{{bargainDialog}}">
+                </view>
+                <view class="new-buy-num" wx:elif="{{isVirtualGoods!=1}}">
+                    <view class="new-buy-num-content flexb">
+                        <view class="new-buy-num-content-stock">
+                            <view class="new-buy-num-content-stock-title fr32 bold">购买数量</view>
+                            <view class="new-buy-num-content-stock-num fr24 c9">库存{{addCartStocks}}件</view>
+                        </view>
+                        <view class="new-buy-num-content-control flexc">
+                            <view class="new-control flexc new-minus {{buyNum <= 1? 'new-disable': ''}}" catchtap="changeCartGoodsNum" data-type="minus">
+                                <text catchtap="changeCartGoodsNum" data-type="minus" class="new-minus-text"></text>
+                            </view>
+                            <input class="new-control new-num {{isIos?'new-num-ios':''}}" value="{{buyNum}}" type="number" bindblur="changeBuyNum" />
+                            <view class="new-control flexc new-plus {{(buyNum >= addCartStocks||isgroup)? 'new-disable': ''}}" catchtap="changeCartGoodsNum" data-type="plus">
+                                <text catchtap="changeCartGoodsNum" data-type="plus" class="iconfont icon-add fr20"></text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="new-buy-bottom" wx:if="{{is_put_in_points_mall == 1}}">
+                    <view class="new-buy-bottom-theme flexc cf fr30 bold lh1" bindtap="exchangeGoods">
+                        <text wx:if="{{consume_price==0}}">立即兑换</text>
+                        <text wx:else>立即换购</text>
+                    </view>
+                </view>
+                <view class="new-buy-bottom" wx:elif="{{bargainDialog}}">
+                    <button class="new-buy-bottom-theme flexc cf fr30 bold lh1" bindtap="bargainNow">立即发起砍价</button>
+                </view>
+                <view class="new-buy-bottom" wx:elif="{{isgroup}}">
+                    <button class="new-buy-bottom-theme flexc cf fr30 bold lh1" bindtap="groyupNow">
+                        <text wx:if="{{isGroupBuy == 3 && lotteryGroupType == 1 && groupbuytimes[0].timeType == 2 && !userJoin}}">确定参团</text>
+                        <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2 && !waitLottery && !userJoin && lotterygbid!=0}}">确定参团</text>
+                        <text wx:elif="{{isGroupBuy == 3 && lotteryGroupType == 2 && groupbuytimes[0].timeType == 2 && waitLottery && !userJoin}}">确定开团</text>
+                        <text wx:else>确定开团</text>
+                    </button>
+                </view>
+                <view class="new-buy-bottom" wx:else>
+                    <view class="flexc" wx:if="{{!(isVirtualGoods==1||hasForm==1||customization)}}">
+                        <block wx:if="{{toBuy}}">
+                            <view class="new-buy-bottom-w-all flexc cf fr30 bold lh1" bindtap="buyNow">{{customization?'去定制':'立即购买'}}</view>
+                        </block>
+                        <block wx:elif="{{toCart}}">
+                            <view class="new-buy-bottom-w-all flexc cf fr30 bold lh1" bindtap="addToCart">加入购物车</view>
+                        </block>
+                        <block wx:else>
+                            <view class="new-buy-bottom-w new-buy-bottom-w-left flexc cf fr30 bold lh1" bindtap="addToCart">加入购物车</view>
+                            <view class="new-buy-bottom-w new-buy-bottom-w-right flexc cf fr30 bold lh1" bindtap="buyNow">{{customization?'去定制':'立即购买'}}</view>
+                        </block>
+                    </view>
+                    <view class="flexc" wx:else>
+                        <view class="new-buy-bottom-w-all flexc cf fr30 bold lh1" bindtap="buyNow">{{customization?'去定制':'立即购买'}}</view>
+                    </view>
+                </view>
+            </view>
+
+            <view class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+                <component-poster src='{{ palette }}' themeColor='#fd9a33' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+            </view>
+
+        </block>
+
+        <!-- 抽奖团弹窗 showWin-->
+        <view class="new-bargain-tip-box flexcColumn {{showWin?'show-new-box':''}}" style="top: {{top}}rpx" wx:if="{{showWin}}">
+            <block wx:if="{{groupWinning}}">
+                <view class="new-bargain-tip-box-head">
+                    <image src="https://facing-1256908372.file.myqcloud.com//image/20200826/1171ec97eaba8b18.png"></image>
+                </view>
+                <view class="new-bargain-tip-box-head-success">
+                    <image style="width:246rpx;height:194rpx" src="https://facing-1256908372.file.myqcloud.com//image/20200826/efe9a1ba29a505c2.png"></image>
+                </view>
+                <view class="flexcColumn fr34" style="padding:50rpx 0 65rpx; color: #343434">
+                    <view>恭喜，您已中奖</view>
+                    <view>货品将于近期发出！</view>
+                </view>
+                <view class="new-bargain-tip-box-btn flexc cf fr30" catchtap="toOrder">查看订单</view>
+                <view class="new-bargain-tip-box-close" catchtap="hideMask">
+                    <image src="/imgs/guangbi.png"></image>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="new-bargain-tip-box-head-success">
+                    <image src="https://facing-1256908372.file.myqcloud.com//image/20200826/f9d37aa78d92e57e.png"></image>
+                </view>
+                <view class="flexcColumn fr34" style="padding:50rpx 0 65rpx; color: #343434">
+                    <view>很遗憾，您未中奖</view>
+                    <view>款项将原路返回您的账户！</view>
+                </view>
+                <view class="flexb" style="width:500rpx">
+                    <view class="new-bargain-tip-box-btn-two-secondary flexc fr30" catchtap="winningList">查看中奖名单</view>
+                    <view class="new-bargain-tip-box-btn-two flexc cf fr30" catchtap="navHomePage">参与其他活动</view>
+                </view>
+
+                <view class="new-bargain-tip-box-close" catchtap="hideMask">
+                    <image src="/imgs/guangbi.png"></image>
+                </view>
+            </block>
+        </view>
+
+        <!-- 公开大团中奖弹窗 -->
+        <win-person-list wx:if="{{showWinPerson}}" show="{{showWinPerson}}" gbid="{{gbid}}" goodsId="{{goodsId}}" end_time="{{endTime}}"></win-person-list>
+        <!-- 私密团中奖弹窗 -->
+        <un-win-list wx:if="{{showUnWin}}" show="{{showUnWin}}" gbid="{{gbid}}" goodsId="{{goodsId}}" end_time="{{endTime}}"></un-win-list>
+        <!-- 抽奖规则弹窗 -->
+        <activity-rules wx:if="{{showActivityRules}}" show="{{showActivityRules}}" time="{{groupbuyTime}}" goodsName="{{goods.title}}" miniNumber="{{groupBuyLimitNum}}" winNumber="{{winPrizeNum}}" lotteryGroupType="{{lotteryGroupType}}"></activity-rules>
+        <share show-share="{{showShare}}" img-code="{{QRcode}}"></share>
+
+        <component-remind wx:if="{{ showRemind }}"></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

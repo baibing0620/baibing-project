@@ -1,0 +1,22 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="course-details w100 bcf" catchtap="toDetail">
+    <view class="flexb">
+        <view class="flex lh28">
+            <view class="course-text-before"></view>
+            <text class="course-text fr28 c3">课程详情</text>
+        </view>
+        <view class="course-check fr24 lh24">
+            查看课程<text class="course-develop iconfont icon-you"></text>
+        </view>
+    </view>
+    <view class="course-item flexb w100">
+         <view class="course-image-box">
+            <image  class="course-photo" src="{{ShowImg.cropImgWH(detail.thumb_url,200,150)}}"></image>
+            <view class="course-photo-cover w100 fr22">{{detail.view}}人观看过</view>
+        </view> 
+        <view class="course-content flex1 flexbColumn">
+            <view class="ellipsis2 fr28 c3">{{detail.title}}</view>
+            <view class=" ellipsis1 fr22 c9">{{detail.description}}</view>
+        </view>
+    </view>
+</view>

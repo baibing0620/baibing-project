@@ -1,0 +1,137 @@
+<!--components/signFormContent/signFormContent.wxml-->
+<form>
+  <block>
+    <view class="signForm">
+      <view class="fr32 bdra">
+        <view class="subContract-Deadline-title">签署方</view>
+        <view class="flexa subContract-Deadline-add">
+          <view bindtap="add_enterprise"><text class="iconfont icon-add"></text>添加个人</view>
+          <view bindtap="add_enterprise1"><text class="iconfont icon-add"></text>添加企业</view>
+        </view>
+      </view>
+      <!-- 个人 -->
+      <view wx:if="{{_setflag==true}}" class="active_id">
+        <view class="_active_id_">
+          <view class="tac">个人签署区设置</view>
+          <view wx:if="{{_setIndex!=-1}}" class="flex" style="margin: 10rpx 0 10rpx 20rpx;">
+            <text class="fr32">当前签署人已选择：</text>
+            <text class="fr30" style="margin: 0 10rpx 0 0;" wx:for="{{signFormContent.sign[_setIndex].statusIdss}}" wx:key="index">{{item?'签署区'+item:''}}</text>
+          </view>
+          <view class="_active_id">
+            <view class="{{item.flag&&item._flag?'part_activeccc fr30':item.flag&&!item._flag?'red fr30':'_red fr30'}}" catchtap="active_id" data-cindex="{{index}}" data-item="{{item}}" wx:for="{{newStatus}}" wx:key="index">
+              签署区{{item.title}}
+            </view>
+          </view>
+          <view class="tac active_btn bc-main fr30" bindtap="colseIndex">关闭</view>
+        </view>
+      </view>
+      <!-- 企业 -->
+      <view wx:if="{{_setflag1==true}}" class="active_id">
+        <view class="_active_id_">
+          <view class="tac">企业签署区设置</view>
+          <view wx:if="{{_setIndex1!=-1}}" class="flex" style="margin: 10rpx 0 10rpx 20rpx;">
+            <text class="fr32">当前签署人已选择：</text>
+            <text class="fr30" style="margin: 0 10rpx 0 0;" wx:for="{{signFormContent1.sign[_setIndex].statusIdss}}" wx:key="index">{{item?'签署区'+item:''}}</text>
+          </view>
+          <view class="_active_id">
+            <view class="{{item.flag&&item._flag?'part_activeccc fr30':item.flag&&!item._flag?'red fr30':'_red fr30'}}" catchtap="active_id1" data-cindex="{{index}}" data-item="{{item}}" wx:for="{{newStatus1}}" wx:key="index">
+              签署区{{item.title}}
+            </view>
+          </view>
+          <view class="tac active_btn bc-main fr30" bindtap="colseIndex1">关闭</view>
+        </view>
+      </view>
+      <!-- 个人 -->
+      <view class="fr32 bdra" wx:for="{{signFormContent.sign}}" wx:key="item">
+        <text bindtap="delbtn" data-index="{{index}}" class="iconfont icon-shanchu1" style="position: absolute; top: 10rpx; right: 10rpx;"></text>
+        <view class="flex subContract-Deadline">
+          <text class="fr32" catchtap="setIndex" data-index="{{index}}">个人签署区设置</text>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">签署方姓名</text>
+          <input class="weui-input fr32" value="{{item.AgentName}}" data-index="{{index}}" bindinput="AgentNameValue" placeholder="请输入真实姓名"/>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">签署方身份证</text>
+          <input class="weui-input fr32" value="{{item.idNumber}}" data-index="{{index}}" bindinput="idNumberValue" placeholder="请输入身份证"/>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">签署方手机号</text>
+          <view>
+            <input class="weui-input fr32" value="{{item.AgentTpl}}" data-index="{{index}}" bindinput="AgentTplValue" placeholder="请输入手机号"/>
+          </view>
+        </view>
+      </view>
+      <!-- 企业 -->
+      <view class="fr32 bdra" wx:for="{{signFormContent1.sign}}" wx:key="item">
+        <text bindtap="delbtn1" data-index="{{index}}" class="iconfont icon-shanchu1" style="position: absolute; top: 10rpx; right: 10rpx;"></text>
+        <view class="flex subContract-Deadline">
+          <text class="fr32" catchtap="setIndex1" data-index="{{index}}">企业签署区设置</text>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">公司名称</text>
+          <input class="weui-input fr32" value="{{item.ComponyName}}" data-index="{{index}}" bindinput="ComponyNameValue1" placeholder="请输入公司名称"/>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">企业社会信用代码</text>
+          <input class="weui-input fr32" value="{{item.SHCode}}" data-index="{{index}}" bindinput="SHCodeValue1" placeholder="请输入社会信用代码"/>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">法人姓名</text>
+          <input class="weui-input fr32" value="{{item.AgentName}}" data-index="{{index}}" bindinput="AgentNameValue1" placeholder="请输入真实姓名"/>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">法人身份证</text>
+          <input class="weui-input fr32" value="{{item.idNumber}}" data-index="{{index}}" bindinput="idNumberValue1" placeholder="请输入身份证"/>
+        </view>
+        <view class="flex subContract-Deadline">
+          <text class="fr32">法人手机号</text>
+          <view>
+            <input class="weui-input fr32" value="{{item.AgentTpl}}" data-index="{{index}}" bindinput="AgentTplValue1" placeholder="请输入手机号"/>
+          </view>
+        </view>
+      </view>
+      <view class="fr32 bdra" style="margin: 0 20rpx 20rpx;">
+        <view class="subContract-Deadline-title">签署主体</view>
+        <view class="flex subContract-Deadline">
+          <picker mode="selector" value="{{MainSignIndex}}" range="{{MainSignArr}}" bindchange="bindMainSignChange">
+            <view class="picker">
+              <text class="fr32" style="margin: 0 20rpx 0 0;">签署类型 </text> {{MainSignArr[MainSignIndex]}}
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view wx:if="{{MainSignIndex==0}}" class="fr32 bdra" style="margin: 0 20rpx 20rpx;">
+        <view class="subContract-Deadline-title">企业主体</view>
+        <view class="flex subContract-Deadline">
+          <picker mode="selector" value="{{radiogrIndex}}" range="{{radiogrList}}" bindchange="bindradiogrChange">
+            <view class="picker">
+              <text class="fr32" style="margin: 0 20rpx 0 0;">主体选择 </text> {{radiogrList[radiogrIndex]||'请选择企业主体'}}
+            </view>
+          </picker>
+        </view>
+      </view>
+      <!-- <view wx:if="{{MainSignIndex==1}}" class="fr32 bdra" style="margin: 0 20rpx 20rpx;">
+        <view class="subContract-Deadline-title">企业主体</view>
+        <view class="flex subContract-Deadline">
+          <picker mode="selector" value="{{radioqyIndex}}" range="{{radioqyList}}" bindchange="bindradioqyChange">
+            <view class="picker">
+              <text class="fr32" style="margin: 0 20rpx 0 0;">主体选择 </text> {{radioqyList[radioqyIndex]||'请选择企业主体'}}
+            </view>
+          </picker>
+        </view>
+      </view> -->
+      <view class="fr32 bdra" style="margin: 0 20rpx 90rpx;">
+        <view class="subContract-Deadline-title">签署有效期</view>
+        <view class="flex subContract-Deadline">
+          <picker mode="date" value="{{signFormContent.Deadline}}" bindchange="bindDateChange">
+            <view class="picker">
+              <text class="fr32" style="margin: 0 20rpx 0 0;">签署截至时间 </text> {{signFormContent.Deadline}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class="tac cf fr30 bc-main signbtn" bindtap="signbtn">发起签约</view>
+</form>

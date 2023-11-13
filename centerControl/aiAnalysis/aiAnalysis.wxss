@@ -1,0 +1,79 @@
+page{
+  background-color: #fff;
+} 
+
+.canvas-box{
+  width: 750rpx;
+  height: 630rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 10rpx solid #f7f7f7;
+}
+.canvas-box:last-child{
+  border-bottom: 0;
+}
+ec-canvas {
+  width: 100%;
+  height: 100%;
+} 
+
+.graph-title{
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #333;
+  font-weight: 800;
+  margin-left: 40rpx;
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  border-left:8rpx solid #3bcaff; 
+}
+.graph-title>view{
+  margin-left: 10rpx;
+}
+
+.canvas{
+  width: 670rpx;
+  height: 450rpx;
+  margin: 0 auto;
+} 
+
+/* table */
+.table-box{
+  padding: 0 40rpx;
+}
+.table-title{
+  background: #f0f0f0;
+  color:#999 !important;
+}
+.tr{
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  border-top: 1rpx solid #f0f0f0;
+  color:#666
+  
+
+}
+.tr:last-of-type{
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.tr>view{
+  flex:1;
+  font-size: 26rpx;
+  line-height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1rpx solid#f0f0f0;
+}
+.tr>view:last-of-type{
+  border-right: 1rpx solid#f0f0f0;
+}
+
+.user-info{
+  padding: 0 56rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+.user-info>text:first-of-type{
+  padding-right: 120rpx;
+}

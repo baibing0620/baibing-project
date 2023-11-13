@@ -1,0 +1,139 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form style="height:100%" report-submit>
+  <button style="{{categoryViewType == 2?'height:100%':''}}" class='container w100 clean-btn' formType="submit">
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关商品信息'}}" wx:if="{{showStyle!=1&&goodsList.length==0}}" />
+    <block wx:else>
+        <block wx:if="{{categoryViewType == 1}}">
+            <view class="bcf0" style="height: 12rpx"></view>
+            <scroll-view wx:if="{{categoryList.length}}" class="goods-kinds-scroll w100" scroll-x="true">
+                <block wx:for="{{categoryList}}" wx:key="id">
+                    <view class="scroll-items" bindtap='goodsnavList' data-cid="{{item.id}}" data-title='{{item.name}}' data-type="0">
+                        <image src="{{ShowImg.cropImgWH(item.thumb,120,120)}}" mode="aspectFit" class="img-scroll"></image>
+                        <text class="kinds-text fr24 c6">{{item.name}}</text>
+                    </view>
+                </block>
+            </scroll-view> 
+            <view class="bcf0 bgf0"></view>
+            <component-good-column goodsList="{{goodsList}}" is_credit='1' isOpenCredit="{{ is_open_credit }}" />
+            <template is="moreData" data="{{loadStyle:loadStyle}}" />
+
+        </block>
+
+         <!-- 二级分类 -->
+        <block wx:if="{{categoryViewType == 2}}">
+            <view class="flexcColumn fr28 c3" wx:if="{{categoryList.length == 0}}" style="margin-top: 200rpx">
+            该分类暂无数据
+            </view>
+            <template is="twoGategoryOne" wx:else data="{{categoryList,toView,mainColor:diyConfig.themeColor,actvieIndex}}"></template>
+        </block>
+        <!-- 二级分类平铺 -->
+        <block wx:if="{{categoryViewType == 3}}">
+            <view class="flexcColumn fr28 c3" wx:if="{{categoryList.length == 0}}" style="margin-top: 200rpx">
+            该分类暂无数据
+            </view>
+            <template is="twoGategoryTwo" wx:else data="{{categoryList,mainColor:diyConfig.themeColor}}"></template>
+        </block>
+        <!-- 一级分类 -->
+        <block wx:if="{{categoryViewType == 4}}">
+            <view class="flexcColumn fr28 c3" wx:if="{{categoryList.length == 0}}" style="margin-top: 200rpx">
+            该分类暂无数据
+            </view>
+            <template is="oneGategoryOne" wx:else data="{{categoryList,toView,mainColor:diyConfig.themeColor,actvieIndex,fourHeight}}"></template>
+        </block>
+        <view class="suspension-menu flexcColumn">
+            <component-bless-bag-comm pageRefresh="{{ pageRefresh }}"></component-bless-bag-comm>
+            <component-menu setting="{{ menuSetting }}"></component-menu>
+        </view>
+  
+    </block>
+
+    <template name="twoGategoryOne">
+      <view class="container-view flex">
+        <scroll-view class="categories-left fr24 c6" scroll-y>
+          <view class="flexcColumn categories-left-title fw500 {{actvieIndex==index?'c-main':''}}" wx:for="{{categoryList}}" style="color:{{actvieIndex==index?diyConfig.themeColor:''}}" bindtap="activeTap" data-index="{{index}}" wx:key="id">
+            {{item.name}}
+          </view>
+        </scroll-view>
+        <scroll-view class="flex1 content" scroll-with-animation scroll-y scroll-into-view="{{toView}}">
+          <block wx:for="{{categoryList}}" wx:key="id">
+            <view style="padding:30rpx 0 0 30rpx" class="fr24 c3" id="{{'view'+index}}">
+              <text class="content-title" style='border-color:{{diyConfig.themeColor}}'>{{item.name}}</text>
+            </view>
+            <view class="flex" wx:if="{{item.sons.length != 0}}" style="flex-wrap: wrap;">
+              <block wx:for="{{item.sons}}">
+                <view class="img-box flexcColumn" bindtap='goodsnavList' data-cid="{{item.id}}" data-title='{{item.name}}' data-type="1">
+                  <image class="img-first" src="{{ShowImg.cropImgWH(item.thumb_url,110,110)}}" mode="aspectFit"></image>
+                  <view class="fr24 c4d ellipsis1">{{item.name}}</view>
+                </view>
+              </block>
+            </view>
+            <view wx:else class="fr24 c9 no-category">暂无二级分类信息</view>
+          </block>
+        </scroll-view>
+      </view>
+    </template>
+    <template name="twoGategoryTwo">
+      <view class="flexcColumn" style="justify-content:flex-start;background-color: #fff">
+        <block wx:for="{{categoryList}}" wx:key="id">
+          <view class="fr28 c3 title flexc">{{item.name}}</view>
+          <view class="border" style='border-color:{{diyConfig.themeColor}}'></view>
+          <view class="flex" wx:if="{{item.sons.length != 0}}" style="flex-wrap: wrap;margin-bottom:56rpx;width: 100%">
+            <block wx:for="{{item.sons}}">
+              <view class="img-box-second flexcColumn" bindtap='goodsnavList' data-cid="{{item.id}}" data-title='{{item.name}}' data-type="1">
+                <image class="img-second" mode="aspectFit" src="{{ShowImg.cropImgWH(item.thumb_url,180,130)}}"></image>
+                <view class="fr24 c4d ellipsis1">{{item.name}}</view>
+              </view>
+            </block>
+          </view>
+          <view wx:else class="fr24 c9" style="height:250rpx;line-height: 250rpx;">暂无二级分类信息</view>
+        </block>
+      </view>
+    </template>
+    <template name="oneGategoryOne">
+      <view class="search-box flexc w100 bcf">
+        <view class="search-goods flexb fr24" bindtap="search">
+          <text style="display: block;">请输入关键字搜索</text>
+          <icon type="search" size="15" color="#999999" />
+        </view>
+        <button class='iconfont icon-fenxiang clean-btn share-btn fr40 c-main' open-type='share'></button>
+      </view>
+      <view class="container-view flex" style="height: {{fourHeight}}px">
+        <scroll-view class="categories-left2 fr24 c6" scroll-y>
+          <view class="flexcColumn categories-left-title fw500 {{actvieIndex==index?'c-main':''}}" wx:for="{{categoryList}}" style="color:{{actvieIndex==index?diyConfig.themeColor:''}}" bindtap="activeTap" data-index="{{index}}" wx:key="id">
+            {{item.name}}
+          </view>
+        </scroll-view>
+        <scroll-view class="flex1 content" scroll-with-animation scroll-y scroll-into-view="{{toView}}">
+          <block wx:for="{{categoryList}}" wx:key="id">
+            <view style="padding:30rpx 0 0 30rpx" class="fr24 c3" id="{{'view'+index}}">
+              <text class="content-title" style='border-color:{{diyConfig.themeColor}}'>{{item.name}}</text>
+            </view>
+            <view wx:if="{{item.goods.length != 0}}" style="padding-left:16px">
+              <block wx:for="{{item.goods}}" wx:for-item="goodsItem">
+                <view class="goods-item" bindtap='goodsnav' data-goods-id="{{goodsItem.id}}" data-type="1">
+                  <image src="{{ShowImg.cropImgWH(goodsItem.thumb_url,160,160)}}"></image>
+                  <view class="goods-info">
+                    <view class="fr28 c4d ellipsis2">{{goodsItem.title}}</view>
+                    <view class="goods-price">
+                      <view style="color: #ff3600">
+                        <label class='fr24'>¥</label>
+                        {{goodsItem.price}}
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+            <view wx:else class="fr24 c9 no-category">暂无商品信息</view>
+          </block>
+        </scroll-view>
+      </view>
+    </template>
+    
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

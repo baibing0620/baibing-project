@@ -1,0 +1,68 @@
+page {
+	background:white;
+}
+.container{
+	color: black;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 30rpx;
+}
+.coupon-item{
+	display: flex;
+	background:url(https://facing-1256908372.file.myqcloud.com//image/20171229/6964a708c6432cb2.png) no-repeat;
+    height: 200rpx;
+    background-size: cover;
+	box-sizing: border-box;
+	align-items: center;
+	margin-bottom: 20rpx
+}
+
+.coupon-des{
+	width: 448rpx;
+	color: #feebc5;
+}
+.coupon-des>view:first-of-type{
+	font-size: 44rpx;
+	font-weight: 600;
+}
+.coupon-des>view:last-of-type{
+	margin-left: 24rpx;
+}
+.coupon-des>view>view{
+  margin-top: 6rpx;
+}
+.coupon-num {
+	font-size: 100rpx;
+	color:#f9353f;
+	font-weight: 800;
+}
+.coupon-num-small {
+	font-size: 60rpx;
+	color:#f9353f;
+	font-weight: 800;
+}
+.coupon-num>text,.coupon-num-small>text{
+	font-size:43rpx;
+	position:relative;
+	bottom:34rpx;
+	left:8px;
+	font-weight:500;
+}
+.coupon-num-small>text{
+	font-size:38rpx;
+}
+.bt-coupon {
+	margin-top:82rpx;
+	width: 690rpx;
+	height: 90rpx;
+	line-height: 90rpx;
+	border-radius: 10rpx;
+	background-color: #ee4130;
+	color: #fff;
+}
+.no-data{
+	text-align: center;
+	font-size: 15px;
+	margin-top: 200rpx;
+	color: #666666;
+}

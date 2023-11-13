@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "名片海报",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "预约表单",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

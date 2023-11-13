@@ -1,0 +1,111 @@
+<view class="modal-box-diy" wx:if="{{showSelfToast}}">
+    <view class="warn-box">
+        <icon type="success_no_circle" size="60" wx:if="{{modalBoxType=='success'}}" />
+        <icon type="warn" size="26" color="#fd084a" wx:else/>
+        <view style="max-width:300rpx;margin-top:30rpx; text-align:left;">{{errorMsg}}</view>
+    </view>
+</view>
+<!--  -->
+<view class="modal-box-diy mark" wx:if="{{showGetUserInfo}}">
+    <view class="get-userinfo-box main">
+        <!-- <view class="fr30 ">小程序端需要登录才能提供更多服务，</view>
+        <view class='fr30 ' style='margin-top:30rpx;'>是否授权登录？</view>
+        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="ybtn fr36">授权登录</button> -->
+        <view class="main_title">授权申请</view>
+        <view class="main_icon flexb">
+            <i class="iconfont icon-weixin21" style="color: #07c062; font-size: 120rpx"></i>
+            <view class='iconfont icon-jiaohuan'></view>
+            <image src="{{shopImg}}" style="width: 120rpx; height: 120rpx; border-radius: 50%;"></image>
+        </view> 
+        <view class="main_word">
+            <view>小程序申请获得您的昵称、头像信息</view>
+            <view>登录后才可查看更多信息</view>
+        </view>
+        <view class="main_bottom">
+            <button bindtap="noLogin" class="getuser_info_cancel">暂不登录</button>
+            <button class="land" hover-class="button_hover" wx:if="{{userProfileAble}}" bindtap="getUserProfile"> 登录 </button>
+            <button class="land" open-type="getUserInfo" wx:else bindgetuserinfo="getUserInfo" hover-class="button_hover">登录</button>
+        </view>
+    </view>
+</view>
+<!-- showAuthorizationUserInfo -->
+<view class="modal-box-diy mark" wx:if="{{showAuthorizationUserInfo}}">
+    <view class="get-userinfo-box main">
+        <view class="main_title">授权用户信息</view>
+        <view class="main_icon">
+            <i class="iconfont icon-touxiang11 touxiang" style="color: #07c062; font-size: 120rpx"></i>
+            <!-- <view class='iconfont icon-jiaohuan'></view> -->
+            <!-- <image src="{{shopImg}}" style="width: 120rpx; height: 120rpx; border-radius: 50%;"></image> -->
+        </view>
+        <view class="main_word flexcColumn">
+            <view>小程序申请获得您的昵称、头像信息</view>
+            <view>登录后可查看更多信息</view>
+        </view>
+        <view class="main_bottom">
+            <button class="land" hover-class="button_hover" wx:if="{{userProfileAble}}" bindtap="setAuthorzieUserProfile"> 授权登录 </button>
+            <button class="land" open-type='getUserInfo' wx:else bindgetuserinfo="setAuthorizationUserInfo" hover-class="button_hover">授权</button>
+        </view>
+    </view>
+</view>
+<!-- showAuthorizationUserPhone -->
+<view class="modal-box-diy mark" wx:if="{{showAuthorizationUserPhone}}">
+    <view class="get-userinfo-box main">
+        <view class="main_word">
+            <view class="fr34 fw600 pf">您还没有绑定手机号</view>
+            <view class="fr34 fw600 pf">绑定后继续浏览</view>
+            <view class="fr28 cbd mt30">申请获取您的手机号用于登录系统</view>
+        </view>
+        <view class="main_img">
+            <image src="https://facing-1256908372.file.myqcloud.com/image/20200908/shouquan_bg.png"></image>
+        </view>
+        <view class="main_bottom">
+            <button class="land" open-type='getPhoneNumber' bindgetphonenumber="setAuthorizationUserPhoneNumber" hover-class="button_hover">授权手机号</button>
+        </view>
+        <view class="main_agreement">
+            <view class="fr26 tac">授权手机即代表同意</view>
+            <view class="fr26 c25 tac">
+                <text data-id="1" catchtap="goToAgreement">《隐私政策》</text>与
+                <text data-id="2" catchtap="goToAgreement">《用户服务协议》</text>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="modal-box-diy" wx:if="{{showopenSetting}}">
+    <view class="get-userinfo-box">
+        <view class="fr28 c6" style="margin-top: 34rpx;">授权设置</view>
+        <view class="fr32" style="margin-top: 30rpx;color: #ff24c;">{{setttingContent}}</view>
+        <view class="flex">
+            <button bindtap="cancelSetting" class="cancel fr26"> 取消</button>
+            <button open-type="openSetting" bindopensetting="cancelSetting" class="get-settting-btn fr26"> 去授权</button>
+        </view>
+    </view>
+</view>
+
+<view class="share-diy-modal" wx:if="{{showShareModal}}">
+  <view bindtap="closeShareModal" class="flex1 w100"></view>
+  <view class="share-diy-enevt {{upShareModal?'share-diy-modal-up':'share-diy-modal-down'}}">
+    <view class="share-item-box flexColumn">
+      <view class="share-border-line  flex c9">
+        <view style="margin-right:30rpx;"></view> 
+        <text style="color:#000">分享到</text>  
+        <view style="margin-left:30rpx;"></view>
+      </view>
+      <view class="flexc w100">
+        <button class='shareItem flexcColumn fr26 c6 active flex1' open-type="share">
+          <image class='shareItem-image' src='https://facing-1256908372.file.myqcloud.com//image/20181108/55b5f2dc124171a2.png?imageView2/2/w/600'></image>
+          微信好友
+        </button>
+        <view class='shareItem flexcColumn fr26 c6 active flex1' bindtap='getPageQRCode'>
+          <image class='shareItem-image' src='https://facing-1256908372.file.myqcloud.com//image/20181019/3c51955b4d7fa3bd.png?imageView2/2/w/600'></image>
+          名片海报
+        </view>
+        <!-- <view class='shareItem flexcColumn fr26 c6 active flex1' bindtap='getH5Link' wx:if="{{menuSetting['留言'].from == 'contentDetail'}}">
+          <image class='shareItem-image' src=' https://facing-1256908372.file.myqcloud.com//image/20200313/791132885375d43b.png?imageView2/2/w/600'></image>
+            <text class="shareItem-title">h5链接</text>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</view>
+

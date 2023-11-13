@@ -1,0 +1,70 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<button wx:if="{{ !hasBindPhone }}" catchtap='toChat' open-type="getPhoneNumber">
+    <cover-view class='message-toast {{ show ? "message-toast-show" : "" }}'>
+        <cover-image mode="aspectFill" wx:if="{{ avatar }}" class="message-toast-avatar" src="{{ ShowImg.cropImgWH(avatar, 94, 94) }}"></cover-image>
+        <cover-view class="message-toast-layout">
+            <cover-view class="message-toast-nickname">{{ nickname }}</cover-view>
+            <cover-view class="message-toast-content">{{ message }}</cover-view>
+        </cover-view>
+    </cover-view>
+</button>
+<cover-view wx:else class='message-toast {{ show ? "message-toast-show" : "" }}' catchtap='navToChat'>
+    <cover-image wx:if="{{ avatar }}" class="message-toast-avatar" src="{{ ShowImg.cropImgWH(avatar, 94, 94) }}"></cover-image>
+    <cover-view mode="aspectFill" class="message-toast-layout">
+        <cover-view class="message-toast-nickname">{{ nickname }}</cover-view>
+        <cover-view class="message-toast-content">{{ message }}</cover-view>
+    </cover-view>
+</cover-view>
+
+
+<view class="couponReceive flexcColumn" wx:if="{{couponBoxShowIf && !closeAll}}">
+    <view class="couponContainer">
+        <view class="title">优惠到账</view>
+        <view class='bcf'> 
+            <scroll-view class='dialog-coupon' scroll-y >
+                <view class="w100 coupon-detail flex" wx:for="{{ couponList }}">
+                    <block wx:if="{{item.type != 3}}">
+                        <view class="coupon-price fr30">
+                            ￥<text class="price fr60">{{item.cutdown || '500'}}</text>
+                        </view>
+                        <view class="couponbase flex1 flexb">
+                            <view class="couponbaseinfo">
+                                <view class="coupon-name fr30">{{item.name || 'xxx优惠券'}}</view>
+                                <view class="coupon-rule fr24">{{ item.type == 2 ? '任意金额可用' : '满'+item.sale_to+'可用'}}</view>
+                                <view class="coupon-time fr24">
+                                    {{ item.time_type == 1 ? '有效期至' + item.end_date : '自领取' +  item.expire_at + '天内有效' }}
+                                </view>
+                            </view>
+                            <view class="topCircle"></view>
+                            <view class="bottomCircle"></view>
+                            <view class="coupontotal fr24 c3" > x{{item.total}} </view> 
+                        </view>
+                    </block>
+
+                    <block wx:else>
+                        <view class="coupon-top  flexb">
+                            <view class="ellipsis1">{{item.name || 'xxx优惠券'}}</view>
+                            <view class="fr24 c3"  > x{{item.total}}</view>
+                        </view>
+                        <view class="coupon-bottom">
+                            <view class="coupon-goods ellipsis1 fr24 c3">可抵扣商品：{{item.exchange_goods[0].goodsName}}</view>
+                            <view class="coupon-time fr24 c3">
+                                {{ item.time_type == 1 ? '有效期至' + item.end_date : '自领取' +  item.expire_at + '天内有效' }}
+                            </view>
+                        </view>
+                        <view class="line"></view>
+                        <view class="left-circle bg-circle"></view>
+                        <view class="right-circle bg-circle"></view>
+                    </block>
+                 
+                </view> 
+            </scroll-view>
+            <!-- <text class="iconfont icon-changjiantou-r"></text> -->
+            <view class="coupon-tips c6 fr26">优惠券已放入个人中心 —> 我的优惠券</view>
+            <view class="goToMall" bindtap="navToMall">去商城逛逛</view>
+        </view>
+    </view>
+    <view class="closeBtn" bindtap="closeCouponBox">
+        <text class="iconfont icon-shanchu2 fr56"></text>
+    </view>
+</view>

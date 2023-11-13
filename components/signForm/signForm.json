@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "签署信息",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

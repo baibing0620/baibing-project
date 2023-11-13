@@ -1,0 +1,211 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+
+<form style="height:100%" report-submit>
+  <button style="{{categoryViewType == 2?'height:100%':''}}" class='container w100 clean-btn' formType="submit">
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关商品信息'}}" wx:if="{{showStyle!=1&&goodsList.length==0}}" />
+    <block wx:else>
+      <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+      <view wx:if="{{categoryViewType == 1}}" class="container w100" scroll-y="{{true}}">
+        <view class="search-box flexc bcf mb24 mt24">
+          <view class="search-goods flex1 flex-c-s fr24" bindtap="search">
+            <view class="iconfont icon-sousuo2 fr32 c-1A1A1A mr30"></view>
+            <view class="c-999999">请输入关键字搜索</view>
+          </view>
+          <button class='iconfont icon-zhuanfa clean-btn share-btn fr34 c-1A1A1A flex-c-c' open-type='share'></button>
+        </view>
+         
+        <swiper wx:if="{{swiperContent.length > 0 && swiperShow}}" class="swiper" autoplay indicator-dots circular indicator-color="rgba(0,0,0,0.3)" indicator-active-color="#f74c31" interval="{{ 1500 }}" duration="{{ 500 }}">
+          <block wx:for="{{swiperContent}}" wx:key="{{item.id}}">
+            <swiper-item class="swiper-item">
+              <view class="swiper-item-image" data-link-type="{{item.link_type}}" data-room-id="{{item.live_id}}" data-eventparam="{{ item.event_param }}" data-url="{{item.page}}" bindtap="handleSwiperClick">
+                <component-image src="{{ item.img_url }}" placeholder />
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        
+        <swiper wx:if='{{ categoryList.length }}' indicator-dots='{{ categoryList.length > 1 }}' indicator-active-color='#1F94FD' indicator-color='#E6E6E6' class='{{ categoryList[0].length > 4 ? "gategory-double" : "gategory-single" }}'>
+          <block wx:for='{{ categoryList }}' wx:key='index'>
+            <swiper-item>
+              <view class='flex-s-s pl30 pr30 pt22 pb22 flex-wrap'>
+                <block wx:for="{{ item }}" wx:key="id">
+                  <view class="scroll-items flex-c-c flexColumn mr16 mb4 pt18 pb18" bindtap='goodsnavList' data-cid="{{item.id}}" data-title='{{item.name}}' data-type="0">
+                    <view class="img-scroll">
+                      <component-image src="{{ item.thumb }}" placeholder></component-image>
+                    </view>
+                    <view class="mt24 fr26 c-666666 line-height-100">{{item.name}}</view>
+                  </view>
+                </block>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        
+        <scroll-view wx:if='{{couponList.length}}' class='coupon-list-scroll w100' scroll-x>
+          <block wx:for='{{ couponList }}' wx:key='id'>
+            <view class='coupon' data-index='{{index}}' data-id='{{item.id}}' bindtap='getCoupon'>
+              <view class='coupon-top {{ item.is_new_user_coupon == 1 ? "coupon-top-new pb10 pt42" : "pb20 pt22" }} pl24 pr24 flex-s-b flexColumn border-box relative'>
+                <view class='flex-c-s'>
+                  <block wx:if='{{ item.type == 1 }}'>
+                    <view class='coupon-price c-F93835 fr46 line-height-100 mr14 flex-e-s'>{{ item.cutdown }}</view>
+                    <view class='coupon-threshold c-F93835 fr20 line-height-100 pl14 pr14 flex-c-c'>满{{ item.sale_to }}元立减</view>
+                  </block>
+                  <block wx:elif='{{ item.type == 2 }}'>
+                    <view class='coupon-price c-F93835 fr46 line-height-100 mr14 flex-e-s'>{{ item.cutdown }}</view>
+                    <view class='coupon-threshold c-F93835 fr20 line-height-100 pl14 pr14 flex-c-c'>无门槛使用</view>
+                  </block>
+                  <block wx:elif='{{ item.type == 3 }}'>
+                    <view class='coupon-price-goods c-F93835 fr36 line-height-100 mr14 flex-e-s'>商品抵扣券</view>
+                  </block>
+                </view>
+                <view class='coupon-name c-F93835 fr26'>{{ item.type == 3 ? '可抵扣:' + item.exchange_goods[0].goodsName : item.name }}</view>
+              </view>
+              <view class='coupon-bottom flex-c-b relative pl20 pr20'>
+                <view class='coupon-line'></view>
+                <view wx:if='{{ item.time_type == 2 }}' class='coupon-date c-F93835 fr22 line-height-100'>领取后{{ item.expire_at }}天内可用</view>
+                <view wx:else class='coupon-date c-F93835 fr22 line-height-100'>{{ Format.formatDate(item.start_time * 1000, 'MM.DD') }}-{{ Format.formatDate(item.end_time * 1000, 'MM.DD') }}可用</view>
+                <view wx:if='{{ item.received == 0 }}' class='coupon-button pl18 pr14 flex-c-c'>
+                  <view class='c-FFFFFF fr24 mr8 line-height-100'>领取</view>
+                  <view class='iconfont icon-bofang5 c-FFFFFF fr16 line-height-100'></view>
+                </view>
+                <view wx:else class='coupon-button-disabled pl14 pr14 flex-c-c c-FFFFFF fr24 line-height-100'>已领取</view>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+        <view class="bcf0" style="height: 10rpx"></view>
+        <view class="tab-bar flex fr26 c9 border-bottom">
+          <block wx:for="{{tabBar}}" wx:key="name">
+            <view data-index="{{index}}" class="tab-bar-item flex1 {{isFirst ? '' : activeTabBarIndex==index?'c3':''}}" bindtap="tabBarClick">
+              {{item.name+item.typeText}}
+            </view>
+          </block>
+          <view class="change-goods-show iconfont {{goodsShowStyle=='column'?'icon-classify':'icon-liebiao'}}" bindtap="changeGoods"></view>
+        </view>
+        <component-good-row goodsList="{{goodsList}}" isOpenCredit="{{ is_open_credit }}" wx:if="{{goodsShowStyle=='row'}}" />
+        <component-good-column goodsList="{{goodsList}}" isOpenCredit="{{ is_open_credit }}" wx:else />
+        <template is="moreData" data="{{loadStyle:loadStyle}}" />
+      </view>
+      <!-- 二级分类 -->
+      <block wx:if="{{categoryViewType == 2}}">
+        <view class="flexcColumn fr28 c3" wx:if="{{categoryList.length == 0}}" style="margin-top: 200rpx">
+          该分类暂无数据
+        </view>
+        <template is="twoGategoryOne" wx:else data="{{categoryList,toView,mainColor:diyConfig.themeColor,actvieIndex}}"></template>
+      </block>
+      <!-- 二级分类平铺 -->
+      <block wx:if="{{categoryViewType == 3}}">
+        <view class="flexcColumn fr28 c3" wx:if="{{categoryList.length == 0}}" style="margin-top: 200rpx">
+          该分类暂无数据
+        </view>
+        <template is="twoGategoryTwo" wx:else data="{{categoryList,mainColor:diyConfig.themeColor}}"></template>
+      </block>
+      <!-- 一级分类 -->
+      <block wx:if="{{categoryViewType == 4}}">
+        <view class="flexcColumn fr28 c3" wx:if="{{categoryList.length == 0}}" style="margin-top: 200rpx">
+          该分类暂无数据
+        </view>
+        <template is="oneGategoryOne" wx:else data="{{categoryList,toView,mainColor:diyConfig.themeColor,actvieIndex,fourHeight}}"></template>
+      </block>
+      <view class="suspension-menu flexcColumn">
+        <component-bless-bag-comm pageRefresh="{{ pageRefresh }}"></component-bless-bag-comm>
+        <component-menu setting="{{ menuSetting }}"></component-menu>
+      </view>
+    </block>
+    <template name="twoGategoryOne">
+      <view class="container-view flex">
+        <scroll-view class="categories-left fr24 c6" scroll-y>
+          <view class="flexcColumn categories-left-title fw500 {{actvieIndex==index?'c-main':''}}" wx:for="{{categoryList}}" style="color:{{actvieIndex==index?diyConfig.themeColor:''}}" bindtap="activeTap" data-index="{{index}}" wx:key="id">
+            {{item.name}}
+          </view>
+        </scroll-view>
+        <scroll-view class="flex1 content" scroll-with-animation scroll-y scroll-into-view="{{toView}}">
+          <block wx:for="{{categoryList}}" wx:key="id">
+            <view style="padding:30rpx 0 0 30rpx" class="fr24 c3" id="{{'view'+index}}">
+              <text class="content-title" style='border-color:{{diyConfig.themeColor}}'>{{item.name}}</text>
+            </view>
+            <view class="flex" wx:if="{{item.sons.length != 0}}" style="flex-wrap: wrap;">
+              <block wx:for="{{item.sons}}">
+                <view class="img-box flexcColumn" bindtap='goodsnavList' data-cid="{{item.id}}" data-title='{{item.name}}' data-type="1">
+                  <image class="img-first" src="{{ShowImg.cropImgWH(item.thumb_url,110,110)}}" mode="aspectFit"></image>
+                  <view class="fr24 c4d ellipsis1">{{item.name}}</view>
+                </view>
+              </block>
+            </view>
+            <view wx:else class="fr24 c9 no-category">暂无二级分类信息</view>
+          </block>
+        </scroll-view>
+      </view>
+    </template>
+    <template name="twoGategoryTwo">
+      <view class="flexcColumn" style="justify-content:flex-start;background-color: #fff">
+        <block wx:for="{{categoryList}}" wx:key="id">
+          <view class="fr28 c3 title flexc">{{item.name}}</view>
+          <view class="border" style='border-color:{{diyConfig.themeColor}}'></view>
+          <view class="flex" wx:if="{{item.sons.length != 0}}" style="flex-wrap: wrap;margin-bottom:56rpx;width: 100%">
+            <block wx:for="{{item.sons}}">
+              <view class="img-box-second flexcColumn" bindtap='goodsnavList' data-cid="{{item.id}}" data-title='{{item.name}}' data-type="1">
+                <image class="img-second" mode="aspectFit" src="{{ShowImg.cropImgWH(item.thumb_url,180,130)}}"></image>
+                <view class="fr24 c4d ellipsis1">{{item.name}}</view>
+              </view>
+            </block>
+          </view>
+          <view wx:else class="fr24 c9" style="height:250rpx;line-height: 250rpx;">暂无二级分类信息</view>
+        </block>
+      </view>
+    </template>
+    <template name="oneGategoryOne">
+      <view class="search-box flexc w100 bcf">
+        <view class="search-goods flexb fr24" bindtap="search">
+          <text style="display: block;">请输入关键字搜索</text>
+          <icon type="search" size="15" color="#999999" />
+        </view>
+        <button class='iconfont icon-fenxiang clean-btn share-btn fr40 c-main' open-type='share'></button>
+      </view>
+      <view class="container-view flex" style="height: {{fourHeight}}px">
+        <scroll-view class="categories-left2 fr24 c6" scroll-y>
+          <view class="flexcColumn categories-left-title fw500 {{actvieIndex==index?'c-main':''}}" wx:for="{{categoryList}}" style="color:{{actvieIndex==index?diyConfig.themeColor:''}}" bindtap="activeTap" data-index="{{index}}" wx:key="id">
+            {{item.name}}
+          </view>
+        </scroll-view>
+        <scroll-view class="flex1 content" scroll-with-animation scroll-y scroll-into-view="{{toView}}">
+          <block wx:for="{{categoryList}}" wx:key="id">
+            <view style="padding:30rpx 0 0 30rpx" class="fr24 c3" id="{{'view'+index}}">
+              <text class="content-title" style='border-color:{{diyConfig.themeColor}}'>{{item.name}}</text>
+            </view>
+            <view wx:if="{{item.goods.length != 0}}" style="padding-left:16px">
+              <block wx:for="{{item.goods}}" wx:for-item="goodsItem">
+                <view class="goods-item" bindtap='goodsnav' data-goods-id="{{goodsItem.id}}" data-type="1">
+                  <image src="{{ShowImg.cropImgWH(goodsItem.thumb_url,160,160)}}"></image>
+                  <view class="goods-info">
+                    <view class="fr28 c4d ellipsis2">{{goodsItem.title}}</view>
+                    <view class="goods-price">
+                      <view style="color: #ff3600">
+                        <label class='fr24'>¥</label>
+                        {{goodsItem.price}}
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+            <view wx:else class="fr24 c9 no-category">暂无商品信息</view>
+          </block>
+        </scroll-view>
+      </view>
+    </template>
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>
+
+<view class='mlc' bindtap="closeTip" wx:if="{{tipVisible}}"> 
+  <view class="successTip">
+    <view class="successTitle fr50">领取成功</view>
+    <view class="successInfo fr28">可前往个人中心 - 我的优惠券中查看</view>
+  </view>
+</view>

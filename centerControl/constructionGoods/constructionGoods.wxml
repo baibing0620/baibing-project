@@ -1,0 +1,41 @@
+<include src="../../comm/comm.wxml" />
+<component-messageToast></component-messageToast>
+<component-steps chooseIndex="3" completeIndex="2"></component-steps>
+<view class='container'>
+    <view class="fr24 {{descData?'cb3':'c3'}} bold title">商品描述</view>
+    <textarea class='fr30 c3 normal' value="{{descData}}" placeholder='请输入商品描述，建议30~50字' bindinput="descInput"></textarea>
+    <view class='fr24 {{myImgs.length == 0?"c3":"cb3"}} bold title'>商品主图</view>
+    <view class='img-box'>
+        <view wx:for="{{ myImgs }}" wx:key="{{ index }}" class='img img2' data-index='{{ index }}' bindlongpress='deleteMyImgs'>
+            <image mode='aspectFill' wx:if='{{ item.status === 2 }}' src='{{ item.url }}?imageView2/1/w/690/h/520"' data-index='{{ index }}' catchtap='previewMyImgs'></image>
+            <view wx:if='{{ item.status === 1 }}' class='progress-view'>
+                <progress percent='{{ item.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+            </view>
+            <view wx:if='{{ item.status === -1 }}' class='imgError flexcColumn fr24' data-index='{{ index }}' catchtap='reUploadMyImgs'>{{ item.errorMsg }}
+                <br/>点击重新上传</view>
+        </view>
+        <view wx:if='{{ myImgs.length < 6 }}' class='img img-add img2' catchtap="uploadMyImgs">
+            <i class='iconfont icon-add:before'></i>
+        </view>
+    </view>
+    <view style='margin-top:20rpx' class='fr24 cb3'>可添加6张图片，最佳比例为1：1</view>
+        <view class='fr24 {{detailImgs.length == 0?"c3":"cb3"}} bold title'>商品详情图</view>
+    <view class='img-box'>
+        <view wx:for="{{ detailImgs }}" wx:key="{{ index }}" class='img img2' data-index='{{ index }}' bindlongpress='deleteDetailImgs'>
+            <image mode='aspectFill' wx:if='{{ item.status === 2 }}' src='{{ item.url }}?imageView2/1/w/690/h/520"' data-index='{{ index }}' catchtap='previewDetailImgs'></image>
+            <view wx:if='{{ item.status === 1 }}' class='progress-view'>
+                <progress percent='{{ item.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+            </view>
+            <view wx:if='{{ item.status === -1 }}' class='imgError flexcColumn fr24' data-index='{{ index }}' catchtap='reUploadDetailImgs'>{{ item.errorMsg }}
+                <br/>点击重新上传</view>
+        </view>
+        <view  class='img img-add img2' catchtap="uploadDetailImgs">
+            <i class='iconfont icon-add:before'></i>
+        </view>
+    </view>
+    <view style='margin-top:20rpx' class='fr24 cb3'>图片大小不超过3024K</view>
+</view>
+<view class='btn flex'>
+    <button catchtap='backSteps' class='flex1 fr34'>上一步</button>
+    <button catchtap='nextSteps' style='flex:2'>下一步</button>
+</view>

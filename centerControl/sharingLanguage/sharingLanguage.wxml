@@ -1,0 +1,33 @@
+<include src="../../comm/comm.wxml" />
+<import src='../../template/initShow/initShow.wxml' />
+
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+<block wx:else>
+    <view class="shopShare">
+        <view class="shareTitle">商品分享语</view>
+        <view class="shareDes">把商品分享出去时的标语</view>
+        <view class="shareMessage">
+            <textarea class="shareMessage2" placeholder="请输入商品分享语" bindinput='changeMessage' data-type="shop" value="{{shopMessage}}"/>
+        </view>
+    </view>
+    <view class="serverShare">
+        <view class="shareTitle">服务分享语</view>
+        <view class="shareDes">把服务分享出去时的标语</view>
+        <view class="shareMessage">
+            <textarea class="shareMessage2" placeholder="请输入服务分享语" bindinput='changeMessage'  data-type="server" value="{{serverMessage}}"/>
+        </view>
+    </view>
+    <view class="informationShare">
+        <view class="shareTitle">资讯分享语</view>
+        <view class="shareDes">把资讯分享出去时的标语</view>
+        <view class="shareMessage">
+            <textarea class="shareMessage2" placeholder="请输入资讯分享语" bindinput='changeMessage' data-type="information" value="{{informationMessage}}"/>
+        </view>
+    </view>
+    <cover-view class="cover-view">
+        <cover-view catchtap="saveMessage" class="shareButton" hover-class="other-button-hover"> 保存分享语 </cover-view>
+    </cover-view>
+    
+</block>
+
+<component-messageToast></component-messageToast>

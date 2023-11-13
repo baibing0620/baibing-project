@@ -1,0 +1,40 @@
+@import '../../comm/base.wxss';
+.steps-container{
+    background: #fff;
+    height: 100rpx;
+    box-shadow: 0 2rpx 10rpx 0 #ccc;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+}
+.steps-content{
+    width: 46rpx;
+    height: 46rpx;
+    border-radius: 50%;
+    border-width: 1rpx;
+    border-style: solid;
+    border-color: #ccc;
+    position: relative;
+}
+.steps-content::after{
+    content: "";
+    width: 70rpx;
+    border-top: 1rpx dashed #ccc;
+    position: absolute;
+    left: 68rpx;
+    top: 20rpx;
+}
+.steps-container>view:last-of-type::after{
+    display: none
+}
+.choose{
+    border-color: #ff9b1f;
+    color: #ff9b1f;
+}
+.choose-complete{
+    background: #ff9b1f;
+    color: #ffffff;
+    border-color: #ff9b1f;
+}
+.after::after{
+  border-top: 1rpx dashed #ff9b1f;
+}

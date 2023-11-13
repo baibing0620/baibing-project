@@ -1,0 +1,54 @@
+<!-- 公开大团的中奖成功时的弹窗 -->
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" /> 
+
+<view class="box" wx:if="{{show}}"></view>
+<view class="content" wx:if="{{show}}">
+    <view class="main"> 
+        <view class="title c3 fr34 bold tac">
+            <view class="line"></view>
+            <view style="margin: 0 10rpx" class="lh1">中奖名单</view>
+            <view class="line"></view>
+        </view>
+
+        <view class="name-list {{showStyle!=1&&winningList.length==0?'no-win-list-h': ''}}" style="margin-top: 20rpx;">
+            <template is="initShow" data="{{showStyle:showStyle, showNoMsg:showErrorMsg?showErrorMsg:'无相关记录信息'}}" wx:if="{{showStyle!=1&&winningList.length==0}}" />
+            <block wx:else>
+                <scroll-view scroll-y="true" class="scroll-view-h {{length<=3? 'scroll-view-h'+length: 'scroll-view-h3'}} {{!selfInviter.member?'scroll-view-h-win': ''}}">
+                    <block wx:for="{{winningList}}" wx:key="id">
+                        <view class="name-item">
+                            <view class="avatar-wrap">
+                                <image class="avatar" src="{{ShowImg.cropImgWH(item.member.avatar, 70, 70)}}"></image>
+                            </view>
+                            <view class="name-info">
+                                <view class="c3 fr28 fw500">
+                                    {{ item.member.nickname }}
+                                </view>
+                                <view class="fr24 c6 fw500">
+                                    {{ item.inviter_num }}位好友助力
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                </scroll-view>
+                <view class="name-item last" wx:if="{{selfInviter.member}}">
+                    <view class="avatar-wrap">
+                        <image class="avatar" src="{{ShowImg.cropImgWH(selfInviter.member.avatar, 70, 70)}}"></image>
+                    </view>
+                    <view class="name-info">
+                        <view class="c3 fr28 fw500">
+                            {{ selfInviter.member.nickname }}
+                        </view>
+                        <view class="fr24 c6 fw500">
+                            仅差邀请{{selfInviter.needToInviterNum}}人即可获奖
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+
+    <view class="my-icon">
+        <text class="iconfont icon-shanchu2 my-guanbi" bindtap="close"></text>
+    </view>
+</view>

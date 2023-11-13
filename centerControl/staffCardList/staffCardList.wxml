@@ -1,0 +1,23 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无可管理的员工名片',showImg:'https://facing-1256908372.file.myqcloud.com//image/20181213/00b9fe200b131df8.png'}}" wx:if="{{showStyle!=1&&staffList.length==0}}" />
+<block wx:else>
+    <view class='container flex' wx:for="{{staffList}}" wx:key="id" catchtap='navPage' data-item="{{item}}">
+        <image src="{{ShowImg.cropImgWH(item.avatar,140,140)}}"></image>
+        <view class='flex1 flexbColumn'>
+            <view class='fr36 c3 bold'>{{item.name}}</view>
+            <view style='margin:40rpx 0 22rpx' class='fr26 c80'>{{item.position}}</view>
+            <view class='fr26 c80'>{{item.mobile}}</view>
+        </view>
+        <view wx:if="{{item.opencard == 3}}" style='background:#54b5ff' class='status cf fr28'>未开通</view>
+        <view wx:else style="background:{{item.card.status == 1?'#54e699':item.card.status == 2?'#cccccc':'#ff9b1f'}}" class='status cf fr28'>{{item.card.status == 1?'未绑定':item.card.status == 2?'已关闭':'使用中'}}</view>
+    </view>
+    <template is="moreData" data="{{loadStyle:loadStyle,loadOverText:'加载完成，团队精神是一股神秘力量'}}" />
+</block>
+<view wx:if="{{configCode}}" class="message-btn {{isIphoneX?'fix-iphonex-button':''}}">
+    <button  catchtap='navAdd' class=" fr34 cf">添加员工</button>
+</view>
+<view style='height:{{isIphoneX?"168rpx":"100rpx"}}'></view>
+<component-messageToast></component-messageToast>

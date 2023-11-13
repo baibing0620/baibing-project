@@ -1,0 +1,264 @@
+@import "/iconfont/iconfont.wxss";
+@import "/comm/base.wxss";
+@import '/comm/comm.wxss';
+
+
+.fr50 {
+    font-size: 50rpx;
+    line-height: 100%;
+}
+
+.fr16 {
+    font-size: 16rpx;
+    line-height: 100%;
+}
+
+.fr18 {
+    font-size: 18rpx;
+    line-height: 100%;
+}
+
+.menu-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 150;
+    background: none;
+    padding: 0;
+}
+
+.menu-item-margin {
+    margin-top: 20rpx;
+}
+
+.menu-item {
+    width: 100rpx;
+    height: 100rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 1);
+    border: 1rpx solid #F7F7F7;
+    box-shadow: 0 6rpx 6rpx 0 rgba(6, 0, 1, 0.24);
+    font-weight: 900;
+    box-sizing: border-box;
+    position: relative;
+    overflow: visible;
+}
+
+.menu-item-margin:first-child {
+    margin-top: 0
+}
+
+.message-avatar {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    opacity: 1;
+    transition: .7s;
+}
+
+.message-avatar-hidden {
+    opacity: 0;
+}
+
+.message-num {
+    width: 20rpx;
+    height: 20rpx;
+    background: #fe0002;
+    color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 200;
+    padding: 4rpx;
+    white-space: nowrap;
+}
+
+.menu-chat-text {
+    height: 40rpx;
+    width: 100%;
+    border-radius: 20rpx;
+    color: #fff;
+    font-size: 22rpx;
+    line-height: 100%;
+    margin-top: -20rpx;
+    position: relative;
+}
+
+.menu-chat .menu-item {
+    color: #f0f0f0;
+}
+/*//分享模态框*/
+
+.share-diy-modal {
+    position: fixed;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 150;
+}
+
+.share-diy-enevt {
+    width: 100%;
+    /* background: linear-gradient(rgba(255, 255, 255, 0), rgba(200, 200, 200, 0.7)); */
+    /* padding: 30rpx 0; */
+}
+
+.share-diy-modal-up {
+    animation: showShareUp 200ms;
+}
+
+.share-diy-modal-down {
+    animation: showShareDown 200ms;
+}
+
+@keyframes showShareUp {
+    from {
+        transform: translateY(100rpx);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes showShareDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(200rpx);
+    }
+}
+
+.share-item-box {
+    background: white;
+    /* width: 690rpx; */
+    width: 750rpx;
+    margin: 0 auto;
+    /* border-radius: 10rpx; */
+    border-radius: 30rpx 30rpx 0px 0px;
+    box-shadow: 0 10rpx 25rpx 0 rgba(0, 0, 0, 0.2);
+    height: 360rpx;
+    align-items: center;
+}
+
+.shareItem {
+    height: 176rpx;
+    line-height: 100%;
+    padding: 0;
+    border-radius: 0;
+    margin: 0;
+    background-color: white;
+}
+
+.shareItem:first-child {
+    border-radius: 10rpx 0 0 10rpx;
+    box-sizing: border-box;
+    padding-left: 30rpx;
+}
+
+.shareItem:last-child {
+    border-radius: 0 10rpx 10rpx 0;
+    box-sizing: border-box;
+    padding-right: 30rpx;
+}
+
+.shareItem-image {
+    height: 98rpx;
+    width: 98rpx;
+    margin-bottom: 18rpx;
+}
+.shareItem-title {
+  color: #000;
+}
+.border-line {
+  width: 280rpx;
+  padding: 60rpx 0 30rpx 0;
+}
+.border-line>view{
+    height: 4rpx;
+    flex:1;
+    text-align: center;
+    height: 1rpx;
+    border-top:1rpx solid #e4e4e4; 
+}
+
+.menu-clear-btn {
+    background-color: transparent;
+    padding: 0;
+}
+
+.mlc{
+  position: fixed;
+  height:100vh;
+  top:0;
+  left: 0;
+  z-index:1000;
+  background:rgba(0, 0, 0, 0.6);
+}
+.linkBox {
+  position: fixed;
+  top: 360rpx;
+  left:50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  width: 660rpx;
+  height: 500rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  align-items: center;
+}
+.linkContainer {
+  position: relative;
+  height: 100%;
+  align-items: center;
+}
+.linkTitle {
+  color: #000;
+  font-size: 44rpx;
+  font-weight: bold;
+  height: 160rpx;
+  line-height: 200rpx;
+}
+.linkUrl {
+  color: #666;
+  margin-bottom: 50rpx;
+  padding: 0 50rpx;
+}
+.linkInfo {
+  color: #B3B3B3;
+  padding: 0 50rpx;
+}
+.btnBottom {
+  border-top: 1rpx solid rgba(235,235,235,1);
+  width: 660rpx;
+  height: 108rpx;
+  position: absolute;
+  bottom: 0;
+  left:0 ;
+}
+.btnCancel {
+  color: #B3B3B3;
+  border-right: 1rpx solid rgba(235,235,235,1);
+}
+.btnConfirm {
+  color: #FF9B1F;
+}
+.btnCancel,.btnConfirm {
+  text-align: center;
+  height: 108rpx;
+  line-height: 108rpx;
+}
+/*////*/

@@ -1,0 +1,86 @@
+<include src="../../comm/comm.wxml" />
+<view class="container flexcColumn jcfs">
+    <view class="coupon-detail-price ">
+        <block wx:if="{{couponDetail.type !=3 }}">
+            {{couponDetail.cutdown}}<i class="fr40">元</i>
+        </block>
+        <block wx:else>
+            <text class="fr40 ellipsis1" style="width: 400rpx">{{couponDetail.exchange_goods[0].goodsName}}</text> 
+        </block>
+        
+    </view>
+    <view wx:if="{{couponDetail.status == 2}}"></view>
+    <view class="coupon-detail-btn fr30" wx:elif="{{couponDetail.is_mine == 0}}" hover-class="btn-active" data-id="{{couponDetail.id}}" catchtap="navBack">立 即 领 取</view>
+    <view wx:elif="{{couponDetail.is_mine == 1 && couponDetail.status == 0}}" class="btnBox">
+        <view  class="coupon-detail-btn fr30 coupon-detail-usebtn" catchtap='toMall' wx:if="{{couponDetail.use_scene == 1}}">立 即 使 用</view>
+        <view class="w100 flexb" wx:else>
+          <view class="coupon-btn fr30" catchtap="toMall">去商城逛逛</view>
+          <view class="coupon-btn fr30" data-id="{{couponDetail.id}}" data-qrcode="{{couponDetail.qrcode}}" catchtap="toConsumptionCode">线 下 核 销              </view>
+    </view>
+</view> 
+<view class="coupon-detail-notice">
+        <view class="line">
+            <view class="fr30 flex">
+                <view class="iconfont icon-dian1" style="margin-left: -20rpx"></view>
+                <view style="width: 223rpx;">使用须知</view>
+                <view class="iconfont icon-dian1" style="margin-right: -20rpx"></view>
+            </view>
+        </view>
+            <view class="fr26 flex aifs" style="line-height: 40rpx">
+                <text>1.</text>
+                
+                <view wx:if="{{couponDetail.type == 1}}">满{{couponDetail.sale_to}}元减{{couponDetail.cutdown}}元</view>
+                <view wx:elif="{{couponDetail.type == 3}}">用于抵扣商品金额</view>
+                <view wx:else>任意金额可使用</view>
+            </view>
+                        <view class="fr26 flex aifs" style="line-height: 40rpx">
+                <text>2.</text>
+               有效时间:{{couponDetail.begin_date}} 至 {{couponDetail.end_date}}
+            </view>
+                        <view class="fr26 flex aifs" style="line-height: 40rpx">
+                3.
+                <block wx:if="{{couponDetail.type ==3 }}">
+                    限制商品: 
+                    <block wx:for="{{couponDetail.exchange_goods}}" wx:key="id">
+                        {{item.goodsName}}
+                        <text hidden='{{index == couponDetail.exchange_goods.length-1}}'>、</text>
+                    </block>
+                     
+                </block>
+                <block wx:else>
+                    <text wx:if="{{couponDetail.scope.type == 1}}">全场无限制</text>
+                    <view wx:if="{{couponDetail.scope.type == 2}}">限类别:
+                        <block wx:for="{{couponDetail.scope.cateList}}">
+                            <text wx:if="{{item.ccid == 0 }}">{{item.pcname}}</text>
+                            <text wx:else>{{item.ccname}}</text>
+                            <text hidden='{{index == couponDetail.scope.cateList.length-1}}'>、</text>
+                        </block>
+                    </view>
+                    <view wx:if="{{couponDetail.scope.type == 3}}">
+                        限商品:
+                        <block wx:for="{{couponDetail.scope.goodsList}}">
+                            {{item.goodsTitle}}<text hidden='{{index == couponDetail.scope.goodsList.length-1}}'>、</text>
+                        </block>
+                    </view>
+                </block>
+               
+            </view>
+        <view class="line">
+            <view class="fr30 flex">
+                <view class="iconfont icon-dian1" style="margin-left: -20rpx"></view>
+                <view style="width: 223rpx;">优惠说明</view>
+                <view class="iconfont icon-dian1" style="margin-right: -20rpx"></view>
+            </view>
+        </view>
+        <view class="fr26" style="margin-top: 60rpx;">
+            <view wx:if="{{!couponDetail.description}}" style="text-align:center;">暂无优惠说明</view>
+            <view wx:else>
+                <block wx:for="{{couponDetail.description}}" wx:key="id">
+                    <view>{{item}}</view>
+                </block>
+            </view>
+            </view>
+    </view>
+</view>
+
+<component-messageToast></component-messageToast>

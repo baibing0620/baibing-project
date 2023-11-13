@@ -1,0 +1,117 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<block wx:if="{{showStyle == 1 || canUseCartList.length > 0 || disUseCartList.length > 0}}">
+  <view wx:if="{{disUseCartList.length < 1 && canUseCartList.length < 1}}" class="container2">
+    <image class="pic-cart" src="https://facing-1256908372.file.myqcloud.com//image/20180419/3b38b6a6a15503d5.jpg">
+    </image>
+    <view class="text fr24 c9 mb20" style="line-height: 24rpx;">
+      您的购物车空空如也，赶紧去选购吧!
+    </view>
+    <!-- <view class="butt flexc fr28">
+      <view hover-class="active-btn" data-type="personal" catchtap="navTo">
+        个人中心
+      </view>
+      <view class="bc-main" hover-class="active-btn" data-type="home" catchtap="navTo">
+        去逛逛
+      </view>
+    </view> -->
+    <block wx:if='{{goodsList.length > 0}}'>
+      <image src="https://facing-1256908372.file.myqcloud.com//image/20180419/1366123f1d6b9625.png" class="pic-line" />
+      <component-good-category goodsList="{{goodsList}}" isOpenCredit="{{ is_open_credit }}" class="goods-list-box" />
+      <image src="https://facing-1256908372.file.myqcloud.com//image/20180419/c0cf1475cc95d2ae.png" class="pic-line" style="padding: 20rpx 0 40rpx 0;" />
+    </block>
+  </view>
+  <view wx:else class="container1">
+    <view class="shopping-list">
+
+      <block wx:for="{{canUseCartList}}" wx:key="id">
+        <view class="shopping flex w100">
+           <view class="biggerBox" bindtap="handleChangeSelect" data-index="{{index}}">
+              <view class='checkBox {{ item.isSelected ? "checkBox-selected icon-gouxuan2" : "" }} iconfont flexc'></view>
+           </view>
+          <image src="{{ShowImg.cropImgWH(item.thumb_url,200,200)}}" mode="aspectFill" data-goods-id="{{item.goodsid}}" catchtap="navigateToGoods" />
+          <view class="goods-context flexbColumn flex1 fr28">
+            <view class="flexb">
+              <view class="ellipsis2 c3" style="width:340rpx">
+                {{item.title}}
+              </view>
+              <view class="c9 fr30 iconfont asfs icon-shanchu1" data-index="{{index}}" data-use="1" catchtap="delItem"></view>
+            </view>
+
+            <view class="cb3 fr24" wx:if="{{item.optionname}}"> 规格:{{item.optionname}}</view>
+            <view>
+              <view class="vip-tag" wx:if="{{item.current_price_is_vip==1}}">会员价</view>
+              <view class="flexb">
+                <view class="c-danger fr26 c-orange">￥{{Format.float2(item.totalprice)}}</view>
+                <view class="flex fr24 quantity">
+
+                  <view class="minus iconfont icon-msnui-sub" data-index="{{index}}" data-type="minus" catchtap="totalChange"></view>
+                  <view class="num c3">{{item.total}}</view>
+                  <view class="plus iconfont icon-jia " data-index="{{index}}" data-type="plus" catchtap="totalChange"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!--  已失效 -->
+      <block wx:if="{{ disUseCartList.length > 0}}">
+          <view class="disUseGoods" style="{{ canUseCartList.length == 0 ? 'padding-top:10rpx;' : ''}}">已失效商品</view>
+          <block wx:for="{{disUseCartList}}" wx:key="id">
+              <view class="shopping flex w100">
+                 <view class="biggerBox">
+                    <view class='checkBox1 iconfont flexc'></view>
+                 </view>
+                <image src="{{ShowImg.cropImgWH(item.thumb_url,200,200)}}" mode="aspectFill" data-goods-id="{{item.goodsid}}" catchtap="navigateToGoods" />
+                <view class="goods-context flexbColumn flex1 fr28">
+                  <view class="flexb">
+                    <view class="ellipsis2 c3" style="width:340rpx">
+                      {{item.title}}
+                    </view>
+                    <view class="biggerHot" data-index="{{index}}" data-use="0" catchtap="delItem">
+                        <view class="c9 fr30 iconfont asfs icon-shanchu1"></view>
+                    </view>
+                  </view>
+      
+                  <view class="cb3 fr24" wx:if="{{item.optionname}}"> 规格:{{item.optionname}}</view>
+                  <view>
+                    <view class="vip-tag" wx:if="{{item.current_price_is_vip==1}}">会员价</view>
+                    <view class="flexb">
+                      <view class="c-danger fr26 c-orange">￥{{Format.float2(item.totalprice)}}</view>
+                      <!-- <view class="flex fr24 quantity">
+      
+                        <view class="minus iconfont icon-msnui-sub" data-index="{{index}}" data-type="minus" catchtap="totalChange"></view>
+                        <view class="num c3">{{item.total}}</view>
+                        <view class="plus iconfont icon-jia " data-index="{{index}}" data-type="plus" catchtap="totalChange"></view>
+                      </view> -->
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+      </block>
+
+
+
+    </view>
+    <view class="balance-accounts fr24 flexb w100 c6">
+      <view class="selectAllBigger" bindtap="changeAll">
+          <view class='checkBox {{ (isAllSelected && canUseCartList.length != 0) ? "checkBox-selected icon-gouxuan2" : "" }} iconfont flexc' style="margin: 0 10rpx 0 0"></view>全选
+      </view>
+      <view class="flexb">
+        <view class="flexc" style="margin-right:30rpx">
+          总计：
+          <text class="c-danger fr34 c-orange fw600">{{Format.float2(totalMoney)}}</text>
+        </view>
+        <view catchtap="payMent" hover-class="active-btn" class="pay-btn bc-main fr36">结算</view>
+      </view>
+    </view>
+  </view>
+</block>
+<template is="initShow" data="{{showStyle:showStyle}}" wx:else/>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,120 @@
+page {
+    background-color: #f7f7f7;
+    font-weight: 400;
+  }
+  
+  .search-box{
+   
+    padding-right: 24rpx;
+    height: 100rpx;
+    
+  }
+  .icon-sousuo{
+    color: rgba(255,255,255,0.7);
+  }
+  .search-goods {
+    background: rgba(255,255,255,0.3);
+    border-radius: 25px;
+    font-size: 14px;
+    height: 58rpx;
+    color: rgba(255,255,255,0.4);
+    width: 660rpx;
+    box-sizing: border-box;
+    padding-left:40rpx;
+  }
+  .search-goods input{
+    height: 55rpx;
+    line-height: 55rpx;
+    color: #fff;
+    font-size: 24rpx;
+  }
+  .cf5{
+    color: rgba(255,255,255,0.5);
+    
+  }
+  .icon-sousuo{
+    padding: 0 40rpx;
+    line-height: 58rpx;
+  }
+  
+  .tab-box {
+    height: 100rpx;
+    background: #fff;
+    box-shadow: 0 0 10rpx 1rpx rgba(0, 0, 0, 0.1);
+    position: sticky;
+  }
+  
+  .tab-box>view {
+    text-align: center;
+    line-height: 100rpx;
+  }
+  .tab-box>view.border{
+    height: 50rpx;
+    border-left: 1rpx solid#e6e6e6;
+    width: 0;
+  }
+  .choose-box{
+    background: white;
+  }
+  .choose-box>view{
+    padding: 0 30rpx;
+  }
+  .item {
+    height: 150rpx;
+    padding: 0 30rpx;
+    border-bottom: 1rpx solid #f0f0f0;
+  }
+  
+  .avatar-box {
+    position: relative;
+  }
+  .avatar-box>.dot{
+    position: absolute;
+    top: -6rpx;
+    right: -6rpx;
+    font-size: 18rpx;
+    width: 26rpx;
+    height: 26rpx;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    text-align: center;
+    line-height: 26rpx;
+  }
+  
+  .item {
+    height: 150rpx;
+    padding: 0 30rpx;
+  }
+  
+  .avatar-box {
+    position: relative;
+  }
+  
+  .avatar-box>text {
+    display: block;
+    width: 12rpx;
+    height: 12rpx;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 4rpx;
+    right: 2rpx;
+  }
+  
+  .avatar {
+    width: 90rpx;
+    height: 90rpx;
+    display: block;
+    border-radius: 6rpx;
+  }
+  
+  .text-box {
+    padding-left: 30rpx;
+    flex: 1;
+    height: 100rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  

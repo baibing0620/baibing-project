@@ -1,0 +1,43 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2222;
+}
+
+.image {
+    width: 660rpx;
+    border-radius: 10rpx;
+    visibility: hidden;
+}
+
+.opacity{
+    visibility: visible;
+}
+
+.loading {
+    height: 90rpx;
+    width: 90rpx;
+}
+
+.btn {
+    width: 340rpx;
+    height: 80rpx;
+    border-radius: 80rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #fff;
+    line-height: 80rpx;
+    margin-top: 38rpx;
+    text-align: center;
+}
+
+.canvasdrawer {
+    position: absolute;
+    top: -9999rpx;
+}

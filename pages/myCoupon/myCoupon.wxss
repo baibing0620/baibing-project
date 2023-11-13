@@ -1,0 +1,235 @@
+page{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.nonuse-coupon{
+	height: 100rpx;
+	width: 690rpx;
+	margin-top: 20rpx;
+	background-color: #fff;
+	box-shadow: -1rpx 0rpx 5rpx rgba(187,187,187,0.1),
+	1rpx 0rpx 5rpx rgba(187,187,187,0.1),
+	0rpx -1rpx 5rpx rgba(187,187,187,0.1),
+	0rpx 1rpx 5rpx rgba(187,187,187,0.1);
+}
+.nonuse-coupon text{
+	margin-left: 50rpx;
+}
+/* .coupon-list{
+	padding-bottom: 30rpx;
+}
+
+.coupon-container {
+    position: relative;
+    width: 690rpx;
+    height: 240rpx;
+    background: url(https://facing-1256908372.file.myqcloud.com//image/20180115/2cd1900e0e3eeece.png) no-repeat;
+    background-size: cover;
+    margin-top: 20rpx;
+    color:#3a211a;
+}
+.uncoupon{
+   
+   background: url(https://facing-1256908372.file.myqcloud.com//image/20180115/0344507d9551384a.png) no-repeat;
+   background-size: cover;
+   
+}
+.uncoupon view{
+	color:#ccc;
+ 
+}
+.c4d {
+    color: #4d4d4d;
+}
+
+.fr65 {
+    font-size: 65rpx;
+}
+
+.coupon-left {
+    height: 130rpx;
+    border-right: 1rpx dashed #ccc;
+    padding-left: 52rpx;
+    box-sizing: border-box;
+}
+.coupon-price{
+	color:#f9353f;
+}
+.fw600 {
+    font-weight: 600
+}
+
+.coupon-right {
+    height: 180rpx;
+    
+    width: 270rpx;
+}
+
+.coupon-right>*/
+
+.coupon-choose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #f9353f;
+    font-size: 60rpx;
+}
+
+.buttonBox{
+  width:690rpx;
+  margin-bottom:30rpx;
+}
+.to-home{
+  width: 100%;
+}
+.coupon-btn{
+  width: 90%;
+	margin-top:10rpx;
+	height: 90rpx;
+	line-height: 90rpx;
+	border-radius: 20rpx;
+  text-align: center;
+}
+.goHome{
+	border: solid 2rpx #eb553c;
+  color: #ff6445;
+}
+.goChange{
+  background-image: linear-gradient(
+		#eb553c, 
+		#eb553c), 
+	linear-gradient(
+		#ffffff, 
+		#ffffff);
+	background-blend-mode: normal, 
+		normal;
+  color: #ffffff;
+}
+
+.coupon-category{
+    width: 100%;
+    height: 59rpx;
+    line-height: 59rpx;
+    vertical-align: middle;
+    padding:0 30rpx;
+    box-sizing: border-box;
+    display: flex;
+}
+.coupon-category .goods {
+    height: 59rpx;
+    line-height: 59rpx;
+}
+.coupon-nouse{
+  font-size: 92rpx;
+  position: absolute;
+  top: -20rpx;
+  right: 200rpx;
+  z-index: 3;
+}
+.coupon-failuse{
+  font-size:92rpx;
+  position: absolute;
+  top:10rpx;
+  right: 20rpx;
+  z-index: 3;
+} 
+
+
+.coupon-container {
+    position: relative;
+    width: 690rpx;
+    height: 204rpx;
+    margin-top: 30rpx;
+    background: #fff;
+    border-radius: 10rpx;
+    overflow: hidden;
+}
+.coupon-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.coupon-detail {
+    position: absolute;
+    top:0 ;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+.coupon-info {
+    padding: 0 30rpx;
+    height: 140rpx;
+    box-sizing: border-box;
+
+}
+.coupon-money {
+}
+.coupon-money-num {
+    color: #ED0007;
+}
+
+.line {
+    width: 94%;
+    border-bottom: 1rpx dashed  #ccc;
+    padding: 0 40rpx;
+    box-sizing: border-box;
+    margin: 0 auto;
+    position: absolute;
+    top: 138rpx;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.bg-circle {
+    width: 14rpx;
+    height: 26rpx;
+    background-color: #f3f6f5;
+    position: absolute;
+    top: 126rpx;
+    z-index: 3;
+}
+.left-circle {
+  left: 0;
+  border-radius: 0 16rpx 16rpx 0;
+  border-top: 1rpx solid #fff;
+  border-bottom: 1rpx solid #fff;
+  border-right: 1rpx solid #fff;
+}
+.right-circle {
+  right: 0;
+  border-radius: 16rpx 0 0 16rpx;
+  border-top: 1rpx solid #fff;
+  border-bottom: 1rpx solid #fff;
+  border-left: 1rpx solid #fff;
+}
+.sendBtn {
+    /* position: absolute;
+    bottom: 8rpx;
+    right: 30rpx;
+    z-index: 3; */
+    width: 120rpx;
+    height: 50rpx;
+    background: linear-gradient(0deg,rgba(229,110,79,1) 0%,rgba(243,165,106,1) 100%);
+    border-radius: 10rpx;
+    text-align: center;
+    line-height: 50rpx;
+    color: #fff;
+}
+.coupon-base {
+    height: 68rpx;
+}
+.disMlc {
+    width: 690rpx;
+    height: 204rpx;
+    border-radius: 10rpx;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.6);
+    z-index: 5;
+}

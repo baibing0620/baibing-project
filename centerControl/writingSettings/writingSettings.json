@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "文案设置",
+    "usingComponents": {
+		"component-messageToast": "/components/messageToast/messageToast"
+	}
+}

@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "名片样式",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-image": "/components/image/image"
+    }
+} 

@@ -1,0 +1,72 @@
+@import '/comm/comm.wxss';
+@import '/comm/base.wxss';
+@import '/iconfont/iconfont.wxss';
+.imgs-box{
+  flex-wrap: wrap;
+  position: relative;
+  padding-bottom:20rpx; 
+}
+
+.one-image-box{
+  width: 100%;
+  position: relative;
+  border-radius: 4rpx;
+  margin: 15rpx auto;
+}
+.one-image-box>image{
+  display: block;
+  border:2rpx solid #e6e6e6;
+  box-sizing: border-box;
+
+}
+.icon-add-box{
+   border:2rpx solid #e6e6e6;
+}
+.one-progress-box{
+  position: absolute;
+  top: 0;
+  width: 660rpx;
+  height: 350rpx;
+  background: rgba(0,0,0,0.2);
+  z-index: 100;
+}
+.one-progress-box>progress{
+    width: 300rpx;
+    height: 200rpx;
+}
+.upload{
+  /* width: 210rpx;
+  height: 210rpx; */
+  margin: 15rpx 0;
+  border-radius: 4rpx;
+  position: relative;
+}
+.progress-box{
+  position: absolute;
+  top: 0;
+  width: 210rpx;
+  height: 210rpx;
+  background: rgba(0,0,0,0.2);
+  z-index: 100;
+}
+.progress-box>progress{
+    width: 180rpx;
+    height: 200rpx;
+}
+
+.upload>image{
+  display: block;
+  border:2rpx solid #e6e6e6;
+  box-sizing: border-box;
+  width: 210rpx;
+  height: 210rpx;
+  text-align: center;
+  line-height: 210rpx;
+}
+.tips{
+  color: #bfbfbf;
+  position: absolute;
+  bottom: 0;
+  line-height: 22rpx;
+  left: 10rpx;
+}

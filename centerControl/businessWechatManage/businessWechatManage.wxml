@@ -1,0 +1,45 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<view class="headBg w100 fr34">
+  <view style="width:100%;{{'height: ' + statusBarHeight}}px"></view> 
+  <view bindtap="navBack" style="height:{{getMenuButtonBoundingClientRect}}px;color:#fff" class="flex fr34">
+    <text class="iconfont icon-fanhui2"></text>
+    <text>企微管理</text>
+  </view>
+  <view class="mainTitle">
+    打造企业私域流量
+  </view>
+  <view class="base-line"></view>
+</view>
+<view class="enterBox w100">
+  <view class="enterItem flexb" bindtap="navto" data-type="contactEntranceManage">
+    <view class="flex">
+      <image class="item-img" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20200211/b29004902a8f9cbb.png',56,56)}}"></image>
+      <view class="item-title fr32">客户联系入口</view>
+    </view>
+    <view>
+      <text class="iconfont icon-you"></text>
+    </view>
+  </view>
+  <view class="enterItem flexb" bindtap="navto" data-type="customerWelcomeManage" wx:if="{{is_allow_staff_set_welcomes == 1}}">
+    <view class="flex">
+      <image class="item-img" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20200211/118fa267eeb3987f.png',56,56)}}"></image>
+      <view class="item-title fr32">欢迎语设置</view>
+    </view>
+    <view>
+      <text class="iconfont icon-you"></text>
+    </view>
+  </view>
+  <view class="enterItem flexb" bindtap="navto" data-type="buttWeChatTransform">
+    <view class="flex">
+      <image class="item-img" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20200211/c38dcfc37f21bad1.png',56,56)}}"></image>
+      <view class="item-title fr32">转化效率</view>
+    </view>
+    <view>
+      <text class="iconfont icon-you"></text>
+    </view>
+  </view>
+</view>
+ 

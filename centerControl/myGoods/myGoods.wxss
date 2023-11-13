@@ -1,0 +1,113 @@
+page {
+    background: #f5f5f5;
+    padding-bottom: 100rpx;
+}
+
+/*搜索栏*/
+
+.search-box {
+    padding: 20rpx 30rpx;
+    box-sizing: border-box;
+}
+
+.search-goods {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    font-size: 14px;
+    height: 60rpx;
+    color: rgba(255, 255, 255, 0.4);
+    width: 690rpx;
+    padding: 0 40rpx;
+}
+
+.tab-box {
+    height: 100rpx;
+    background: #fff;
+    box-shadow: 0 0 10rpx 1rpx rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.tab-box>view,.tab-box>picker  {
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.tab-box>view.border {
+    height: 50rpx;
+    border-left: 1rpx solid#e6e6e6;
+    width: 0;
+}
+
+.container {
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #ebebeb;
+    background: #fff;
+    margin-bottom: 10rpx;
+}
+
+image {
+    width: 170rpx;
+    height: 170rpx;
+    border-radius: 6rpx;
+    margin-right: 30rpx;
+}
+
+.fr25 {
+    font-size: 25rpx;
+}
+
+.operation {
+    height: 90rpx;
+    text-align: center;
+    border-top: 1rpx solid #ebebeb;
+}
+
+.operation>view {
+    height: 40rpx;
+}
+
+.operation>view:not(:last-of-type) {
+    border-right: 1rpx solid #f0f0f0;
+}
+
+.operation>view>text {
+    margin-right: 14rpx;
+}
+
+.ml10 {
+    margin-left: 10rpx;
+}
+
+.flag {
+    width: 104rpx;
+    height: 34rpx;
+    background: #ff641f;
+    border-bottom-right-radius: 17rpx;
+    position: absolute;
+    top: 0;
+}
+
+.revover-type {
+    width: 114rpx;
+    height: 40rpx;
+    color: #fff;
+    border-top-left-radius: 25rpx;
+    border-bottom-left-radius: 25rpx;
+    text-align: center;
+    line-height: 40rpx;
+    position: absolute;
+    right: 0;
+    top: 125rpx;
+    background: #ff9b1f;
+}
+
+.message-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.message-btn button{
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+}

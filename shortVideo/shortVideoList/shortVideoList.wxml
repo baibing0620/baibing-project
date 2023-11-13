@@ -1,0 +1,83 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module="util">
+    function strSplice(str) {
+        if (str.length >= 12) {
+            return str.substring(0, 10) + '...'
+        } else {
+            return str
+        }
+    }
+    module.exports = {
+        strSplice: strSplice
+    }
+</wxs>
+<view catchtap='delVideoOperation' style="height: {{windowHeight}}px;">
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:else>
+    <view wx:for='{{ list }}' wx:key='id' class='item flex-nowarp'>
+        <view class='video' data-id='{{ item.id }}' catchtap="toVideoDetail">
+            <image mode='aspectFill' class='videoImage' src='{{ ShowImg.cropImgWH(item.img_url, 260, 260) }}'></image>
+            <view class='videoCover'></view>
+            <view class='iconfont icon-bofang6 playIcon'></view>
+            <view class='video-shadow'></view>
+        </view>
+        <view class='layout'>
+            <view class='title fr32 bold c3'>{{ item.name }}</view>
+            <view class='info flex'>
+                <view class='playCount fr24 cbf'> 
+                    <text class='iconfont icon-bofang4 fr24 cbf'></text>{{ item.browse }}
+                </view>
+                <view class='likeCount fr24 cbf'>
+                    <text class='iconfont icon-dianzan21 fr24 cbf'></text>{{ item.zan }}
+                </view>
+                <view class='commentCount fr24 cbf'>
+                    <text class='iconfont icon-pinglun2 fr24 cbf'></text>{{ item.commentTotal }}
+                </view>
+            </view>
+            <view>
+                <view class="goods-detail fr28">
+                    <image style="width: 50rpx; height: 50rpx; margin-right: 10rpx" mode="scaleToFill" src="{{item.goods.thumb_url}}"></image>
+                    <view>{{util.strSplice(item.goods.title)}}</view>
+                </view>
+                <view class="goods-info fr28">
+                    <view class="goods-profit">销量： <span>{{item.orderTotal}}</span></view>
+                    <view class="goods-profit">收益： <span>¥{{item.orderTotalPrice}}</span></view>
+                </view>
+            </view>
+        </view>
+        <view class="operation">
+            <view class="operation-text">
+                <text data-id='{{ item.id }}' catchtap='videoOperation' class='iconfont icon-gengduo fr40 cbf'></text>
+            </view>
+            <view wx:if="{{item.id == operationId}}" class="operation-content">
+                <view class="content-triangle" data-id='{{ item.id }}' data-index='{{ index }}' data-videoid='{{ item.video_id }}' catchtap='deleteVideo'>
+                    <text class='iconfont icon-shanchu1 fr30 cbf'></text>
+                    <text class='fr30' style="margin-left:10rpx">删除</text>
+                </view>
+                <view class="content-editor"  data-id='{{ item.id }}' catchtap='toNav' data-path='shortVideoEditor'>
+                    <text class='iconfont icon-bianji1 fr30 cbf'></text>
+                    <text class='fr30' style="margin-left:10rpx">编辑</text>
+                </view>
+            </view>
+            <view wx:if="{{item.id == operationId}}" class="triangle"></view>
+        </view>
+    </view>
+    <template wx:if='{{ list.length > 0 }}' is='moreData' data='{{ loadStyle: loadStyle }}'/>
+    <block wx:if='{{ list.length < 1 }}'>
+        <view class="placeholder flexcColumn">
+            <view class='placeholder-img'>
+                <component-image src='https://facing-1256908372.file.myqcloud.com//image/20201109/0660e29f6f7374ef.png' />
+            </view>
+            <view class='placeholder-text1 fr24 c9'>上传视频前，建议先选择视频展示样式</view>
+            <view class='placeholder-text2 fr24 c9'>以便于视频封面尺寸的选择</view>
+            <view class='placeholder-text3 fr24 c9'>可以在抖音短视频平台制作精美视频到这里上传</view>
+        </view>
+    </block>
+</block>
+
+<view class='button fr34 cf flexc' data-path='shortVideoEditor' catchtap='toNav'><text class='iconfont icon-shangchuan fr34 cf'></text>上传视频</view>
+<component-messageToast></component-messageToast>
+</view>

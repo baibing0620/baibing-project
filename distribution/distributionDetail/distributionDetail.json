@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "佣金详情",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

@@ -1,0 +1,33 @@
+.fr28, .fr30 {
+    line-height: 100%;
+}
+
+.input-layout {
+    height: 120rpx;
+    width: 100vw;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #e5e5e5;
+    overflow: hidden;
+}
+
+.label {
+    width: 190rpx;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+}
+
+.delete {
+    height: 100%;
+    padding: 0 30rpx;
+}
+
+.submit {
+    width: 690rpx;
+    height: 90rpx;
+    border-radius: 8rpx;
+    position: fixed;
+    bottom: 52rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff9b1f
+}

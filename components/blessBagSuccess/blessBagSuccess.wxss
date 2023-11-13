@@ -1,0 +1,70 @@
+
+/* 福袋 */
+@import '/comm/base.wxss';
+@import '/iconfont/iconfont.wxss';
+.modal-box-diy {
+  top:0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background:rgba(0,0,0,0.3);
+}
+.blessing-bag{
+  width: 600rpx;
+  height: 837rpx;
+  background: url("https://facing-1256908372.file.myqcloud.com//image/20180918/18a51908d361c320.png");
+  background-size: cover;
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.cbless{
+  color: #f9ff63;
+}
+.blessing-bag-title{
+  margin:54rpx 0 26rpx;
+  width:440rpx;
+  text-align: center;
+}
+.blessing-bag-img{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  background: #ffd954;
+  margin: 40rpx 0 26rpx;
+}
+.blessing-bag-img image{
+  width: 114rpx;
+  height: 114rpx;
+  border-radius: 50%;
+}
+.ellipsis-bless {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.blessing-bag .fr26,.fr24,.fr50,.fr30,.fr36{
+  line-height:100%;
+}
+.belss-bag-btn{
+  width: 316rpx;
+  height: 90rpx;
+  background: url(https://facing-1256908372.file.myqcloud.com//image/20180918/e00132fb93f24c3f.png);
+  background-size: cover;
+  font-size: 37rpx;
+  line-height: 80rpx;
+  color: #f50200;
+  text-align: center;
+}
+.fr80{
+  font-size: 80rpx;
+  line-height: 70rpx;
+}

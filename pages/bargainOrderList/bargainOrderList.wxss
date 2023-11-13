@@ -1,0 +1,10 @@
+@import '../groupOrderList/groupOrderList.wxss';
+
+.order-text{
+	position: relative;
+}
+.now-price{
+	position: absolute;
+	bottom: 26rpx;
+	right: 0;
+}

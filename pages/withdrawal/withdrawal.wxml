@@ -1,0 +1,66 @@
+<include src="../../comm/comm.wxml" />
+
+<view wx:if="{{showShareBless}}" class="bless-message fr28 {{showShareBless?'':'hide'}} c3">
+    <image src="https://facing-1256908372.file.myqcloud.com//image/20181022/b2809f730e1a82ee.png"></image>
+    <view>
+        <view class='fr30 cf'>{{title[type]}}</view>
+        <view style='color:rgba(255,255,255,0.3);margin-top:18rpx' class='fr24'>{{content[type]}}</view>
+    </view>
+    <button wx:if="{{type != 1}}" catchtap='navBless' class='share-btn fr28 cf'>{{btnContent[type]}}</button>
+    <button wx:else open-type='share' class='share-btn fr28 cf'>{{btnContent[type]}}</button>
+</view>
+<view class='box bcf flexColumn'>
+    <form>
+        <view class='title fr28 c6 width'>{{label}}</view>
+
+        <block wx:if="{{ withdraw_type == 1 }}">
+            <view class="input-box {{ showShareBless?'cd9':'c3' }} width2 flexb">
+                <picker class="w100 flexb input-picker" bindchange="bindWayChange" value="{{ withdrawIndex }}" range-key="name" range="{{ withdrawOptions }}">
+                    <view class="form-picker w100 flexb">
+                        <view class="flex1 fr40">{{ withdrawOptions[withdrawIndex].name }}</view> 
+                        <view class="iconfont icon-xiala1 fr26"></view>
+                    </view> 
+                </picker>
+            </view> 
+
+            <view class="input-box {{ showShareBless?'cd9':'c3' }} width2 flexb" wx:if="{{ withdrawOptions[withdrawIndex].label == 1 }}">
+                <input name='account' class='flex1' value='{{ account }}' bindinput="bindAccountChange" placeholder="请输入提现人微信号"></input>
+            </view> 
+            <view class="input-box {{ showShareBless?'cd9':'c3' }} width2 flexb" wx:if="{{ withdrawOptions[withdrawIndex].label == 2 }}">
+                <input name='account' class='flex1' value='{{ account }}' bindinput="bindAccountChange" placeholder="请输入提现人支付宝账号"></input>
+            </view> 
+            <view class="input-box {{ showShareBless?'cd9':'c3' }} width2 flexb" wx:if="{{ withdrawOptions[withdrawIndex].label == 3 }}">
+                <picker class="w100 flexb input-picker" value="{{ bankMapIndex }}"  range="{{ bankMap }}" bindchange="bindBankChange">
+                    <view class="form-picker w100 flexb">
+                        <view class="flex1 fr40">{{ bankMap[bankMapIndex] }}</view> 
+                        <view class="iconfont icon-xiala1 fr26"></view>
+                    </view> 
+                </picker>
+            </view> 
+            <view class="input-box {{ showShareBless?'cd9':'c3' }} width2 flexb" wx:if="{{ withdrawOptions[withdrawIndex].label == 3 }}">
+                <input name='account' class='flex1' value='{{ account }}' bindinput="bindAccountChange" placeholder="请输入提现人银行卡卡号"></input>
+            </view> 
+
+         </block>
+
+        <view class="input-box fr100 {{ showShareBless?'cd9':'c3' }} width2 flex">
+            ￥<input name='money' class='flex1' value='{{ value }}' type='digit' bindinput='bindInput' disabled="{{ inputDisabled }}"></input>
+        </view> 
+        <view class='margin1 fr26 c9 width flex' style='white-space: nowrap'><i class="iconfont icon-xiangqing fr26" style="margin-right: 10rpx; color:#ff5639"></i>最低提现金额{{withdraw_cash_limit_money}}元</view>
+        <view style='padding-left: 31rpx;' class='margin1 fr26 c9 width flex w100'>微信最大提现金额20000元</view>
+        <view style='padding-left: 31rpx;' class='margin3 fr26 c9 width flex w100'>{{ withdraw_cash_poundage > 0 ? "手续费率" + withdraw_cash_poundage + "%" : "不需要手续费即可提现哦" }}<text style='margin-left:10rpx' wx:if="{{withdraw_need_check_time == 1}}">每{{withdraw_time_limit.unit}}可提现{{withdraw_time_limit.number}}次</text></view>
+        <view class='margin2 fr26 c9 width flex'>
+            <block wx:if="{{ inputValue > 0 }}">
+                提现后剩余<view style='color: #1a1a1a'>{{ balanceNow }}</view>元
+            </block>
+            <block wx:else>
+                零钱余额<view style='color: #1a1a1a'>{{ balance }}</view>元
+            </block>
+            <view wx:if="{{ !inputDisabled }}" class='btn1 color' catchtap='bindAll'>全部提现</view>
+        </view>
+        <button open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" wx:if="{{!hasBindPhone}}" class='btn2 fr34 cf with-drawal width2' disabled='{{ loading }}'>申请提现</button>
+        <button catchtap='bindSubmit' wx:else class='btn2 fr34 cf with-drawal width2' disabled='{{ loading }}' form-type='submit'>申请提现</button>
+    </form>
+</view>
+
+<component-messageToast></component-messageToast>

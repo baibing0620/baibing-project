@@ -1,0 +1,56 @@
+
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+<view class="container w100" wx:else>
+  <view class="header">
+    <view class="image">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="vip-info">
+      <view class="fr26">{{ levelName }}会员卡</view>
+      <view>开通{{ card_title }}</view>
+    </view>
+  </view>
+
+  <view class="vip-rights-title"> 
+    <view class="line circle-left"></view>
+    <view>开通会员卡，立享会员特权</view>
+    <view class="line circle-right"></view>
+  </view>
+
+  <view class="info-box">
+    <view wx:for="{{fieldList}}" wx:key="id" class="info-item">
+      <view class="info-item-left">
+       {{ item.name }}
+      </view>
+      <view class="info-item-right flex flex1">
+        <input wx:if="{{item.type == '0'}}" type="text" value="{{ item[item.key] }}" data-key="{{ item.key }}" data-index="{{ index }}" bindinput="handleInput" class="info-item-right flex1" placeholder-class="input-placeholder" placeholder="{{item.remind}}" />
+        <picker class="flex1" wx:elif="{{item.type == '1'}}" class="w100" bindchange="bindGenderPickerChange" data-index="{{index}}" value="{{item.index}}" range="{{ item.val }}">
+          <view class="picker">
+            {{ item.val[item.index] ? item.val[item.index] : '请选择：' }}
+            <text class="iconfont icon-xiangyou"></text>
+          </view>
+        </picker>
+        <view class="check-container flex1 " wx:elif="{{item.type == '3'}}">
+            <checkbox-group class="flex flex1 jcfe" bindchange="checkboxChange" data-index="{{index}}" value="{{item.index}}">
+            <label class="flex mr18" wx:for="{{item.val}}" wx:for-item="checkItem" wx:key="{{checkItem}}">
+                <view class="weui-cell__bd">{{checkItem.val}}</view>
+                <view class="weui-cell__hd ml16">
+                <checkbox value="{{checkItem.val}}" checked="{{ checkItem.checked }}"/>
+                </view>
+            </label>
+            </checkbox-group>
+        </view>
+        <picker wx:else class="flex1" mode="date" value="{{ item[item.key] }}" start="1960-01-01" bindchange="bindDateChange" data-key="{{ item.key }}" data-index="{{index}}">
+            <view class="picker">
+            请选择: {{ item[item.key] }}
+            </view>
+        </picker>
+        <button wx:if="{{item.name == '手机号码'}}" data-key="{{ item.key }}" data-index="{{index}}"  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">授权</button>
+      </view>
+    </view>
+  </view>
+  <view class="vip-btn" bindtap="setVipOpenCard">立即开通会员卡</view>
+</view>
+
+<component-messageToast></component-messageToast>

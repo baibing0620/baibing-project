@@ -1,0 +1,12 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<template is='initShow' data='{{ showStyle: showStyle, showNoMsg: "暂无相片信息" }}' wx:if='{{ showStyle != 1}}' />
+<block wx:else>
+    <view class='list' bindtap='handlePreview'>
+        <view wx:for='{{ list }}' wx:key='id' data-index='{{ index }}' class='photo'>
+            <component-image src='{{ item.url }}' lazyLoad></component-image>
+        </view>
+    </view>
+</block>
+<component-messageToast></component-messageToast>

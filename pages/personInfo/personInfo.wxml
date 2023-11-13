@@ -1,0 +1,49 @@
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+<view class="container w100" wx:else>
+    <view class="person-info-box">
+        <view class="info-item">
+            <view class="info-item-title">我的头像</view>
+            <view class="image">
+                <!-- 微信2022年2月21关闭自动获取头像组件 -->
+                <!-- <open-data type="userAvatarUrl"></open-data> -->
+                <image 	mode="scaleToFill" wx:if="{{avatar}}" src="{{avatar}}" />
+                <image wx:else src="https://facing-1256908372.file.myqcloud.com/avatar/20220414/8827ee90af144306.jpg"/>
+            </view>
+        </view>
+        <view wx:for="{{fieldList}}" wx:key="id" class="info-item flexb">
+            <view class="info-item-title mr30">{{ item.name }}<text wx:if="{{item.is_need == '1'}}" class="c-ff4">*</text></view>
+            <input wx:if="{{item.type == '0'}}" type="text" value="{{ item[item.key] }}" data-key="{{ item.key }}" data-index="{{ index }}" bindinput="handleInput" class="info-item-right" placeholder="{{ item.remind }}" />
+            <picker class="flex1" wx:elif="{{item.type == '1'}}" bindchange="bindGenderPickerChange" data-index="{{index}}" value="{{item.index}}" range="{{ item.val }}">
+            <view class="picker w100 tar">
+                {{ item.val[item.index] ? item.val[item.index] : '请选择：' }}
+                <text class="iconfont icon-xiangyou"></text>
+            </view>
+            </picker>
+
+            <view class="check-container flex1 " wx:elif="{{item.type == '3'}}">
+                <checkbox-group class="flex flex1 jcfe" bindchange="checkboxChange" data-index="{{index}}" value="{{item.index}}">
+                <label class="flex mr18" wx:for="{{item.val}}" wx:for-item="checkItem" wx:key="{{checkItem}}">
+                    <view class="weui-cell__bd">{{checkItem.val}}</view>
+                    <view class="weui-cell__hd ml16">
+                    <checkbox value="{{checkItem.val}}" checked="{{ checkItem.checked }}"/>
+                    </view>
+                </label>
+                </checkbox-group>
+            </view>
+            <picker wx:else mode="date" value="{{ item[item.key] }}" start="1950-01-01" bindchange="bindDateChange" data-key="{{ item.key }}" data-index="{{index}}">
+                <view class="picker">
+                请选择: {{ item[item.key] }}
+                </view>
+            </picker>
+            <button wx:if="{{item.name == '手机号码'}}" data-key="{{ item.key }}" data-index="{{index}}"  open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">授权</button>
+        </view>
+    </view>
+
+    <view class="btn-box">
+        <view class="btn" bindtap="save">保存</view>
+    </view>
+
+</view>
+
+<component-messageToast></component-messageToast>

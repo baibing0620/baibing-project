@@ -1,0 +1,48 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" /> 
+
+<view class='menu flexb' style="background-color: {{ '#1F94FD' || extConfig.navigationBarBC }}">
+    <view class='fr26 cf flexc'>共{{ total || 0 }}个视频</view>
+    <view class='styleSetting fr26 flexc' data-path='videoShowStyleSetting' catchtap='toNav'>视频展示样式<text class='iconfont icon-youbian fr20'></text></view>
+</view> 
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:else>
+    <view wx:for='{{ list }}' wx:key='id' class='item flex'>
+        <view class='video' data-id='{{ item.id }}' catchtap="toVideoDetail">
+            <image mode='aspectFill' class='videoImage' src='{{ ShowImg.cropImgWH(item.video_image_url, 260, 260) }}'></image>
+            <view class='videoCover'></view>
+            <view class='iconfont icon-bofang6 playIcon'></view>
+            <view class='video-shadow'></view>
+            <view class='video-length fr22 cf'>{{ item.video_duration }}</view>
+        </view>
+        <view class='layout'>
+            <view class='title fr32 bold c3'>{{ item.video_title }}</view>
+            <view class='info flex'>
+                <view class='playCount fr24 cbf'> 
+                    <text class='iconfont icon-bofang4 fr24 cbf'></text>{{ item.play_num }}
+                </view>
+                <view class='likeCount fr24 cbf'>
+                    <text class='iconfont icon-dianzan21 fr24 cbf'></text>{{ item.like_num }}
+                </view>
+            </view>
+            <view class='editor flex'>
+                <view class='delete fr28 c6 flexc' data-id='{{ item.id }}' data-index='{{ index }}' data-videoid='{{ item.video_id }}' catchtap='deleteVideo'>删除</view>
+                <view class='edit fr28 flexc' data-id='{{ item.id }}' catchtap='videoEditor' data-path='videoEditor' catchtap='toNav'>编辑</view>
+            </view>
+        </view>
+    </view>
+    <template wx:if='{{ list.length > 0 }}' is='moreData' data='{{ loadStyle: loadStyle }}'/>
+    <block wx:if='{{ list.length < 1 }}'>
+        <view class="placeholder flexcColumn">
+            <image class='placeholder-img' src='https://facing-1256908372.file.myqcloud.com//image/20201109/0660e29f6f7374ef.png?imageView2/2/w/350'></image>
+            <view class='placeholder-text1 fr24 c9'>上传视频前，建议先选择视频展示样式</view>
+            <view class='placeholder-text2 fr24 c9'>以便于视频封面尺寸的选择</view>
+            <view class='placeholder-text3 fr24 c9'>可以在抖音短视频平台制作精美视频到这里上传</view>
+        </view>
+    </block>
+</block>
+
+<view class='button fr34 cf flexc' data-path='videoEditor' catchtap='toNav'><text class='iconfont icon-shangchuan fr34 cf'></text>上传视频</view>
+<component-messageToast></component-messageToast>

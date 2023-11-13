@@ -1,0 +1,9 @@
+{
+    "enablePullDownRefresh": false,
+    "navigationBarTitleText": "关注公众号",
+    "navigationBarBackgroundColor": "#f2f2f2",
+    "backgroundColor": "#f2f2f2",
+    "backgroundColorContent":"#f2f2f2",
+    "homeButton":true,
+    "navigationBarTextStyle": "black"
+}

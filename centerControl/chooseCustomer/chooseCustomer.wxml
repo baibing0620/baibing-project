@@ -1,0 +1,56 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<wxs module="customerStatus">
+    function showStatusText(status) {
+        status = parseInt(status);
+        switch (status) {
+            case 1:
+                return '意向客户'
+                break;
+            case 2:
+                return '目标客户'
+                break;
+            case 3:
+                return '已成交客户'
+                break;
+            default:
+                return '其他'
+        }
+    }
+    module.exports = {
+        showStatusText: showStatusText,
+    }
+</wxs>
+
+<view class="search-container bcf">
+	<view class="search-box flexb">
+		<input value="{{ keywords }}" placeholder="请输入客户昵称" bindinput="changeKeyWords" placeholder-class="c9 fr26" class="c3 flex1"></input>
+		<text class="iconfont icon-sousuo c3" bindtap="customSearch"></text>
+	</view>
+</view>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关客户信息'}}" wx:if="{{showStyle!=1&&customerList.length==0}}" />
+<block wx:else>
+    <block wx:for="{{customerList}}" wx:key="id">
+			<view class="customerItem bcf flexb" bindtap="chooseUser" data-index="{{ index }}">
+				<view class="flex">
+					<view class="user-avatar">
+						<component-image src="{{ item.member ? item.member.avatar : 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKg0u5RbAnxgVeYuoiaKzrE3ehcdeHcUpjnxCQwUhtric7Z8F7RKskbibbx3tzYPyAjVvGbE0T1UL6yg/132' }}"></component-image>
+					</view>
+					<view class="ml20">
+						<view class="user-name fr34 bold c3 mb10">{{ item.name }}</view>
+						<view class="user-mobile fr26 c9">{{ item.phone }}</view>
+					</view>
+				</view>
+				<text class="iconfont icon-you c9"></text>
+			</view>
+    </block>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+</block>
+
+
+<component-messageToast></component-messageToast>
+
+

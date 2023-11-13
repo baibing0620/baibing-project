@@ -1,0 +1,20 @@
+<import src='../../template/initShow/initShow.wxml' />
+<include src='../../comm/comm.wxml' />
+<template is='initShow' data='{{showStyle:showStyle,showNoMsg:"暂无推荐服务"}}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:else>
+    <movable-area style='height:{{y+68*goodList.length}}px'>
+        <movable-view wx:for="{{goodList}}" damping="720" bindtouchend='touchEnd' bindchange="onChange" data-index="{{index}}" x="{{x}}" y="{{68*index}}" direction="all" class='recommend-good-list flexb'>
+            <view class='fr32 c3 flex1 ellipsis1'>{{item.service_name}}</view>
+            <view catchtouchend='delList' data-id="{{item.id}}" data-index="{{index}}" class='fr28 c9'>
+                <text style='padding-right:15rpx' class='iconfont icon-shanchu1 fr28'></text>删除
+            </view>
+            <view class='recommend-movable flexcColumn'>
+                <view></view>
+                <view></view>
+                <view></view>
+            </view>
+        </movable-view>
+    </movable-area>
+</block>
+<button catchtap='addList' class="message-btn fr34 cf {{isIphoneX?'fix-iphonex-button':''}} bc-1F94FD">添加服务</button>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,73 @@
+<include src="../../comm/comm.wxml" />
+<wxs module="formatName">
+  function formate(key) {
+    switch (key) {
+      case '1':
+        return '年龄层'
+      case '2':
+        return '关注方向'
+      case '3':
+        return '级别'
+      case '4':
+        return '类型'
+      case '5':
+        return '跟进进度'
+    }
+  }
+  module.exports = {
+    formate: formate,
+  }
+</wxs>
+<view class="container">
+    <view class="fr36 c3 fw500">
+        通用标签
+    </view>
+    <block wx:for="{{tagList}}" wx:key="" >
+        <view class="flex">
+        <view class="tag-system fr23 tag-color">
+            {{formatName.formate(index)}}
+        </view>
+        <view class="line flex1"></view>
+        </view>
+        <view class="flexb">
+        <view wx:for="{{item}}" wx:key="name" bindtap='tagActive' data-item="{{item}}" class="tag-content flexc fr28 {{item.is_select?'tag-content-choose':'tag-content-default'}}">{{item.name}}  <text wx:if="{{push}}">({{item.user_num}})</text></view>
+        </view>
+    </block>
+
+    <block  wx:for="{{pcData}}" wx:for-index="index" wx:for-item="item" wx:key="" >
+        <view class="flex">
+        <view class="tag-system fr23 tag-color">
+            {{ item.group_name }}
+        </view>
+        <view class="line flex1"></view>
+        </view>
+        <view class="flexb">
+            <view wx:for="{{item.tagItem}}" wx:for-index="tagIndex" wx:for-item="tagItem" bindtap='pcTagActive' data-index="{{index}}" data-itemIndex="{{tagIndex}}" class="pc-tag-content ellipsis1  fr28 {{tagItem.is_select?'tag-content-choose':'tag-content-default'}}">{{tagItem.name}}  </view>
+        </view>
+    </block>
+</view>
+<view class="my-container" style="margin-top: 10rpx">
+  <view class="fr36 c3 fw500" style="margin: 0 0 40rpx 15rpx">
+    我的标签
+  </view>
+  <view class="flex" catchtap="hideDeleteTag" >
+    <view wx:for="{{myTag}}" wx:key="name" catchtap='myTagActive' data-item="{{item}}" catchlongpress="showDeleteTag" class="my-tag flexc fr28 {{item.is_select?'tag-content-choose':'tag-content-default'}}" style="position: relative;">
+      {{item.name}}  <text wx:if="{{push}}">({{item.user_num}})</text>
+     
+      <view wx:if="{{pressIndex}}" class="user-tag-del iconfont icon-shanchu tag-color" data-tagId="{{item.id}}" catchtap="deleteTag"></view>
+    </view>
+    <input wx:if="{{showInput}}" value="{{addTag}}" style="width:308rpx;" class="my-tag tag-content-default flexc fr28" bindblur='addTag' focus  maxlength='15' placeholder="" />
+  </view>
+   <view wx:if="{{!push}}" class='info' style='padding-top: 0'>已添加标签可长按删除</view>
+  <!-- <view value="{{addTag}}" style="margin:0 auto;width:400rpx;text-align:center" class="tag-color fr28" bindblur='addTag' placeholder-class="tag-placeholder" maxlength='15' placeholder="+ 添加标签" /> -->
+  <view wx:if="{{!push}}" class="tag-color fr28" style='text-align:center' bindtap='addNewTag'>
+  + 添加标签
+  </view>
+</view>
+<view wx:if="{{push}}" class='fr24 c9' style='padding:0 40rpx 0 30rpx;line-height:40rpx;margin-top:20rpx;'>
+  <view>标签客户数：该标签下的客户总数</view>
+  <view class='flex'><view class='asfs'>预估推送数：</view><view class='flex1'>可推送的有效客户数，即7天内在名片内有过行为交互的客户数</view> </view>
+</view>
+<view disabled='{{disabled}}' style='background: #ff9b1f;' bindtap='saveTag' class="fr34 cf tag-button {{isIphoneX?'fix-iphonex-button':''}}">{{!push?'保存':'确认选择  (预估'+num+'人)'}}</view>
+<view style='height:{{push&&isIphoneX?"68rpx":"0"}};'></view>
+<component-messageToast></component-messageToast>

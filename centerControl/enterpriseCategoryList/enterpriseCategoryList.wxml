@@ -1,0 +1,25 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无企业级商品分类',showImg:'https://facing-1256908372.file.myqcloud.com//image/20201127/05a6463668232cce.png'}}" wx:if="{{showStyle!=1&&enterpriseCateLgoryist.length==0}}" />
+<block wx:else>
+ <view class='container' wx:for="{{enterpriseCateLgoryist}}" wx:key="this">
+        <view class='flex' style='height:250rpx;padding-left: 30rpx'>
+            <image class='img' src="{{ShowImg.cropImgWH(item.thumb_url,120,120)}}"></image>
+            <view class='flex1 flexb'>
+                <view class='flex1'>
+                    <view style="margin-bottom:22rpx" class='fr34 c3 bold ellipsis1'>{{item.name}}</view>
+                    <view wx:if="{{item.parentid != '0'}}" style="margin-bottom:10rpx" class="fr28 cmain ellipsis1">上级：{{item.parentName}}</view>
+                    <view class='fr28 c80'>入口排序数字<text class='c-main fr26'>{{item.displayorder}}</text>
+                    </view>
+                </view>
+                <view class="revover-type asfs {{item.enabled == 1?'show':'hide'}} fr24">
+                    {{item.enabled == 1?'显示中':'隐藏中'}}
+                </view>
+            </view>
+        </view>
+    </view>
+   
+    <template  is="moreData" data="{{loadStyle:loadStyle,loadOverText:'已显示全部企业商品分类'}}" />
+</block>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,36 @@
+@import '/comm/base.wxss';
+.activity-model{
+  top:0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background:rgba(0,0,0,0.6);
+}
+.activity{
+    width: 596rpx;
+	height: 266rpx;
+	background-color: #ffffff;
+	border-radius: 10rpx;
+    padding-left: 45rpx;
+}
+.cff2c{
+    color: #ff2c2c;
+}
+.activity-btn{
+    margin-top: 72rpx;
+    text-align: center;
+}
+.activity-btn-cancel{
+    color: #a1a1a1;
+    width: 110rpx;
+}
+.activity-btn-lottery{
+    color: #ff7200;
+    width: 190rpx;
+}

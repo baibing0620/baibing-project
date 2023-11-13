@@ -1,0 +1,59 @@
+.container{
+    margin:20rpx 20rpx 0 20rpx;
+}
+.header{
+    border-bottom: 1rpx solid #e6e6e6 ;
+    padding:30rpx 0 30rpx 30rpx;
+}
+.appointList{
+  margin-bottom: 10rpx;
+}
+image{
+    width: 160rpx;
+    height: 160rpx;
+     margin-right: 20rpx; 
+}
+.message{
+    width: 140rpx;
+    height: 50rpx;
+    border-radius: 25rpx 0 0 25rpx;
+
+    float: right;
+}
+.arrival-time{
+    color: #25baf1;
+}
+.arrival-time-cb3{
+  color: #b3b3b3;
+}
+.footer{
+    padding:30rpx 15rpx 30rpx 30rpx
+}
+.leave-message{
+    display: flex;
+    align-items: baseline;
+}
+.lh50{
+    line-height: 50rpx;
+}
+.lh40{
+    line-height: 40rpx;
+}
+.mc1{
+    background-color: #ff9b1f;
+}
+.mc2{
+    background-color: #33de6c;    
+}
+.mc3{
+    background-color: #cccccc;    
+}
+.mc4{
+    background-color: #ff3a3a;    
+}
+.mc5{
+    background-color: #cccccc;    
+}
+/* .cb3I{
+    color: #b3b3b3 !important;
+} */

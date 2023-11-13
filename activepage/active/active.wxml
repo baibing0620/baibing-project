@@ -1,0 +1,12 @@
+<image src="https://anhuidaowei.com/media/dc46f5c42d4aaccef8ce2f289aa0a63.png" alt="" class="active-bg" />
+<view class="text">每人限领一张优惠券</view>
+<view class="button-wrapper">
+    <view class="active-content">
+        <image src="https://anhuidaowei.com/media/97810eb9f9bb240d73408c22f14e76b.png" class="active-certificate" alt="" />
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+            <image src="https://anhuidaowei.com/media/a29ed28d078248c20d0332475821f64.png" class="active-button" mode="" />
+        </button>
+    </view>
+</view>
+<image src="https://anhuidaowei.com/media/378c83d8bef81217d90a4df9a209563.png" class="active-path" mode="" />
+<image src="https://anhuidaowei.com/media/ca5e9213a567b4feb241a9d118e3e5d.png" class="active-rule" mode="" />

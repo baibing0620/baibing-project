@@ -1,0 +1,8 @@
+{
+	"enablePullDownRefresh": true,
+	"navigationBarTitleText": "砍价详情",
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

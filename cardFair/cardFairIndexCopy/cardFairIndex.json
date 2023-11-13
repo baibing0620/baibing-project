@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "行业名片",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

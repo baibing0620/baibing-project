@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "modal-video": "/components/modalVideo/modalVideo",
+    "diy-rich-text":"/components/richTextDIY/richTextDIY",
+    "open-vip":"/components/openVip/openVip",
+    "course-detail":"/components/courseDetails/courseDetails",
+    "component-remind": "/components/remind/remind",
+    "component-toHomePage": "/components/toHomePage/toHomePage",
+    "component-messageToast": "/components/messageToast/messageToast"
+  } 
+}

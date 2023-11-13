@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-toHomePage": "/components/toHomePage/toHomePage"
+    }
+}

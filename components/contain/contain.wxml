@@ -1,0 +1,15 @@
+<view class='layout bcf'>
+    <view class='flex bar'>
+        <view wx:if='{{ icon }}' class='icon mr16'>
+            <component-image src='{{ icon }}' mode='aspectFit'></component-image>
+        </view>
+        <view class='flex1 fr40 c0 ellipsis1 title'>{{ title }}</view>
+        <view wx:if='{{ url }}' class='flex-c-s pr30' catchtap='navigate'>
+            <view class='fr24 c9'>查看更多</view>
+            <view class='fr24 c0 iconfont icon-arrow-right-move-circle-fill ml12'></view>
+        </view>
+    </view>
+    <view>
+        <slot />
+    </view>
+</view>

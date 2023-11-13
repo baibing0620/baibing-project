@@ -1,0 +1,22 @@
+{
+    "navigationBarTitleText": "",
+    "enablePullDownRefresh": true,
+    "navigationStyle":"custom",
+    "usingComponents": {
+        "diy-card": "/components/card1/card1",
+        "diy-card2": "/components/card2/card2",
+        "diy-card3": "/components/card3/card3",
+        "diy-card4": "/components/card4/card4",
+        "form-button": "/components/formButton/formButton",
+        "component-audioPlayer": "/components/audioPlayer/audioPlayer",
+        "component-remind": "/components/remind/remind",
+        "component-bless-bag-comm": "/components/blessBagComm/blessBagComm",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-menu": "/components/menu/menu",
+        "painter": "/components/painter/painter",
+        "component-contain": "/components/contain/contain",
+        "component-image": "/components/image/image",
+        "component-avatar": "/components/avatar/avatar",
+        "component-navigateBar": "/components/navigateBar/navigateBar"
+    }
+}

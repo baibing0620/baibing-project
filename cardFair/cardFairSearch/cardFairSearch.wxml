@@ -1,0 +1,18 @@
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <view class="input-layout flexc">
+            <input type="text" class="input fr26" bindfocus="bindHideSlider" value="{{ inputValue }}" bindinput="bindInput" placeholder="请输入企业名称 / 行业 / 服务 / 地域等...">
+                <view class="iconfont icon-sousuo fr34 cf" bindtap="navigate"></view>
+            </input>
+        </view>
+
+        <view class="label fr30 c3">行业推荐</view>
+
+        <view class="tags-layout flex">
+            <view wx:for="{{ quickSearch }}" wx:key="{{ index }}" class="tags flexc fr30 c6" data-value="{{ item }}" bindtap="navigate">{{ item }}</view>
+        </view>
+
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

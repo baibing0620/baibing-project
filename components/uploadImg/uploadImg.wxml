@@ -1,0 +1,44 @@
+<wxs module='showPlaceImg'>
+  var isShow = function(len, imgsLen) {
+    imgsLen = imgsLen ? parseInt(imgsLen) : 0;
+    len = len ? parseInt(len) : 0;
+    if (imgsLen < len) {
+      imgsLen += 1;
+    }
+    return imgsLen % 3 != 2;
+  }
+  module.exports = {
+    isShow: isShow,
+  };
+</wxs>
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml" />
+<view class="imgs-box flex1 flexb w100" style="width:{{boxWidth+'rpx'}}">
+  <block wx:if="{{len==1}}">
+    <view catchlongpress='longtap' class="one-image-box" wx:if="{{imgs.length>=1}}">
+      <view class="one-progress-box flexc" hidden="{{imgs[0].uploadStyle=='success'}}" style="height:{{boxWidth*0.5+'rpx'}};width:{{boxWidth+'rpx'}}">
+        <progress wx:if="{{imgs[0].uploadStyle=='start'}}" percent="{{progress[0]}}" class="tsdt3" active />
+        <view wx:else="{{imgs[0].uploadStyle=='fail'}}" class="fr26 cf" catchtap='uploadAgain' data-index="0">重新上传</view>
+      </view>
+      <image src="{{imgs[0].filePath}}" catchtap="previewImage" data-index="0" mode="aspectFill" style="height:{{boxWidth*0.5+'rpx'}};width:{{boxWidth+'rpx'}}" />
+    </view>
+    <view class="one-image-box flexc icon-add-box" wx:else style="height:{{boxWidth*0.5+'rpx'}};width:{{boxWidth+'rpx'}}">
+      <text class="iconfont icon-add  fr50 c9 flexc" catchtap="pickImgs" style="height:{{boxWidth*0.5+'rpx'}};width:{{boxWidth+'rpx'}}"></text>
+    </view>
+  </block>
+  <block wx:else>
+    <view catchlongpress='longtap' data-index="{{index}}" class="upload" wx:for="{{imgs}}" wx:key="{{index}}">
+      <view class="progress-box flexc" hidden="{{imgs[index].uploadStyle=='success'||imgs[index].url}}" style="height:{{img3Width+'rpx'}};width:{{img3Width+'rpx'}}">
+        <progress wx:if="{{imgs[index].uploadStyle=='start'}}" percent="{{progress[index]}}" class="tsdt3" active />
+        <view wx:else="{{imgs[index].uploadStyle=='fail'}}" class="fr26 cf" catchtap='uploadAgain' data-index="{{index}}">重新上传</view>
+      </view>
+      <image src="{{item.filePath|| ShowImg.cropImgWH(item.url,150,150)}}" catchtap="previewImage" data-index="{{index}}" mode="aspectFill" style="height:{{img3Width+'rpx'}};width:{{img3Width+'rpx'}}" />
+    </view>
+    <view class="upload flexc icon-add-box" catchtap="pickImgs" hidden="{{imgs.length >= len}}" style="height:{{img3Width+'rpx'}};width:{{img3Width+'rpx'}}">
+      <text class="iconfont icon-add  c9" style='font-size:50rpx;'></text>
+    </view>
+    <view class="upload" hidden="{{showPlaceImg.isShow(len,imgs.length)}}" style="height:{{img3Width+'rpx'}};width:{{img3Width+'rpx'}}">
+    </view>
+  </block>
+  <view class='fr22 tips'>提示：长按图片可删除</view>
+</view>

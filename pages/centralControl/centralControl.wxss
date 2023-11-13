@@ -1,0 +1,487 @@
+page {
+    background-color: #fff;
+}
+
+.fr24, .fr28, .fr30, .fr34, .fr32, .fr36, .fr40 {
+    line-height: 100%;
+}
+
+.cblue {
+    color: #3870b3;
+}
+
+.cblue2 {
+    color: #29aeff;
+}
+
+.color1 {
+    color: #ec81f0;
+}
+
+.color2 {
+    color: #f0c281;
+}
+
+.color3 {
+    color: #73e175;
+}
+
+.color4 {
+    color: #4fd8f2;
+}
+
+.color5 {
+    color: #ff7e93;
+}
+
+.color6 {
+    color: #8e98fb;
+}
+
+.color7 {
+    color: #47a6ff;
+}
+
+.color8 {
+    color: #FF5B5B;
+}
+
+.color2-1 {
+    background: linear-gradient(#4de6f0, #53b4f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.color2-2 {
+    background: linear-gradient(#7699ff, #5057e2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.color2-3 {
+    background: linear-gradient(#6eeabc, #5fcf7f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.color2-4 {
+    background: linear-gradient(#ff4d4c, #ff754c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.color2-5 {
+    background: linear-gradient(#6fd1ff, #4c83ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+
+.color2-6 {
+    background: linear-gradient(#FFA31E,#FDCD33);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+
+.color2-7 {
+    background: linear-gradient(#FFAB0B, #FFD42A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+
+.color2-8 {
+    background: linear-gradient(#F95B5B, #FD8C8C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color2-9 {
+    background: linear-gradient(#8FE6C0, #3CD294);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-1 {
+    background: linear-gradient(#1F94FD, #56C6FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-2 {
+    background: linear-gradient(#78C7FA, #1F97FD);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-3 {
+    background: linear-gradient(#FFC51F, #FFA10E);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-4 {
+    background: linear-gradient(#D5C8FE, #8B7CFE);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-5 {
+    background: linear-gradient(#8FE6C0, #3CD294);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+
+.color3-6 {
+    background: linear-gradient(#FE7AB2, #FB5A97);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-7 {
+    background: linear-gradient(#5A95FE, #8EB7FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-8 {
+    background: linear-gradient(#5EF0B9, #39CF90);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-9 {
+    background: linear-gradient(#FB5A5A, #FF8E8E);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-10 {
+    background: linear-gradient(#58B5F9, #87D1FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-11 {
+    background: linear-gradient(#D5C8FE, #8B7CFE);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-12 {
+    background: linear-gradient(#F98620, #FEB335);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-13 {
+    background: linear-gradient(#FC5E99, #FF90C1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-14 {
+    background: linear-gradient(#8FE6C0, #3CD294);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-15 {
+    background: linear-gradient(#78C7FA, #1F97FD);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-16 {
+    background: linear-gradient(#FB5A5A, #FF8E8E);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.color3-17 {
+    background: linear-gradient(#FFA31E, #FECE33);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+
+.label {
+    padding: 40rpx  0 6rpx 31rpx;
+}
+
+.under-line {
+    border-bottom: 14rpx solid #f0f0f0;
+}
+
+.info-layout {
+    width: 100vw;
+    height: 232rpx;
+    /* background-image: url("https://facing-1256908372.file.myqcloud.com//image/20181212/3e9242bea1358ee1.png?imageView2/2/w/600");
+    background-size:750rpx 356rpx; */
+    box-sizing: border-box;
+    /* padding: 52rpx 0 0 20rpx; */
+    /* display: flex; */
+    position: relative;
+    z-index: 2;
+    background: #1F94FD;
+}
+
+.info-box {
+    width: 690rpx;
+    height: 300rpx;
+    background: #FFFFFF;
+    box-shadow: 0px 3rpx 20rpx 0px rgba(153, 153, 153, 0.2);
+    border-radius: 20rpx;
+    position: absolute;
+    top: 20rpx;
+    left: 50%;
+    transform: translateX(-50%);
+   
+}
+.info-top {
+    padding: 30rpx 30rpx 0 30rpx;
+    box-sizing: border-box;
+    margin-bottom: 10rpx;
+}
+
+.avatar {
+    height: 120rpx;
+    width: 120rpx;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 30rpx;
+}
+
+.nickname {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 60rpx;
+}
+
+.infoNum {
+    margin-bottom: 20rpx;
+}
+
+.customerCount {
+    /* border-right: 1rpx solid rgba(153, 153, 153, 0.2); */
+    flex: 1;
+    text-align: center;
+    padding: 20rpx 0;
+    position: relative;
+}
+.customerCount::after{
+    content: '';
+    width: 1rpx;
+    height: 100rpx;
+    background: linear-gradient(to top,#fbfbfb, #eaeaea, #fbfbfb);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.customerCount:last-child::after{
+    content: '';
+    /* display: none; */
+} 
+
+/* .permission-container, .customer-container {
+    padding-bottom: 50rpx;
+} */
+
+
+.item{
+    height: 180rpx;
+    padding: 0;
+}
+.item .iconfont{
+    margin-bottom: 20rpx;
+}
+.item .lh100 {
+    padding-bottom: 10rpx;
+}
+
+.bg-white {
+    width: 100%;
+    height: 92rpx;
+    background: #fff;
+}
+
+.customer-info-num {
+    position: absolute;
+    background: #FF3535;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20rpx;
+    font-weight: 500;
+    text-align: center;
+    top: 20rpx;
+    right: 50rpx;
+    width: 32rpx;
+    height: 32rpx;
+    line-height: 32rpx;
+}
+.biggerInfoNum {
+    top: 14rpx;
+    right: 44rpx;
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+
+}
+
+.gates {
+    position: relative;
+    top: -5rpx;
+}
+
+.boss-gates {
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid #e2e2e2;
+}
+
+.boss-gate {
+    width: 330rpx;
+    height: 90rpx;
+    background: linear-gradient(#ffa25d ,#ff6544);
+    border-radius: 10rpx;
+    margin-right: 30rpx;
+    position: relative;
+}
+
+.boss-gate:active {
+    background:linear-gradient(#ffb570, #f77a52);
+}
+
+.boss-gate:last-child {
+    margin-right: 0;
+}
+
+.boss-gate>.iconfont {
+    margin-right: 24rpx;
+}
+
+/* .boss-gate::after {
+    content: "";
+    width: 348rpx;
+    height: 82rpx;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(50%);
+    background-image: url("https://facing-1256908372.file.myqcloud.com//image/20181212/5abbc8f7fe4a56e1.png?imageView2/2/w/600");
+    background-size: 348rpx 82rpx;
+} */
+
+.boss-gate-icon {
+    height: 44rpx;
+    width: 44rpx;
+    margin-right: 20rpx;
+}
+
+.card-manage>view {
+    box-sizing: border-box;
+    height: 220rpx;
+    padding-left: 30rpx;
+    border-right: 1rpx solid #e2e2e2;
+}
+
+.card-manage>view:last-child {
+    border-right: 0;
+}
+
+.card-manage-info {
+    margin-top: 24rpx;
+}
+
+.card-manage-icon1 {
+    margin-left: 35rpx;
+    height: 76rpx;
+    width: 82rpx;
+}
+
+.card-manage-icon2 {
+    margin-left: 35rpx;
+    height: 80rpx;
+    width: 80rpx;
+}
+
+.card-manage2 {
+    height: 120rpx;
+    padding: 0 30rpx;
+}
+
+.customer-info>view {
+    height: 250rpx;
+    border-right: 1rpx solid #f2f2f2;
+}
+
+.customer-info-title {
+    margin-top: 28rpx;
+}
+
+.customer-info-info {
+    margin-top: 22rpx;
+}
+
+.other-gate {
+    width: 187rpx;
+    height: 180rpx;
+    box-shadow: 1px 1px 0px 0px #f2f2f2;
+}
+
+.other-gate:nth-child(4n) {
+   box-shadow:0 1px 0px 0px #f2f2f2;
+}
+
+.other-gate-icon {
+    margin-bottom: 30rpx;
+}
+
+.icon-jinru {
+    margin-left: 12rpx;
+}
+.codeIcon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 28rpx;
+}
+.enterprise-manage{
+   border-bottom: 14rpx solid #f0f0f0;
+   padding-left: 32rpx;
+}
+.enterprise-manage>image{
+  width: 270rpx;
+  height: 160rpx;
+}
+.enterprise-manage .tip{
+    margin-top: 20rpx;
+}
+.enterprise-manage .tip>view:first-of-type{
+    color: #B3B3B3;
+    letter-spacing: 11rpx;
+}
+.enterprise-manage .tip>view:last-of-type{
+    width:90rpx;
+    height:40rpx;
+    background:linear-gradient(0deg,rgba(236,86,80,1) 0%,rgba(239,133,95,1) 100%);
+    border-radius:6rpx;
+
+}
+.new-fun {
+    position: relative;
+}
+.new-badge {
+    position: absolute;
+    top: -80rpx;
+    right: 10rpx;
+    color: red;
+    height: 20px;
+    font-size: 100rpx;
+}

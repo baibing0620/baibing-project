@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "优惠券详情",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

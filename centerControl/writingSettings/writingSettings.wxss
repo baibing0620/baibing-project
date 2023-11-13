@@ -1,0 +1,32 @@
+page {
+    background: #f7f7f7;
+}
+
+.normal {
+    width: 100%;
+    background: #fff;
+    font-weight: normal;
+    height: 456rpx;
+    border-bottom: 1rpx solid #e6e6e6;
+    padding: 40rpx 40rpx 30rpx;
+    box-sizing: border-box;
+}
+
+.textarea-placeholder {
+    font-size: 30rpx;
+    color: #b3b3b3;
+}
+
+textarea text {
+    position: absolute;
+    bottom: 30rpx;
+    right: 40rpx;
+}
+button{
+    margin-top: 80rpx;
+    height: 90rpx;
+    width: 600rpx;
+    border-radius: 6rpx;
+    /* background: #ff9b1f; */
+    color: #fff;
+}

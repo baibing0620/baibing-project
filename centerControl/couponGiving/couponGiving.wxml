@@ -1,0 +1,79 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/format.wxs' module='format' />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle !=1 }}' />
+<view wx:else class='list'>
+    <view wx:for='{{ list }}' wx:key='id' class='item bcf'>
+        <view class='flexb'>
+            <view class='flex1 fr34 c1a title'>{{ item.name }}</view>
+            <button class='button fr26 cf flexc' open-type="share" data-share_img="{{item.promotional_image}}"  data-share_text="{{item.promotion_text}}" data-id='{{ item.id }}'>发给客户</button>
+        </view>
+        <view class='mt18 flexb'>
+            <view class='fr24 c-F77125 flex'>
+               
+                <view wx:if='{{ item.use_scene == 1 }}' class='tag flexc'>线上</view>
+                <view wx:elif='{{ item.use_scene == 2 }}' class='tag flexc'>线下</view>
+                <view wx:elif='{{ item.use_scene == 3 }}' class='tag flexc'>线上、线下</view>
+                <block wx:if="{{item.type !=3 }}">
+                    <view wx:if='{{ item.type == 1 }}' class='tag flexc'>满{{ item.sale_to }}减{{ item.cutdown }}</view>
+                    <view wx:elif='{{ item.type == 2 }}' class='tag flexc'>满任意金额减{{ item.cutdown }}</view>
+                </block>
+
+                <block wx:else>
+                    <view class='tag flexc'>商品抵扣券</view>
+                </block>
+                <view wx:if='{{ item.is_new_user_coupon == 1 }}' class='tag flexc'>新人专享</view>
+            </view>
+            <view wx:if='{{ item.is_total_limit == 1 }}' class='fr22 total'>{{ item.total_limit }}张可发</view>
+            <view wx:else class='fr22 total'>不限量</view>
+        </view>
+        <view class='line'></view>
+        <view class='relative'>
+            <!-- <view class='goodsEntry fr24 c-F77125 flexc' data-id='{{ item.id }}' catchtap='handleNav'>查看商品</view> -->
+            <view class='explain lineHeight fr24 c6'>
+                <view class='icon'>
+                    <component-image src='https://facing-1256908372.file.myqcloud.com//image/20200522/25469bf4ecd88dd0.png'></component-image>
+                </view>
+                <view wx:if='{{ item.time_type == 1 }}'>{{ format.formatDay( item.start_time * 1000)}} 至 {{ format.formatDay( item.end_time * 1000) }} 有效</view> 
+                <view wx:elif='{{ item.time_type == 2 }}'>领取后 {{ item.expire_at }} 天有效</view>
+            </view>
+            <view class='explain lineHeight fr24 c6 mt14' data-index='{{ index }}' catchtap='handleSpread'>
+                <view class='icon'>
+                    <component-image src='https://facing-1256908372.file.myqcloud.com//image/20200522/e3470e93d661cbd4.png'></component-image>
+                </view>
+                <view>
+                    <block wx:if="{{item.type == 3}}">
+                        <text>指定商品：{{item.exchange_goods[0].goodsName}}</text>
+                    </block>
+                    <block wx:else>
+                        <view wx:if='{{ item.scope.type == 1 }}'>全部商品 </view>
+                        <block wx:elif="{{ item.scope.type == 2 }}">
+                            <view class='flex'>
+                                指定分类
+                                <view class='spread iconfont icon-xiala2 {{ index == spreadIndex ? "spreaded" : "" }}'></view>
+                            </view>
+                            <view class='goodsList {{ index == spreadIndex ? "" : "goodsList-hidden" }}'>
+                                <view wx:for='{{ item.scope.cateList }}' wx:key='pcid' class='good'>{{ item.pcname }}</view>
+                            </view>满任意金额减{{ item.cutdown }}
+                        </block>
+                        <block wx:else>
+                            <view class='flex'>
+                                指定商品
+                                <view class='spread iconfont icon-xiala2 {{ index == spreadIndex ? "spreaded" : "" }}'></view>
+                            </view>
+                            <view class='goodsList {{ index == spreadIndex ? "" : "goodsList-hidden" }}'>
+                                <view wx:for='{{ item.scope.goodsList }}' wx:key='goodsId' class='good'>{{ item.goodsTitle }}</view>
+                            </view>满任意金额减{{ item.cutdown }}
+                        </block>
+                     </block>
+                </view>
+            </view>
+        </view>
+
+        <!-- <view class="newUserGet" wx:if="{{item.is_new_user_coupon == 1}}">新人专享</view> -->
+    </view>
+    <template is='moreData' data='{{ loadStyle: loadStyle }}' />
+</view>
+
+
+<component-messageToast></component-messageToast>

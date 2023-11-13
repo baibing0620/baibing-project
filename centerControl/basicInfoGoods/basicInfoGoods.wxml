@@ -1,0 +1,39 @@
+<include src="../../comm/comm.wxml" />
+<component-messageToast></component-messageToast>
+<component-steps></component-steps>
+<view class='container'>
+    <view class='fr24 cb3 bold title'>选择商品种类</view>
+    <view class='flex fr30 c80 choose-status'>
+        <view wx:for="{{categoryStatus}}" wx:key="{{index}}" catchtap='chooseCategoryStatus' data-index="{{index}}" class='flex1 {{index == checkIndex?"bold bc-check":"bcfa"}}' style='position:relative'>
+            {{item}}
+            <view wx:if="{{index == checkIndex}}" class='iconfont icon-duihao1 dui-hao fr24'></view>
+        </view>
+    </view>
+    <view class='fr24 {{name?"cb3":"c3"}} bold title'>商品名称</view>
+    <textarea class='fr30 c3 normal' value="{{name}}" bindinput="changeName" placeholder='请输如商品名称，建议20字以内'></textarea>
+    <view class='fr24 {{index == -1?"c3":"cb3"}} bold title'>商品分类</view>
+    <picker mode="selector" bindchange="bindPickerChange" value="{{index}}" range-key="title" range="{{categoryGoods}}">
+        <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+            <text class='fr28 {{index == -1?"cb3":"c3"}}'>{{index == -1?'请选择分类':categoryGoods[index].title}}</text>
+            <view class="iconfont icon-xiala1 c9 fr24"></view>
+        </view>
+    </picker>
+    <picker wx:if="{{secondCategoryList.length}}" mode="selector" bindchange="bindSecondCategoryChange" value="{{sonsIndex}}" range-key="name" range="{{secondCategoryList}}">
+        <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+            <text class='fr28 {{sonsIndex == -1?"cb3":"c3"}}'>{{sonsIndex == -1?'请选择分类':secondCategoryList[sonsIndex].name}}</text>
+            <view class="iconfont icon-xiala1 c9 fr24"></view>
+        </view>
+    </picker>
+    <view class='fr24 {{ServiceData.length !=0?"cb3":"c3"}} bold title'>服务说明</view>
+    <view catchlongtap='showDel'>
+        <view wx:for="{{ServiceData}}" wx:key="{{index}}" class='fr30 c3 service-description flex'>
+            <view style='margin-right:20rpx;position: relative;' class='flex'>
+                <view class='iconfont icon-dian fr30 asfs'></view>
+                <view class='flex1'>{{item}}</view>
+                <text wx:if="{{showDelData}}" data-index="{{index}}" catchtap='delServiceData' class='iconfont icon-shanchu'></text>
+            </view>
+        </view>
+    </view>
+    <input value="{{service}}" class='fr30 c3' placeholder='+ 说明服务' bindblur="addServiceDes"></input>
+</view>
+<button catchtap='nextSteps' disabled='{{pushEnable}}' class='message-btn fr34 cf'>下一步</button>

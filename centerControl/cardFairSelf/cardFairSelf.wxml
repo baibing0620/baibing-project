@@ -1,0 +1,62 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1}}" />
+        <block wx:else>
+
+            <view class="card {{ data.status == 1 && 'card2' }} bcf">
+                <view class="userInfo-layout flexb">
+                    <view class="userInfo">
+                        <view class="nickname fr40 c40 bold">{{ data.name }}</view>
+                        <view class="job fr26 c-fairMain">{{ data.position }}</view>
+                        <view class="company fr26 c40">{{ data.company }}</view>
+                    </view>
+                    <image class="avatar" mode="aspectFill" src="{{ ShowImg.cropImgWH(data.avatar_url, 140, 140) }}"></image>
+                </view>
+
+                <view class="viewInfo flexc">
+                    <block wx:if="{{ data.status == 1 }}">
+                        <view class="viewed flexcColumn">
+                            <view class="fr44 bold c-fairMain">{{ data.page_views }}</view>
+                            <view class="fr24 c3">浏览量</view>
+                        </view>
+                        <view class="collection flexcColumn">
+                            <view class="fr44 bold c-fairMain">{{ data.collection_num }}</view>
+                            <view class="fr24 c3">收藏量</view>
+                        </view>
+                    </block>
+                </view>
+
+                <view class="label fr32 c40 bold flexb {{ data.status == 1 ? 'status1' : 'status0' }}">
+                    集市信息
+                </view>
+                <view class="putInfo">
+                    <view class="flexb">
+                        <view class="fr28 c40">行业</view>
+                        <view wx:if="{{ data.pindus_code == 0 }}" class="fr28 cc">--</view>
+                        <view wx:else class="fr28 c9">{{ data.pindus_name }}</view>
+                    </view>
+                    <view class="flexb tags-layout">
+                        <view class="fr28 c40">服务说明</view>
+                        <view class="fr28 cc tags">
+                            <block wx:if="{{ tags.length < 1 }}">--</block>
+                            <block wx:else>
+                                <view class="c9" wx:for="{{ data.tagsArr }}" wx:key="id">{{ item }}</view>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+                <view class="fr30 cf submit bc-fairMain flexc" bindtap="navigate">{{ data.status == 1 ? "再次投放" : "投放名片" }}</view>
+                <view wx:if="{{ data.status == 1 }}" class="disSubmit fr26 cb3" bindtap="putOut">取消投放</view>
+            </view>
+
+            <view class="info-bottom fr24 cf" bindtap="showWhat">行业精英的互动平台，可以实现什么？</view>
+            <view class="line-bottom"></view>
+
+        </block>
+
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

@@ -1,0 +1,89 @@
+/* pages/addCustomerPool/addCustomerPool.wxss */
+page {
+  background-color: #fff;
+  font-family: 'Microsoft YaHei';
+}
+
+.fr24, .fr28, .fr30, .fr34, .fr32, .fr36, .fr40 {
+  line-height: 100%;
+}
+
+.cblue {
+  color: #3870b3;
+}
+
+.cblue2 {
+  color: #29aeff;
+}
+
+.color1 {
+  color: #ec81f0;
+}
+
+.color2 {
+  color: #f0c281;
+}
+
+.color3 {
+  color: #73e175;
+}
+
+.color4 {
+  color: #4fd8f2;
+}
+
+.color5 {
+  color: #ff7e93;
+}
+
+.color6 {
+  color: #8e98fb;
+}
+
+.color7 {
+  color: #47a6ff;
+}
+
+.color8 {
+  color: #FF5B5B;
+}
+.p20{
+  padding: 0 24rpx;
+}
+.B0{
+  color: #B0B0B0;
+}
+.addCustomerPool{
+  width: 100%;
+  margin: 40rpx 0 0 0;
+}
+.add_must{
+  /* width: 100%; */
+  border-bottom: 20rpx solid #f2f2f2;
+}
+.add_must>view{
+  margin: 30rpx 0;
+}
+.add_other{
+  /* width: 100%; */
+}
+.add_other>view{
+  margin: 30rpx 0;
+}
+.save{
+  width: 90%;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  position: fixed;
+  left: 5%;
+  bottom: 30rpx;
+}
+.flexB{
+  display: flex;
+  justify-content: space-between;
+}
+.name{}
+.tpl{}
+.source{}
+.grade{}

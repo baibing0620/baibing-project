@@ -1,0 +1,43 @@
+<include src="../../comm/comm.wxml" />
+<form bindsubmit='addCategory'>
+    <view class='container'>
+        <view class='fr24 {{categoryTitle?"cb3":"c3"}} bold title'>分类名称</view>
+        <input class='fr30 c3' value='{{categoryTitle}}' bindinput="changeTitle" name="categoryTitle" type="text" placeholder='请输入分类名称，限制6个字内' />
+        <view class='fr24 {{replayImg.status === 2?"cb3":"c3"}} bold title'>类别封面</view>
+        <view class='avatar' catchtap='uploadAvatar' bindlongpress='deleteImgs'>
+            <image catchtap='previewImage' data-preview-url="{{replayImg.url}}" wx:if='{{ replayImg.status === 2 }}' src='{{ replayImg.url }}?imageView2/1/w/200/h/200"'></image>
+            <view wx:if='{{ replayImg.status === 1 }}' class='progress-view'>
+                <progress percent='{{ replayImg.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+            </view>
+            <view wx:if='{{ replayImg.status === -1 }}' class='imgError flexcColumn fr24'>{{ replayImg.errorMsg }}
+                <br/>点击重新上传</view>
+            <view wx:if='{{ replayImg.status === 0 }}' class='c9 avatarDefalt flexcColumn'>
+                <i class='iconfont icon-add:before avatarIcon'></i>
+            </view>
+        </view>
+        <view class='fr24 {{categorySort?"cb3":"c3"}} bold title'>分类排序</view>
+        <input class='fr30 c3' value='{{categorySort}}' name="categorySort" type="number" placeholder='请输入数字进行分类排序，越大越靠前' bindinput="changeSort" />
+        <view class='fr24 cb3 bold title'>分类级别</view>
+        <picker bindchange="changeCategoryLevel" mode="selector" value="{{levelIndex}}" range="{{categoryLevel}}">
+            <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 {{levelIndex == -1?"cb3":"c3"}}'>{{categoryLevel[levelIndex]}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+        <picker bindchange="setParent" range="{{parentList}}" range-key="name" wx:if="{{levelIndex == 1}}">
+           <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 {{parentIndex == -1?"cb3":"c3"}}'>{{parentIndex == -1?'请选择父级分类':parentList[parentIndex].name}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+        <view class='fr24 cb3 bold title'>选择状态</view>
+        <view class='flex fr30 c80 choose-status'>
+            <view wx:for="{{categoryStatus}}" wx:key="index" catchtap='chooseCategoryStatus' data-index="{{index}}" class='flex1 {{index == checkIndex?"bold bc-check":"bcfa"}}' style='position:relative'>
+                {{item}}
+                <view wx:if="{{index == checkIndex}}" class='iconfont icon-duihao1 dui-hao fr24'></view>
+            </view>
+        </view>
+    </view>
+    <button formType="submit" disabled='{{pushEnable}}' class='message-btn fr34 cf'>{{id?"立即编辑":"立即添加"}}</button>
+</form>
+<component-messageToast></component-messageToast>

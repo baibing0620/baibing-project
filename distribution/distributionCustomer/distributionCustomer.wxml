@@ -1,0 +1,51 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1 && clueList.length == 0 }}"/>
+<block wx:else>
+    <template is="initShow" wx:if="{{ loadStyle != 'loading' && list.length < 1 }}"  data="{{ showStyle: 2, showNoMsg:'您还没有在名片内有交易的客户',showImg:'https://facing-1256908372.file.myqcloud.com//image/20181207/ead5e215b45156da.png'}}"/>
+    <block wx:else>
+        <view class='input-layout'>
+            <view class='input-box flexb'>
+            <input class='fr24 input' value='{{ posterName }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='请输入微信昵称进行搜索'></input>
+            <view class='iconfont icon-sousuo search' catchtap='search'></view>
+            </view>
+        </view>
+
+        <view class='list'>
+            <view wx:for='{{ list }}' wx:key='id' class='item bcf mt30'>
+                <view class='item-head flex'>
+                    <view class='item-avatar'>
+                        <component-image src='{{ item.avatar }}' placeholder />
+                    </view>
+                    <view class='item-info ml20 flex1'>
+                        <view class='fr32 lh44 cf ellipsis1'>{{ item.nickname }}</view>
+                    </view>
+                </view>
+                <view class='item-content flex'>
+                    <view class='item-content-item flex1 flexc'>
+                        <view class='item-content-value flex'>
+                            <view class='fr40 c3'>{{ item.consumption }}</view>
+                            <view class='fr30 c3'>元</view>
+                        </view>
+                        <view class='fr28 c9 mt30'>个人累计消费</view>
+                    </view>
+                    <view class='item-content-item flex1 flexc'>
+                        <view wx:if='{{ distribution_reward_type == 2 }}' class='item-content-value flex flexc'>
+                            <view class='fr40 c3'>{{ item.distribution_credit }}</view>
+                            <view class='fr30 c3'>积分</view>
+                        </view>
+                        <view wx:else class='item-content-value flex flexc'>
+                            <view class='fr40 c3'>{{ item.distribution_money }}</view>
+                            <view class='fr30 c3'>元</view>
+                        </view>
+                        <view class='fr28 c9 mt30'>帮我赚取</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+    </block>
+</block>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,53 @@
+<include src="/comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<view wx:for='{{ items }}' wx:key='id' style='transform: {{ item.transform }}; transition:{{transition}}' class='item'>
+    <view hidden="{{tabIndex != 0}}">
+        <image src='{{ ShowImg.cropImgWH(item.image_url, 694, 725) }}'></image>
+    </view>
+    <view hidden="{{tabIndex != 1}}">
+        <image catchtap='reUpload' data-id="{{item.id}}" wx:if='{{ poster.status === 2 }}' src='{{ ShowImg.cropImgWH(item.image_url, 694, 725) }}'>
+            <view catchtap='del' data-id="{{item.id}}" class='iconfont icon-chushaixuanxiang flexc cf' style='position:absolute;right:14rpx;top:14rpx;width:60rpx;height:60rpx;border-radius:50%;background:rgba(0,0,0,0.5)'></view>
+        </image>
+
+        <view wx:else class='add-img flexcColumn'>
+            <view wx:if='{{ poster.status === 1 }}' class='progress-view'>
+                <progress percent='{{ poster.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+            </view>
+            <view wx:if='{{ poster.status === -1 }}' class='imgError flexcColumn fr24' data-index='{{ index }}' catchtap='reUpload'>{{ poster.errorMsg }}
+                <br/>点击重新上传</view>
+            <view bindtap='upload' class='flexc' wx:if='{{ poster.status === 0 }}'>
+                <i style="font-size:104rpx;" class='iconfont icon-add cc'></i>
+            </view>
+            <view style='margin:80rpx 0 22rpx' class='bold fr32 c3'>点击上传海报</view>
+            <view class='fr26 c9'>上传后可点击更换海报图片</view>
+        </view>
+    </view>
+    <view class="improved fr24 c9">
+        <view class="flexb flex1" style="margin:6rpx 50rpx 0 40rpx">
+            <view class='flex1 flexbColumn' style='height:140rpx'>
+                <view class="fr36 c3 flex">{{cardInfo.name}}
+                    <text class="fr28 main-color ellipsis1 flex1" style='margin-left:20rpx'>{{cardInfo.position}}</text>
+                </view>
+                <view class='fr24 c6'>{{cardInfo.mobile}}</view>
+                <view class='fr24 c6'>{{cardInfo.company}}</view>
+            </view>
+            <view style='position:relative;width:158rpx;height:158rpx'>
+                <image style='width:100%;height:100%' src="{{ShowImg.cropImgWH(qrCodeUrl,158,158)}}"></image>
+                <image class="head-img" src="{{ShowImg.cropImgWH(cardInfo.avatar_url,158,158)}}"></image>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- <view class='fr24 c9 info'>保存图片到手机相册，然后转发至朋友圈吧！</view> -->
+
+<view class="btns flex fr30 cf bc-1F94FD {{isIphoneX?'fix-iphonex-button':''}}">
+    <view class='flex1 btn' bindtap='saveImageToPhotosAlbum'>保存到相册</view>
+    <button class='flex1 btn cf fr30 bc-1F94FD' bindtap='switch' disabled="{{disabled}}">换一张</button>
+    <view wx:if="{{tabIndex == 1}}" class='flex1 btn' catchtap='addImg'>添加</view>
+
+</view>
+<component-messageToast></component-messageToast>
+<component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+<painter palette="{{palette}}" class="canvasdrawer" bind:imgOK="eventGetImage"></painter>

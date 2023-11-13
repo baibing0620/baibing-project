@@ -1,0 +1,109 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg"></wxs>
+<view class='container'>
+    <view class='editGoodImg'>
+        <image src="{{ShowImg.cropImgWH(goodsInfo.url,170,170)}}" style='position:relative'>
+            <view class="flag fr22 cf flexc" wx:if="{{goodsInfo.promote==1}}">
+                秒杀商品
+            </view>
+            <view class="flag fr22 cf flexc" wx:if="{{goodsInfo.promote==2}}">
+                砍价商品
+            </view>
+            <view class="flag fr22 cf flexc" wx:if="{{goodsInfo.promote==3}}">
+                拼团商品
+            </view>
+        </image>
+    </view>
+        <view class='editGoodDes' >
+            <view class='fr27 c3 bold ellipsis2'>{{goodsInfo.title}}</view> 
+            <view>
+                <view class="editDesList">类别: <text class="c3" decode>&nbsp;{{goodsInfo.categoryName}}</text></view>
+                <view class="editDesList">价格: <text class="c3" decode>&nbsp;￥{{goodsInfo.price}}</text></view>
+            </view>
+        </view>
+
+        <view wx:if="{{goodsInfo.total == 0 && goodsInfo.status != 0}}" style='background:#f0f0f0;color:#999999' class='revover-type fr24'>已售罄</view>
+        <view wx:else class='revover-type fr24' style='background:{{goodsInfo.status == 0?"#44d66b":goodsInfo.status == 1?"#ff9b1f":"#d9d9d9"}}'>{{goodsInfo.status == 0?"未上架":goodsInfo.status == 1?'已上架':'已下架'}}</view>
+</view>
+
+<view class="setting">
+    <view class="settingList" wx:if="{{isShowPrice}}">
+        <view class="settingList-title">价格设置</view>
+        <view class="settingList-input"><input placeholder="请设置商品价格"  bindinput="changeMyPrice" class="input" type="digit" value="{{price}}"/><text class="settingUnit">元</text></view>
+    </view>
+    <view class="settingList">
+        <view class="settingList-title">库存设置</view>
+        <view class="settingList-input"><input placeholder="请设置商品库存" bindinput="changeLimitNum" class="input" type="number" value="{{limitNum}}" disabled="!change_total_open"/><text class="settingUnit">件</text></view>
+    </view>
+     <view class="settingList" >
+        <view class="settingList-title">销量设置</view>
+        <view class="settingList-input"><input placeholder="请设置商品销量"  bindinput="changeSales" class="input" type="digit" value="{{sales}}"/><text class="settingUnit">件</text></view>
+    </view>
+    <picker range="{{array}}" bindchange="pickerMyChange" wx:key="{{array}}" disabled="!change_reduce_total_type_open">
+            <view class="settingList">
+                <view class="settingList-title">减库存方式</view>
+                <view class="settingList-input"><input placeholder="拍下立减库存" class="input" type="number" value="{{delectWay}}" disabled/><text class="settingUnit iconfont icon-xiala1"></text></view>
+            </view>
+     </picker>
+
+    <view class="{{issendfree ? 'freeMail' : ''}}" wx:if="{{ change_express_open }}">
+        <view class="freeMailTitle">
+            <text style="font-size: 36rpx">是否包邮</text>
+            <switch checked="{{issendfree}}" color="#ff9b1f" bindchange="handlechangeMailWay"></switch>
+        </view>
+        <block wx:if="{{issendfree}}">
+            <!-- <view class="freeMailImage">
+                <image src="{{ShowImg.cropImgWH(freeMailImageUrl,170,170)}}" ></image>
+            </view>
+            <view class="freeMailDes">
+                该商品已开启包邮服务
+            </view> -->
+        </block>
+        <block wx:else>
+            <view style='margin:30rpx 0' class='fr24 {{SettingList[0].index >= 0 ? "cb3" : "c3"}} bold '>快递设置</view>
+            <view wx:for="{{SettingList}}" wx:key="this" class='flex' style="padding: 24rpx 0;border-bottom: 1rpx dashed #ddd">
+                <view class='flex1'>
+                    <picker data-index="{{index}}" mode="selector" bindchange="bindPickerChange" value="{{index}}" range="{{Setting}}" range-key="name">
+                        <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                            <text class='fr28 {{index >= 0 ? "c3" : "cb3"}}'>{{item.index >= 0 ? Setting[item.index].name : '请选择快递'}}</text>
+                            <view class="iconfont icon-xiala1 c9 fr24"></view>
+                        </view>
+                    </picker>
+                </view>
+                <view style='margin-left:30rpx' class='flex1'>
+                    <view class='input-out flexb'>
+                        <input type="digit" value='{{item.price}}' class='fr26 flex1 c3' data-index="{{index}}" bindinput="changePrice" type="digit" placeholder='请输入快递价格' />
+                        <view class='fr28 c3'>元</view>
+                    </view>
+                </view>
+                <view data-index="{{index}}" style='color:#ff9b1f;margin-left:30rpx' class='iconfont icon-jian' catchtap='delSetting'></view>
+            </view>
+            <view class="flexc"><button catchtap='addSetting' class='fr28' plain="{{true}}" class="addSendBtn">+ 添加快递</button></view>
+            </block>
+    </view>
+
+    <view class="w100" wx:if="{{change_spec_open && specTableVisible}}">
+        <view class="freeMailTitle mb30"> 
+            <text style="font-size: 36rpx">规格项</text>
+        </view>
+        <view class="flex tac mb20" >
+            <view class="flex1 bold" wx:for="{{specs}}">
+                {{ item.name}} 
+            </view>
+            <view class="flex1 bold">库存</view>
+            <view class="flex1 bold" wx:if="{{isShowPrice}}">价格</view>
+        </view>
+        <view class="flex tac spectable" wx:for="{{specTable}}">
+            <view class="flex1 item" wx:for="{{specs}}" wx:for-index="idx" wx:for-item="{{specItem}}"> {{ item[ specs[idx].name ] }} </view>
+            <!-- <view class="flex1 item bold"> {{ item[ specs[1].name ] }} </view> -->
+            <view class="flex1 input-item"> <input bindinput="stockChange" data-index="{{index}}" value="{{item.stock}}" placeholder-class="holderClass" placeholder="请输入库存"></input> </view>
+            <view class="flex1 input-item" wx:if="{{isShowPrice}}"> <input bindinput="priceChange" data-index="{{index}}" value="{{item.productprice}}"  placeholder-class="holderClass" placeholder="请输入价格"></input> </view>
+        </view>
+
+    </view>
+</view>
+<button class="saveBtn" type="primary" bindtap="save">保存</button>
+
+<component-messageToast></component-messageToast>
+
+

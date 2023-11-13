@@ -1,0 +1,138 @@
+page {
+    background-color: #000;
+}
+
+.fr24, .fr26, .fr28, .fr30, .fr32, .fr40, .fr44 {
+    line-height: 100%;
+}
+
+.card {
+    box-sizing: border-box;    
+    width: 690rpx;
+    margin: 30rpx auto 0 auto;
+    border-radius: 4rpx;
+    padding-top: 60rpx;
+    padding-bottom: 105rpx;
+    position: relative;
+}
+
+.card2 {
+    padding-bottom: 131rpx;
+}
+
+.userInfo-layout {
+    padding-left: 44rpx;
+    padding-right: 60rpx;
+}
+
+.job {
+    margin-top: 36rpx;
+}
+
+.company {
+    margin-top: 20rpx;
+}
+
+.avatar {
+    box-sizing: border-box;
+    height: 140rpx;
+    width: 140rpx;
+    border: 1rpx solid #c29844;
+}
+
+.viewInfo {
+    padding-top: 68rpx;
+    padding-bottom: 60rpx;
+    min-height: 18rpx;
+}
+
+.viewed {
+    margin-right: 100rpx;
+}
+
+.viewed>.c-fairMain, .collection>.c-fairMain {
+    margin-bottom: 22rpx;
+}
+
+.label {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50rpx;
+    border-left: 24rpx solid #c29844;
+    line-height: 50rpx;
+    padding-left: 20rpx;
+}
+
+.status0::after {
+    content: "未投放";
+    height: 50rpx;
+    width: 200rpx; 
+    font-size: 26rpx;
+    line-height: 50rpx;
+    text-align: center;
+    color: #fff;
+    background-color: #d9d9d9;
+}
+
+.status1::after {
+    content: "投放中";
+    height: 50rpx;
+    width: 200rpx;
+    font-size: 26rpx;
+    line-height: 50rpx;
+    text-align: center;
+    color: #fff;
+    background-color: #c2984c;
+}
+
+.putInfo {
+    margin-top: 72rpx;
+    box-sizing: border-box;
+    padding: 0 44rpx;
+}
+
+.tags-layout {
+    margin-top: 50rpx;
+    align-items: flex-start;
+}
+
+.tags>view {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 24rpx;
+}
+
+.tags>view:first-child {
+    margin-top: 0;
+}
+
+.submit {
+    height: 88rpx;
+    width: 610rpx;
+    margin: 140rpx auto 0 auto;
+    border-radius: 4rpx;
+}
+
+.disSubmit {
+    padding: 30rpx;
+    position: absolute;
+    bottom: 20rpx;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.info-bottom {
+    margin-top: 150rpx;
+    color: #facf8a;
+    text-align: center;
+    padding-bottom: 20rpx;
+}
+
+.line-bottom {
+    height: 1rpx;
+    background: linear-gradient(90deg, #000000, #facf8a, #000000);
+    width: 690rpx;
+    margin: 15rpx auto 0 auto;
+    opacity: .6;
+}

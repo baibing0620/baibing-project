@@ -1,0 +1,25 @@
+.wrapper {
+  height: 770rpx;
+  background: #fff;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 128rpx;
+  border-radius: 24rpx;
+}
+.attention {
+  height: 460rpx;
+  width: 460rpx;
+}
+.attention-text {
+  color: #777;
+  font-size: 28rpx;
+  text-align: center;
+}
+.logo {
+  width: 600rpx;
+  height: 96rpx;
+}

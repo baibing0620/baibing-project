@@ -1,0 +1,11 @@
+{
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-toHomePage": "/components/toHomePage/toHomePage",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

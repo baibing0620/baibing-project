@@ -1,0 +1,9 @@
+<include src="../../comm/comm.wxml" />
+<form bindsubmit="formSubmit">
+    <textarea name="textSetting" class="normal fr30 c3" maxlength='60' placeholder-class="textarea-placeholder" placeholder="填写您想要的文案" bindinput="changeSetting" value='{{copySetting}}'>
+        <text>{{copySetting.length}}/60</text>
+    </textarea>
+    <button style='background: #ff9b1f;' formType="submit" disabled='{{disabled}}'>保存</button>
+</form>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,46 @@
+page{
+    background: #f5f5f5;
+    padding-bottom: 100rpx;
+}
+movable-area {
+  height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+movable-view {
+  width: 100%;
+}
+.recommend-good-list{
+    height: 120rpx;
+    background: #fff;
+    /* border: 1px solid #f5f5f5; */
+    padding-left: 30rpx;
+    box-sizing: border-box;
+}
+.recommend-movable{
+    width: 120rpx;
+	height: 100%;
+	background-color: #fcfcfc;
+	border-left: 1px solid #f0f0f0;
+    margin-left: 50rpx;
+}
+ 
+.recommend-movable>view{
+    width: 80rpx;
+	height: 3rpx;
+	background-color: #dfe1e6;
+	border-radius: 3rpx;
+    margin-bottom: 10rpx;
+}
+.recommend-movable>view:last-of-type{
+     margin-bottom: 0;
+}
+.message-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+}

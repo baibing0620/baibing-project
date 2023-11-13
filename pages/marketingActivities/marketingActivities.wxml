@@ -1,0 +1,23 @@
+
+<view>
+  <block wx:for="{{dataList1}}" wx:key="id" >
+      <view class="activities-warper" wx:if="{{item.status == 1}}" bindtap="toDetail" data-type="{{item.type}}" data-id="{{item.id}}" style="background:url({{item.type == 1 ? 'https://facing-1256908372.file.myqcloud.com//image/20191118/635aa1a64f554ed3.png?imageView2/1/w/710/h/270' : item.type == 2 ? 'https://facing-1256908372.file.myqcloud.com//image/20191119/f3e53d34c76f4395.png?imageView2/1/w/710/h/270' : item.type == 3 ? 'https://facing-1256908372.file.myqcloud.com//image/20191119/0a289004fa34df7b.png?imageView2/1/w/710/h/270' : item.type == 4 ? 'https://facing-1256908372.file.myqcloud.com//image/20191119/228a1275ed90b8e8.png?imageView2/1/w/710/h/270' : item.type == 5 ? 'https://facing-1256908372.file.myqcloud.com//image/20191119/69b0c9a478bccc35.png?imageView2/1/w/710/h/270' : item.type == 6 ? 'https://facing-1256908372.file.myqcloud.com//image/20191119/b6ab0bc98eb999c6.png?imageView2/1/w/710/h/270' :''}}); background-size: 100% 100%;">
+          <view class="activities-box">
+              <view class="activities-top flexb">
+                  <view class="activities-name ellipsis1">{{item.title}}</view>
+                  <view class="activities-condition" wx:if="{{isSHOW}}">参与条件：{{item.tiaojian}}</view>
+              </view>
+              <view class="activities-bottom">奖品设置：
+                  <block wx:for="{{item.items}}" wx:key="index" wx:for-item="itemDetail" wx:for-index="itemsIndex">
+                      <text>{{itemDetail.title}}</text>
+                      <text hidden="{{itemsIndex == (item.items.length-1)}}">、</text>
+                  </block>
+              </view>
+          </view>
+          <view class="participate">去参与</view>
+      </view>
+  </block>
+  <block wx:if="{{dataList1.length==0}}">
+      <view class="tac cbd fr30" style="margin-top: 20rpx;">暂无数据</view>
+  </block>
+</view>

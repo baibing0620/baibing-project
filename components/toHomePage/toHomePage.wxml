@@ -1,0 +1,37 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class='toHomePage-layout {{ isReady ? "" : "toHomePage-layout-hidden" }}'>
+	<view class='toHomePage-info'>
+		<image mode='aspectFill' class='toHomePage-avatar' src='{{ ShowImg.cropImgWH(avatar_url, 110, 110) }}' bindtap='handleNavToHomePage'></image>
+		<view class='toHomePage-name-layout'>
+			<view class='toHomePage-nickname'>{{ name }}</view>
+			<view class='toHomePage-position'>
+				<image src="../../imgs/icon_point.png"></image>
+			{{ position }}
+			</view>
+		</view>
+	</view>
+	<view class='toHomePage-gate-layout'>
+		<view class=" toHomePage-gate" bindtap='handleCall'>
+			<view>
+			<image src="../../imgs/icon_phone.png"></image>
+			</view>
+			<text class="fr22 tac">打电话</text>
+		</view>
+		<view class=" toHomePage-gate" bindtap='handleNavToHomePage'>
+		  <view>
+			<image src="../../imgs/icon_card.png"></image>
+			</view>
+			<text class="fr22 tac">我的名片</text>
+		</view>
+		<view wx:if='{{hasBindPhone}}' style="position: fixed;top: 64%;right:3%;">
+			<image mode='aspectFill' class='toHomePage-avatar' src='{{ ShowImg.cropImgWH(avatar_url, 110, 110) }}' bindtap='handleNavToChat'></image>
+			<view bindtap='handleNavToChat' class="consulting">咨询</view>
+		</view>
+		<view wx:else style="position: fixed;top: 64%;right:3%;">
+		  <button style="padding: 0;background-color: transparent;" open-type='getPhoneNumber' bindgetphonenumber="handleGetPhoneNumber" hover-class='none'>
+				<image mode='aspectFill' class='toHomePage-avatar' src='{{ ShowImg.cropImgWH(avatar_url, 110, 110) }}'></image>
+				<view class="consulting1">咨询</view>
+		  </button>
+		</view>
+	</view>
+</view>

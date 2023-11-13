@@ -1,0 +1,68 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1 && clueList.length == 0 }}"/>
+<block wx:else>
+    <view class="layout bf">
+        <view class="top fr28 c3 flex">
+            <text class="iconfont icon-zhuanyuanzhifu1 fr34 cmain"></text>
+            【推荐人】{{ data.introducer.nickname || data.introducer.realname }}
+        </view>
+        <view class="middle flex1 flexcColumn">
+            <block wx:for="{{ distributionInfo }}" wx:key="{{ index }}">
+                <view wx:if="{{ item.isMySelf }}" class="userInfo fr36 cmain bold">我的返佣</view>
+                <view wx:else class="fr30 c3 bold flexc userInfo"><image src="{{ ShowImg.cropImgWH(item.distributor.avatar, 40, 40) }}" mode="aspectFill" class="avatar"></image>{{ item.distributor.nickname }}</view>
+                <view class="fr34 c9 bold flexc distributionInfo">
+                    {{ item.level }}级分销返佣
+                    <text wx:if="{{ data.distribution_type == 2 }}" class="c-red">{{ item.distribution_credit }}积分</text>
+                    <text wx:else class="c-red">{{ item.distribution_money }}元</text>
+                </view>
+                <view wx:if="{{ index < distributionInfo.length - 1 }}" class="iconfont icon-jiang cc arrow"></view>
+            </block>
+            <view class="flexc explain" catchtap="showCover">
+                <text class="iconfont icon-jieshi fr26 ccd"></text>
+            </view>
+        </view>
+        <view class="bottom">
+            <view class="item-layout">
+                <view class="fr26 c9 flexb">
+                    购买人
+                    <view class="flex fr26 c3"><image mode="aspectFill" src="{{ ShowImg.cropImgWH(data.member.avatar, 36, 36) }}" class="avatar2"></image>{{ data.member.nickname }}</view>
+                </view>
+                <view class="fr26 c9 flexb">
+                    订单金额
+                    <view class="fr26 cmain">{{ data.order_money }}元</view>
+                </view>
+                <view class="fr26 c9 flexb">
+                    订单时间
+                    <view class="fr26 c3">{{ data.orderInfo.createtime }}</view>
+                </view>
+                <view class="fr26 c9 flexb goods">
+                    购买商品
+                    <view class="fr26 c3">
+                        <view wx:for="{{ data.orderGoods }}" wx:key="{{ item.id }}">{{ item.title }}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="detail-layout fr24 cb3">
+                <view class="flexc detail" data-orderid="{{ data.orderInfo.id }}" catchtap="toDetail">
+                    订单详情
+                    <text class="iconfont icon-jinru fr24"></text>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view>
+        <view class='dialog {{ showCover ? "" : "dialog-hide" }} bf'>
+            <view class="dialog-this-title fr34 c3 flexc bold">分销佣金的计算方式</view>
+            <block wx:for="{{ distributionInfo }}" wx:key="{{ index }}" wx:if="{{ item.formula }}">
+                <view class="dialog-this-subTitle fr24 c3">{{ item.level }}级分销</view>
+                <view class="dialog-this-formula fr26 cmain">{{ item.formula }} = {{item.distribution_money}}元</view>
+            </block>
+        </view>
+        <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap="hideCover"></view>
+    </view>
+</block>
+
+<component-messageToast></component-messageToast>

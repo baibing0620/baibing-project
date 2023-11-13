@@ -1,0 +1,58 @@
+page {
+    background-color: #f7f7f7;
+}
+
+.fr24, .fr40 {
+    line-height: 100%;
+}
+
+.title {
+    margin-bottom: 26rpx;
+}
+
+.item {
+    background-color: #fff;
+    box-sizing: border-box;
+    border-top: 1rpx solid #ebebeb;
+    border-bottom: 1rpx solid #ebebeb;
+    height: 360rpx;
+    width: 100%;
+    margin-bottom: 8rpx;
+    padding-left: 30rpx;
+    position: relative;
+}
+
+.item>image {
+    width: 300rpx;
+    height: 300rpx;
+    margin-right: 30rpx;
+}
+
+.checkBox {
+    box-sizing: border-box;
+    width: 48rpx;
+    height: 48rpx;
+    font-size: 48rpx;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 1rpx solid #c1c1c1;
+    position: absolute;
+    top: 50%;
+    right: 39rpx;
+    transform: translateY(-50%);
+    color: #ff9b1f;
+}
+
+.bottom {
+    line-height: 44rpx;
+    padding: 30rpx;
+}
+
+.button {
+    height: 96rpx;
+    width: 100%;
+    background-color: #ff9b1f;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

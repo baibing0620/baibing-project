@@ -1,0 +1,18 @@
+<include src="../../comm/comm.wxml" />
+<view wx:if='{{ openTransmit == 1 || openCreditTransfer == 1 }}' class='my-board'>
+    <view class='buttons'>
+        <button wx:if='{{ openTransmit == 1 && !isEndTime }}' class='button bc-ff8100' open-type='share'>{{activity.transmit_sub_name || '邀请获更多抽奖机会'}}</button>
+        <button wx:elif='{{ openTransmit == 1 && isEndTime}}' class='button bc-ff8100' bindtap="activityShare">{{activity.transmit_sub_name || '邀请获更多抽奖机会'}}</button>
+        <button wx:if='{{ openCreditTransfer == 1 }}' class='button bc-ff0007 my-btn' bindtap='handleToTransfor'>{{activity.credit_transfer_name || '积分兑换抽奖机会'}}</button>
+    </view>
+    <view wx:if='{{ activity.helpInfo.length }}' class='inviteLayout'>
+        <view class='inviteList'>
+            <view class='invite' wx:for='{{ activity.helpInfo }}' wx:key='id'>
+                <image class='avatar' mode='aspectFill' src='{{ item.to_user_avatar }}'></image>
+                <view class='nickname share-name'>{{ item.to_user_name }}</view>
+                <view class='num share-num'>+{{ item.get_times }}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- <view style="height: {{activity.helpInfo.length ? '400rpx' : '200rpx'}}" wx:if='{{ openTransmit == 1 || openCreditTransfer == 1 }}'></view> -->

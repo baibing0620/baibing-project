@@ -1,0 +1,14 @@
+<view class='item-box bc-1F94FD' wx:if='{{ onlineRetailersOrderIsOpen }}' catchtap='toNewPage' data-type="retail" data-page="orderManageList">
+    <text class='iconfont icon-shangcheng'></text>电商订单
+</view>
+
+<view class='item-box bc-1F94FD' wx:if='{{ foodOrderIsOpen }}' catchtap='toNewPage' data-type="restaurant" data-page="orderManageList">
+    <text class='iconfont icon-canyin fr40'></text>餐饮订单
+</view>
+
+<view class='item-box bc-1F94FD' wx:if='{{ appointmentOpen }}' catchtap='toNewPage' data-type="appointment" data-page="orderManageList">
+    <text class='iconfont icon-yuyue fr40'></text>预约订单
+</view>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

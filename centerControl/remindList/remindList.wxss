@@ -1,0 +1,18 @@
+/* centerControl/remindList/remindList.wxss */
+
+.remind-item {
+    width:690rpx;
+    background:#fff;
+    border-radius: 10rpx;
+    margin-top: 30rpx;    
+    padding: 0 32rpx 30rpx;
+    box-sizing: border-box;
+}
+.message-top {
+    height: 86rpx;
+    border-bottom: 1rpx solid #EFEFEF;
+}
+.message-item {
+    margin-top: 30rpx;
+    font-size: 26rpx;
+}

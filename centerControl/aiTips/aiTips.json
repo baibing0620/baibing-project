@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "AI提示",
+    "usingComponents": {
+		"component-messageToast": "/components/messageToast/messageToast"
+	}
+}

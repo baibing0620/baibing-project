@@ -1,0 +1,103 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src='../../comm/comm.wxml' />
+<view class="menu-layout">
+    <block wx:for="{{ map }}" wx:key="name" wx:if="{{ item.show }}">  
+        <block wx:if="{{ item.name === '留言'}}">
+            <block wx:if="{{ home_page_chat_model_change == 0  || has_add_wechat }}">
+                <button wx:if="{{ !hasBindPhone }}" catchtap="pullSubscribe" style='color:{{ color || extConfig.themeColor }}' class='menu-clear-btn menu-chat menu-item-margin' open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber" >
+                    <view class="menu-item iconfont icon-touxiang fr50">
+                        <image class='message-avatar {{avatar_url && isAvatarReady ? "" : "message-avatar-hidden"}}' mode='aspectFill' src='{{ ShowImg.cropImgWH(avatar_url, 100, 100) }}' bindload='handleAvatarisReady'/>
+                        <view wx:if="{{ notReadTotal > 0 }}" class="message-num flexc {{ notReadTotal > 9 ? 'fr16' : 'fr18' }}">{{ notReadTotal > 9 ? '9+' : notReadTotal }}</view>
+                    </view>
+                    <view class='menu-chat-text flexc' style="background-color:{{ color || extConfig.themeColor }}">咨询</view>
+                </button>
+                <button wx:else class='menu-chat menu-item-margin' data-name="{{ item.name }}" bindtap="actions" style="padding: 0px; background: none;">
+                    <view class="menu-item iconfont icon-touxiang fr50">
+                        <image class='message-avatar {{avatar_url && isAvatarReady ? "" : "message-avatar-hidden"}}' mode='aspectFill' src='{{ ShowImg.cropImgWH(avatar_url, 100, 100) }}' bindload='handleAvatarisReady'/>
+                        <view wx:if="{{ notReadTotal > 0 }}" class="message-num flexc {{ notReadTotal > 9 ? 'fr16' : 'fr18' }}" >{{ notReadTotal > 9 ? '9+' : notReadTotal }}</view>
+                    </view>
+                    <view class='menu-chat-text flexc' style="background-color:{{ color || extConfig.themeColor }}">咨询</view>
+                </button> 
+            </block>
+            <block wx:elif="{{ home_page_chat_model_change == 1 && !has_add_wechat }}">
+                <button style='color:{{ color || extConfig.themeColor }}' class='menu-clear-btn menu-chat menu-item-margin' bindtap="navAddWechat">
+                    <view class="menu-item iconfont icon-touxiang fr50">
+                        <image class='message-avatar {{avatar_url && isAvatarReady ? "" : "message-avatar-hidden"}}' mode='aspectFill' src='{{ ShowImg.cropImgWH(avatar_url, 100, 100) }}' bindload='handleAvatarisReady'/>
+                    </view>
+                    <view class='menu-chat-text flexc' style="background-color:{{ color || extConfig.themeColor }}">咨询</view>
+                </button>
+            </block>
+        </block>
+        
+
+        <block wx:elif="{{ item.name === '个人中心' }}">
+            <block  wx:if="{{showPersonal}}">
+                <block wx:if="{{getAuthorInfo}}"> 
+                   
+                     <button wx:if="{{userProfileAble}}" bindtap="getUserProfile" class='menu-clear-btn menu-chat menu-item-margin'>
+                            <view  bindtap="pullSubscribe" style="color:{{ color || extConfig.themeColor }}" class="menu-item menu-item-margin iconfont {{ item.iconfont }} fr50">
+                                <view style='position:absolute;right:0;top:0;line-height:34rpx;font-size:38rpx;color:#fe0002' wx:if="{{item.name=='管理中心'&& notReadTotal>0}}" class='iconfont icon-dian1'></view>
+                            </view>
+                    </button>
+
+                    <button wx:else open-type="getUserInfo" catchtap="pullSubscribe" bindgetuserinfo="getUserInfo"  class='menu-clear-btn menu-chat menu-item-margin'>
+                            <view style="color:{{ color || extConfig.themeColor }}" class="menu-item menu-item-margin iconfont {{ item.iconfont }} fr50">
+                                <view style='position:absolute;right:0;top:0;line-height:34rpx;font-size:38rpx;color:#fe0002' wx:if="{{item.name=='管理中心'&& notReadTotal>0}}" class='iconfont icon-dian1'></view>
+                            </view>
+                    </button>
+                </block>
+                <view wx:else style="color:{{ color || extConfig.themeColor }}" class="menu-item menu-item-margin iconfont {{ item.iconfont }} fr50" data-name="{{ item.name }}" bindtap="actions">
+                        <view style='position:absolute;right:0;top:0;line-height:34rpx;font-size:38rpx;color:#fe0002' wx:if="{{item.name=='管理中心'&& notReadTotal>0}}" class='iconfont icon-dian1'></view>
+                </view>
+            </block>
+            
+        </block>
+        <view wx:else style="color:{{ color || extConfig.themeColor }}" class="menu-item menu-item-margin iconfont {{ item.iconfont }} fr50" data-name="{{ item.name }}" bindtap="actions">
+            <view style='position:absolute;right:0;top:0;line-height:34rpx;font-size:38rpx;color:#fe0002' wx:if="{{item.name=='管理中心'&& notReadTotal>0}}" class='iconfont icon-dian1'></view>
+        </view>
+    </block>
+</view>
+
+<view wx:if="{{ setting['分享'] }}" class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+    <component-poster src='{{ shareImageUrl }}' themeColor='{{ extConfig.themeColor }}' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+</view>
+<view class="share-diy-modal" wx:if="{{showShareModal}}">
+    <view bindtap="closeShareModal" class="flex1 w100"></view>
+    <view class="share-diy-enevt {{showShareModal?'share-diy-modal-up':'share-diy-modal-down'}}"> 
+        <view class="share-item-box flexColumn">
+          <view class="border-line  flex c9">
+              <view style="margin-right:30rpx;"></view> 
+              <text style="color:#000">分享到</text>  
+              <view style="margin-left:30rpx;"></view>
+          </view>
+          <view class="flexc w100">
+            <button class='shareItem flexcColumn fr26 c6 active flex1' open-type="share">
+                <image class='shareItem-image' src='https://facing-1256908372.file.myqcloud.com//image/20181108/55b5f2dc124171a2.png?imageView2/2/w/600'></image>
+                <text class="shareItem-title">微信好友</text> 
+            </button>
+            <view class='shareItem flexcColumn fr26 c6 active flex1' bindtap='getPageQRCode'>
+                <image class='shareItem-image' src='https://facing-1256908372.file.myqcloud.com//image/20181019/3c51955b4d7fa3bd.png?imageView2/2/w/600'></image>
+                <text class="shareItem-title">生成海报</text>
+            </view>
+            <view class='shareItem flexcColumn fr26 c6 active flex1' bindtap='getH5Link' wx:if="{{setting['留言'].from == 'contentDetail'}}">
+              <image class='shareItem-image' src=' https://facing-1256908372.file.myqcloud.com//image/20200313/791132885375d43b.png?imageView2/2/w/600'></image>
+                  <text class="shareItem-title">h5链接</text>
+            </view>
+          </view>
+        </view>
+    </view>
+</view>
+
+
+<view class='mlc w100' wx:if='{{linkOpen}}' bindtap='closeLinkBox'></view>
+<view class="w100 linkBox flexColumn" wx:if="{{linkOpen}}" bindtap="closeH5">
+  <view class="w100 linkContainer flexColumn">
+    <view class="linkTitle">分享链接</view>
+    <view class="linkUrl fr30">{{linkUrl}}</view>
+    <view class="w100 fr26 linkInfo">分享链接可分享至朋友圈、好友</view>
+    <view class="btnBottom flex fr34">
+      <view class="btnCancel flex1" bindtap="closeLinkBox">取消</view>
+      <view class="btnConfirm flex1" bindtap="copyLinkUrl">立即复制</view>
+    </view>
+  </view>
+</view>

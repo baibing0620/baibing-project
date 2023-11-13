@@ -1,0 +1,120 @@
+page {
+    background: #f5f5f5;
+    padding-bottom: 100rpx;
+}
+
+.container {
+    border-radius: 10rpx;
+    background: #fff;
+    border: 1rpx solid #e6e6e6;
+    margin-bottom: 10rpx;
+}
+
+.c59 {
+    color: #595959;
+}
+
+.container>view:first-of-type {
+    padding: 26rpx 30rpx;
+    line-height: 50rpx;
+    border-bottom: 1rpx solid #f5f5f5;
+}
+
+.operation {
+    height: 80rpx;
+}
+
+.operation>view {
+    padding: 0 40rpx;
+    color: #1F94FD;
+}
+
+.operation>view:first-of-type {
+    border-right: 1rpx solid #f0f0f0;
+}
+
+.operation>view>text {
+    padding-right: 14rpx;
+}
+
+.message-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.btn {
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+    background-color: #1F94FD;
+}
+
+.fr {
+    float: right;
+}
+
+.model-talk {
+    width: 690rpx;
+    background: #fff;
+    margin-top: 140rpx;
+    border-radius: 10rpx;
+}
+
+.model-title {
+    margin: 44rpx 0 40rpx;
+}
+
+.modal-box-talk {
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 2000;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.font-normal {
+    font-weight: normal;
+}
+
+.textarea-view {
+    box-sizing: border-box;
+    height: 300rpx;
+    width: 630rpx;
+    padding: 19rpx 30rpx;
+    background-color: #f7f7f7;
+    border: 1rpx solid #d9d9d9;
+    border-radius: 4rpx;
+}
+
+.textarea-view>textarea {
+    width: 100%;
+    color: #333;
+    line-height: 46rpx;
+    font-size: 28rpx;
+}
+
+.modal-box-talk button {
+    width: 382rpx;
+    height: 76rpx;
+    border-radius: 6rpx;
+    line-height: 76rpx;
+    margin: 40rpx 0;
+    background: #1F94FD;
+}
+
+.img {
+    width: 310rpx;
+    height: 310rpx;
+    margin: 200rpx 0 58rpx;
+}
+
+button[disabled]:not([type]) {
+    background: #1F94FD;
+}

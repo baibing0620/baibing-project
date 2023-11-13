@@ -1,0 +1,14 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="modal-box-diy" bindtap='closeBless' >
+    <view class='blessing-bag' catchtap='noClose'>
+      <view class="ellipsis-bless fr36 cbless blessing-bag-title fw600">{{blessData.card.name}}</view>
+      <view class='fr26 cf'>恭喜你！完成全部任务，已获得福袋</view>
+      <view class='blessing-bag-img flexc'><image src="{{ShowImg.cropImgWH(blessData.card.avatar_url,114,144)}}" mode="aspectFill"></image></view>
+      <view style="margin-bottom: 58rpx" class='fr30 cbless ellipsis1 flexc fw600'>任务成功</view>
+      <view wx:if="{{recevieData.type == 1}}" class="fw600 cbless fr80">{{recevieData.money?recevieData.money:0}}<text class="fr30">元</text></view>
+      <view wx:else class="fw600 cbless fr80">{{recevieData.credit?recevieData.credit:0}}<text class="fr30">积分</text></view>
+      <view class='fr24 cf' style='margin:72rpx 0 32rpx'>{{recevieData.type == 1?'已存入账户，可提现至微信零钱中使用':'积分已直接放入个人中心'}}</view>
+            <view class='belss-bag-btn' catchtap="checkBlessBag">查看福袋</view>
+      <view class='fr26 cf' style='margin-top:32rpx' catchtap='navRule'>活动规则</view>
+    </view>
+</view>

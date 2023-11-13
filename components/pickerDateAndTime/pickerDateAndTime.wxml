@@ -1,0 +1,6 @@
+<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class="form-picker flexb">
+            <text class='fr28 {{!time?"cb3":"c3"}}'>{{!time?placeholder:time}}</text>
+            <view class="iconfont icon-xiala1 c9 fr24"></view>
+        </view>
+</picker>

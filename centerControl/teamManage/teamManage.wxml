@@ -1,0 +1,217 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module="util">
+    function strSplice(str) {
+        if (str.length >= 6) {
+            return str.substring(0, 5) + '...'
+        } else {
+            return str
+        }
+    }
+    module.exports = {
+        strSplice: strSplice
+    }
+</wxs>
+<view class='layout {{switchTab.currentIndex == 0 && showCover ?  "lock" : ""}}'>
+
+  <view class='title flexc' style='background: #1F94FD'>
+    <view class='flex cf fr34' catchtap='showCover'>
+      {{ menu.current.name }} 
+      <i class='iconfont icon-xiala1 fr20'></i>
+    </view>
+  </view>
+
+  <component-switchTab props='{{ switchTab }}' bind:myevent='onTabClick'></component-switchTab>
+  
+  <view hidden='{{ switchTab.currentIndex != 0 }}'>
+  
+    <team-manage-overview departmentIds="{{ overView }}"></team-manage-overview>
+  
+  </view>
+
+  <view hidden='{{ switchTab.currentIndex != 1 }}'>
+
+    <view wx:if='{{ rankings.path.length < 1 && rankings.show.length > 0 }}' class='sort fr26 flex bcf' style='color: #1F94FD'>
+      <view class='flex1 flexc'>
+        <picker bindchange='bindPickerChange' data-index='0' value='{{ picker[0].index }}' range='{{ picker[0].list }}'>
+          <view class="picker flexc">
+            {{ picker[0].list[picker[0].index] }}
+            <i class='iconfont icon-xiala1 fr20'></i>
+          </view>
+        </picker>
+      </view>
+      <view class='flex1 flexc'>
+        <picker bindchange='bindPickerChange' data-index='1' value='{{ picker[1].index }}' range='{{ picker[1].list }}'>
+          <view class="picker flexc">
+            {{ picker[1].list[picker[1].index] }}
+            <i class='iconfont icon-xiala1 fr20'></i>
+          </view>
+        </picker>
+      </view>
+      <view class='flex1 flexc'>
+        <picker bindchange='bindPickerChange' data-index='2' value='{{ picker[2].index }}' range='{{ picker[2].list }}'>
+          <view class="picker flexc">
+            {{ picker[2].list[picker[2].index] }}
+            <i class='iconfont icon-xiala1 fr20'></i>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view wx:if='{{ rankings.path.length > 0 }}' class='back fr26 flexc active' style='color: #1F94FD' catchtap='rankingBack'>
+      <i class='iconfont icon-fanhui1 fr26'></i>
+      返回上一级
+    </view>
+
+    <view wx:for='{{ rankings.show }}' wx:key='index' class='sort-item flexb bcf active' data-item='{{ item }}' catchtap='rankingClick'>
+      <view class='flex fr32 c3'>
+        <i class='fr36 c3 flexc'>
+          <image wx:if='{{ index == 0 }}' class='sort-icon' src='/imgs/1.png'></image>
+          <image wx:if='{{ index == 1 }}' class='sort-icon' src='/imgs/2.png'></image>
+          <image wx:if='{{ index == 2 }}' class='sort-icon' src='/imgs/3.png'></image>
+          {{ index > 2 ? index + 1 : "" }}
+        </i>
+        {{ item.name }}
+      </view>
+      <view class='flex bold {{ index === 0 ? "fr36" : index === 1 ? "fr34" : index === 2 ? "fr32" : "fr28"}}' style='color: {{ index < 3 ? "#1F94FD" : "#999" }}'>
+        {{ picker[1].index === 0 ? ( item.dataStatistics.userCount[0].statusCount || item.userCount[0].statusCount || 0 ) + "人" : 
+           picker[1].index === 1 ? ( item.dataStatistics.userCount[item.dataStatistics.userCount.length-1].statusCount || item.userCount[item.dataStatistics.userCount.length-1].statusCount || 0 ) + "人" : 
+           picker[1].index === 2 ? ( item.dataStatistics.orderCount.count || item.orderCount.count || 0 ) + "单" : 
+           picker[1].index === 3 ? ( item.dataStatistics.orderCount.salesPrice || item.orderCount.salesPrice || 0 ) + "￥" : 
+           picker[1].index === 4 ? ( item.dataStatistics.userCooperationConversion.conversion || item.userCooperationConversion.conversion || 0 ) + "%" : 
+           picker[1].index === 5 ? ( item.dataStatistics.saleCooperationConversion || item.saleCooperationConversion || 0 ) + "%" : "" }}
+        <i class='iconfont {{ item.child && item.child.length > 0 ? "icon-you" : "" }} fr22 cc'></i>
+      </view>
+    </view>
+
+    <view wx:if='{{  rankings.show.length < 1 }}' class='none fr24 cc flexc'>暂无数据</view>
+
+  </view>
+
+  <view hidden='{{ switchTab.currentIndex != 2 || cardSelected}}'>
+
+    <view class='back-tiny flexb'>
+      <view hidden='{{ !cards.path || cards.path.length < 1 }}' class='fr26 flexc heightFull active nowrap ellipsis' style='color: #1F94FD; padding: 0 30rpx;' catchtap='cardBack'>
+        <i class='iconfont icon-fanhui1 fr26'></i>
+        返回上一级
+      </view>
+      <i></i>
+      <view class='input-box flexb {{ !cards.path || cards.path.length < 1 ? "input-box-full" : "" }} nowrap'>
+        <input class='fr24 c3' placeholder='请输入员工姓名' bindinput='bindInput' value='{{ search }}' placeholder-class='cb3'></input>
+        <view class='iconfont icon-sousuo flexc cb3' catchtap='cardSearch'></view>
+      </view>
+    </view>
+
+    <view wx:for='{{ cards.show }}' wx:key='index'>
+
+      <view wx:if='{{ item.child || item.card }}' class='sort-item-card flexb bcf active' data-item='{{ item }}' catchtap='cardClick'>
+        <view class='flex fr32 c3'>
+          {{ item.name }}
+        </view>
+        <i class='iconfont icon-you fr22 cc'></i>
+      </view>
+
+      <view wx:else class='card-item flex active' data-cardid='{{ item.id }}' data-uid='{{ item.uid }}' catchtap='selected'>
+        <image class='avatar' mode="aspectFill" src='{{  ShowImg.cropImgWH(item.avatar_url, 120, 120) }}'></image>
+        <view>
+          <view class='flex fr26 c80'>
+            <view class='name fr32 c3 nowrap' style='max-width: 222rpx'>{{ item.name }}</view>
+            <view class='nowrap' style='width: 262rpx'>{{ item.departmentName }}</view>
+          </view>
+          <view class='flex card-data'>
+            <view class='flexcColumn fr24 c9'>
+              <view class='fr28 c3'>{{ item.userCount ? item.userCount[0].statusCount || "0" : "0" }}</view>
+              {{ item.userCount ? item.userCount[0].statusName || "暂无" : "暂无" }}
+            </view>
+            <view class='flexcColumn fr24 c9'>
+              <view class='fr28 c3'>{{ item.userCount ? item.userCount[item.userCount.length-1].statusCount || "0" : "0" }}</view>
+              {{ item.userCount ? util.strSplice(item.userCount[item.userCount.length-1].statusName) || "暂无" : "暂无" }}
+            </view>
+            <view class='flexcColumn fr24 c9'>
+              <view class='fr28 c3'>{{ item.userCooperationConversion ? item.userCooperationConversion.conversion : "0" }}%</view>
+              {{ item.userCooperationConversion ? util.strSplice(item.userCooperationConversion.statusName) : "暂无" }}
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <view wx:if='{{  cards.show.length < 1 }}' class='none fr24 cc flexc'>暂无数据</view>
+  </view>
+
+  <view wx:if='{{ switchTab.currentIndex == 2 && cardSelected }}'>
+    <view class='back fr26 flexc active' style='color: #1F94FD' catchtap='selectBack'>
+      <i class='iconfont icon-fanhui1 fr26'></i>
+      返回上一级
+    </view>
+    <view class='sort-item-card flexb bcf active' data-item='{{ item }}' data-type='dataAnalysis' catchtap='navigate'>
+      <view class='flex fr32 c3'>
+      <i class='iconfont icon-shuju fr32' style='color: #1F94FD; margin-right: 20rpx;'></i>
+        数据分析
+      </view>
+      <i class='iconfont icon-you fr22 cc'></i>
+    </view>
+    <view class='sort-item-card flexb bcf active' data-item='{{ item }}' data-type='customerList' catchtap='navigate'>
+      <view class='flex fr32 c3'>
+      <i class='iconfont icon-shuju fr32' style='color: #1F94FD; margin-right: 20rpx;'></i>
+        客户资源
+      </view>
+      <i class='iconfont icon-you fr22 cc'></i>
+    </view>
+
+    <view class='sort-item-card flexb bcf active' data-item='{{ item }}' data-type='buttWeChatTransform' catchtap='navigate' wx:if="{{private_region_type ==1 || private_region_type == 3}}">
+      <view class='flex fr32 c3'>
+      <i class='iconfont icon-shuju fr32' style='color: #1F94FD; margin-right: 20rpx;'></i>
+        企微转化
+      </view>
+      <i class='iconfont icon-you fr22 cc'></i>
+    </view>
+
+    <view class='sort-item-card flexb bcf active' data-item='{{ item }}' data-pack="centerControl" data-type='contentMarketing' catchtap='navigate'>
+      <view class='flex fr32 c3'>
+      <i class='iconfont icon-shuju fr32' style='color: #1F94FD; margin-right: 20rpx;'></i>
+        内容营销
+      </view>
+      <i class='iconfont icon-you fr22 cc'></i>
+    </view>
+  </view>
+
+  <view hidden='{{ switchTab.currentIndex != 3 }}'>
+    <jx-goodsRank
+            goodsData="{{goodsData}}"
+            NumIndex="{{NumIndex}}"
+            NumIndex="{{DateIndex}}"
+            showStyle="{{showStyle}}"
+            loadStyle="{{loadStyle}}"
+            bind:changeNum="changeNum"
+            bind:changeDate="changeDate"
+            bind:ChangeRadio="ChangeRadio"
+    ></jx-goodsRank>
+  </view>
+
+
+</view>
+
+<view>
+  <view class='dialog {{ showCover ? "" : "dialog-hide" }} newMessage'>
+    <view class='dialog-label' style='background-color: #1F94FD'>
+      <i wx:if='{{ menu.path.length > 1 }}' class='dialog-back' catchtap='menuBack'></i>
+      部门选择
+    </view>
+    <view class='dialog-content bcf'>
+      <scroll-view class='dialog-content' scroll-y>
+        <view class='dialog-item flexb fr28 c3' data-item='{{ menu.path[menu.path.length - 1] }}' data-change='{{ true }}' catchtap='menuClick'>{{  menu.path[menu.path.length - 1].name }}</view>
+        <view wx:for='{{ menu.show }}' wx:key='index' class='dialog-item flexb fr28 c3' data-item='{{ item }}' catchtap='menuClick'>
+          {{ item.name }}
+          <i wx:if='{{ item.child && item.child.length > 0 }}' class='iconfont icon-you fr20 cc'></i>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='showCover'></view>
+</view>
+
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

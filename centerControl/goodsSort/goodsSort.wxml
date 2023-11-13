@@ -1,0 +1,33 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无商品',showImg:'https://facing-1256908372.file.myqcloud.com//image/20201127/d54845534cdcc819.png'}}" wx:if="{{showStyle!=1}}" />
+<block wx:else>
+    <view class="sortTip" wx:if="{{showTip}}" animation="{{animationData}}">
+        <view class="tipDes">数字越大，排在越前面</view>
+        <view class="closeTip" bindtap="handleCloseTip"><text class="iconfont icon-tianjiajiahaowubiankuang"></text></view>
+    </view>
+    <view class="goodsList" wx:for="{{selectGoods}}" wx:key="{{index}}"> 
+            <image src="{{ShowImg.cropImgWH(item.thumb_url, 171, 171)}}" mode="scaleToFill" style="width: 171rpx; height: 171rpx; position: relative; border-radius: 4rpx;">
+                <!-- <view class="flag fr22 cf flexc" wx:if="true">
+                        秒杀商品
+                    </view>
+                    <view class="flag fr22 cf flexc" wx:if="{{item.is_bargain==1}}">
+                        砍价商品
+                    </view>
+                    <view class="flag fr22 cf flexc" wx:if="{{item.is_groupbuy==1}}">
+                        拼团商品
+                    </view> -->
+            </image>
+            <view class="desWords">
+                    <view class="desWordsTitle ellipsis2">{{item.title}}</view>
+                    <view class="desWordsType"><text style="color: #999">类别：</text>{{item.category.name}}{{item.childCategory && item.childCategory.parentid != '0'?'>>'+item.childCategory.name :''}}</view>
+            </view>
+            <view class="preview">
+                    <view class="previewContent"><text class="sortWord">排序:</text><input data-id="{{item.id}}" placeholder="" class="sortInput" maxlength="3" type="number" placeholder-class="sortPlaceholderInput" value="{{item.displayorder}}" bindblur="blurSort"/></view>
+            </view>
+       </view>
+       <template is="moreData" data="{{loadStyle:loadStyle,loadOverText:'已显示全部选品商品'}}" />
+</block>
+
+    <component-messageToast></component-messageToast>

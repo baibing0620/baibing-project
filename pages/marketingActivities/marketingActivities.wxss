@@ -1,0 +1,64 @@
+.activities-warper{
+    width: 710rpx;
+    height: 270rpx;
+    margin:0 auto;
+    /* background-color: orange; */
+    margin-top: 20rpx;
+    border-radius: 10rpx;
+    position: relative;
+    /* background-image: url('https://facing-1256908372.file.myqcloud.com//image/20191118/635aa1a64f554ed3.png');
+    background-size: 100% 100%; */
+}
+.activities-warper:last-child {
+    margin-bottom: 40rpx;
+}
+
+.activities-box{
+    width: 458rpx;
+    height: 202rpx;
+    padding-top: 30rpx;
+    margin: 0 0 30rpx 30rpx;
+}
+
+.activities-name{
+    width: 300rpx;
+    font-size: 34rpx;
+    color: #ffffff;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.activities-condition{
+    font-size: 26rpx;
+    color: #ffffff;
+}
+
+.activities-bottom{
+    width: 354rpx;
+	/* height: 105rpx; */
+	font-size: 26rpx;
+    line-height: 40rpx;
+    margin-top: 46rpx;
+    color: #ffffff;
+    display: -webkit-box;    
+    -webkit-box-orient: vertical;    
+    -webkit-line-clamp: 3;    
+    overflow: hidden;
+}
+
+.participate{
+    width: 132rpx;
+	height: 50rpx;
+	background-color: #f08d26;
+    border-radius: 0rpx 16rpx 0rpx 24rpx;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 26rpx;
+    text-align: center;
+    line-height: 50rpx;
+    color: #fff;
+}
+

@@ -1,0 +1,112 @@
+@import './../../comm/base.wxss';
+@import './../../iconfont/iconfont.wxss';
+.c-1D2023 {
+    color: #1D2023;
+}
+
+.fr30 {
+    font-size: 30rpx;
+}
+
+.fr34 {
+    font-size: 34rpx;
+}
+
+.mr24 {
+    margin-right: 24rpx;
+}
+
+.pl6 {
+    padding-left: 6rpx;
+}
+
+.pl26 {
+    padding-left: 26rpx;
+}
+
+.pl30 {
+    padding-left: 30rpx;
+}
+
+.pr16 {
+    padding-right: 16rpx;
+}
+
+.pr24 {
+    padding-right: 24rpx;
+}
+
+.pr26 {
+    padding-right: 26rpx;
+}
+
+.ml12 {
+    margin-left: 12rpx;
+}
+
+.category {
+    height: 50rpx;
+    border: 1rpx solid #CCCCCC;
+    border-radius: 25rpx;
+    position: relative;
+}
+
+.category-icon {
+    background-image: linear-gradient(90deg, #1F94FD 0%, #16B1FF 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.personal-avatar {
+    height: 50rpx;
+    width: 50rpx;
+    border-radius: 50%;
+    border: 4rpx solid transparent;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.personal-button {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: transparent;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.noHeight {
+    height: 0;
+}
+
+.stage {
+    width: 100vw;
+    padding-bottom: 20rpx;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.controller {
+    position: relative;
+    z-index: 2;
+}
+
+.title-center {
+    position: absolute;
+    left: 50%;
+    bottom: 20rpx;
+    transform: translateX(-50%);
+    width: 100vw;
+}
+
+.title-center .title {
+    justify-content: center;
+}

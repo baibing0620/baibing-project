@@ -1,0 +1,55 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" />
+    <view class="list">
+    <view class="select">
+        <view class="select_num" bindtap="changDir" data-top="topNum">
+            <picker range="{{selectNum}}" bindchange="changeNumIndex" bindcancel="reset" data-top="topNum">
+                <view class="flexc">{{selectNum[NumIndex]}}
+                    <!--<view class="{{topNum ? 'icon top' : 'icon'}}"></view>-->
+                    <i class="iconfont icon-xiala1" style="font-size: 20rpx; margin-left:16rpx; line-height: 100%"></i>
+                </view>
+            </picker>
+        </view>
+        <view class="select_time" bindtap="changDir" data-top="topTime">
+            <picker range="{{selectDate}}" bindchange="changeDateIndex" bindcancel="reset" data-top="topTime">
+                <view class="flexc">{{selectDate[DateIndex]}}
+                    <i class="iconfont icon-xiala1" style="font-size: 20rpx; margin-left:16rpx; line-height: 100%"></i>
+                </view>
+            </picker>
+        </view>
+        <view class="select_goods" bindtap="changRadio">
+            <view class="{{isChecked ? 'flexc isCheck' : 'flexc'}}">
+                 <!--<radio style="transform: scale(0.5)" checked="{{isChecked}}"/>-->
+                <i class="iconfont icon-xuanze" wx:if="{{isChecked}}" style="color: #1F94FD;margin-right: 12rpx"></i><i class="iconfont icon-yuan1" wx:if="{{!isChecked}}" style="color: #999;margin-right: 12rpx"></i>只看公司商品
+
+            </view>
+        </view>
+    </view>
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无商品信息'}}" wx:if="{{showStyle!=1&&goodsData.length==0}}" />
+    <block wx:else>
+        <view class="goods" wx:for="{{goodsData}}" wx:key="index">
+            <view class="goods_left">
+                <image src="/imgs/{{index+1}}.png" style="width: 46rpx; height: 58rpx; margin-left: -4rpx" wx:if="{{index < 3}}"></image>
+                <view wx:if="{{index > 2 && index < 50}}" style="font-weight: lighter; width: 46rpx;height: 58rpx;text-align: center">{{index + 1}}</view>
+            </view>
+            <view class="goods_mid">
+                <image src="{{ShowImg.cropImgWH(item.thumb.url,150,150)}}" style="width: 150rpx; height: 150rpx; border-radius: 6rpx;"></image>
+            </view>
+            <view class="goods_right">
+                <view class="goods_right_title">{{item.title}}</view>
+                <view class="{{item.staffName ? 'goods_right_type_1' : 'goods_right_type_2'}}" style="{{item.staffName.length <= 2 ? 'width: 60rpx': 'width: 80rpx'}}">
+                    <text>{{item.staffName ? item.staffName : '公司'}}</text>
+                </view>
+                <view class="goods_right_num">
+                    <view>浏览量{{item.goods_view_num}}</view>
+                    <view>销量{{item.sales}}</view>
+                </view>
+            </view>
+        </view>
+    </block>
+
+    <view wx:if="{{goodsData.length > 0}}">
+        <template is="moreData" data="{{loadStyle:loadStyle}}"/>
+    </view>
+
+</view>

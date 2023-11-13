@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "评论审核",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

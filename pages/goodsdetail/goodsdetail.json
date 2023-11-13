@@ -1,0 +1,22 @@
+{
+  "navigationBarTitleText": "商品详情页",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "modal-video": "/components/modalVideo/modalVideo",
+    "diy-rich-text":"/components/richTextDIY/richTextDIY",
+    "open-vip":"/components/openVip/openVip",
+    "course-detail":"/components/courseDetails/courseDetails",
+    "component-remind": "/components/remind/remind",
+    "component-poster": "/components/poster/poster",
+    "component-toHomePage": "/components/toHomePage/toHomePage",
+    "component-messageToast": "/components/messageToast/messageToast",
+    "frame-ms": "/components/frame-ms/frame-ms",
+    "share": "/components/share/share",
+    "win-person-list": "/components/winPersonList/winPersonList",
+    "un-win-list": "/components/unWinList/unWinList",
+    "activity-rules": "/components/activityRules/activityRules"
+  } 
+} 

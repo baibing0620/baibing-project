@@ -1,0 +1,35 @@
+<import src="../../template/initShow/initShow.wxml" />
+<view class="title flexc">
+    <block wx:for="{{tabBar}}" wx:key="status">
+        <view class="flex1 text-center {{ item.status == type ? 'activeTab' : 'unchecked'}}" data-status="{{ item.status }}" bindtap="tabChange">{{ item.title }}</view>
+    </block>
+</view>
+<template is="initShow" data="{{showStyle: showStyle, showNoMsg: '暂无记录'}}" wx:if="{{ showStyle != 1 && dataList.length == 0 }}" />
+<block wx:else>
+    <block wx:if="{{ type == 1 }}">
+        <view wx:for="{{ dataList }}" class="credit-detail flexb">
+            <view>
+                <view class="c1a fr32">{{ item.description }}</view>
+                <view class="c9 fr26 mt26">{{ item.create_time }}</view>
+            </view>
+            <view>
+                <view wx:if="{{ item.pay_type == 1 }}" class="cmain">+ {{ item.handle_credit }}</view>
+                <view wx:else class="c1a fr32">- {{ item.handle_credit }}</view>
+            </view>
+        </view>
+    </block>
+    <block wx:else >
+        <view wx:for="{{ dataList }}"  class="credit-detail flexb">
+            <view>
+                <view class="c1a fr32">{{ item.description }}</view>
+                <view class="c9 fr26 mt26">{{ item.create_time }}</view>
+            </view>
+            <view>
+                <view wx:if="{{ item.pay_type == 1 }}" class="cmain">+ {{ item.handle_credit }}</view>
+                <view wx:else class="c1a fr32">- {{ item.handle_credit }}</view>
+            </view>
+        </view>
+    </block>
+    <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+    <component-messageToast></component-messageToast>
+</block>

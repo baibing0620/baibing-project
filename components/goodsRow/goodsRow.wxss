@@ -1,0 +1,41 @@
+@import '../../comm/base.wxss';
+
+.goods-item {
+    height: 300rpx;
+    padding-left: 20rpx;
+    padding-right: 30rpx;
+    background: white;  
+    position: relative;
+    border-bottom: 6rpx solid #f5f5f5;
+}
+.goods-img {
+  display: block;
+  width: 250rpx;
+    height: 250rpx;
+    margin-right: 20rpx;
+    flex-shrink: 0;
+    border-radius: 8rpx;
+}
+.des-item{
+    height: 250rpx;
+}
+.goods-title{
+    line-height: 50rpx;
+}
+.before-price{
+    text-decoration: line-through;
+    padding-left: 20rpx;
+}
+.cover-flag{
+    position: absolute;
+    top: 36rpx;
+    left: 20rpx;
+    width: 70rpx;
+    height: 36rpx;
+    font-size: 24rpx;
+    text-align: center;
+    line-height: 40rpx;
+    color: white;
+    z-index: 100;
+    background: red;
+}

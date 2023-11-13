@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的购物车",
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "component-good-category": "../../components/goodscategory/goodscategory",
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

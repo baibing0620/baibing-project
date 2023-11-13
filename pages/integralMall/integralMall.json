@@ -1,0 +1,16 @@
+{
+    "navigationBarTitleText": "积分商城",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-image": "/components/image/image",
+        "component-good-column": "/components/goodscategory/goodscategory",
+        "component-remind": "/components/remind/remind",
+        "component-bless-bag-comm": "/components/blessBagComm/blessBagComm",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-toHomePage": "/components/toHomePage/toHomePage",
+        "component-menu": "/components/menu/menu"
+    }
+} 

@@ -1,0 +1,8 @@
+
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "添加邀请",
+  "usingComponents": {
+    "painter": "/components/painter/painter"
+  }
+}

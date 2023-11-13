@@ -1,0 +1,10 @@
+
+<view class="resultContainer flexColumn"  bindtap="closeResult">
+  <view class="resultBox flexColumn">
+    <view class='fr30' style="margin-top: 56rpx;">恭喜您获得</view>
+    <view class="lineone fr30 resultInfo" style="margin-bottom:10rpx">{{result_prize}}</view>
+    <view class="pointTips fr24" wx:if="{{result_coupon == 0}}" >*可联系名片主进行兑奖</view>
+    <view class="pointTips fr24" wx:else>*请到我的优惠券页面进行查看</view>
+    <view wx:if="{{valide_time}}" class="fr20" style="margin-top:10rpx;">兑奖有效期:{{valide_time}}</view>
+  </view>
+</view>

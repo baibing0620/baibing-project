@@ -1,0 +1,128 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <view class="container">
+      <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+
+      <view class="tab-bar scroll-tab-bar flex fr30" hidden="{{isCredit == 1 || labelHead.length <= 1}}" >
+        <scroll-view class="select-scroll flexc" scroll-x="true" scroll-into-view="{{scrollView}}">
+          <view bindtap="scrolltabchange"  wx:for="{{ labelHead }}" data-index="{{index}}" class="select-scroll-item {{ activeScrollIndex == index ? 'tab-active bold' : 'c3' }}" wx:key="id" id="{{ 'view' + index }}">
+            {{ item.name }}
+          </view>
+        </scroll-view>
+        <view class="select-down-box flexc" bindtap="labelHeadDown">
+          <text class="iconfont icon-xiala1 c9 fr22"></text>
+        </view>
+      </view>
+
+      <view class="tab-bar flex fr30 c6 w100 mb20" hidden="{{isCredit == 1}}">
+        <block wx:for="{{tabBar}}" wx:key="{{index}}">
+          <view data-index="{{index}}" class="tab-bar-item flexc flex1 {{activeTabBarIndex==index?'tab-active':'c6'}}" bindtap="tabBarClick">
+            <text> {{item.name}}</text>
+            <!-- +item.typeText -->
+            <view class="flexcColumn tabIconBox">
+              <text class="iconfont icon-tabUp fr18 tabIcon  {{ activeTabBarIndex==index && item.orderType == 'asc' ? 'tab-active':'cc' }}"></text>
+              <text class="iconfont icon-tabDown fr18 tabIcon {{ activeTabBarIndex==index && item.orderType == 'desc' ? 'tab-active':'cc'}}"></text>
+            </view>
+          </view>
+        </block> 
+        <!-- {{activeTabBarIndex==index?'c3':''}}" -->
+        <view class="tab-bar-item flexc flex1" bindtap="filterLabel">
+          <text class="c6 {{ groupIds.length ? 'tab-active':''}}">筛选</text> 
+          <text class="iconfont icon-shaixuan fr32 {{ groupIds.length ? 'tab-active':''}}"></text>
+        </view>
+        <view class="change-goods-show iconfont {{goodsShowStyle=='column'?'icon-classify':'icon-liebiao'}} c6" bindtap="changeGoods">
+        </view>
+      </view>
+
+
+      <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关商品信息'}}" wx:if="{{showStyle!=1&&goodsList.length==0}}" />
+      <view class="w100" wx:else>
+        <component-good-row goodsList="{{goodsList}}" wx:if="{{goodsShowStyle=='row'}}" searchType="{{searchType}}" />
+        <component-good-column isOpenCredit="{{ is_open_credit }}" goodsList="{{goodsList}}" wx:else searchType="{{searchType}}" />
+        <template is="moreData" data="{{loadStyle:loadStyle}}" />
+      </view>
+    </view>
+
+   
+
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>
+
+<view class="labelHeadMask" catchtouchmove="preventEvent" bindtap="labelHeadUp" wx:if="{{ labelHeadShow }}">
+  <view class="labelHeadContainer" catchtap="preventEvent">
+    <view class="tab-bar pl30 flexb fr30 w100"  >
+      <view class="c3 ">
+        {{ labelHead[activeScrollIndex].name }}
+      </view>
+      <view class="flexc select-up-box" bindtap="labelHeadUp">
+        <text class="iconfont icon-xiala1 iconUp fr22"></text>
+      </view>
+    </view>
+    <view class="bcf flex labelHeadBox fr26">
+      <view wx:for="{{ labelHead }}" class="labelItem ellipsis1 mt30 mr30 {{ activeScrollIndex == index ? 'active-label' : '' }}" data-index="{{index}}" catchtap="chooseHeadLabel">
+        {{ item.name }}
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="labelGroupMask" catchtouchmove="preventEvent" bindtap="cancelGroupBox" wx:if="{{ labelGroupShow }}">
+  <view catchtap="preventEvent">
+    <view class="tab-bar scroll-tab-bar flex fr30" hidden="{{isCredit == 1 || labelHead.length <= 1 }}" >
+      <scroll-view class="select-scroll flexc" scroll-x="true" scroll-into-view="{{scrollView}}">
+        <view bindtap="scrolltabchange"  wx:for="{{ labelHead }}" data-index="{{index}}" class="select-scroll-item {{ activeScrollIndex == index ? 'tab-active bold' : 'c3' }}" wx:key="id" id="{{ 'view' + index }}">
+          {{ item.name }}
+        </view>
+      </scroll-view>
+      <view class="select-down-box flexc" bindtap="labelHeadDown">
+        <text class="iconfont icon-xiala1 c9 fr22"></text>
+      </view>
+    </view>
+
+    <view class="tab-bar flex fr30 c6 w100" hidden="{{isCredit == 1}}">
+      <block wx:for="{{tabBar}}" wx:key="{{index}}">
+        <view data-index="{{index}}" class="tab-bar-item flexc flex1 {{activeTabBarIndex==index?'tab-active':'c6'}}" bindtap="tabBarClick">
+          <text> {{item.name}}</text>
+          <view class="flexcColumn tabIconBox">
+            <text class="iconfont icon-tabUp fr18 tabIcon  {{ activeTabBarIndex==index && item.orderType == 'asc' ? 'tab-active':'cc' }}"></text>
+            <text class="iconfont icon-tabDown fr18 tabIcon {{ activeTabBarIndex==index && item.orderType == 'desc' ? 'tab-active':'cc'}}"></text>
+          </view>
+        </view>
+      </block> 
+      <view class="tab-bar-item flexc flex1" catchtap="filterLabel">
+        <text class="tab-active" >筛选</text> 
+        <text class="iconfont icon-shaixuan fr32 tab-active"></text>
+      </view>
+      <view class="change-goods-show iconfont {{goodsShowStyle=='column'?'icon-classify':'icon-liebiao'}} c6" bindtap="changeGoods">
+      </view>
+    </view>
+
+    <view class="w100 bcf p30 labelGroupBox fr26" >
+      <scroll-view class="group-scroll " scroll-y="true">
+        <view wx:for="{{ labelGroupOption }}"  class="mt30">
+          <view class="labelGroupName c3 fw500 fr30">{{ item.labelGroupInfo.name }}</view>
+          <view class="labelGroupContainer flex">
+            <view class="labelItem ellipsis1 mt30 mr30 {{ labelItem.isactive ? 'active-label' : ''  }}"  wx:for="{{ item.labelGroupInfo.labelInfo }}" wx:for-item="labelItem" wx:for-index="labelIndex" data-index="{{ index }}" data-labelindex="{{ labelIndex }}" catchtap="chooseGroupLabel">
+              {{ labelItem.name }}
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="labelButtonBox bcf flexb">
+      <view class="button-left label-button" catchtap="resetLabel">重置</view>
+      <view class="button-right label-button" catchtap="confirmLabel">确定</view>
+    </view>
+
+  </view>
+
+
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "领取人列表",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

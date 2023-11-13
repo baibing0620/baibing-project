@@ -1,0 +1,43 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关订单信息'}}" wx:if="{{showStyle!=1&&orderList.length==0}}" />
+    <view class="container w100" wx:else>
+      <block wx:for="{{orderList}}" wx:for-item="orderItem" wx:key="id">
+        <view  class="order-item w100"  data-id="{{orderItem.id}}" catchtap="navToDetail">
+          <view class="order-item-title fr24 c6 flexb">
+            <text>订单编号：{{orderItem.ordersn}}</text>
+            <text class="c-danger">{{orderItem.statusName}}</text>
+            <!-- <text wx:elif="{{orderItem.status==0}}" class="c-danger">{{orderItem.statusName}}</text> -->
+          </view>
+          <view class="order-item-goods-item flex">
+              <image src="{{ShowImg.cropImgWH(orderItem.goods[0].thumb,120,120)}}" class="order-item-goods-thum"/>
+              <view class="goods-des flexaColumn flex1 fr22 c3">
+                <view class="ellipsis1">
+                  {{orderItem.goods[0].title}} {{orderItem.goods.length>1?'等共'+orderItem.goods.length+'件商品':''}}
+                </view>
+                <view class="flex">
+                  总计:<text class="c-waring">￥{{orderItem.price}}</text>
+                </view>
+              </view>
+          </view>
+          <view class="order-item-bottom fr24 c6 flexb">
+            <view >
+              创建时间：{{orderItem.createtime}}
+            </view>
+            <view wx:if="{{orderItem.order_type==2}}">店内消费</view>
+            <view wx:elif="{{orderItem.order_type==3}}">外卖</view>
+            <view wx:elif="{{orderItem.order_type==4}}">流水订单</view>
+          </view>
+        </view>
+      </block>
+      <template is="moreData" data="{{loadStyle:loadStyle}}" />
+    </view>
+
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

@@ -1,0 +1,20 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/format.wxs" module="format" />
+<template is="initShow" wx:if="{{ showStyle != 1 }}"  data="{{ showStyle: showStyle}}"/>
+<view class="container" wx:else>
+   <view class='fr26 flex'>
+        <text class='c3'>{{member.nickname}}</text>
+    </view>
+   <view class='fr26 flex'>
+        <text class='c3'>{{format.formatDate(create_time*1000)}}</text>
+    </view>
+   <view class='fr26 flex'>
+        <text class='c3'>申请服务</text>
+        <view class='c9 flex1'>{{goods.service_name}}</view>
+    </view>
+    <view wx:for="{{values}}" class='fr26 flex'>
+        <text class='c3'>{{item.title}}</text>
+        <view class='c9 flex1'>{{item.comment}}</view>
+    </view>
+</view>

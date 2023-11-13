@@ -1,0 +1,135 @@
+/* sign/signOnline/signOnline.wxss */
+page{
+  background: #f7f7f7;
+  font-family: 'Microsoft YaHei';
+}
+.c-18191a {
+  color: #18191a;
+}
+
+.c-1d2023 {
+  color: #1d2023;
+}
+
+.c-797c80 {
+  color: #797c80
+}
+
+.c-a7a9ab {
+  color: #a7a9ab
+}
+
+.c-ff3e26 {
+  color: #ff3e26;
+}
+.marb20{
+  margin-bottom: 10rpx;
+}
+
+.layout-S {
+  width: 100vw;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.input-layout-S {
+  height: 60rpx;
+  background-color: #f4f4f6;
+  border-radius: 60rpx;
+  box-sizing: border-box;
+  padding-right: 30rpx;
+}
+
+.search-S {
+  padding-left: 30rpx;
+  padding-right: 20rpx;
+  height: 100%;
+}
+
+.search-input-S {
+  height: 100%;
+}
+
+.search-cancel-S {
+  height: 100%;
+}
+
+.banner-S {
+  width: 100vw;
+height: 370rpx;
+  display: block;
+}
+.signOnlineTitle{
+  display: flex;
+  justify-content: space-around;
+}
+.tab-box-S{
+  padding: 0 10px;
+  background-color: white;
+  border-top: 10rpx solid #F3F6F5;
+  white-space: nowrap;
+  height: 150rpx;
+  font-size: 36rpx;
+}
+.tab-item-S{
+  max-height: 150rpx;
+  box-sizing: border-box;
+  padding: 35rpx 0;
+  display: inline-block;
+  margin-right: 90rpx;
+  line-height: 70rpx;
+  font-size: 32rpx;
+}
+.tab-item-S>view>view{
+  text-align: center;
+}
+.tab-item-S>view>view>image{
+  width: 50rpx;
+  height: 20rpx;
+}
+.news-item-active-S{
+  padding: 0 16rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.t_bg-S{
+  background-image: url(https://facing-1256908372.file.myqcloud.com/image/20200908/banner_1.png);
+  background-size: 80rpx 6rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: 60rpx;
+  height: 70rpx;
+}
+.t_bg{
+  background: #ff9b1f;
+  height: 6rpx;
+}
+.signOnlineList{
+  margin: 0 20rpx 24rpx;
+  padding: 20rpx 10rpx;
+  background: white;
+  border-radius: 10rpx;
+}
+.signOnlineList:first-child{
+  margin-top: 20rpx;
+}
+.state{
+  position: absolute;
+  bottom: 0rpx;
+  right: 0rpx;
+  color: white;
+  border-radius: 30rpx;
+  padding: 5rpx 14rpx;
+}
+.signbtn{
+  position: fixed;
+  left: calc(15% - 22rpx);
+  bottom: 10rpx;
+  width: 70%;
+  padding: 20rpx;
+  border-radius: 40rpx;
+}
+.boxShow{
+  box-shadow: 7rpx 5rpx 10rpx 7rpx  rgba(0, 0, 0, .15);
+}

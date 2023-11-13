@@ -1,0 +1,15 @@
+<!-- sign/signForm/signForm.wxml-->
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<form>
+  <block>
+    <view class="signForm">
+      <view wx:for="{{signFormData}}" wx:key="index" class="flex">
+        <text class="fr32">{{item.label}}</text>
+        <input class="weui-input fr32" bindinput="bindFormInput" data-index="{{index}}" data-key="{{item.key}}" placeholder="请输入{{item.label}}"/>
+      </view>
+    </view>
+  </block>
+  <view class="tac cf fr30 bc-main signbtn" bindtap="signbtn">下一步</view>
+  <component-messageToast></component-messageToast>
+</form>

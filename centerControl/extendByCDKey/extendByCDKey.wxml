@@ -1,0 +1,18 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:if='{{ showStyle == 1 }}'>
+  <form bindsubmit='checkForm'>
+    <view class='item'>
+      <view class='input-view'>
+        <view class='label'>CDKey</view>
+        <input name='CDKey' class='font-normal' value='{{ CDKey || "" }}' placeholder='请输入CDKey' placeholder-class='cb3'></input>
+      </view>
+    </view>
+    <button class='bind-button btn-none' form-type='submit'>立即续时</button>
+  </form>
+</block>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

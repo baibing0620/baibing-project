@@ -1,0 +1,57 @@
+<include src="/comm/comm" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+
+<view class="container w100" wx:else>
+    <view class="header">
+        <view class="mask-vip">
+            <view class="vip-box" bindtap="navGrowth" style="background-image: url({{ ShowImg.cropImgWH(levelData.level.img_url, 650, 260 )}})">
+                <view>会员专享卡 <text hidden="{{ (vip_head_config & 1) != 0 }}"> {{ levelData.sn }}</text> </view>
+                <view class="level-size">{{ levelData.level.level_name }}</view>
+                <view hidden="{{ nextLevelGrow == 0 }}">
+                    <text hidden="{{ (vip_head_config & 4) != 0 }}">当前{{vipInfo.grow_name}}为{{ levelData.levelGrow }}，</text> 距离下一等级{{   (vipInfo.grow_name || '成长值') + '差' + levelData.nextLevelGrow }}
+                    <text class="iconfont icon-xiangyou fr24"></text>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="vip-rights">
+        <view class="vip-rights-title">
+            <view class="line circle-left"></view>
+            <view>会员权益</view>
+            <view class="line circle-right"></view>
+        </view>
+
+        <view class="icon-group">
+            <view wx:for="{{ levelData.level.vipRightsConfig }}" wx:key="id" class="icon-box" data-id="{{ item.id }}" bindtap="torightsdetail">
+                <view class="icon-item">
+                    <text class="iconfont {{ item.icon }}"></text>
+                </view>
+                <view class="icon-text ellipsis1">{{ item.rights_name }}</view>
+            </view>
+        </view>
+    </view>
+
+     <view class="feature-box">
+        <view class="feature-item" bindtap="toPersonal">
+            <view class="item-title">个人中心</view>
+            <view class="item-entry">
+                进入
+                <text class="iconfont icon-xiangyou"></text>
+            </view>
+        </view>
+        <view class="feature-item" bindtap="toIndex">
+            <view class="item-title">首页</view>
+            <view class="item-entry">
+                进入
+                <text class="iconfont icon-xiangyou"></text>
+            </view>
+        </view>
+    </view>
+
+
+</view>
+
+<component-messageToast></component-messageToast>

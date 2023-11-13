@@ -1,0 +1,14 @@
+{
+	"enablePullDownRefresh":true,
+	"navigationBarTitleText": "拼团详情",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast",
+    "component-toHomePage": "/components/toHomePage/toHomePage",
+    "share": "/components/share/share",
+    "frame-ms": "/components/frame-ms/frame-ms"
+  }
+}

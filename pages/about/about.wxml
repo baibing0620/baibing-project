@@ -1,0 +1,18 @@
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+    <include src="../../template/index/index.wxml" />
+    <view class="flexc w100" wx:if="{{showLogo==1}}">
+        <view class="fr26 cc" style="text-align: center;margin: 20rpx 0;">{{logoText}}</view>
+    </view>
+    <form bindsubmit="closeNotice"  report-submit wx:if="{{showNotice}}" >
+      <button class="model-notice flexc"  formType="submit" style='height:{{noticeHeigth}};' >
+          <image mode='aspectFit' src="{{noticeImgUrl}}" class="notice-img"></image>
+      </button>
+    </form>
+
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

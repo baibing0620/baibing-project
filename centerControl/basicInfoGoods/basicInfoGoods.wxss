@@ -1,0 +1,87 @@
+page{
+    background: #fff;
+    padding-bottom: 130rpx;
+}
+.container{
+    padding: 0 30rpx;
+}
+.title{
+    margin: 40rpx 0;
+}
+.fr24,.fr30{
+    line-height: 100%;
+}
+
+.choose-status>view{
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: center;
+    border-radius: 6rpx;
+}
+.choose-status>view:not(:first-of-type){
+    margin-left:30rpx
+}
+.message-btn{
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 0;
+  background-color: #ff9b1f;
+  position:fixed;
+  bottom:0;
+  width: 100%;
+}
+.bc-check{
+    background: #fff5e8;
+    border: 1rpx dashed #ff9b1f;
+    color:#ff9b1f; 
+}
+.bcfa{
+    background: #fafafa;
+    border: 1rpx dashed #d9d9d9;
+}
+.dui-hao{
+    position: absolute;
+    bottom: 10rpx;
+    right: 10rpx;
+}
+textarea{
+    width: inherit;
+    height: 180rpx;
+    border: 1rpx solid #d9d9d9;
+    border-radius: 6rpx;
+    background: #f7f7f7;
+    padding: 30rpx;
+    box-sizing: border-box;
+}
+.form-picker {
+  width: inherit;
+  height: 80rpx;
+  margin-top: 30rpx;
+  border-radius: 4rpx;
+  padding: 0 30rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  box-sizing: border-box;
+}
+.container input{
+    width: 226rpx;
+    height: 80rpx;
+    border: 1rpx solid #d9d9d9;
+    border-radius: 6rpx;
+    background: #f7f7f7;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+}
+.input-placeholder,.textarea-placeholder {
+  color: #b3b3b3;
+  font-size: 28rpx;
+}
+.service-description{
+    margin-bottom: 38rpx;
+}
+.service-description text{
+    position: absolute;
+    top: -14rpx;
+    right: -28rpx;
+    color:#ff9b1f;
+}

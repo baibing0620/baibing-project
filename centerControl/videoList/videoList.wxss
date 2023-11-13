@@ -1,0 +1,173 @@
+page {
+    background-color: #f7f7f7;
+}
+
+.fr32, .fr24 {
+    line-height: 100%;
+}
+
+.cbf {
+    color: #bfbfbf;
+}
+
+.menu {
+    height: 80rpx;
+    padding: 0 30rpx;
+}
+
+.menu>view {
+    height: 100%;
+}
+
+.styleSetting {
+    color: #fff;
+}
+
+.styleSetting>.iconfont {
+    margin-left: 6rpx;
+}
+
+.item {
+    height: 320rpx;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #f0f0f0;
+    padding: 30rpx;
+    background-color: #fff;
+}
+
+.video {
+    width: 260rpx;
+    height: 260rpx;
+    border-radius: 4rpx;
+    margin-right: 30rpx;
+    overflow: hidden;
+    position: relative;
+}
+.videoImage {
+    width: 100%;
+    height: 100%;
+}
+
+.videoCover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, .2);
+    left: 0;
+    top: 0;
+}
+
+.playIcon {
+    width: 60rpx;
+    height: 60rpx;
+    font-size: 60rpx;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.layout {
+    height: 100%;
+    position: relative;
+}
+
+.title {
+    line-height: 52rpx;
+    max-width: 340rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.info {
+    margin-top: 18rpx;
+}
+
+.playCount {
+    margin-right: 30rpx;
+}
+
+.playCount>.iconfont, .likeCount>.iconfont {
+    margin-right: 12rpx;
+}
+
+.editor {
+    height: 56rpx;
+    width: 340rpx;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.delete {
+    height: 56rpx;
+    width: 160rpx;
+    box-sizing: border-box;
+    margin-right: 20rpx;
+    border: 1rpx solid #666666;
+    border-radius: 4rpx;
+}
+
+.edit {
+    height: 56rpx;
+    width: 160rpx;
+    box-sizing: border-box;
+    color: #1F94FD;
+    border: 1rpx solid #1F94FD;
+    border-radius: 4rpx;
+}
+
+.button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 96rpx;
+    background-color: #1F94FD;
+}
+
+.button>.iconfont {
+    margin-right: 14rpx;
+}
+
+.video-shadow {
+    height: 0rpx;
+    width: 100%;
+    box-shadow: 0 0 80rpx 20rpx rgba(0, 0, 0, .7);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.video-length {
+    position: absolute;
+    right: 12rpx;
+    bottom: 12rpx;
+}
+
+.placeholder-img {
+    height: 350rpx;
+    width: 350rpx;
+    margin-top: 180rpx;
+}
+
+.placeholder-text1 {
+    margin-top: 50rpx;
+}
+
+.placeholder-text2 {
+    margin-top: 18rpx;
+}
+
+.placeholder-text3 {
+    position: absolute;
+    bottom: 136rpx;
+    left: 50%;
+    white-space: nowrap;
+    transform: translateX(-50%);
+}
+
+

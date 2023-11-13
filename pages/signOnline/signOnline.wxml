@@ -1,0 +1,71 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<form>
+  <block>
+    <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+    <view class='layout-S flex bcf'>
+      <view class='input-layout-S flex flex1'>
+        <view class='search-S iconfont icon-sousuo2 flexc c9 fr30' bindtap='handleSearch'></view>
+        <input class='search-input-S flex1 c3 fr24' type="text" value='{{searchValue}}' placeholder='请输入关键字搜索...' placeholder-class='cc' bindinput='handleInput' bindconfirm='handleSearch' />
+        <view class='search-delete-S' bindtap='handleDelete'></view>
+      </view>
+    </view>
+    <view>
+      <scroll-view class="tab-box-S fr28 c9 w100" scroll-x="true">
+        <block wx:for="{{signOnlineTitle}}" wx:key='index' class="signOnlineTitle">
+          <view class="tab-item-S" data-type="{{item.type}}" data-index="{{item.id}}" bindtap="activeTopTap">
+            <view class="{{actvieIndex==item.id?'news-item-active-S cmain':''}}">
+              <!-- <view class="{{actvieIndex==item.type?'t_bg-S':''}}">{{item.name}}</view> -->
+              <view>{{item.name}}</view>
+              <view class="{{actvieIndex==item.id?'t_bg':''}}"></view>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+    <view>
+      <view wx:if="{{signOnlineList.length==0}}" style="background: #f7f7f7;">
+        <image src="https://facing-1256908372.file.myqcloud.com/web/signNULL.png"></image>
+        <!-- <view class="cbd fr32 tac">暂无数据</view> -->
+      </view>
+      <view class="container">
+        <!-- <view class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" data-pdf="{{item.pdf}}" data-state="{{item.state}}" bindtap="goContract" bindtouchstart="touchstart" bindtouchmove="touchmove" wx:for="{{signOnlineList}}" wx:key="index"> -->
+        <view class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" data-pdf="{{item.pdf}}" data-state="{{item.state}}" bindtouchstart="touchstart" bindtouchmove="touchmove" wx:for="{{signOnlineList}}" wx:key="index">
+          <view class="content">
+            <view>
+              <view class="c0 fr32 marb10">{{item.businessScene}}</view>
+              <view class="cbd fr28" style="margin: 14rpx 0 10rpx;">发起方：{{item.sponsor}}</view>
+              <view class="cbd fr28">签署主体(个人)：
+                <text wx:for="{{item.signers}}" wx:key="index" wx:if="{{item.type==1}}"> {{item.name}}</text>
+              </view>
+              <view class="cbd fr28">签署主体(企业)：
+                <text wx:for="{{item.signers}}" wx:key="index" wx:if="{{item.type==0}}"> {{item.orgName}}</text>
+              </view>
+            </view>
+            <view style="position: relative;">
+              <view class="cbd fr28">{{item.createtime}}</view>
+              <view class="fr28 state bc-74" wx:if="{{item.state==2}}">已完成</view>
+              <view class="fr28 state bcr" wx:if="{{item.state==1}}">签署中</view>
+              <view class="fr28 state bcy" wx:if="{{item.state==7}}">已拒签</view>
+              <view class="fr28 state bcy" wx:if="{{item.state==3}}">已撤回</view>
+              <view class="fr28 state bc-fairMain" wx:if="{{item.state==5}}">已过期</view>
+              <view class="fr28 state bc-fairMain" catchtap="Launch" data-id="{{item.id}}" style="bottom: 0rpx;right: 120rpx;background: #ff9b1f;" wx:if="{{item.state==-2}}">一键发起</view>
+              <view class="fr28 state bcr" wx:if="{{item.state==-2}}">已实名</view>
+              <view class="fr28 state bc-fairMain" wx:if="{{item.state==-1}}">未实名</view>
+            </view>
+          </view>
+          <view class="{{item.state==2?'download':'del'}}" catchtap="del" data-flowId="{{item.flowId}}" data-record="{{item.record_real_status}}" data-id="{{item.id}}" data-num="{{item.contractNumbering}}" data-name="{{item.businessScene}}" data-index="{{index}}" data-state="{{item.state}}">
+            <text wx:if="{{item.state==5||item.state==-2||item.state==-1}}">删除</text>
+            <text wx:if="{{item.state==1}}">撤回</text>
+            <text wx:if="{{item.state==2}}">复制下载</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="tac cf fr30 bc-main signbtn" bindtap="signbtn">创建签约</view>
+    <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+  </block>
+  <component-remind wx:if='{{ showRemind }}'></component-remind>
+  <component-messageToast></component-messageToast>
+</form>

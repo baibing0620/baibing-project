@@ -1,0 +1,190 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<view wx:else>
+    <view class="info-layout">
+
+        <view class="info-box">
+            <view class="info-top flex">
+                <image class="avatar" mode="aspectFill" src="{{ ShowImg.cropImgWH(avatar, 152, 152)}}"></image>
+                <view class="nickname fr40 c3 bold flex1">{{ name }}</view>
+            </view>
+
+            <view class="flex">
+                <view class="customerCount active" catchtap='toNewPage' data-page="customerList">
+                    <view class="infoNum fr34 bold c3">{{ crmUserCount }}</view>
+                    <view class="infoTitle fr24 c6">我的客户(个)</view>
+                </view>
+                <view class="customerCount active" catchtap='toNewPage' data-page="mySales">
+                    <view class="infoNum fr34 bold c3">{{ orderPrice }}</view>
+                    <view class="infoTitle fr24 c6">我的销售额(元)</view>
+                </view>
+                <view class="customerCount active" catchtap='toNewPage' data-page="serviceNumberOfApplications">
+                    <view class="infoNum fr34 bold c3">{{ serviceFromValueCount }}</view>
+                    <view class="infoTitle fr24 c6">预约申请(单)</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="bg-white"></view>
+    <view class="permission-container under-line">
+        <view class="label fr34 c3 flex bold">名片管理</view>
+        <view class="flex permission-manage">
+            <view class="w25 item tac active flexcColumn" wx:if='{{ permission && permission.length > 0 && aboutOne }}'  catchtap='toNewPage' data-page="teamManage">
+                <view class="iconfont icon-boss fr56 mb30 color2-7"></view>
+                <view class="c3 fr26 lh100">BOSS管理</view>
+            </view>
+            <view class="w25 item tac active flexcColumn" wx:if='{{ cardManage == 1 }}' catchtap="toNewPage" data-page="staffCardList">
+                <view class="iconfont icon-bossyuangong fr56 mb30 color2-8"></view>
+                <view class="c3 fr26 lh100">员工名片</view>
+            </view>
+            <view class="w25 item tac active flexcColumn" wx:if='{{ ifOpen }}' catchtap='toNewPage' data-page="bbsManage">
+                <view class="iconfont icon-bossdongtai fr56 mb30 color2-9"></view>
+                <view class="c3 fr26 lh100">动态管理</view>
+            </view>
+            <view class="w25 item tac active flexcColumn" catchtap='toNewPage' data-page="manageCard">
+                <view class="iconfont icon-bossmingpian fr56 mb30 color3-1"></view>
+                <view class="c3 fr26 lh100">名片管理</view>
+            </view>
+        </view>
+    </view>
+
+
+    <view class="customer-container under-line">
+        <view class="label fr34 c3 flex bold">客户数据</view>
+        <view class="flex customer-manage">
+            <view class="w25 item tac active flexcColumn" catchtap='toNewPage' data-page="customerList">
+                <view class="iconfont icon-kehu1 fr56 mb30 color3-2"></view>
+                <view class="c3 fr26 lh100">客户管理 </view>
+                <!-- <view class="customer-info-info fr24 cb3">目前客户共{{ crmUserCount }}个</view> -->
+            </view>
+            <view class="w25 item tac active flexcColumn" catchtap='toNewPage' data-page="dataAnalysis">
+                <view class="iconfont icon-shuju3 fr56 mb30 color3-3"></view>
+                <view class="c3 fr26 lh100">数据分析</view>
+            </view>
+            <view class="w25 item tac flexcColumn active" catchtap='toNewPage' data-page="customerPool">
+                <view style="margin-bottom: 10px;">
+                    <image src="https://facing-1256908372.file.myqcloud.com/image/20210102/4.png" style="width: 50rpx; height: 53rpx;"></image>
+                </view>
+                <view class="c3 fr26 lh100">客户公海</view>
+                <!-- <view class="customer-info-info fr24 cb3">目前客户共{{ pollNum }}个</view> -->
+            </view>
+            <view wx:if="{{ is_open_signature == 1 }}" class="w25 item tac flexcColumn active" catchtap='toNewPage' data-page="signOnline">
+                <view style="margin-bottom: 10px;">
+                    <image src="https://facing-1256908372.file.myqcloud.com/web/signup.png" style="width: 50rpx; height: 53rpx;"></image>
+                </view>
+                <view class="c3 fr26 lh100">在线签约</view>
+                <!-- <view class="customer-info-info fr24 cb3">剩余可签约数{{ signUpNum }}个</view> -->
+            </view>
+            <view class="w25 item relative tac active flexcColumn" catchtap='toNewPage' data-page="chatList">
+                <view class="iconfont icon-icon3 fr56 mb30 color3-4"></view>
+                <view class="c3 fr26 lh100">聊天记录</view>
+                <view class="customer-info-num {{ unreadMsgCount > 99 ? 'biggerInfoNum' : '' }}"  wx:if="{{unreadMsgCount > 0 }}">
+                   {{ unreadMsgCount <= 99 ? unreadMsgCount : "99+" }}
+                </view>
+            </view>
+            <view class="w25 item tac active flexcColumn" wx:if="{{private_region_type ==1 || private_region_type == 3 || private_region_type == 5}}" catchtap='toNewPage' data-page="businessWechatManage">
+                <view class="iconfont icon-bossqiwei fr56 mb30 color3-5"></view>
+                <view class="c3 fr26 lh100">企微管理</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="other-gates-container under-line">
+        <view class="label fr34 c3 flex bold">智能营销</view>
+
+        <view class="flex other-gates-manage">
+            <view class="w25 item flexcColumn tac active"  catchtap='toNewPage' data-page='shortVideoList'>
+                <view class="iconfont icon-video fr56 mb30 color3-6"></view>
+                <view class="c3 fr26 lh100">短视频带货</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='posterCenter'>
+                <view class="iconfont icon-bosshaibao fr56 mb30 color3-7"></view>
+                <view class="c3 fr26 lh100">海报中心</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='improved'>
+                <view class="iconfont icon-picture fr56 mb30 color3-8"></view>
+                <view class="c3 fr26 lh100">励志海报</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='followList'>
+                <view class="iconfont icon-genjinjilu fr56 mb30 color3-9"></view>
+                <view class="c3 fr26 lh100">跟进记录</view>
+            </view>
+
+            <view class="w25 item flexcColumn tac active" wx:if="{{goods_order == 1}}" catchtap='toNewPage' data-page='goodsrankings'>
+                <view class="iconfont icon-shangpin2 fr56 mb30 color3-10"></view>
+                <view class="c3 fr26 lh100">商品排行</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='messageList'>
+                <view class="iconfont icon-tuisong1 fr56 mb30 color3-11"></view>
+                <view class="c3 fr26 lh100">消息推送</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='awaken'>
+                <view class="iconfont icon-alertClock fr56 mb30 color3-12"></view>
+                <view class="c3 fr26 lh100">AI唤醒</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='intelligentCustomerService'>
+                <view class="iconfont icon-zhinengkefu fr56 mb30 color3-13"></view>
+                <view class="c3 fr26 lh100">AI智能客服</view>
+            </view>
+
+            <view class="w25 item flexcColumn tac active"  catchtap='toNewPage' data-page='myTalkLibrary'>
+                <view class="iconfont icon-huifu1 fr56 mb30 color3-14"></view>
+                <view class="c3 fr26 lh100">话术库</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='couponGiving'>
+                <view class="iconfont icon-coupon fr56 mb30 color3-15"></view>
+                <view class="c3 fr26 lh100">智能营销</view>
+            </view>
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page='remindList'>
+                <view class="iconfont icon-tixingbell fr56 mb30 color3-16"></view>
+                <view class="c3 fr26 lh100">提醒列表</view>
+            </view>
+
+            <view class="w25 item flexcColumn tac active" catchtap='toNewPage' data-page="{{ specEnter ? 'recordOrderOther' : 'recordOrder' }}" wx:if="{{ open_replace_order }}">
+                <view class="iconfont icon-orderManage fr56 mb30 color3-16"></view>
+                <view class="c3 fr26 lh100">代客下单</view>
+            </view>
+        </view>
+    </view>
+    <block wx:if="{{ openGoodManage || openOrderManage || (privilege > 0 && privilege != 16 && (is_open_credit || privilege & 1 || privilege & 4))}}">
+        <view class="label fr34 c3 flex bold">业务管理</view>
+        <view class="shop-manage flex">
+
+            <view class="w25 item tac flexcColumn active" wx:if="{{openGoodManage == 1}}" catchtap='toNewPage' data-page='goodsManageList'>
+                <view class="iconfont icon-shangpin1 fr56 mb30 color3-15"></view>
+                <view class="c3 fr26 lh100">商品管理</view>
+            </view>
+
+            <view class="w25 item tac flexcColumn active"  wx:if="{{openOrderManage == 1}}" catchtap='toNewPage' data-page='orderManage'>
+                <view class="iconfont icon-bossOrderManage fr56 mb30 color3-17"></view>
+                <view class="c3 fr26 lh100">订单管理</view>
+            </view>
+            
+            <view class="w25 item tac flexcColumn active" catchtap='toNewPage' data-page='verificationList' wx:if="{{privilege > 0 && privilege != 16 && (is_open_credit || privilege & 1 || privilege & 4)}}">
+                <view class="iconfont icon-hexiao fr56 mb30 color3-16"></view>
+                <view class="c3 fr26 lh100">业务核销</view>
+            </view>
+				<view class="w25 item tac flexcColumn active" catchtap='toNewPage' data-page='auditOrderList' wx:if="{{privilege > 0 && (privilege & 32)}}">
+                <view class="iconfont icon-orderExamine fr56 mb30 color3-11"></view>
+                <view class="c3 fr26 lh100">订单审核</view>
+            </view>
+
+
+            <!-- <view wx:if="{{ openOrderManage }}" class="flexc flex1 fr28 c6 active" catchtap='toNewPage' data-page='orderManage'>
+                <text class="iconfont icon-order color2-4"></text> 订单管理
+            </view>
+            <view wx:if="{{ openGoodManage }}" class="flexc flex1 fr28 c6 active" catchtap='toNewPage' data-page='goodsManageList'>
+                <text class="iconfont icon-shangpin1 color2-5"></text> 商品管理
+            </view>
+            <view class="flexc flex1 fr28 c6 active" catchtap='toNewPage' data-page='verificationList' wx:if="{{privilege > 0 && privilege != 16 && (is_open_credit || privilege & 1 || privilege & 4)}}">
+                <image class="codeIcon" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20191128/6aa4847db3c31f47.png',28,28)}}"></image>
+                业务核销
+            </view> -->
+
+        </view>
+    </block>
+</view>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

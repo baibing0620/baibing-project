@@ -1,0 +1,10 @@
+<view class='cover' catchtap='handleCancel'></view>
+<view class='layout'>
+    <view class='textarea-layout'>
+        <textarea class='textarea' value='{{ value }}' placeholder='{{ placeholder }}' placeholder-class='textarea-placeholder' bindinput='handleInput' bindconfirm='handleConfirm' />
+    </view>
+    <view class='controller' catchtap='handleClick'>
+        <view class='controller-button color-cancel' data-type='cancel' hover-class='controller-button-hover'>{{ cancelText }}</view>
+        <view class='controller-button color-confirm' data-type='confirm' hover-class='controller-button-hover'>{{ confirmText }}</view>
+    </view>
+</view>

@@ -1,0 +1,117 @@
+.fr24, .fr26, .fr28, .fr30 {
+  line-height: 100%;
+}
+
+.input-layout {
+  width: 100%;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 10rpx 30rpx 0 30rpx;
+}
+
+.input-box {
+  box-sizing: border-box;
+  padding-left: 30rpx;
+  width: 100%;
+  height: 70rpx;
+  border-radius: 100rpx;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.input {
+  color: rgba(255, 255, 255, 1);
+  width: 540rpx;
+}
+
+.input-holder {
+  color: #999ca0;
+}
+
+.search {
+  padding: 0 40rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  color: rgba(255, 255, 255, 0.3);
+  border-radius: 70rpx;
+}
+
+.item {
+  width: 710rpx;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  border-radius: 10rpx;
+  padding: 30rpx 30rpx 0 30rpx;
+  overflow: hidden;
+  border: 1rpx solid #e6e6e6;
+  transition: .3s;
+}
+
+.item:first-child {
+  margin-top: 30rpx;
+}
+
+.time {
+  margin-bottom: 30rpx;
+}
+
+.title {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 24rpx;
+}
+
+.content {
+  line-height: 38rpx;
+  margin-bottom: 24rpx;
+}
+
+.bar {
+  box-sizing: border-box;
+  height: 90rpx;
+  border-top: 1rpx solid #f5f5f5;
+}
+
+.bar>view>view {
+  margin-right: 28rpx;
+}
+
+.bar>view>view:last-child {
+  margin-right: 0;
+}
+
+.delete {
+  width: 140rpx;
+  height: 58rpx;
+  line-height: 58rpx;
+  border: 1rpx solid #ff9b1f;
+  text-align: center;
+  border-radius: 6rpx;
+  color: #ff9b1f;
+}
+
+.post {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 98rpx;
+  line-height: 98rpx;
+  text-align: center;
+  font-size: 34rpx;
+  color: #fff;
+  background-color: #ff9b1f;
+}
+
+.bar .iconfont {
+  font-size: 24rpx;
+  margin-right: 12rpx;
+  display: block;
+  line-height: 20rpx;
+}
+
+.holder {
+  height: 98rpx;
+}

@@ -1,0 +1,14 @@
+{
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-activity-post": "/components/activityPost/activityPost",
+        "component-activity-lottery": "/components/activityLottery/activityLottery",
+        "component-activityShareBoard": "/components/activityShareBoard/activityShareBoard",
+        "component-audioPlayer": "/components/audioPlayer/audioPlayer",
+        "component-award-results-dailog": "/components/awardResultsDailog/awardResultsDailog",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

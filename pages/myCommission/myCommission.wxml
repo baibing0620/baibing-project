@@ -1,0 +1,29 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class='fr28 cf flexcColumn sales-box'  style='background: linear-gradient({{ extConfig.navigationBarBC }}, #4b5f76)'>
+我的分佣
+  <view class='fr36 flex sales bold' style='color: {{ extConfig.themeColor }}'>
+    ￥
+    <view class='fr66'>{{ count }}</view>
+  </view>
+</view>
+
+<view class='fr28 c6 padding label'>分佣明细</view>
+
+<view wx:for='{{ list }}' wx:key='{{ index }}' class='padding flex bf item'>
+  <image class='avatar' src='{{ ShowImg.cropImgWH(item.member.avatar, 90, 90) }}'></image>
+  <view class='info fr30 c3'>
+    {{ item.member.nickname }}
+    <view class='time fr24 c9'>
+      {{ item.distribution_time }} 消费
+      <text style='color: {{extConfig.themeColor}}'>{{ item.order_money }}元</text>
+    </view>
+  </view>
+  <view class='price fr34 c3 bold'>+ ￥{{ item.distribution_money }}</view>
+</view>
+
+<template is="moreData" data="{{loadStyle: loadStyle}}"/>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

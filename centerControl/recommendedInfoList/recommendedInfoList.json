@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "推荐资讯列表",
+  "navigationBarBackgroundColor": "#1F94FD",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

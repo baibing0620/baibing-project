@@ -1,0 +1,13 @@
+<view class='card'>
+    <view class='card-avatar'>
+        <component-avatar src='{{ cardInfo.avatar_url }}' name='{{ cardInfo.name }}' />
+    </view>
+    <view class='card-info'>
+        <view class='flex-e-s mb20'>
+            <view class='card-info-name fr36 c-404040 mr30 bold ellipsis1'>{{ cardInfo.name }}</view>
+            <view class='card-info-position fr28 c-1F94FD bold'>{{ cardInfo.position }}</view>
+        </view>
+        <view class='card-info-other fr24 c-999999 ellipsis1'>{{ cardInfo.mobile || '--' }}</view>
+        <view class='card-info-other fr24 c-999999 ellipsis1'>{{ cardInfo.company || '--' }}</view>
+    </view>
+</view>

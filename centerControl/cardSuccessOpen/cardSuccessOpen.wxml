@@ -1,0 +1,35 @@
+<view>
+    <view class="head_bg">
+        <view class="head_bg_circle">
+            <view class="head_bg_circle_contain">
+                <view class="iconfont icon-duihao2"></view>
+                <view>开通成功</view>
+            </view>
+        </view>
+        <view class="head_bg_notice">主动联系客服可以更快为您开通</view>
+    </view>
+    <view class="head_contain">
+        <view class="head_contain_phone">
+            联系客服 {{payInfo.service_phone}}
+        </view>
+        <button type='warn' catchtap="callNumber">
+            <view class="iconfont icon-dianhua2"> 立即拨打</view>
+        </button>
+    </view>
+</view>
+
+<view class="contant">
+    <view class="openDetails">
+        <view class="openDetails_title">名片开通明细</view>
+        <view>企业名称：{{payInfo.name}}</view>
+        <view>手机号码：{{payInfo.phone}}</view>
+        <view>开通张数：{{payInfo.open_limit}}</view>
+        <view>开通年限：{{payInfo.open_date}}月</view>
+        <view>支付金额：<view class="money">¥{{payInfo.pay_number}}</view></view>
+    </view>
+    <view class="openDetails_2">
+        <view class="openDetails_title">支付明细</view>
+        <view>名片单价*名片数量*名片数量折扣*名片开通时长*时长优惠折扣=成交价</view>
+        <view>{{payInfo.card_price}}*{{payInfo.open_limit}}*{{payInfo.count_discount / 100}}*({{payInfo.open_date}}/12)*{{payInfo.time_discount / 100}}={{payInfo.pay_number}}(元)</view>
+    </view>
+</view>

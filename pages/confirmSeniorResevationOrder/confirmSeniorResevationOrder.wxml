@@ -1,0 +1,60 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml"/>
+<view class="bcf">
+  <view class="flex fr24 order-header">
+    <image class="img" src="{{ShowImg.cropImgWH(AppointmentGoodsItemList.banner[0].imgUrl,160,160)}}"></image>
+    <view class="flexaColumn flex1" style="height: 160rpx;margin-left: 20rpx;">
+      <view class="c3">{{AppointmentGoodsItemList.title}}
+        <text wx:if="{{AppointmentGoodsItemList.deposit > 0}}" style="float: right">￥{{AppointmentGoodsItemList.deposit}}</text>
+      </view>
+      <view class="cb2 ellipsis1">{{AppointmentGoodsItemList.introduce}}</view>
+      <view style="color:#25baf1">到店日期：{{arriveDate}}</view>
+    </view>
+  </view>
+  <view wx:if="{{AppointmentGoodsItemList.deposit > 0}}" style="padding: 30rpx;text-align: right;	border-top: 1rpx solid #e6e6e6;" class="fr28 c6">小计:
+    <text style="color:#fe5b36;">￥{{AppointmentGoodsItemList.deposit}}</text>
+  </view>
+  <view class="border-line">
+  </view>
+</view>
+<form bindsubmit="formSubmit" report-submit>
+  <view class="bcf fr24 order-form flex">
+    <view class="c3">姓名</view>
+    <input placeholder="请输入您的姓名" bindinput='getNameValue' placeholder-class="input-placeholder" name="userName" placeholder-class="placeholder" />
+  </view>
+  <view class="bcf fr24 order-form flex">
+    <view class="c3">手机号</view>
+    <input style="margin-left: 70rpx" bindinput='getPhoneValue' placeholder="请输入您的手机号" placeholder-class="input-placeholder" name="phone" placeholder-class="placeholder" />
+  </view>
+  <view class="bcf fr24 order-form flex">
+    <view class="c3">时间</view>
+    <picker name="time" style="margin-left: 90rpx;flex:1" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view class="picker flex">
+        <text class="input-placeholder flex1" wx:if="{{!index}}">请选择到店时间</text> <text class="flex1">{{array[index]}}</text>
+        <view class="iconfont icon-xiala fr26 c9"></view>
+      </view>
+      
+    </picker>
+    <!-- <input placeholder="请选择到点时间" placeholder-class="input-placeholder" name="userName" placeholder-class="placeholder" /> -->
+    
+  </view>
+  <view class="bcf fr24 textarea-box flex">
+    <view class="c3">备注</view>
+    <textarea placeholder-class="input-placeholder" placeholder="填写内容与卖家协商确定（可不填写）" auto-height="{{true}}" maxlength="-1" name="remark" />
+  </view>
+  <view class="bottom-box flex">
+    <!-- <view class="bottom-phone iconfont icon-lianxi cb3" wx:if="{{phone.length > 0}}" bindtap="call"></view> -->
+         <block wx:if="{{toChat}}">
+            <button wx:if='{{!hasBindPhone}}' class="bottom-phone iconfont icon-kefu1 cb3 fr30"  open-type='getPhoneNumber' bindgetphonenumber='getPhoneNumber'>
+                {{priceForm.customService.title}}
+            </button>
+            <button wx:else class="bottom-phone iconfont icon-kefu1 cb3 fr30" catchtap='toChat'>
+                {{priceForm.customService.title}}
+            </button>
+        </block>
+    <button wx:if="{{AppointmentGoodsItemList.deposit > 0}}" style="flex:3" class="bottom-phone" formType="submit">{{'预约支付￥'+AppointmentGoodsItemList.deposit}}</button>
+    <button wx:else style="flex:3" class="bottom-phone" formType="submit" catchtap='pullSubscription'>立即预约</button>
+  </view>
+</form>
+
+<component-messageToast></component-messageToast>

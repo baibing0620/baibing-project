@@ -1,0 +1,76 @@
+.fr24 {
+  line-height: 24rpx;
+}
+
+.fr60 {
+  line-height: 60rpx;
+}
+
+.tag {
+  position: absolute;
+  width: 140rpx;
+  height: 50rpx;
+  border-radius: 50rpx 0 0 50rpx;
+  top: 50%;
+  right: -30rpx;
+  transform: translateY(-50%);
+  text-align: center;
+  line-height: 50rpx;
+}
+
+.price {
+  display: flex;
+  padding: 60rpx 0;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1rpx solid #f0f0f0;
+  margin-bottom: 30rpx;
+}
+
+.others {
+  margin-bottom: 20rpx;
+}
+
+.others:last-child {
+  margin-bottom: 0
+}
+
+.detail {
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  border-top: 1rpx solid #f0f0f0;
+  font-size: 26rpx;
+  color: #25baf1;
+}
+
+.margin-top {
+  margin-top: 20rpx;
+}
+
+.margin-bottom {
+  margin-bottom: 10rpx;
+}
+
+.margin-right {
+  margin-right: 12rpx;
+}
+
+.paddingH {
+  padding: 0 30rpx;
+}
+
+.paddingV {
+  padding: 30rpx 0;
+}
+
+.relative {
+  position: relative;
+}
+.none{
+  height: calc(100vh);
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+}

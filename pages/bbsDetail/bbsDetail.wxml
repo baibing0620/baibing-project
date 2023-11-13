@@ -1,0 +1,144 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml'/>
+<wxs src="../../tools/showImg.wxs" module="ShowImg"/>
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+    <view wx:if='{{ showStyle == 1 }}' bindtap='handlePageClick'>
+      <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+      <view class='item'>
+        <view class='info flex'>
+            <image mode='aspectFill' class='avatar' src='{{ ShowImg.cropImgWH(detail.avatarAndName.image_url, 80, 80) }}'></image>
+            <view class='fr22 cbd flex1'>
+              <view class='flexb'>
+                <view class='title fr30 c3 flex1'>{{ detail.avatarAndName.name }}</view>
+                <view class='fr22 cbd createTime'>{{ detail.createtime }}</view>
+              </view>
+              <view class='fr22 cbd flex'>
+                <block wx:if='{{ detail.card.label.length > 0 }}'>
+                  <view wx:for='{{ detail.card.label }}' wx:key='id' class='tag'>{{ item }}</view>
+                </block>
+                <view wx:else class='tag'>{{ detail.avatarAndName.belong }}</view>
+              </view>
+            </view>
+          </view>
+
+        <view class='label fr30 c3 bold'>{{ detail.title }}</view>
+
+        <text class='content fr30 c80 ellipsis3'>{{ detail.content }}</text>
+
+        <view wx:if='{{ detail.type == 1 }}' class='flexb picture {{ detail.image_list.length > 4 || detail.image_list.length == 3 ? "picture3" : "picture2" }}'>
+          <image mode='aspectFill' wx:for='{{ detail.image_list }}' wx:for-index='{{ imgIndex }}' wx:key='imgIndex' src='{{ ShowImg.cropImgWH(item,230,230) }}' data-url='{{ item }}' bindtap='previewImage'></image>
+        </view>
+
+        <view wx:if='{{ detail.type == 2 }}' class='video'>
+          <video wx:if='{{ videoPlay }}' class='videoLayout' src='{{ detail.file_url }}' autoplay bindended='playEnd'></video>
+          <block wx:else>
+            <image mode='aspectFill' src='{{ ShowImg.cropImgWH(detail.video_cover_image,710,400) }}'></image>
+            <view class='video-shadow'></view>
+            <view class='video-info'>{{ detail.video_play_count }}次播放 {{ detail.video_length }}</view>
+            <view class='iconfont icon-bofang3 play fr50 flexc cf' bindtap='playVideo'></view>
+          </block>
+        </view>
+
+      </view>
+
+      <view class='hold'></view>
+
+      <component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+
+      <view wx:if='{{ switchTab.currentIndex == 0 }}'>
+        <view wx:for='{{ commentList }}' wx:key='id' class="comment-item-layout">
+          <view class='comment-item bf'>
+            <image mode='aspectFill' src='{{ ShowImg.cropImgWH(item.member.avatar, 70, 70) }}' class='comment-avatar comment-avatar1'></image>
+            <view class='comment-layout comment-layout1'>
+              <view class='comment-title fr26' style='color: {{ extConfig.themeColor }}'>{{ item.member.nickname }}</view>
+              <text class='comment-content fr28 c4d' data-index='{{ index }}' bindtap='handleShowReplyComment'>{{ item.content }}</text>
+              <view class='comment-time fr24 cc'>{{ item.createtime }}</view>
+              <view wx:if='{{ item.has_self == 1 || isMyPost == 1 || ifPermission == 1 }}' data-index='{{ index }}' class='comment-more flexc fr40 c9' catchtap="handleMenuStatusChange">
+                <i class='fr30 c9 iconfont icon-gengduo1'></i>
+                <view class="comment-menu {{ showMenuCurrentIndex == index ? '' : 'comment-menu-hidden' }} flex">
+                  <view class="flexc flex1 fr24 comment-menu-item" data-index='{{ index }}' data-id='{{ item.id }}' data-hasself='{{ item.has_self }}' data-ifaudit='{{ item.if_audit }}' bindtap='deleteComment'><text></text>删除</view>
+                  <view wx:if='{{isMyPost == 1}}' class="flexc flex1 fr24 comment-menu-item" data-index='{{ index }}' bindtap='handleShowReplyComment'><text></text>回复</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- 回复评论 -->
+          <!--
+            editStatus: 0 // 已发送
+            editStatus: 1 // 正在发送
+            editStatus: -1 // 未发送
+          -->
+          <block wx:for="{{item.reply}}" wx:for-index="replyIndex" wx:key="replyIndex">
+            <view wx:if="{{ index == showCommentReplyIndex || item.editStatus != -1 }}" class="comment-reply-layout">
+              <view class="comment-reply-info flex">
+                <view class="comment-reply-username fr24">作者回复</view>
+                <image wx:if="{{ item.editStatus == 1 }}" class="comment-reply-sending" src="/imgs/loading.gif"></image>
+                <view wx:if="{{ !item.editStatus && (isMyPost == 1 || ifPermission == 1) }}" class="comment-reply-delete iconfont icon-shanchu1" data-id="{{item.id}}" data-index="{{index}}" data-replyindex="{{replyIndex}}" bindtap="handleDeleteCommentReply"></view>
+              </view>
+              <view class="comment-reply-content">
+                <textarea wx:if="{{ item.editStatus == -1 && index == showCommentReplyIndex }}" class="comment-reply-textarea" auto-height data-index="{{index}}" data-replyindex="{{replyIndex}}" focus="{{commentRelayFocus}}" bindblur="handleHideReplyComment" bindinput="handleCommentReplyInput" bindconfirm="handleCommentReplyComfirm" value="{{ commentRelayValue }}" ></textarea>
+                <text wx:elif="{{ item.editStatus != -1 }}" class="comment-reply-text">{{ item.relay_comment }}</text>
+              </view>
+              <view wx:if="{{ item.editStatus != -1 }}" class="comment-reply-time fr24 cc">{{ item.create_time }}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view wx:if='{{ switchTab.currentIndex == 1 }}'>
+        <view wx:for='{{ relayList }}' wx:key='id' class='comment-item comment-item2 flexb bf'>
+          <image class='comment-avatar' src='{{ ShowImg.cropImgWH(item.member.avatar, 70, 70) }}'></image>
+          <view class='comment-layout comment-layout2 borderBottom flexb'>
+            <view class='fr26' style='color: {{ extConfig.themeColor }}'>{{ item.member.nickname }}</view>
+            <view class='fr24 cc'>{{ item.like_relay_time }}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if='{{ switchTab.currentIndex == 2 }}'>
+        <view wx:for='{{ likeList }}' wx:key='id'  class='comment-item comment-item2 flexb bf'>
+          <image class='comment-avatar' src='{{ ShowImg.cropImgWH(item.member.avatar, 70, 70) }}'></image>
+          <view class='comment-layout comment-layout2 borderBottom flexb'>
+            <view class='fr26' style='color: {{ extConfig.themeColor }}'>{{ item.member.nickname }}</view>
+            <view class='fr24 cc'>{{ item.like_relay_time }}</view>
+          </view>
+        </view>
+      </view>
+
+      <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+
+      <view class='holder'></view>
+
+      <view class='inputViewBox flex'>
+        <view class='flexc commentToast {{ commentToastShow ? "commentToastShow" : "" }}'>
+          {{ commentToast }}
+        </view>
+        <view class='inputView fr28 flex'>
+          
+          <view class='input flex {{ comment ? "inputWidth" : "" }}'>
+            <i wx:if='{{ !comment }}' class='iconfont icon-liuyan1 fr26 cc'></i>
+            <input class='fr26 flex1' confirm-type='发送' value='{{ comment }}' bindconfirm='sendComment' bindinput='commentInput' placeholder-class='cc fr26' placeholder='评论TA'>
+            </input>
+          </view>
+          <block wx:if='{{ !comment }}'>
+            <button class='relay fr28 active' open-type='share'>
+              <i class='iconfont icon-share fr28 marginright10'></i>
+              转
+            </button>
+            <view class='{{ hasLiked ? "thumbsUp": "relay" }} cf fr28' style=' {{ hasLiked? "background-color:" + extConfig.themeColor: "" }}' bindtap='clickLike'>
+              <i class='iconfont icon-like fr28 marginright10'></i>
+              赞
+            </view>
+          </block>
+          <view wx:else class='thumbsUp fr28 active cf' style='background-color: {{ extConfig.themeColor }}' bindtap='sendComment'>发送</view>
+        </view>
+      </view>
+    </view>
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

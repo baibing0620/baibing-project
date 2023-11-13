@@ -1,0 +1,66 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<view>
+  <view class="manage-item flexb">
+    <view class="item-title">首页新增【联系我】模块</view>
+    <view>
+      <view class="flex"  data-type="home_page_contact_open" bindtap='changeDeduction' wx:if="{{staff_func_control == 1}}">
+        <view class="{{ home_page_contact_open ?'switch-box-diy switch-box-open':'switch-box-diy'}}">
+          <view class="circle-box" style="{{ home_page_contact_open ? 'transform:translateX(22rpx); border-radius: 32rpx;' : 'border-radius: 32rpx;'}}">            <view class='circle' style=""></view>
+          </view>
+        </view>
+      </view>
+      <view class="opentype" wx:else>
+        {{home_page_contact_open ? '开启状态' : '关闭状态'}}
+      </view>
+    </view>
+  </view>
+
+  <view class="manage-item flexb">
+    <view class="item-title">替换小程序内沟通模式</view>
+    <view>
+      <view class="flex" data-type="home_page_chat_model_change" bindtap='changeDeduction' wx:if="{{staff_func_control == 1}}">
+        <view class="{{ home_page_chat_model_change ?'switch-box-diy switch-box-open':'switch-box-diy'}}">
+          <view class="circle-box" style="{{ home_page_chat_model_change ? 'transform:translateX(22rpx); border-radius: 32rpx;' : 'border-radius: 32rpx;'}}">            <view class='circle' style=""></view>
+          </view>
+        </view>
+      </view>
+      <view class="opentype" wx:else>
+        {{home_page_chat_model_change ? '开启状态' : '关闭状态'}}
+      </view>
+    </view>
+  </view>
+
+  <view class="manage-item flexb">
+    <view class="item-title">替换商品内客服沟通模式</view>
+    <view>
+      <view class="flex" data-type="goods_chat_model_change"  bindtap='changeDeduction' wx:if="{{staff_func_control == 1}}">
+        <view class="{{ goods_chat_model_change ?'switch-box-diy switch-box-open':'switch-box-diy'}}">
+          <view class="circle-box" style="{{ goods_chat_model_change ? 'transform:translateX(22rpx); border-radius: 32rpx;' : 'border-radius: 32rpx;'}}">            <view class='circle' style=""></view>
+          </view>
+        </view>
+      </view>
+      <view class="opentype" wx:else>
+        {{goods_chat_model_change ? '开启状态' : '关闭状态'}}
+      </view>
+    </view>
+  </view>
+
+  <view class="manage-item flexb">
+    <view class="item-title">资讯详情新增联系入口</view>
+    <view>
+      <view class="flex" data-type="news_contact_open" bindtap='changeDeduction' wx:if="{{staff_func_control == 1}}">
+        <view class="{{ news_contact_open ?'switch-box-diy switch-box-open':'switch-box-diy'}}">
+          <view class="circle-box" style="{{ news_contact_open ? 'transform:translateX(22rpx); border-radius: 32rpx;' : 'border-radius: 32rpx;'}}">            <view class='circle' style=""></view>
+          </view>
+        </view>
+      </view>
+       <view class="opentype" wx:else>
+        {{news_contact_open ? '开启状态' : '关闭状态'}}
+      </view>
+    </view>
+  </view>
+</view>
+ 

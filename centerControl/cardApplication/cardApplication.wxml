@@ -1,0 +1,76 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml'/>
+<wxs src="../../tools/showImg.wxs" module="ShowImg"/>
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+    <image class="banner" src="https://facing-1256908372.file.myqcloud.com//image/20190403/3733b95defa4a4b7.jpg"></image>
+    <view class="layout" style="margin-top: 0;">
+        <view class="input-layout flex">
+            <view class="label fr30 flex {{ company ? 'c80' : 'c1a' }}">企业名称</view>
+            <input class="input flex1 fr30 c1a" type="text" placeholder-class="cb3" placeholder="请输入企业名称" bindinput="handleCompanyInput" />
+        </view>
+        <view class="input-layout flex">
+            <view class="label fr30 flex {{ phoneNumber ? 'c80' : 'c1a' }}">手机号码</view>
+            <input class="input flex1 fr30 c1a" type="number" placeholder-class="cb3" placeholder="客服将会通过这个手机号码联系您" bindinput="handlePhoneInput" />
+        </view>
+    </view>
+    <view class="layout">
+        <view class="input-layout flex">
+            <view class="label fr30 flex {{ cardTotal > 0 ? 'c80' : 'c1a' }}">开通数量</view>
+            <input class="input flex1 fr30 c1a" type="number" placeholder-class="cb3" placeholder="请输入开通数量" value="{{ cardTotal }}" bindinput="handleCardNumInput" />
+            <view class="controler flex c9">
+                <view class="flex1 flexc iconfont icon-jian1 " hover-class="decrease-click" hover-stay-time="100" bindtap="handleDecrease"></view>
+                <view class="flex1 flexc iconfont icon-jia1 bc-f5" hover-class="increase-click" hover-stay-time="100" bindtap="handleIncrease"></view>
+            </view>
+        </view>
+        <view class="remark fr26 c-ff4c4c {{ currentOfferIndex < 0 ? 'remark-hidden' : '' }}">当前开通张数满{{ currentOfferIndex < 0 ? '--' : offer[currentOfferIndex].total }}张享受{{ currentOfferIndex < 0 ? '--' : offer[currentOfferIndex].count / 10 }}折优惠</view>
+        <scroll-view class="scroller" scroll-x="{{ true }}">
+            <view wx:for="{{ offer }}" wx:key="{{ index }}" data-index="{{ index }}" class="scroll-item {{ currentOfferIndex == index ? 'scroll-item-selected' : '' }}" bindtap="handleOfferClick">
+                <view class="fr28 c1a">满{{ item.total }}张/年</view>
+                <view class="scroll-item-price-layout">
+                    <view class="fr34 c-ff4c4c flex scroll-item-price">
+                        ￥{{ item.priceAfterCount }}
+                        <view class="scroll-item-discountPrice fr26 cb3">￥{{ item.price }}</view>
+                    </view>
+                </view>
+                <view class="scroll-item-discount flexc fr24">{{ item.count / 10 }}折</view>
+            </view>
+        </scroll-view>
+    </view>
+    <view class="layout">
+        <view class="label fr30 c1a flex">开通时长</view>
+        <view class="periodOfValidity-layout flex">
+            <view wx:for="{{ timeOffer }}" wx:key="{{ index }}" data-index="{{ index }}" class="periodOfValidity flexc fr30 {{ currentTimeOfferIndex == index ? 'periodOfValidity-selected' : '' }}" bindtap="handleTimeOfferClick">
+                {{ item.label }}
+                <view class="validity-discount fr20 flexc">
+                    <view class="validity-bg"></view>
+                    <view class="relative">{{ item.count / 10 }}<text class="fr18">折</text></view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="layout">
+        <view class="flexb" bindtap="handleShowDetail">
+            <view class="label fr30 flex {{ showDetail ? 'c80' : 'c1a' }}">
+                查看明细
+                <view class="iconfont icon-xiala2 fr24" style="margin-left: 12rpx;"></view>
+            </view>
+            <view class="flex">
+                <view class="fr30 c1a">合计: </view>
+                <view class="fr40 price">{{totalPrice > 0 ? '￥' + totalPrice : '--'}}</view>
+            </view>
+        </view>
+        <view class="detail fr26 c6 {{ showDetail ? '' : 'detail-hidden' }}">
+            <view>名片单价*名片数量*名片数量折扣*名片开通时长*市场优惠折扣=成交价</view>
+            <view wx:if="{{ priceDetail }}">{{ priceDetail }}</view>
+        </view>
+        <view class="submit flexc fr30 cf" bindtap="handleSubmit">{{}}立即开通</view>
+        <view class="agreement-layout flexc">
+            <view wx:if="{{servicePhone}}" class="fr26 phone-num">联系客服 {{servicePhone}}</view>
+        </view>
+    </view>
+</block>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

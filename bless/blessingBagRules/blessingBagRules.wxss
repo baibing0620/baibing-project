@@ -1,0 +1,17 @@
+page{
+  background-color: #fff;
+}
+.contaner{
+  padding: 40rpx 30rpx;
+}
+
+.title-tag {
+  border-left: 10rpx solid #ff9b1f;
+  line-height: 28rpx;
+  margin-bottom:22rpx;
+}
+
+.title-tag-text {
+  margin-left: 14rpx;
+  font-weight: 800;
+}

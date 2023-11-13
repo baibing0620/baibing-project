@@ -1,0 +1,21 @@
+<view class="box">
+  <view wx:for="{{ props.tabs }}" wx:key="index" class='item' data-index="{{ index }}"  catchtap='onClick'>
+    <view class='label {{ index == props.currentIndex ? "label-switch" : "label-normal" }}' style='{{ index == props.currentIndex ? "background-color:" + props.themeColor : "" }}'>{{ item }}</view>
+  </view>
+</view>
+
+<!--
+  传入
+    props: { 
+
+      tabs: [ "全部" , "昨日" ],
+      
+      themeColor: themeColor,           // 主题颜色
+
+      currentIndex，: currentIndex,     // 当前选中下标
+    
+    }
+
+  事件
+    myevent
+  -->

@@ -1,0 +1,47 @@
+<include src="/comm/comm" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关预约订单信息'}}" wx:if="{{showStyle!=1&&myAppointList.length==0}}" />
+<block wx:else>
+    <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+    <view class="container bcf0">
+        <block wx:for="{{myAppointList}}" wx:key="id">
+            <view data-index="{{index}}" data-id="{{item.id}}" class="appointList w100 bcf">
+                <view class="header flex">
+                    <image class="fs0" src="{{ShowImg.cropImgWH(item.appointment_item_thumb.imgUrl,160,160)}}" mode="aspectFit"></image>
+                    <view class="flex1 flexbColumn {{item.status==-2?'cb3':'c3'}} ">
+                        <view class="flexb">
+                            <view class="fr28 lh50">{{item.appointment_item_title}}</view>
+                            <view wx:if="{{item.status==2}}" class="fr24 cf message mc1 flexc">预约成功</view>
+                            <view wx:if="{{item.status==1}}" class="fr24 cf message mc2 flexc">待接收</view>
+                            <view wx:if="{{item.status==3}}" class="fr24 cf message mc3 flexc">已完成</view>
+                            <view wx:if="{{item.status==-1}}" class="fr24 cf message mc4 flexc">预约失败</view>
+                            <view wx:if="{{item.status==-2}}" class="fr24 cf message mc5 flexc">已取消</view>
+                        </view>
+                        <view class="fr24 lh50">￥{{item.price}}</view>
+                        <view class="fr24 lh50 {{item.status==-2?'cb3':'c25'}}">到店时间 : {{item.appointment_time}}</view>
+                    </view>
+                </view>
+                <view class="footer">
+                    <view class="lh40">
+                        <text>
+          <text decode="{{true}}" class="fr24 {{item.status==-2?'cb3':'c80'}}">预约人&nbsp;:&nbsp;</text>
+                        <text class="fr24 {{item.status==-2?'cb3':'c3'}}">{{item.name}}</text>
+                        </text>
+                    </view>
+                    <view class="lh40">
+                        <text decode="{{true}}" class="fr24 {{item.status==-2?'cb3':'c80'}}">手机号&nbsp;:&nbsp;</text>
+                        <text class="fr24 {{item.status==-2?'cb3':'c3'}}">{{item.mobile}}</text>
+                    </view>
+                    <view class="leave-message lh40">
+                        <text decode="{{true}}" class="fs0 fr24 {{item.status==-2?'cb3':'c80'}}">我的留言&nbsp;:&nbsp;</text>
+                        <text class="fr24 {{item.status==-2?'cb3':'c3'}}  ellipsis2">{{item.remark}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <template is="moreData" data="{{loadStyle:loadStyle}}" />
+    </view>
+</block>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "对外标签",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

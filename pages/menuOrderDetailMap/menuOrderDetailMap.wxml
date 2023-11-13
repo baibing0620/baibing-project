@@ -1,0 +1,17 @@
+<view class='flexColumn container'>
+  <map id="map" longitude="{{markers[1].longitude}}" latitude="{{markers[1].latitude}}" scale="{{scale}}" controls="{{controls}}"
+    bindcontroltap="controltap" markers="{{markers}}"></map>
+  <view class="map-content flexcColumn">
+    <view wx:if="{{deliveryStatus==2}}">骑手正在赶往商家</view>
+    <view class="fr32 c3 fw600" wx:else>{{deliveryType}}骑手正在飞奔向您，距您还有
+      <text wx:if="{{distance != null}}">{{distance}}</text>
+      <text wx:else>0</text>
+      米</view>
+    <view class="flex">
+      <button class="fr24 c3" data-phone="{{servicePhone}}" catchtap="makePhone">联系商家</button>
+      <button class="fr24 c3" data-phone="{{phone}}" catchtap="makePhone">联系骑手</button>
+    </view>
+  </view>
+</view>
+
+<component-messageToast></component-messageToast>

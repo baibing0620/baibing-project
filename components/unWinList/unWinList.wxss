@@ -1,0 +1,148 @@
+@import '../../comm/base.wxss';
+@import '../../iconfont/iconfont.wxss';
+
+
+.box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,1);
+    opacity:0.8;
+    z-index: 900;
+}
+
+.content {
+    position: fixed;
+    width: 600rpx;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    margin-left: -300rpx;
+    transform: translateY(-50%);
+    animation: showContent .3s;
+}
+@keyframes showContent {
+    0% {
+        transform: scale(0.1) translateY(-50%);
+    }
+    100% {
+        transform: scale(1) translateY(-50%);
+    }
+}
+.main {
+    width: 600rpx;
+    max-height: 746rpx;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    background-color: #ffffff;
+    padding-top: 45rpx;
+    overflow: hidden;
+}
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.line {
+    height: 5rpx;
+    width: 20rpx;
+    background-color: #333333;
+}
+.name-list {
+    width: 100%;
+    /* height: 520rpx; */
+    max-height: 650rpx;
+    box-sizing: border-box;
+    border-top: 1rpx solid #ffffff;
+}
+/* 让加载标识居中 覆盖掉默认的 margin: 50% auto */
+.name-list .newloader {
+    margin: 0 auto;
+}
+.scroll-view-h {
+    width: 100%;  
+    /* height: 520rpx; */
+}
+.no-win-list-h {
+    height: 520rpx;
+}
+.scroll-view-h1 {
+    height: 260rpx;   /*130 + 130*/
+}
+.scroll-view-h2 {
+    height: 390rpx;  /*260+130*/
+}
+.scroll-view-h3 {
+    height: 520rpx;   /* 390+120 */
+}
+.scroll-view-h4 {
+    height: 620rpx;   /* 390+120 */
+}
+.scroll-view-h-win {
+    max-height: 620rpx !important;
+}
+.name-item {
+    width: 536rpx;
+    height: 130rpx;
+    flex: 1;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #F7F7F7;
+}
+.name-list .name-item:last-child {
+    background:rgba(247,247,247,1);
+}
+.scroll-view-h .name-item:last-child {
+    background-color: #ffffff;
+}
+.name-list .last {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 32rpx;
+}
+.name-info {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    margin-left: 20rpx;
+}
+.avatar-list {
+    width: 215rpx;
+    height: 70rpx;
+    border-radius: 0 35rpx 35rpx 0;
+}
+.avatar-list .scroll-view-x {
+    width: 100%; 
+    height: 70rpx; 
+    white-space: nowrap;
+    border-radius: 0 35rpx 35rpx 0;
+}
+.avatar-list .avatar {
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 50%;
+}
+
+.avatar-list .avatar:nth-child(n+1) {
+    margin-left: -35rpx;
+}
+.avatar-list .avatar:first-child {
+    margin-left: 0rpx;
+}
+
+
+.my-icon {
+    width: 100%;
+    height: 55rpx;
+    text-align: center;
+    margin-top: 80rpx;
+}
+.my-guanbi {
+    color: #ffffff;
+    font-size: 50rpx;
+    text-align: center;
+}

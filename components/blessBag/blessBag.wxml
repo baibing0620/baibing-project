@@ -1,0 +1,19 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="modal-box-diy" bindtap='closeBless'>
+    <view class='blessing-bag' catchtap='noClose'>
+      <view class="ellipsis-bless fr26 cbless blessing-bag-title fw600">【{{blessData.card.name}}】{{blessData.fromUser?'通过您的好友'+blessData.fromUser.nickname:''}}</view>
+      <view class='fr26 cf'>{{recevieData.type == 1?'赠与您一个现金福袋':'赠与您一个积分福袋，可抽奖和兑换礼品'}}</view>
+      <view class='blessing-bag-img flexc'><image src="{{ShowImg.cropImgWH(blessData.card.avatar_url,114,144)}}" mode="aspectFill"></image></view>
+      <view class='fr30 cbless ellipsis-bless flexc fw600'>{{blessData.card.name}}</view>
+      <view class='fr24 cf ellipsis-bless' style='width:520rpx;margin:14rpx 0 54rpx;text-align:center;'>{{blessData.card.position}}/{{blessData.card.company}}</view>
+      <view style='text-align:center;line-height:40rpx' class='{{showTip?"fr30":"fr50"}} cbless fw600'>{{showTip?showTip:'恭喜发财  大吉大利'}}</view>
+      <!-- <view wx:if="{{blessData.activity.type == 2}}" class="fw600 cbless fr80">{{blessData.activity.receiveCount}}<text class="fr30">元</text></view> -->
+      <view class='fr24 cf' style='{{showTip?"margin:40rpx 0 32rpx":"margin:54rpx 0 32rpx"}}'>{{recevieData.type == 1?'可提现至微信零钱中使用':'可领取至我的积分中使用'}}</view>
+      <view wx:if="{{blessData.activity.type == 1}}" class='belss-bag-btn' catchtap="immediatelyReceive">立即领取</view>
+      <view wx:if="{{blessData.activity.type == 2}}">
+         <view class='belss-bag-btn' wx:if="{{!showTip}}" catchtap="immediatelyExplore">我要领取</view>
+         <view class='belss-bag-btn' wx:else catchtap="navBless">查看福袋详情</view>
+      </view>
+      <view class='fr26 cf' style='margin-top:32rpx' catchtap='navRule'>活动规则</view>
+    </view>
+</view>

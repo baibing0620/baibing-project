@@ -1,0 +1,41 @@
+<view class="box {{ props.noBottomDevide ? '' : props.noShadow ? 'borderBottom' : 'shadow'}} shadow-class" style='{{props.top ? "top:"+props.top+"rpx;" : ""}}{{props.position ? "position:"+props.position+";" : "" }}{{props.backgroundColor ? "background-color:"+props.backgroundColor: ""}}'>
+  <view class='layout'>
+    <view wx:for="{{ props.tabs }}" wx:key="index" class='item {{ index == props.currentIndex ? "item-switch" : "item-normal" }}' data-index = "{{ index }}" data-value="{{ item.value }}" style='{{ index == props.currentIndex ? "color:" + props.themeColor : props.color ? "color:" + props.color : "" }}' catchtap='onClick'>
+      <view class='label' style='{{index != props.tabs.length - 1 ? "border-right: 1rpx solid " + props.color : ""}}'>{{ item.label || item }}<i wx:if='{{ props.iconfont }}' class='iconfont {{ props.iconfont }}'></i></view>
+    </view>
+  </view>
+  <view class='switch-line' style='width:{{750 / props.tabs.length}}rpx; left:{{750 / props.tabs.length * props.currentIndex }}rpx'>
+    <view style='background-color: {{ props.themeColor }};'>
+    {{ nowContent.label || nowContent }} <i wx:if='{{ props.iconfont }}' class='iconfont {{ props.iconfont }}'></i> 
+    </view>
+  </view>
+</view>
+
+<!--
+  传入
+    props: { 
+    
+      // 标题不要超过5个字;
+      // tabs最好两三个就可以了;
+
+      tabs: [ "目标客户" , "最新互动" ],
+      
+      themeColor: themeColor,           // 主题颜色
+
+      backgroundColor: backgroundColor  // 背景颜色
+
+      color: color                      // 默认字体颜色
+
+      currentIndex，: currentIndex,     // 当前选中下标
+
+      iconfont: iconfont,               // iconfont的类名
+
+      top: 0                            // 超出屏幕后顶部距离 (单位:rpx)
+
+      position: sticky                  // 默认sticky
+    
+    }
+
+  事件
+    myevent
+  -->

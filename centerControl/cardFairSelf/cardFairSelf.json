@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "名片投放",
+    "navigationBarBackgroundColor": "#000000",
+    "backgroundColor": "#000000",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

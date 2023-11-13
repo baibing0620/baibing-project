@@ -1,0 +1,73 @@
+<!--pages/winningRecord/winningRecord.wxml-->
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+
+<view class="container w100">
+    <view class="order-tab fr24 c6 flex">
+        <block wx:for="{{tabBar}}" wx:key="index">
+            <view bindtap="tabChange" data-status="{{item.status}}" class="tabContainer flex1">
+                <text class="tabItem {{item.status==activeStatus?'active-tab':''}}">{{item.title}}</text>
+            </view>
+        </block>
+    </view>
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关记录'}}" wx:if="{{recordList.length==0}}" />
+
+    <block wx:for="{{recordList}}"  wx:key="id" >
+      <view class="recordContainer flexb">
+        <view class="flex flex1">
+            <view class="actType" wx:if="{{item.activity.type == 3}}" >
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191202/373b860db18f97f2.png"></image>
+            <view class="actTitle">老虎机</view>
+          </view>
+          <view class="actType" wx:if="{{item.activity.type == 4}}">
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191202/8d4d1e6689ddb4c5.png  "></image>
+            <view class="actTitle">摇一摇</view>
+          </view>
+          <view  class="actType" wx:if="{{item.activity.type == 5}}">
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191202/ee69c6c85265aac0.png"></image>
+            <view class="actTitle">跑马灯</view>
+          </view>
+          <view  class="actType" wx:if="{{item.activity.type == 2}}">
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191202/f9a88945a34994c3.png"></image>
+            <view class="actTitle">刮刮乐</view>
+          </view>
+          <view  class="actType" wx:if="{{item.activity.type == 1}}">
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191202/36a6aaca0758fd2c.png"></image>
+            <view class="actTitle">大转盘</view>
+          </view>
+          <view  class="actType" wx:if="{{item.activity.type == 6}}">
+            <image src="https://facing-1256908372.file.myqcloud.com//image/20191202/9ab2007fa07fabe2.png"></image>
+            <view class="actTitle">砸金蛋</view>
+          </view>
+          <view class="line"></view>
+
+          <view class="recordInfo flex1">
+            <view class="recordTitle ellipsis1">{{item.activityItem.title}}</view>
+            <view class="winTime fr24">  <text class="iconfont icon-shijian" style="font-size:24rpx"></text> 中奖时间: {{item.part_time}}</view>
+            <view class="winTime fr24" wx:if="{{item.is_used == 1 || item.activityItem.is_coupon == 1}}">  
+              <text class="iconfont icon-liwu" style="font-size:24rpx"></text> 
+              <text wx:if="{{item.activityItem.is_coupon == 1}}"> 发放时间: {{item.part_time}}</text> 
+              <text wx:else> 兑奖时间: {{item.used_time}}</text> 
+            </view>
+            <view class="winTime fr24" wx:if="{{item.activityItem.is_coupon == 0 && item.activityItem.is_credit != 1}}"> <text class="iconfont icon-erweima1" style="font-size:24rpx"></text> 到期时间: {{item.valide_time}}</view>
+          </view>
+        </view>
+        <view wx:if="{{item.is_used == 0 && item.activityItem.is_coupon == 0}}">
+          <text class="iconfont icon-erweima1 c-1F94FD" style="font-size:60rpx" data-url="{{item.activityItem.verification_prize_url}}" data-qrcode="{{item.qrcode}}" data-id="{{item.id}}" bindtap="navToCode"></text>
+        </view>
+        
+
+        <image wx:if="{{item.activityItem.is_coupon == 1}}" class="sendImg" src="https://facing-1256908372.file.myqcloud.com//image/20191202/d2cbe7d80e338e31.png" ></image>
+        <image wx:if="{{item.is_used == 1 && item.activityItem.is_coupon == 0}}" class="sendImg" src="https://facing-1256908372.file.myqcloud.com//image/20191202/407d45b89977fdf7.png" ></image>
+        <image wx:if="{{item.is_used == -2 && item.activityItem.is_coupon == 0}}" class="sendImg" src="https://facing-1256908372.file.myqcloud.com//image/20200103/f186927dcfdbd753.png" ></image>
+
+      </view>
+    </block>
+    
+
+</view>
+
+

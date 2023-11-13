@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "积分明细",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

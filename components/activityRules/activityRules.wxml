@@ -1,0 +1,61 @@
+<view class="box" wx:if="{{show}}"></view>
+<view class="content" wx:if="{{show}}">
+    <view class="main">
+        <view class="tar cc">
+            <text class="iconfont icon-tianjiajiahaowubiankuang" catchtap="close"></text>
+        </view>
+        <view class="title c3 fr36 bold tac lh1">抽奖规则</view> 
+        <view class="rules mgb2 mgt37">
+            <view class="rules-title c3 fr26 bold">活动时间</view>
+            <view class="rules-content c6 fr26 fw500">{{ activeTime }}</view>
+        </view>
+
+        <view class="rules mgb2">
+            <text class="rules-title c3 fr26 bold">开奖时间：</text>
+            <text class="rules-content c6 fr26 fw500">活动结束后立即开奖</text>
+        </view>
+
+        <!-- <view class="rules mgb2">
+            <view class="rules-title c3 fr28 bold">活动介绍</view>
+            <view class="rules-content c6 fr28 fw500">达到成团最低人数{{ miniNumber }}人，才会进行抽奖，中奖者会进行发货，未中奖者会进行退款。</view>
+        </view> -->
+
+        <!-- <view class="rules mgb2">
+            <view class="rules-title c3 fr28 bold">3、活动商品</view>
+            <view class="rules-content c6 fr28 fw500">{{ goodsName }}</view>
+        </view> -->
+
+        <!-- <view class="rules mgb2">
+            <view class="rules-title c3 fr28 bold">4、活动规则</view>
+            <view class="rules-content c6 fr28 fw500">活动需要授权手机号和基本信息，方便中奖后我们能联系到您；{{ endTime }}进入商城页查看中奖详情。</view>
+        </view> -->
+<!-- 
+        <view class="rules mgb2">
+            <block wx:if="{{lotteryGroupType == 1}}">
+                <view class="rules-title c3 fr28 bold">5、中奖人数</view>
+                <view class="rules-content c6 fr28 fw500">中奖人数为{{ winNumber }}人，中奖后自动发货。</view>
+            </block>
+            <block wx:if="{{lotteryGroupType == 2}}">
+                <view class="rules-title c3 fr28 bold">5、中奖团数</view>
+                <view class="rules-content c6 fr28 fw500">中奖团数为{{ winNumber }}团，中奖后自动发货。</view>
+            </block>
+        </view> -->
+
+        <!-- <view class="rules">
+            <view class="rules-title c3 fr28 bold">5、活动解释权</view>
+            <view class="rules-content c6 fr28 fw500">中奖后自动发货活动解释权活动最终解释权归{{shop}}所有</view>
+        </view> -->
+
+        <view class="rules mgb2">
+            <view class="rules-title c3 fr26 bold">活动介绍</view>
+            <view class="rules-content c6 fr26 fw500 mgb2">1、活动结束后将从拼团成功的用户中，随机抽取中奖者</view>
+            <view class="rules-content c6 fr26 fw500 mgb2">2、拼团未成功不具备抽奖资格，拼团成功后可获得抽奖资格</view>
+            <view class="rules-content c6 fr26 fw500 mgb2">3、同一商品，同一用户仅限作为团员成团一次</view>
+            <view class="rules-content c6 fr26 fw500 mgb2">4、本次活动最终获奖<block wx:if="{{lotteryGroupType == 1}}">者为{{winNumber}}名</block><block wx:if="{{lotteryGroupType == 2}}">团为{{winNumber}}团</block>，活动奖品将在抽奖结束后72小时内发货</view>
+            <view class="rules-content c6 fr26 fw500 mgb2">5、本活动解释权在法律范围内归【{{shop}}】所有</view>
+        </view>
+    </view>
+    <!-- <view class="my-icon">
+        <text class="iconfont icon-2guanbi my-guanbi"></text>
+    </view> -->
+</view>

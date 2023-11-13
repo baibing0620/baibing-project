@@ -1,0 +1,197 @@
+<wxs src="../../tools/format.wxs" module="Format" />
+<wxs module="util">
+    function strSplice(str) {
+        if (str.length >= 6) {
+            return str.substring(0, 5) + '...'
+        } else {
+            return str
+        }
+    }
+    module.exports = {
+        strSplice: strSplice
+    }
+</wxs>
+<component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+<view hidden="{{tabIndex!=0}}">
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          数据汇总 
+        </view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="statisticsChange"></component-switchTabs>
+      <view class='count flex'>
+        <view wx:for="{{userByStatusCount}}" wx:key="id" class='count-item fr24 c9'>
+          <view class='fr36 c4d bold'>{{item.count}}</view>
+          {{util.strSplice(item.statusName)}}
+        </view>
+        <view class='count-item fr24 c9'><view class='fr36 c4d bold'>{{getDataStatistics.userTimeCount || 0}}</view>客户停留总时长</view>
+        <view class='count-item fr24 c9'><view class='fr36 c4d bold'>{{getDataStatistics.userCount[4] || 0}}</view>跟进客户总数</view>
+        <view class='count-item fr24 c9'><view class='fr36 c4d bold'>{{getDataStatistics.userShareCount || 0}}</view>被转发次数(次)</view>
+        <view class='count-item fr24 c9'><view class='fr36 c4d bold'>{{getDataStatistics.orderCount.count || 0}}</view>商城订单数</view>
+        <view class='count-item fr24 c9'><view class='fr36 c4d bold'>{{getDataStatistics.userLikeCount || 0}}</view>获赞总数</view>
+        <view class='count-item fr24 c9'><view class='fr36 c4d bold'>￥{{getDataStatistics.orderCount.salesPrice || 0}}</view>销售总金额</view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          名片打开次数
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>{{openCardNum}}次</view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="cardOpenCountChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-open-card" canvas-id="mychart-open-card"  ec="{{ ec }}"></ec-canvas> 
+      </view>
+    </view>
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          新增用户数
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>{{newUserCount}}</view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="newUserCountChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-new-user" canvas-id="mychart-new-user"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          名片被转发次数
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>{{cardSharNum}}次</view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="cardSharNumChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-card-share" canvas-id="mychart-card-share"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          业务转化分析
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>合作转化率{{ Format.float2(conversion)}}%</view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="conversionChange"></component-switchTabs>
+      <view class="canvas-line "  style='height:580rpx;'>
+        <ec-canvas id="mychart-conversion" canvas-id="mychart-business-conversion"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+     <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+         销售转化漏斗
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>销售转化率{{ Format.float2(saleConversion)}}%</view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="saleChange"></component-switchTabs>
+      <view class="canvas-line "  style='height:580rpx;'>
+        <ec-canvas id="mychart-sale" canvas-id="mychart-sale"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+     <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          商城订单&成交金额
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>{{cardOrderMoney}}次</view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="orderMoneyChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-order-money" canvas-id="mychart-order-money"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+</view>
+<view hidden="{{tabIndex!=1}}">
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          用户性别
+        </view>
+      </view>
+      <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="userGenderCountChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-gender" canvas-id="mychart-gender-id"  ec="{{ ec }}"></ec-canvas> 
+      </view>
+    </view>
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+           用户年龄分布
+        </view>
+      </view>
+       <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="userAgeChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-user-age" canvas-id="mychart-age-id"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          用户城市分布
+        </view>
+        <view style='color: {{ switchTab.themeColor }}'>TOP 5</view>
+      </view>
+       <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="userCityChange"></component-switchTabs>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-user-city" canvas-id="mychart-city-id"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          用户兴趣
+        </view>
+      </view>
+       <component-switchTabs props='{{ switchTabCommon }}' bind:myevent="userInterestChange"></component-switchTabs>
+      <view class="canvas-line "  style='height:580rpx;'>
+        <ec-canvas id="mychart-user-interest" canvas-id="mychart-interest-id"  ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+</view>
+
+<view hidden="{{tabIndex!=2}}">
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          销售渠道占比
+        </view>
+      </view>
+      <component-switchTabs props='{{ MarketingSwitchTabCommon }}' bind:myevent="marketingChange"></component-switchTabs>
+      <view class="channel-percentage">
+        <view wx:for="{{channelList}}" wx:key="id" wx:for-index="index" class="channel">
+          <view class="channel-value channel-value{{index}}">{{item.value}}%</view>
+          <view class="channel-label">{{item.name}}</view>
+        </view>
+      </view>
+      <view class='count title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          短视频转化效率
+        </view>
+      </view>
+      <view class="canvas-line"  style='height:580rpx;'>
+        <ec-canvas id="mychart-video" canvas-id="mychart-video" ec="{{ec}}"></ec-canvas> 
+      </view>
+      <view class='count title flexb' style='border-left: 8rpx solid {{ switchTab.themeColor }}'>
+        <view class='c4d'>
+          内容转化效率
+        </view>
+      </view>
+      <view class="canvas-line"  style='height:580rpx;'>
+        <ec-canvas id="mychart-content" canvas-id="mychart-content" ec="{{ec}}"></ec-canvas> 
+      </view>
+    </view>
+</view>
+
+
+  <component-remind wx:if="{{ showRemind }}"></component-remind>
+  <component-messageToast></component-messageToast>

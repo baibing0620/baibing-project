@@ -1,0 +1,132 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<wxs module="customerStatus">
+    function showStatusText(status) {
+        status = parseInt(status);
+        switch (status) {
+            case 1:
+                return '意向客户'
+                break;
+            case 2:
+                return '目标客户'
+                break;
+            case 3:
+                return '已成交客户'
+                break;
+            default:
+                return '其他'
+        }
+    }
+
+    function showBg(type) {
+        type = parseInt(type);
+        switch (type) {
+            case 1:
+                return '#59d14c'
+                break;
+            case 2:
+                return '#46d7c8'
+                break;
+            case 3:
+                return '#d1c94c'
+                break;
+            case 4:
+                return '#5c7df8'
+                break;
+            case 5:
+                return '#ff69ac'
+                break;
+            default:
+                return '#ff9b1f'
+        }
+
+    }
+    module.exports = {
+        showStatusText: showStatusText,
+        showBg: showBg
+    }
+</wxs>
+<view class="search-box flexc w100" style="background-color:{{'#1F94FD' || diyConfig.navigationBarBC}}">
+    <view class='fr30 cf flex1 flexc'>{{total}}个客户</view>
+    <view class="search-goods flexb fr24" catchtap="search">
+        <input style="display: block;color:#333" class='flex1 cf' placeholder='请输入用户名搜索' placeholder-class='cf5' confirm-type="搜索" bindconfirm="search" bindinput="bindKeywords" />
+        <text class='iconfont  icon-sousuo' catchtap='search'></text>
+    </view>
+</view>
+<view class='tab-box flexb w100 fr28 c6' >
+  <view class='flex1 flex'>
+    <picker bindchange="bindPickerChange" value="{{customerStatusIndex}}" range="{{statusList}}" range-key="user_status">
+        <view style='margin:0 80rpx 0 40rpx' class='c3'>{{statusList[customerStatusIndex].user_status}}
+            <text class='iconfont icon-xiala1 fr20'></text>
+        </view>
+    </picker>
+    <view class='c3' catchtap='changeType'>{{typeList[typeIndex].title}}
+        <text class='iconfont icon-xiala1 fr20'></text>
+    </view>
+  </view>
+    <view class='border'></view>
+    <view style='width:190rpx;' class='c9' catchtap='changeRate'>成交率
+      <text>{{orderType?orderType=='asc'?'↑':'↓':''}}</text>
+    </view>
+</view>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关客户信息'}}" wx:if="{{showStyle!=1&&customerList.length==0}}" />
+<block wx:else>
+    <block wx:for="{{customerList}}" wx:key="id">
+        <view class='item bcf w100 flex active {{item.disabled == 1?"disable":""}}' catchtap='toDetail' data-index="{{index}}">
+            <view wx:if="{{item.gender &&item.gender  != '0'}}" class='flexc ' style="position:relative; background:#fff;width:96rpx;height:96rpx;border-radius:50%;border:3rpx solid {{item.gender == 1?'#4bd7ff':item.gender == 2?'#ff9ccb ':''}}">
+                <view class="flexc iconfont {{item.gender == 1?'icon-nan':item.gender == 2?'icon-nv':''}} cf fr22" style="position:absolute;left:-4rpx;bottom:6rpx; width:24rpx;height:24rpx;border-radius:50%;border:3rpx solid #fff;background:{{item.gender == 1?'#4bd7ff':item.gender == 2?'#ff9ccb ':''}}"></view>
+                <image class='user-avatar' src='{{ShowImg.cropImgWH(item.member.avatar, 92, 92)}}' />
+            </view>
+            <view wx:else>
+                <image class='avatar' src='{{ShowImg.cropImgWH(item.member.avatar, 100, 100)}}' />
+            </view>
+            <view class='flexb text-box flex1'>
+                <view class='fr30 c3'>
+                    <view class='ell mb28 bold'>{{item.name}}</view>
+                    <view class='fr26 c80 flex mb22 act ell'>
+                        <view wx:for="{{statusList}}" wx:key="id" wx:for-item="statusItem">
+                            <view wx:if="{{statusItem.status_id == item.status}}" class='border-right'>{{statusItem.user_status}}</view>
+                        </view>
+                        共{{item.interact_num}}次互动
+                    </view>
+                    <view class='fr26 c80 ell'>{{item.event_type?item.event_type.tpl1:'暂无互动信息'}}</view>
+                </view>
+                <view class='percent flexcColumn fr24 cc'>
+                    <view class='fr44 fw600' style='color:{{extConfig.themeColor}}'>{{item.cooperRate}}%</view>
+                    智能成交率
+                </view>
+            </view>
+            <view class='tags w100' wx:if="{{item.tags.length != 0 || item.userTagRelation.length != 0}}">
+                <view wx:for='{{item.tags}}' wx:key='index' class='fr24 tag' style=" background:{{customerStatus.showBg(item.type)}}">
+                    {{ item.name }}
+                </view>
+                 <view wx:for='{{item.userTagRelation}}' wx:key='index' class='fr24 tag' style="background:{{customerStatus.showBg(item.type)}}">
+                {{ item.tagItemInfo.name }}
+            </view>
+            </view>
+        </view>
+        <view wx:if="{{isAdmin || item.disabled == 1}}" class="btn fw600">
+            <view wx:if="{{item.disabled == 1}}" class='fr24' style='color:#ff0000'><text style='padding-right:12rpx' class='iconfont fr26 icon-jinyong'></text>该用户已被禁用</view>
+            <view wx:if="{{isAdmin}}" class='flexe flex1 {{item.disabled ==1?"disable":""}}'>
+                <view class="iconfont icon-19 flexc controller-more fr36 ccb" data-id="{{ item.id }}" data-uid="{{ item.uid }}" catchtap="handleOpenMenu"></view>
+                <button wx:if="{{privilege & 16 && is_open_credit}}" bindtap='presentationPoints' data-uid="{{item.uid}}" style='color:{{extConfig.themeColor}};margin-right:30rpx'>赠送积分</button>
+                <button catchtap='toChat' data-index="{{index}}" data-item="{{item}}" style='color:{{extConfig.themeColor}};position:relative'>发消息
+                    <view wx:if="{{item.unReadMsgCount_count > 0}}" class='flexc {{item.unReadMsgCount_count>99?"fr16 message-num-over":"fr18 message-num"}}'>{{item.unReadMsgCount_count > 99 ? '99' : item.unReadMsgCount_count}}
+                        <view wx:if="{{item.unReadMsgCount_count > 99}}">+</view>
+                    </view>
+                </button>
+                <button bindtap='makeCall' wx:if="{{item.phone}}" data-number="{{item.phone}}" style='color:{{extConfig.themeColor}};margin-left:30rpx'>打电话</button>
+            </view>
+        </view>
+    </block>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+</block>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>
+<component-showToast wx:if="{{giveModel}}" bindcolse="closeModel" bindgetValue="onGetvalue"></component-showToast>
+<component-textareaDialog wx:if="{{ isShowTextareaDialog }}" placeholder="请填写针对该客户的信息，为后续的企业跟进分配提供相应的指导意见..." bind:confirm="addPublicInformation" bind:cancel="handleCloseTextareaDialog"></component-textareaDialog>
+

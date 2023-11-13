@@ -1,0 +1,22 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:if='{{ showStyle == 1 }}'>
+    <view class='block bcf'>
+        <view class='fr32 c1a'>兑换抽奖次数</view>
+        <view class='mt40 input-layout flex'>
+            <view class='flexc flex1'>
+                <input class='input flex1 fr32 c1a' type='number' value='{{ times }}' bindinput='handleInput' />
+            </view>
+            <view class='unit flexc fr32 c1a'>次</view>
+        </view>
+        <view class='mt40 c1a fr28'>1次抽奖机会需耗费{{ transfer_need_credit }}积分</view>
+        <view class='mt28 c-ff8100 fr28'>可用积分{{ credit_left }}</view>
+    </view>
+    <view wx:if='{{ credit_left >= transferTotalNeed && times>0 }}' class='flexc bc-ff8100 cf fr30 button' bindtap='handleTransfer'>立即兑换 (耗费{{ transferTotalNeed}}积分)</view>
+    <view wx:else class='flexc bc-ff8100 cf fr30 button button-disabled'>立即兑换 <block wx:if="{{credit_left < transferTotalNeed}}">(积分不足)</block></view>
+</block>
+
+<view class='test'></view>
+
+<component-messageToast></component-messageToast>

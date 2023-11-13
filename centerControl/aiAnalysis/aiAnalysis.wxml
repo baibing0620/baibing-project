@@ -1,0 +1,52 @@
+<include src="../../template/index/index.wxml" />
+<view class='relative list-common'>
+  <view class='graph-title'>
+    <view>用户行为分析</view>
+  </view>
+
+  <view class="canvas-box">
+    <ec-canvas id="mychart-dom-funnel" canvas-id="mychart-funnel" ec="{{ ec }}"> </ec-canvas>
+  </view>
+  <view class='graph-title'> 
+    <view>用户行为看板(次)</view>
+  </view>
+
+  <view class="canvas-box">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar"  ec="{{ ec }}"></ec-canvas>
+  </view>
+
+  <view class='graph-title'>  <view>页面访问时长</view> </view>
+  <view class='table-box w100'>
+    <view class='table-title tr'>
+      <view>页面名称</view>
+      <view>访问次数（次）</view>
+      <view>访问时长</view>
+    </view>
+    <view wx:for="{{pageDuration}}" wx:key="index" class='tr'>
+      <view>{{item.eventName}}</view>
+      <view>{{item.count}}</view>
+      <view>{{item.visitDuration}}</view>
+    </view>
+  </view>
+  <view class="canvas-box" style='height:10rpx;'>
+    
+  </view>
+  <view class='graph-title'>  <view>用户画像分析</view> </view>
+  <view class='user-info w100'>
+    <text>性别：{{crmUserDraw.gender}}</text>
+    <text>所在城市：{{crmUserDraw.city||'--'}}</text>
+    <view style='padding:40rpx 0;'>个人兴趣</view>
+  </view>
+ <view class="canvas-box">
+    <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
+  </view>
+
+</view>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>
+
+
+
+

@@ -1,0 +1,111 @@
+/* components/signFormContent/signFormContent.wxss */
+page{
+  background: #f7f7f7;
+  font-family: 'Microsoft YaHei';
+}
+.bdra{
+  border-radius: 14rpx;
+  margin: 20rpx;
+  background: white;
+  padding: 20rpx;
+  position: relative;
+}
+.signbtn{
+  position: fixed;
+  left: calc(15% - 22rpx);
+  bottom: 10rpx;
+  width: 70%;
+  padding: 20rpx;
+  border-radius: 40rpx;
+  z-index: 2021;
+}
+.subContract-Deadline-title{
+  border-bottom: 1rpx solid #f2f2f2;
+  padding: 20rpx 0 30rpx;
+}
+.subContract-Deadline{
+  margin: 0 20rpx 20rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  padding: 20rpx 0;
+}
+.subContract-Deadline>text{
+  display: inline-block;
+  width: 260rpx;
+}
+.subContract-Deadline-add{
+  margin: 30rpx 0;
+}
+.subContract-Deadline-add>view{
+  width: 50%;
+  text-align: center;
+}
+.subContract-Deadline-add>view:first-child{
+  /* border-right: 1rpx solid #f2f2f2; */
+}
+.red{
+  background: #ff9b1f;
+  color: white;
+  padding: 5rpx 10rpx;
+  margin: 0 24rpx 14rpx 0;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 7rpx;
+  border: 1rpx solid #f2f2f2;
+}
+._red{
+  border: 1rpx solid #f2f2f2;
+  padding: 5rpx 10rpx;
+  margin: 0 24rpx 14rpx 0;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 7rpx;
+}
+.part_activeccc{
+  background: #ccc;
+  color: white;
+  padding: 5rpx 10rpx;
+  margin: 0 24rpx 14rpx 0;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 7rpx;
+  border: 1rpx solid #f2f2f2;
+}
+.active_id{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2022;
+  background: rgba(0, 0, 0, .5);
+}
+._active_id{
+  padding: 20rpx;
+  border-radius: 10rpx;
+  max-height: 510rpx;
+  text-align: center;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+}
+._active_id_{
+  background: white;
+  margin: auto;
+  margin: 200rpx 40rpx 40rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  height: 700rpx;
+  position: relative;
+}
+.active_top{
+  padding: 0 0 10rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+.active_btn{
+  width: 75%;
+  position: absolute;
+  bottom: 20rpx;
+  left: 10%;
+  color: white;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}

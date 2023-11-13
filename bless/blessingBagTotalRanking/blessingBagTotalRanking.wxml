@@ -1,0 +1,41 @@
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无人领取哦'}}" wx:if="{{showStyle!=1&&rankingList.length==0}}" />
+    <block wx:else >
+    <view class="tab-bar flex fr26 c9 border-bottom">
+      <block wx:for="{{tabBar}}" wx:key="name">
+        <view data-index="{{index}}" class="tab-bar-item flexc flex1 {{activeTabBarIndex==index?'c-main':''}}" bindtap="tabBarClick">
+          {{item.name}}
+          <view style='margin-left:10rpx'>
+            <view class="upperTriangle {{activeTabBarIndex==index && item.orderType == 'asc'?'cm-upperTriangle':'cd-upperTriangle'}}"></view>
+            <view class="downTriangle {{activeTabBarIndex==index && item.orderType == 'desc'?'cm-downTriangle':'cd-downTriangle'}}"></view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='receive' wx:for="{{rankingList}}">
+      <view class='flexb'>
+        <image class="img" src="{{ShowImg.cropImgWH(item.member.avatar,120,120)}}" mode='aspectFit'></image>
+        <view class='flex1' style='margin-right:20rpx'>
+          <view class='fr30 c3 ellipsis1'>{{item.member.nickname}}</view>
+          <view style='margin-top:10rpx' class='fr24 cb3'>参与时间{{item.create_time}}</view>
+        </view>
+        <view wx:if="{{role}}" bindtap='navCustomDetail' data-index='{{index}}' class='user-detail fr24'>用户详情</view>
+      </view>
+      <view class='bless-num flexb fr26 c6' >
+        <view class='flex1 flex'>
+        <view style='width:198rpx'>福袋数量<text class="c-theme">{{item.total}}个</text></view>
+        <text >收益总额<text class="c-theme">{{item.all_money}}元+{{item.all_credit}}积分</text></text>
+        </view>
+        <text bindtap='navMyReceiveLog' data-index='{{index}}' style='margin-right:24rpx' class='fr24 cb3 flex'>福袋记录<text class='iconfont fr26 icon-you' style='color:#dadada;'></text></text>
+      </view>
+    </view>
+      <template is="moreData" data="{{loadStyle:loadStyle}}" />
+    </block>
+
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

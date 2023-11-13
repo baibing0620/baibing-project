@@ -1,0 +1,178 @@
+page {
+	position: relative;
+	background: #f5f5f5;
+  	padding-bottom: 100rpx;
+}
+.container {
+	padding: 20rpx;
+	box-sizing: border-box;
+}
+.order-situation{
+  	background: white;
+	padding: 0 20rpx;
+}
+.order-situation-top{
+	height: 132rpx;
+	border-bottom: 1rpx solid #f0f0f0;
+}
+.order-situation-top-fail{
+	height: 132rpx;
+	background-color: #fff;
+}
+.order-situation-top image{
+	width: 80rpx;
+	height: 80rpx;
+	margin-right: 20rpx;
+}
+.order-situation-top>text:first-of-type,.order-situation-complete-top text:first-of-type{
+	color:#ee4130;
+	margin-right: 18rpx;
+}
+.order-situation-btn{
+	width: 156rpx;
+	height: 54rpx;
+	line-height: 54rpx;
+	border-radius: 6rpx;
+	background-color: #fff;
+	border:1rpx solid #ccc;
+	margin: 0;
+	padding: 0;
+}
+.order-situation-complete-top{
+	height: 160rpx;
+}
+.order-situation-complete-btn{
+	width: 200rpx;
+	height: 60rpx;
+	background-color: #ffd305;
+	border-radius: 8rpx;
+	line-height: 60rpx;
+	text-align: center;
+}
+.order-box {
+	background: white;
+	margin: 10rpx 0;
+}
+.order-item{
+	padding:  20rpx;
+	border-bottom: 1rpx solid #f5f5f5;
+}
+.goods-img{
+	height: 110rpx;
+	width: 110rpx;
+}
+.goods-context {
+	height: 100rpx;
+	margin: 0 30rpx;
+}
+.pay-box{
+	background: white;
+	padding: 28rpx 20rpx;
+  line-height: 44rpx;
+}
+.pay-item {
+	padding: 0 20rpx;
+	line-height: 20px;
+	height: 110rpx;
+	border-bottom: 1rpx solid #f5f5f5;
+}
+.consume_code{
+  color: #44d7f7;
+  text-decoration: underline;
+}
+.icon-you{
+	font-size: 28rpx;
+	padding-left: 10rpx;
+}
+
+.address-box{
+	line-height:20px;
+	padding:20rpx;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+}
+.address{
+	flex: 1;
+	box-sizing: border-box;
+	padding-left: 20rpx;
+}
+.bt-box{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding:15rpx 20rpx;
+	background:#fff;
+}
+.pay-bt{
+	color: white;
+	height: 35px;
+	min-height: 10px;
+	font-size: 30rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  border-radius: 6rpx;
+}
+.red-packet-btn{
+	width: 118rpx;
+	height: 135rpx;
+	position: fixed;
+	right: 30rpx;
+	bottom: 238rpx;
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: 0;
+	margin-right: 0;
+	z-index: 50;
+}
+.red-packet{
+	width: 118rpx;
+	height: 135rpx;
+}
+.red-envelope-share-bg {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+.red-envelope-share-img-bg{
+	background: url(https://facing-1256908372.file.myqcloud.com//image/20180124/7c362490cc2711a3.png) no-repeat;
+	width: 539rpx;
+	height: 496rpx;
+	background-size: cover;
+	margin-bottom: 200rpx;
+}
+.red-envelope-share-content-top{
+	
+	margin-top: 242rpx;
+	margin-bottom: 20rpx;
+	padding: 0 20rpx;
+	color: #ffc303;
+	font-weight: 600;
+	text-align: center;
+}
+.red-envelope-share-bg>.icon-shanchu2{
+	position: relative;
+	top: 40rpx;
+	left: 270rpx;
+	color: white;
+	font-size: 40rpx;
+	font-weight: 500;
+	padding: 40rpx;
+}
+.red-envelope-share-content-btn{
+	width: 400rpx;
+	height: 80rpx;
+	color: #f9353f;
+	background-color: #ffc303;
+	border-radius: 50rpx;
+	line-height: 80rpx;
+	margin-top: 22rpx;
+	box-shadow: 0 6rpx 0 6rpx #db2029;
+}
+.fw600{
+	font-weight: 600;
+}

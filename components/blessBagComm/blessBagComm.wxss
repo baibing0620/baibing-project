@@ -1,0 +1,62 @@
+@import '/comm/base.wxss';
+@import '/comm/comm.wxss';
+@import '/iconfont/iconfont.wxss';
+/* 红包通知 */
+.bless-message{
+    display:flex;
+    align-items:center;
+    width: 680rpx;
+    height: 112rpx;
+    border-radius: 6rpx;
+    position: fixed;
+    z-index: 600;
+    top: 30rpx;
+    left: 35rpx;
+    background: #fff;
+    box-shadow:0 4rpx 10rpx rgba(42, 53, 66, 0.1);
+    opacity: 1;
+    transition: .4s;
+}
+.bless-message image{
+  width: 80rpx;
+  height: 63rpx;
+  padding: 0 32rpx 0 42rpx;
+}
+.hide{
+  transform: translateY(-50rpx);
+  opacity: 0;
+  transition: .8s;
+  top: -120rpx;
+}
+.suspension-box{
+  position: fixed;
+  right: 20rpx;
+  bottom: 40rpx;
+}
+.bless-bag{
+  width: 116rpx;
+  height: 97rpx;
+  background: url(https://facing-1256908372.file.myqcloud.com//image/20180925/89922764b87f401a.png) no-repeat;
+  background-size: contain;
+  animation: bless 2.5s 2.15s linear infinite;
+}
+
+@keyframes bless{
+  10% {
+    transform: rotate(20deg);
+  }
+  20% {
+    transform: rotate(-15deg);
+  }
+  30% {
+    transform: rotate(10deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  50%,100% {
+    transform: rotate(0deg);
+  }
+}
+
+

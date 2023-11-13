@@ -1,0 +1,5 @@
+<form report-submit>
+  <button   class="clean-btn my-class" data-param="{{param}}" style='{{styles}}' open-type='{{type}}'>
+    <slot></slot>
+  </button>
+</form>

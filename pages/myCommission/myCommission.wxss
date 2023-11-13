@@ -1,0 +1,51 @@
+.fr24,.fr28,.fr30,.fr36,.fr66 {
+  line-height: 100%;
+}
+
+.padding {
+  padding: 0 30rpx;
+}
+
+.sales-box {
+  height: 240rpx;
+}
+
+.sales {
+  align-items: flex-end;
+  margin-top: 42rpx;
+}
+
+.label {
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #f7f7f7;
+}
+
+.item {
+  height: 150rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: relative;
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
+.avatar {
+  height: 90rpx;
+  width: 90rpx;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 30rpx;
+}
+
+.time {
+  margin-top: 30rpx;
+}
+
+.price {
+  position: absolute;
+  right: 30rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}

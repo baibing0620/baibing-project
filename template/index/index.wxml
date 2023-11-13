@@ -1,0 +1,504 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<wxs module="util">
+    function strSplice(str) {
+        return str.substring(0, 3) + '********'
+    }
+    module.exports = {
+        strSplice: strSplice
+    }
+</wxs>
+
+<!-- <template name="indexPage"> -->
+<include src="../../comm/comm.wxml" />
+<template is="pageIndex" data="{{backgroundObj,pageInfo,dateRegion,isDisabled,pickerObjIndex,cityLocateName,toChat,hasBindPhone}}" />
+<view class="share-diy-modal" wx:if="{{showShareModal}}">
+  <view bindtap="closeShareModal" class="flex1 w100"></view>
+  <view class="share-diy-enevt {{upShareModal?'share-diy-modal-up':'share-diy-modal-down'}}">
+    <view class="share-item-box">
+      <button class="fr28 c6 flexc w100" open-type="share">分享好友</button>
+      <view class="fr28 c6 flexc w100" bindtap="getPageQRCode">
+        生成二维码
+      </view>
+    </view>
+  </view>
+</view>
+<view class="choose-scan-box" wx:if="{{showChooseScan}}" bindtap="closechooseScanBox">
+  <view class="choose-scan-item" hover-class="btn-active" catchtap="scanQrcodeEnter">
+    <text class="iconfont icon-erweima1"></text>
+    <text>扫描餐桌二维码</text>
+  </view>
+  <view class="choose-scan-item" hover-class="btn-active" catchtap="navEnterMenu" style="background: #b1b1b1">
+    <text>直接点餐</text>
+  </view>
+</view>
+
+
+
+
+
+<!-- </template> -->
+<template name="pageIndex">
+  <view class="container w100" style="{{Format.indexBc(backgroundObj)}}">
+    <block wx:for="{{pageInfo}}" wx:for-item="componentInfo" wx:for-index="componentInfoIndex" wx:key="id">
+      <template is="{{componentInfo.type}}" data="{{componentInfo,componentInfoIndex,isDisabled,dateRegion,pickerObjIndex,cityLocateName,toChat,hasBindPhone}}" />
+    </block>
+  </view>
+</template>
+<!-- 广告组件 -->
+<template name="advertisement">
+  <ad unit-id="{{componentInfo.data.advertisementID}}" wx:if="{{componentInfo.data&&componentInfo.data.advertisementID}}"></ad>
+</template>
+<!-- 轮播图 -->
+<template name="swiper">
+  <view class="m-scrollBox" style="height:{{Format.px2Rpx(componentInfo.height)}};background-color:{{componentInfo.bgColor}}">
+    <swiper indicator-dots autoplay interval="{{5000}}" indicator-active-color="{{componentInfo.color}}" wx:if="{{componentInfo.clickEventType=='preview'}}">
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <swiper-item data-url="{{item.path}}" bindtap="previewImg" data-id="{{componentInfo.id}}" data-from-type="swiper">
+          <image src="{{ShowImg.cropImgWH(item.path,750,componentInfo.height*2)}}" class="slide-image" mode="{{componentInfo.bgStyle?'aspectFill':'aspectFit'}}" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <swiper indicator-dots autoplay interval="{{5000}}" indicator-active-color="{{componentInfo.color}}" wx:else>
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <swiper-item bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}">
+          <image src="{{ShowImg.cropImgWH(item.path,750,componentInfo.height*2)}}" class="slide-image" mode="{{componentInfo.bgStyle?'aspectFill':'aspectFit'}}" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</template>
+<!-- //公告 -->
+<template name="rollingNotice">
+  <view class="notice-box flexb w100 c6" style="background-color:{{componentInfo.bgColor}};border-color:{{componentInfo.borderColor}}">
+    <view class="iconfont icon-laba " style="color: {{componentInfo.iconColor}} " />
+    <swiper autoplay interval="{{8000/componentInfo.scrollamount}}" vertical="{{componentInfo.rollingDirection=='up'}}" class="flex1" circular style="height:{{Format.px2Rpx(componentInfo.height)}};">
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <swiper-item data-url="{{item.path}}" bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}" class="flex">
+          <view class="ellipsis1 fr26 flex" style="color: {{componentInfo.titleColor}}">{{item.noticeTitle}}</view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</template>
+<!-- 功能入口 -->
+<template name="nav">
+  <view class="function-list" style="background-color:{{componentInfo.bgColor}}">
+      <block wx:if="{{componentInfo.swiperType&&componentInfo.swiperType=='about'}}">
+          <view class='function-nav'>
+           <swiper style="height:{{componentInfo.data.length>componentInfo.column?Format.px2Rpx((Format.parseIntNav(componentInfo)+30)*2):Format.px2Rpx(Format.parseIntNav(componentInfo)+30)}}" indicator-dots autoplay="{{componentInfo.autoLoop}}" interval="{{5000}}" indicator-active-color="#ff6201">
+             <block wx:for="{{componentInfo.navEditing}}" wx:key="id" wx:for-item="navItem">
+               <swiper-item>
+                 <block wx:for="{{navItem}}" >
+                   <view class="function-item {{componentInfo.border?'function-item-border':''}} {{(index+1)%componentInfo.obj.column==0?'no-border':''}}" style="width:{{100/componentInfo.column+'%'}};padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};background-color: {{componentInfo.bgColor}};float:left;"
+                     bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}">
+                     <view class="image-box flex1 flexcColumn">
+                       <image src="{{ShowImg.cropImgWH(item.path,100,100)}}" style="height:{{Format.px2Rpx(componentInfo.box_width)}};width:{{Format.px2Rpx(componentInfo.box_width)}}" class="{{componentInfo.borderRadius?'is-radius':''}}" />
+                       <view class="function-des ellipsis1" style="font-size:24rpx">{{item.name || '功能入口'}}</view>
+                     </view>
+                   </view>
+                 </block>
+               </swiper-item>
+             </block>
+           </swiper>
+       </view>
+      </block>
+    <block wx:else >
+      <view wx:for="{{componentInfo.data}}" wx:key="id" class="function-item {{componentInfo.border?'function-item-border':''}} {{(index+1)%componentInfo.obj.column==0?'no-border':''}}" style="width:{{100/componentInfo.column+'%'}};padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};background-color: {{componentInfo.bgColor}};"
+        bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}" >
+        <view class="image-box flex1 flexcColumn">
+          <image src="{{ShowImg.cropImgWH(item.path,100,100)}}" style="height:{{Format.px2Rpx(componentInfo.box_width)}};width:{{Format.px2Rpx(componentInfo.box_width)}}" class="{{componentInfo.borderRadius?'is-radius':''}}" />
+          <view class="function-des ellipsis1" style="font-size:24rpx">{{item.name || '功能入口'}}</view>
+        </view>
+      </view>
+    </block>
+    
+  </view>
+
+</template>
+<!-- 文本 -->
+<template name="onlyText">
+  <view class="onlyText w100" style="background-color: {{componentInfo.bgColor}};padding:{{Format.px2Rpx(componentInfo.padding)}};color:{{componentInfo.textColor}};font-size:{{Format.px2Rpx(componentInfo.textSize)}};font-weight:{{componentInfo.isWeight?800:'normal'}};text-align:{{componentInfo.aglinStyle}}"
+    bindtap="eventTap" data-event-type="{{componentInfo.data.eventType}}" data-event-param="{{componentInfo.data.eventParam}}">
+    {{componentInfo.data.text}}
+  </view>
+</template>
+<!-- 富文本 -->
+<template name="richText">
+  <view class="richText" style="background-color: {{componentInfo.bgColor}};padding:{{Format.px2Rpx(componentInfo.padding)}}" bindtap="eventTap" data-event-type="{{componentInfo.data.eventType}}" data-event-param="{{componentInfo.data.eventParam}}">
+    <diy-rich-text InRichTextData="{{componentInfo.data.words}}" />
+  </view>
+</template>
+<!-- 小程序跳转组件 -->
+<template name="goAppButton">
+  <navigator class="w100" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};"  target="miniProgram" app-id="{{componentInfo.data.appID}}" path="{{componentInfo.data.appPath}}" bindtap='navMiniProgram' data-appId="{{componentInfo.data.appID}}">
+    <image mode="aspectFill" src="{{ShowImg.cropImgW(componentInfo.data.path,750)}}" style="width:{{Format.px2Rpx(componentInfo.width)}};height: {{Format.px2Rpx(componentInfo.height)}};" />
+  </navigator>
+</template>
+<!-- 关注微信公共号 -->
+<template name="focusPublicAccountButton">
+  <view class='w100'   style="padding:10rpx;background-color:{{componentInfo.bgColor}}">
+    <official-account />
+  </view>
+</template>
+<!-- 图片组 -->
+<template name="pictureArr">
+  <block wx:if="{{componentInfo.bgStyle}}">
+    <view class="boxFlex {{Format.ad6objClass(componentInfo)}}" style="background-color:{{componentInfo.bgColor}}" wx:if="{{componentInfo.clickEventType=='preview'}}">
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <view class="boxFlexItem1" style="{{ShowImg.pictureArrayItemStyle(componentInfo,index)}}; background-image:url({{ShowImg.cropImgW(item.path,750)}});background-size: 100%;" bindtap="previewImg" data-id="{{componentInfo.id}}" data-from-type="pictureArr"
+          data-url="{{item.path}}">
+        </view> 
+      </block>
+    </view>
+    <view class="boxFlex {{Format.ad6objClass(componentInfo)}}" style="background-color:{{componentInfo.bgColor}}" wx:else>
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <view class="boxFlexItem1" style="{{ShowImg.pictureArrayItemStyle(componentInfo,index)}}; background-image:url({{ShowImg.cropImgW(item.path,750)}});background-size: 100%;" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}" bindtap="eventTap"
+          data-id="{{componentInfo.id}}" data-img-url="{{item.path}}">
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="boxFlex {{Format.ad6objClass(componentInfo)}}" style="background-color:{{componentInfo.bgColor}}" wx:if="{{componentInfo.clickEventType=='preview'}}">
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <view class="boxFlexItem1" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};font-size: {{2*componentInfo.fontSize+'rpx'}};color: {{componentInfo.fontColor}};"
+          bindtap="previewImg" data-id="{{componentInfo.id}}" data-from-type="pictureArr" data-url="{{item.path}}">
+          <image wx:if="{{item.oriWidth&&item.oriHeight}}" mode="aspectFill" style="{{ShowImg.pictureArrayItemStyle(componentInfo,index)}}" src="{{ShowImg.cropImgW(item.path,750)}}" />
+          <image wx:else mode="widthFix" src="{{ShowImg.cropImgW(item.path,750)}}" style="width:{{item.flexNum>1?Format.px2Rpx(item.flexNum):'100%'}}" />
+        </view>
+      </block>
+    </view>
+    <view class="boxFlex {{Format.ad6objClass(componentInfo)}}" style="background-color:{{componentInfo.bgColor}}" wx:else>
+      <block wx:for="{{componentInfo.data}}" wx:key="id">
+        <view class="boxFlexItem1" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};font-size: {{2*componentInfo.fontSize+'rpx'}};color: {{componentInfo.fontColor}};"
+          data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}" bindtap="eventTap" data-id="{{componentInfo.id}}" data-img-url="{{item.path}}">
+          <image wx:if="{{item.oriWidth&&item.oriHeight}}" mode="aspectFill" style="{{ShowImg.pictureArrayItemStyle(componentInfo,index)}}" src="{{ShowImg.cropImgW(item.path,750)}}" />
+          <image wx:else mode="widthFix" src="{{ShowImg.cropImgW(item.path,750)}}" style="width:{{item.flexNum>1?Format.px2Rpx(item.flexNum):'100%'}}" />
+        </view>
+      </block> 
+    </view>
+  </block>
+</template>
+<!-- 商品列表 -->
+<template name="goods">
+  <block wx:if="{{componentInfo.data.length>0}}">
+    <view class="goodsList {{Format.ad4objClass(componentInfo.listTyle)}}" style="background-color:{{componentInfo.bgColor}}">
+      <view class="m_pitem" wx:for="{{componentInfo.data}}" style="background-color:{{componentInfo.bgColor}}" bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}" wx:key="id">
+        <view class="m_pinfo">
+          <view class="pimg">
+            <image src="{{ShowImg.cropGoodsPic(item.path,componentInfo.listTyle)}}" mode="scaleToFill" />
+          </view>
+          <view class="pname">
+            <view class="label">{{item.name||'商品名称'}}</view>
+          </view>
+          <view class="pSelling" wx:if="{{item.SellingPoints!=''&& componentInfo.isSellingPoints&&!componentInfo.isPrice}}">
+            {{item.SellingPoints}}
+          </view>
+          <view class="pSelling" wx:elif="{{item.SellingPoints!=''&& componentInfo.isSellingPoints &&componentInfo.isPrice}}">
+            {{item.SellingPoints}}
+          </view>
+          <view class="pprice" wx:if="{{componentInfo.isPrice}}" style="color:{{componentInfo.priceColor}}">
+            ￥{{item.SalePrice||'0.00'}}
+          </view>
+          <view wx:if="{{componentInfo.btnType==1||componentInfo.btnType==2}}" class="{{'c'+componentInfo.btnType}}">
+          </view>
+          <view wx:elif="{{componentInfo.btnType==3}}" class="c3">
+            buy
+          </view>
+          <view wx:elif="{{componentInfo.btnType==4}}" class="c4" style="background-color:{{componentInfo.btnColor}};color:{{componentInfo.btnFontColor}}">
+            {{componentInfo.btnText}}
+          </view>
+          <view class="flag" wx:if="{{componentInfo.isTag}}" style="color:{{componentInfo.tagFontColor}};background-color: {{componentInfo.tagColor}}">{{componentInfo.tagName}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>
+
+<!-- tab切换 -->
+<template name="switchTab">
+  <block wx:if="{{ componentInfo.tabInfo.length && componentInfo.dataAll.length }}">
+    <view class="" style="background-color:{{componentInfo.bgColor}}">
+      <view class="tabContainer {{ componentInfo.isCeiling && 'stickyClass' }}" style="background-color:{{componentInfo.tabBgColor}}">
+        <view class="switch-tab">
+           <view wx:for="{{ componentInfo.tabInfo }}" wx:for-item="tabItem" wx:for-index="tabIndex" style="font-size: {{2*componentInfo.fontSize+'rpx'}};  color: {{ componentInfo.activeIndex == tabIndex ? componentInfo.activeColor : componentInfo.tabColor }}"  :key="tabItem" class="switch-tab-item" bindtap="switchTabChange" data-index="{{componentInfoIndex}}" data-tabIndex="{{tabIndex}}">
+          {{ tabItem.tab }}
+          <view class="{{ componentInfo.activeIndex == tabIndex ?'active-tab':''}}" style="background: {{componentInfo.activeColor}}"></view>
+          </view>
+        </view>
+      </view> 
+
+      <!-- tab图片组 -->
+      <block wx:if="{{ componentInfo.tabType == 1 }}">
+        <block wx:if="{{ componentInfo.picShowType == 1 }}">
+          <scroll-view scroll-x="true" class="pic-scroll w100" enhanced="{{true}}" show-scrollbar="{{false}}"  paging-enabled="{{true}}" bindscroll="bindTabScroll" bindscrolltoupper="chooseTabScrollStart"  lower-threshold="10" scroll-into-view="{{componentInfo.toView}}" data-index="{{ componentInfoIndex }}"> 
+            <view class="pic-scoll-item" wx:for="{{componentInfo.dataAll}}" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};" id="{{'view'+ componentInfoIndex +index}}" bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}">
+              <view  style="width:{{componentInfo.width>1? Format.px2Rpx(componentInfo.width):'100%'}}; height: {{componentInfo.height>1? Format.px2Rpx(componentInfo.height):'100%'}}; ">
+                  <image  src="{{ShowImg.cropImgW(item.path,750)}}"  style="{{ShowImg.switchTabPicList(componentInfo,index)}};border-radius: {{Format.px2Rpx(componentInfo.picRaidus)}}; "/> 
+              </view>
+            </view>
+          </scroll-view>          
+        </block>
+        <block wx:if="{{componentInfo.picShowType == 2}}">
+          <block wx:if="{{ componentInfo.picListTyle == 1 }}">
+            <view class="switch-img-list">
+              <view class="switch-img-1" wx:for="{{componentInfo.data}}"  style="width:{{componentInfo.width>1? Format.px2Rpx(componentInfo.width):'100%'}}; height: {{componentInfo.height>1? Format.px2Rpx(componentInfo.height):'100%'}};padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}}; " bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}">
+                 <image  src="{{ShowImg.cropImgW(item.path,750)}}"  style="{{ShowImg.switchTabPicList(componentInfo,index)}};border-radius: {{Format.px2Rpx(componentInfo.picRaidus)}}; "/> 
+              </view>
+            </view>
+          </block>
+
+          <block wx:if="{{ componentInfo.picListTyle == 2 }}">
+            <view class="switch-img-list">
+              <view class="switch-img-2" wx:for="{{componentInfo.data}}"  style="width:{{componentInfo.width>1? Format.px2Rpx(componentInfo.width):'100%'}}; height: {{componentInfo.height>1? Format.px2Rpx(componentInfo.height):'100%'}};padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}}; " bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}">
+                 <image  src="{{ShowImg.cropImgW(item.path,750)}}"  style="{{ShowImg.switchTabPicList(componentInfo,index)}};border-radius: {{Format.px2Rpx(componentInfo.picRaidus)}}; "/> 
+              </view>
+            </view>
+          </block>
+        </block>
+      </block>
+
+      <!-- tab商品列表 -->
+      <block wx:if="{{ componentInfo.tabType == 2 }}">
+        <block wx:if="{{componentInfo.data.length>0}}">
+          <view class="goodsList {{Format.ad4objClass(componentInfo.listTyle)}}" style="background-color:{{componentInfo.bgColor}}">
+            <view class="m_pitem" wx:for="{{componentInfo.data}}" style="background-color:{{componentInfo.bgColor}}" bindtap="eventTap" data-event-type="{{item.eventType}}" data-event-param="{{item.eventParam}}" wx:key="id">
+              <view class="m_pinfo">
+                <view class="pimg">
+                  <image src="{{ShowImg.cropGoodsPic(item.path,componentInfo.listTyle)}}" mode="scaleToFill" />
+                </view>
+                <view class="pname">
+                  <view class="label">{{item.name||'商品名称'}}</view>
+                </view>
+                <view class="pSelling" wx:if="{{item.SellingPoints!=''&& componentInfo.isSellingPoints&&!componentInfo.isPrice}}">
+                  {{item.SellingPoints}}
+                </view>
+                <view class="pSelling" wx:elif="{{item.SellingPoints!=''&& componentInfo.isSellingPoints &&componentInfo.isPrice}}">
+                  {{item.SellingPoints}}
+                </view>
+                <view class="pprice" wx:if="{{componentInfo.isPrice}}" style="color:{{componentInfo.priceColor}}">
+                  ￥{{item.SalePrice||'0.00'}}
+                </view>
+                <view wx:if="{{componentInfo.btnType==1||componentInfo.btnType==2}}" class="{{'c'+componentInfo.btnType}}">
+                </view>
+                <view wx:elif="{{componentInfo.btnType==3}}" class="c3">
+                  buy
+                </view>
+                <view wx:elif="{{componentInfo.btnType==4}}" class="c4" style="background-color:{{componentInfo.btnColor}};color:{{componentInfo.btnFontColor}}">
+                  {{componentInfo.btnText}}
+                </view>
+                <view class="flag" wx:if="{{componentInfo.isTag}}" style="color:{{componentInfo.tagFontColor}};background-color: {{componentInfo.tagColor}}">{{componentInfo.tagName}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
+
+    </view>
+
+    
+
+  </block>
+
+  
+
+</template>
+
+
+
+
+<!-- 电话 -->
+<template name="phoneBox">
+  <button class="phone-box" hover-class="btn-active" style="background-color: {{componentInfo.bgColor}};color:{{componentInfo.fontColor}}" bindtap="makePhoneCall" data-phone="{{componentInfo.tel}}">
+    <text class="iconfont icon-hujiao" style="color:{{componentInfo.fontColor}}"></text>
+  </button>
+</template>
+<!-- 客服 -->
+<template name="customService">
+  
+  <view wx:if="{{toChat}}">
+    <button wx:if='{{!hasBindPhone}}' class="phone-box custom-service" hover-class="btn-active" style="background-color: {{componentInfo.bgColor}};"  open-type='getPhoneNumber' bindgetphonenumber='getPhoneNumber'>
+      <text class="iconfont icon-huihua" style="color:{{componentInfo.fontColor}}"></text>
+    </button>
+    <button wx:else class="phone-box custom-service" hover-class="btn-active" style="background-color: {{componentInfo.bgColor}};" bindtap='toChat'>
+      <text class="iconfont icon-huihua" style="color:{{componentInfo.fontColor}}"></text>
+    </button>
+   </view>
+</template>
+<!-- 图片 -->
+ <template name="picture">
+  <view class="ms {{Format.ad1objClass(componentInfo)}}" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};background-color:{{componentInfo.bgColor}}"
+    bindtap="previewImg" data-id="{{componentInfo.id}}" data-from-type="picture" data-url="{{item.path}}" wx:if="{{componentInfo.clickEventType=='preview'}}">
+    <image src="{{ShowImg.cropPic(componentInfo.data.path,componentInfo.layout)}}" mode="{{componentInfo.bgStyle?'aspectFill':'aspectFit'}}" />
+  </view>
+  <view class="ms {{Format.ad1objClass(componentInfo)}}" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};background-color:{{componentInfo.bgColor}}"
+    bindtap="eventTap" data-event-type="{{componentInfo.data.eventType}}" data-event-param="{{componentInfo.data.eventParam}}" wx:else>
+    <image src="{{ShowImg.cropPic(componentInfo.data.path,componentInfo.layout)}}" mode="{{componentInfo.bgStyle?'aspectFill':'aspectFit'}}" />
+  </view>
+</template>
+<!-- 搜索 -->
+<template name="searchBox">
+  <view class="searchBox flex" style="background-color:{{componentInfo.bgColor}};padding-top: {{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom: {{Format.px2Rpx(componentInfo.padding_bottom)}};padding-left: {{Format.px2Rpx(componentInfo.padding_left)}};padding-right: {{Format.px2Rpx(componentInfo.padding_right)}};">
+    <view bindtap='navCity' wx:if="{{componentInfo.cityLocate}}" style='padding-right:30rpx;line-height:30px;color:{{componentInfo.textColor}}' class="fr26 cf">{{cityLocateName}}
+      <text class="iconfont icon-xiala"></text>
+    </view>
+    <view class="contentBox ellipsis1 flex1" bindtap="eventTap" data-event-type="{{componentInfo.eventType}}" data-event-param="{{componentInfo.eventParam}}">
+      <text class="iconfont icon-sousuo" />
+      <text>{{componentInfo.tipText}}</text>
+    </view>
+  </view>
+</template>
+<!-- 空白区域 -->
+<template name="blank">
+  <!-- 辅助空白 -->
+  <view class="m-blank" style="height:{{Format.px2Rpx(componentInfo.height)}};background-color:{{componentInfo.bgColor}}">
+  </view>
+</template>
+<!-- 分割线 -->
+<template name="splitLine">
+  <view class="splitBox" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};background:{{componentInfo.bgColor}}">
+    <view style="border-width:{{Format.px2Rpx(componentInfo.height)}};border-style: {{componentInfo.dashed ? 'dashed' : 'solid'}};border-color: {{componentInfo.color}}" />
+  </view>
+</template>
+<!-- 视频 -->
+<template name="video">
+  <view class="myVideo" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};background:{{componentInfo.bgColor}};">
+    <video src="{{componentInfo.src}}" objectFit="container" style="height: {{Format.px2Rpx(componentInfo.height)}};width:{{Format.px2Rpx(componentInfo.width)}};max-width:750rpx;" loop="{{componentInfo.loop}}" autoplay="{{componentInfo.autoplay}}" poster="{{ShowImg.cropImgWH(componentInfo.coverUrl,750,componentInfo.height*2)}}"
+    />
+  </view>
+</template>
+<template name="audio">
+  <view class="flexc w100" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};background:{{componentInfo.bgColor}};">
+    <audio poster="{{componentInfo.path||'https://facing-1256908372.file.myqcloud.com//image/20180321/a7ddcf52905a513f.png?imageView2/1/w/150/h/150'}}" name="{{name}}" author="{{author}}" src="{{componentInfo.src}}" id="myAudio" controls loop="{{componentInfo.loop}}"
+      loop="{{componentInfo.loop}}" name="{{componentInfo.title}}" author="{{componentInfo.author}}"></audio>
+  </view>
+
+</template>
+<!--地图-->
+<template name="vuemap">
+  <view class="vueMap" style="padding-top:{{Format.px2Rpx(componentInfo.padding_top)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}};padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};background:{{componentInfo.bgColor}};height:{{Format.px2Rpx(componentInfo.height)}}">
+    <map style="width:100%;height:100%;" longitude="{{componentInfo.lng}}" latitude="{{componentInfo.lat}}" markers="{{componentInfo.markers}}" bindcallouttap="mapNavigation" bindmarkertap="mapNavigation" data-lng="{{componentInfo.lng}}" data-lat="{{componentInfo.lat}}"
+      data-address="{{componentInfo.address}}" />
+  </view>
+</template>
+<!-- 表单 -->
+<template name="form">
+  <form report-submit bindsubmit="formSubmit" data-id="{{componentInfo.id}}">
+    <view class="f15" style="background-color:{{componentInfo.bgColor}};padding-top:{{Format.px2Rpx(componentInfo.padding_top)}}; padding-right:{{Format.px2Rpx(componentInfo.padding_right)}};padding-bottom:{{Format.px2Rpx(componentInfo.padding_bottom)}}; padding-left:{{Format.px2Rpx(componentInfo.padding_left)}};clear: both;">
+      <block wx:for="{{componentInfo.data}}" wx:for-item="formInfo" wx:for-index="formindex" wx:key="id">
+        <template is="{{formInfo.formType}}" data="{{componentInfo,componentInfoIndex,formInfo,formindex,dateRegion,pickerObjIndex}}" />
+      </block>
+      <button wx:if="{{isDisabled[componentInfo.id]}}" class="form-button" disabled="{{isDisabled[componentInfo.id]}}" formType="submit">{{componentInfo.btnText}}</button>
+      <button wx:else class="form-button" formType="submit" style="background-color:{{componentInfo.btnColor}};color:{{componentInfo.btnFontColor}};margin-top: 30rpx">{{componentInfo.btnText}}</button>
+    </view>
+  </form>
+</template>
+<!--start 表单小组件 start-->
+<template name="diyImage">
+    <view style="color: {{componentInfo.titleColor}}">
+        <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <upload-img len="{{formInfo.maxUploadImageLen}}" bind:getImgs="getImgs"  paddingLR="{{componentInfo.padding_left+'_'+componentInfo.padding_right}}" data-index="{{componentInfo.id+'_'+formindex}}"/>
+</template>
+<template name="text">
+  <view style="margin:20rpx 0;position: relative;">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <input class="form-input form-notEmpty" name="{{formInfo.formType+'_'+formindex}}" style="color:{{componentInfo.fontColor}};border-color: {{formInfo.borderColor}}" type="text" placeholder="{{formInfo.validateType == 'phone' && formInfo.weChatAuthorize ? '请进行手机号授权' : formInfo.tipText}}" value="{{formInfo.value}}" disabled="{{formInfo.validateType == 'phone' && formInfo.weChatAuthorize}}"/>
+    <button wx:if="{{formInfo.validateType == 'phone' && formInfo.weChatAuthorize}}" class="validate-phone" open-type="getPhoneNumber" bindgetphonenumber="getUserPhoneNumber" data-index1="{{componentInfoIndex}}" data-index2="{{formindex}}">{{formInfo.value?'再次授权': '手机号授权'}}</button>
+  </view>
+</template>
+<template name="textarea">
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <textarea class="form-textarea" name="{{formInfo.formType+'_'+formindex}}" style="color:{{componentInfo.fontColor}};border-color: {{formInfo.borderColor}};min-height: {{Format.px2Rpx(formInfo.minHeight)}};" placeholder="{{formInfo.tipText}}" auto-height
+      maxlength="-1"></textarea>
+  </view>
+</template>
+<template name="date">
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <picker mode="date" data-index="{{componentInfo.id+'_'+formindex}}" name="{{formInfo.formType+'_'+formindex}}" bindchange="bindDateChange">
+      <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};border-color: {{formInfo.borderColor}}">
+        <text wx:if="{{dateRegion['date'+componentInfo.id+'_'+formindex]}}">{{dateRegion['date'+componentInfo.id+'_'+formindex]}}</text>
+        <text wx:else style="color:#808080">{{formInfo.tipText}}</text>
+        <view style="color: #808080" class="iconfont icon-open"></view>
+      </view>
+    </picker>
+  </view>
+</template>
+<template name="region">
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <picker mode="region" data-index="{{componentInfo.id+'_'+formindex}}" name="{{formInfo.formType+'_'+formindex}}" bindchange="bindRegionChange">
+      <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};border-color: {{formInfo.borderColor}}">
+        <text wx:if="{{dateRegion['region'+componentInfo.id+'_'+formindex]}}">{{dateRegion['region'+componentInfo.id+'_'+formindex]}}</text>
+        <text wx:else style="color:#808080">{{formInfo.tipText}}</text>
+        <view style="color:#808080" class="iconfont icon-open"></view>
+      </view>
+    </picker>
+  </view>
+</template>
+<template name="radio">
+
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <radio-group name="{{formInfo.formType+'_'+formindex}}" class="flexColumn">
+      <label class="form-radio" wx:for="{{formInfo.options}}" style="color:{{componentInfo.fontColor}}">
+        <radio value="{{item.name}}" color="{{formInfo.borderColor}}" />{{item.name}}
+      </label>
+    </radio-group>
+
+  </view>
+</template>
+<template name="singlePicker">
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <picker data-id="{{formInfo.id}}" data-index="{{formindex}}" bindchange="radioPickerChange" range-key="name" range="{{formInfo.options}}" class="radio-picker w100 bcf" style="border-color: {{formInfo.borderColor}}" value="{{pickerObjIndex['_'+formInfo.id].pickeIndex}}">
+      <view class="picker-item flex1 flexb" style="color:{{componentInfo.fontColor}}">
+        <view>{{Format.getArryValue(formInfo.options,pickerObjIndex['_'+formInfo.id].pickeIndex).name}}</view>
+        <view class="iconfont icon-open"></view>
+      </view>
+
+    </picker>
+  </view>
+</template>
+
+<template name="checkbox">
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <checkbox-group name="{{formInfo.formType+'_'+formindex}}" class="flexColumn" style="color:{{componentInfo.fontColor}}">
+      <label class="form-checkbox" wx:for="{{formInfo.options}}">
+        <checkbox value="{{item.name}}" />{{item.name}}
+      </label>
+    </checkbox-group>
+  </view>
+</template>
+<template name="checkbox">
+  <view style="margin:20rpx 0">
+    <view style="color: {{componentInfo.titleColor}}">
+      <text class="form-notEmpty" wx:if="{{formInfo.notEmpty}}">*</text> {{formInfo.title}}
+    </view>
+    <checkbox-group name="{{formInfo.formType+'_'+formindex}}" class="flexColumn" style="color:{{componentInfo.fontColor}}">
+      <label class="form-checkbox" wx:for="{{formInfo.options}}">
+        <checkbox value="{{item.name}}" />{{item.name}}
+      </label>
+    </checkbox-group>
+  </view>
+</template>
+<!--end 表单小组件end -->

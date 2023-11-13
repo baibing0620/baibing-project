@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "自动回复规则",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

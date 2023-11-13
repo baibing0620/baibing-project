@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "活动规则",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

@@ -1,0 +1,47 @@
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow'  data='{{showStyle:showStyle}}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:else>
+  <view class='recommend-item'>
+    <view class='recommend-top flexb'>
+        <view class='fr32 c3'>商品推荐</view>  
+        <switch color="#1F94FD" bindchange="recommdedGoodsSwitch" style="transform: scale(0.75)" checked="{{goods_rec}}" />
+    </view>
+    <view class='recommend-main flexb active' data-page="recommendedGoods" catchtap='navPage'>
+        <view class='fr32 c3'>模块名称</view>
+        <view class='fr24 c9'>{{goods_module}}<text class='iconfont icon-jinru fr24'></text></view>
+    </view>
+    <view class='recommend-main flexb active' data-page="recommendedRealGoodsList" catchtap='navPage'>
+        <view class='fr32 c3'>推荐商品</view>
+        <view class='fr24 c9'>{{goods_num}}<text class='iconfont icon-jinru fr24'></text></view>
+    </view>
+  </view>
+  <view class='recommend-item'>
+    <view class='recommend-top flexb'>
+        <view class='fr32 c3'>服务推荐</view>  
+        <switch color="#1F94FD" bindchange="recommdedSwitch" style="transform: scale(0.75)" checked="{{home_rec}}" />
+    </view>
+    <view class='recommend-main flexb active' data-page="recommendedName" catchtap='navPage'>
+        <view class='fr32 c3'>模块名称</view>
+        <view class='fr24 c9'>{{home_module}}<text class='iconfont icon-jinru fr24'></text></view>
+    </view>
+    <view class='recommend-main flexb active' data-page="recommendedGoodsList" catchtap='navPage'>
+        <view class='fr32 c3'>推荐服务</view>
+        <view class='fr24 c9'>{{home_goods_num}}<text class='iconfont icon-jinru fr24'></text></view>
+    </view>
+  </view>
+  <view class='recommend-item'>
+    <view class='recommend-top flexb'>
+        <view class='fr32 c3'>资讯推荐</view>  
+        <switch color="#1F94FD" bindchange="recommdedInfoSwitch" style="transform: scale(0.75)" checked="{{info_rec}}" />
+    </view>
+    <view class='recommend-main flexb active' data-page="recommendedInfo" catchtap='navPage'>
+        <view class='fr32 c3'>模块名称</view>
+        <view class='fr24 c9'>{{info_module}}<text class='iconfont icon-jinru fr24'></text></view>
+    </view>
+    <view class='recommend-main flexb active' data-page="recommendedInfoList" catchtap='navPage'>
+        <view class='fr32 c3'>推荐资讯</view>
+        <view class='fr24 c9'>{{info_num}}<text class='iconfont icon-jinru fr24'></text></view>
+    </view>
+  </view>
+</block>
+<component-messageToast></component-messageToast>

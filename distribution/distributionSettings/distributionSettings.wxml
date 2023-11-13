@@ -1,0 +1,45 @@
+<include src="../../comm/comm.wxml" />
+<component-messageToast></component-messageToast>
+<component-steps chooseIndex="2" completeIndex="1"></component-steps>
+<view class='container'>
+    <view class='flexb title'>
+        <view class='fr32 c3 bold '>是否包邮</view>
+        <switch color='#ff9b1f' checked="{{isOpen}}" bindchange="freeChange" />
+    </view>
+    <view style='text-align:center' wx:if="{{isOpen}}">
+        <image class='img' src="https://facing-1256908372.file.myqcloud.com//image/20181130/413a04116d91fa5d.png"></image>
+        <view style='margin-top:60rpx' class='fr34 c6 bold'>该商品已开启包邮服务</view>
+    </view>
+    <view wx:else class='setting'>
+        <view style='margin-bottom:10rpx' class='fr24 {{!SettingList[0].index ||SettingList[0].index == -1?"c3":"cb3"}} bold '>快递设置</view>
+        <view class='flexcColumn' wx:if="{{is_express_tpl ==1}}">
+            <image class='img' src="https://facing-1256908372.file.myqcloud.com//image/20181130/413a04116d91fa5d.png"></image>
+            <view style='margin-top:60rpx' class='fr34 c6 bold'>企业已开启高级快递功能</view>
+            <view style='margin-top:20rpx' class='fr34 c6 bold'>配送费用将自动结算</view>
+        </view>
+        <block wx:else>
+        <view wx:for="{{SettingList}}" wx:key="this" class='flex'>
+            <view class='flex1'>
+                <picker data-index="{{index}}" mode="selector" bindchange="bindPickerChange" value="{{index}}" range="{{item.setting}}" range-key="name">
+                    <view class="form-picker flexb" style="color: #ff9b1f;">
+                        <text class='fr28 {{index == -1?"cb3":"c3"}}'>{{item.index == -1?'请选择分类':item.setting[item.index].name}}</text>
+                        <view class="iconfont icon-xiala1 c9 fr24"></view>
+                    </view>
+                </picker>
+            </view>
+            <view style='margin-left:30rpx' class='flex1'>
+                <view class='input flexb'>
+                    <input type="digit" value='{{item.price}}' class='fr30 flex1 c3' data-index="{{index}}" bindinput="changePrice" type="digit" placeholder='请输入快递价格' />
+                    <view class='fr28 c3'>元</view>
+                </view>
+            </view>
+            <view data-index="{{index}}" style='color:#ff9b1f;margin-left:30rpx' class='iconfont icon-jian' catchtap='delSetting'></view>
+        </view>
+        <button catchtap='addSetting' class='fr28'>+ 添加快递</button>
+        </block>
+    </view>
+</view>
+<view class='btn flex'>
+    <button catchtap='backSteps' class='flex1 fr34'>上一步</button>
+    <button catchtap='nextSteps' style='flex:2'>下一步</button>
+</view>

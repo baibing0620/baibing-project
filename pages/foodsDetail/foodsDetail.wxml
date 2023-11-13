@@ -1,0 +1,127 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs module = 'showCert'>
+    var judge = function(cartList,id){
+        if(cartList.length>0){
+            for(var i =0;i<cartList.length;i++){
+                if(cartList[i].goodsId == id){
+                    return cartList[i].addNum
+                }
+            }
+        }
+        return 0
+    }
+
+    module.exports = {
+    judge: judge,
+};
+</wxs>
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" wx:if="{{showStyle!=1}}" data="{{showStyle:showStyle}}" />
+        <view class="container" wx:else>
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+            <image src="{{ShowImg.cropImgWH(goods.thumb_url,600,400)}}" class="food-cover" />
+            <view class="content">
+                <view class="fr36 c3 food-title">{{goods.title}}</view>
+                <view class="fr26 c6" style="margin-top: 20rpx;">销量{{sales}} 
+                    <text style='margin-left:10rpx' class='c9'>{{goods.total == 0?'已售罄':'剩余'+goods.total+'件' }}</text>
+                </view>
+                <view class="food-tag">
+                    <text class="fr22">力荐</text>
+                    <view class="red-dot" animation="{{animationData}}"></view>
+                </view>
+                <view class="price flexb">
+                    <view class="fr40">￥ {{goods.price}}</view>
+                    <view class="flexc fr26 shop-cart {{goods.total == 0 || showCert.judge(cartList,id) >=  goods.total ?'bce5 cf':'c3 bcfb' }}" hover-class="btn-active" bindtap="tapAddCart">           
+                        <text class="iconfont icon-gouwuche1" style="font-size: 26rpx;padding-right: 10rpx;"></text> 加入购物车
+                    </view>
+                </view>
+            </view>
+            <view class="food-des">
+                <text class="fr26 c9">商品信息</text>
+                <text class="fr24 c6" style="margin-top: 20rpx;" space="nbsp">{{desc?desc:'暂无相关描述'}}</text>
+            </view>
+
+            <view class="cart-detail w100" hidden="{{!showCartDetail||!Format.getCarInfo(cartList).count}}">
+                <view class="mask flex1" bindtap="hideCartDetail"></view>
+                <view class="flexb fr26 c9 clean-cart w100">
+                    <text>购物车</text>
+                    <text bindtap="cleanCartList">清空</text>
+                </view>
+                <scroll-view class="list" scroll-y="true" style="{{cartHeightStyle}}">
+                    <view class="item flex c3 fr36" wx:for="{{cartList}}" wx:key="id">
+                        <view class="flex1 fr26 ellipsis2">{{item.title}}
+                            <text wx:if="{{item.hasOption}}" class="c9"> ({{item.selectedSpec.title}})</text>
+                        </view>
+                        <view class="total c-danger">￥{{Format.getTotalMoney(item.addNum,item.price)}}</view>
+                        <view class="iconfont icon-jian c-danger" data-index="{{index}}" bindtap="reduceCartList"></view>
+                        <view class="num">{{item.addNum}}</view>
+                        <view class="iconfont icon-jiahao {{item.addNum >=  item.total?'cc':'c-danger'}}" data-index="{{index}}" bindtap="addCartList"></view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="cart">
+                <view class="data" bindtap="showCartDetail">
+                    <view class="icon flexc" style="border:1px solid white;">
+                        <view class="iconfont icon-gouwuche1"></view>
+                        <view class="count cf fr28 flexc">{{Format.getCarInfo(cartList).count>99?'...':Format.getCarInfo(cartList).count}}</view>
+                    </view>
+                    <view class="cart-total flex1 flex fr36">￥{{Format.getCarInfo(cartList)._totalMoney}}</view>
+                </view>
+                <block>
+                    <button disabled="{{Format.getCarInfo(cartList).totalMoney==0||Format.getCarInfo(cartList).totalMoney<startPrice}}" class="{{Format.getCarInfo(cartList).totalMoney<startPrice||Format.getCarInfo(cartList).totalMoney==0?'start-price':''}}"
+                        hover-class="btn-active" bindtap="placeOrder" wx:if="{{menuType==3}}">
+                        {{Format.getCarInfo(cartList).totalMoney==0||Format.getCarInfo(cartList).totalMoney<startPrice?Format.float2(startPrice)+ '元起送': '去结算'}} 
+                    </button>
+                    <button bindtap="placeOrder" disabled="{{Format.getCarInfo(cartList).totalMoney==0}}" wx:else>
+                        去结算
+                    </button>
+                </block>
+            </view>
+
+        </view>
+        <view class="modal-spec-box flexc" wx:if="{{showModalSpec}}" bindtap="closeModalSpec">
+            <view class="modal-spec-content" catchtap="stop">
+                <view class="modal-goods-title fr28 c3 ellipsis1">
+                    {{checkGoods.title}}
+                </view>
+                <scroll-view scroll-y class="spec-scroll-box w100 {{checkGoods.spec.types.length>=3?'spec-scroll-height3':''}} {{checkGoods.spec.types.length==1?'spec-scroll-height1':''}}">
+                    <block wx:for="{{checkGoods.spec.types}}" wx:for-item="types" wx:key="id" wx:for-index="typesIndex">
+                        <view class="spec-item-box fr24">
+                            <view class="spec-title c3 ellipsis1">{{types.title}}:</view>
+                            <view class="spec-item-values w100 flex c6">
+                                <block wx:for="{{types.items}}" wx:for-item="valuesItem" wx:key="id" wx:for-index="itemsIndex">
+                                    <view data-types-index="{{typesIndex}}" data-items-index="{{itemsIndex}}" class="values c3 {{valuesItem.isSelected ?'spec-active' : ''}}"
+                                        data-item-id="{{valuesItem.id}}" catchtap="selectSpecItem">
+                                        {{valuesItem.title}}
+                                    </view>
+                                </block>
+                            </view>
+                        </view>
+                    </block>
+                </scroll-view>
+                <view class="modal-spec-bottom flexb w100">
+                    <view class="fr24 c9 ellipsis1">
+                        <text class="fr34 c-main">￥{{checkGoods.price}} </text>({{selectedSpec.title}})</view>
+                    <view class="flex fr24 c3">
+                        <view class="iconfont icon-jian {{!bridge[selectedSpec.id]?'':'reduce-icon-active'}} c9" catchtap="specReduceCart"></view>
+                        <text hidden="{{!bridge[selectedSpec.id]}}" style="padding:0 10rpx;">{{bridge[selectedSpec.id].num}}</text>
+                        <view catchtap="specAddCart" class="iconfont icon-jiahao c-main"></view>
+                    </view>
+
+                </view>
+            </view>
+        </view>
+        <view class="fix-qrcode iconfont icon-erweima flexc fr30" bindtap="getQRCode" wx:if="{{open_qr_code==1}}">
+        </view>
+        <view class='no-sale flexc'  wx:if="{{goods.saleState&&goods.saleState.canBuy==0}}">
+        {{goods.saleState.reason}}
+        </view>
+
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

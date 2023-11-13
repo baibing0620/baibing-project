@@ -1,0 +1,108 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<form wx:else bindsubmit='submit'>
+  <view class='bcf padding-w'>
+    <view class='label fr24 c3'>选择发布的帖子类型</view>
+    <picker bindchange="bindPickerChange" value="{{ typeIndex }}" range="{{ typeArray }}" range-key='title' name='type'>
+      <view class="picker border fr26 c3 background">
+        {{ typeArray[typeIndex].title }}
+      </view>
+    </picker>
+
+    <view class='label fr24 c3'>帖子标题</view>
+    <input class='input border fr26 c3 background' name='title' value='{{ title }}' placeholder='请输入文章的标题' placeholder-class='fr28 cb3'></input>
+
+    <view class='label fr24 c3'>想要发布的内容</view>
+    <view class='textarea border background'>
+      <textarea class='fr24 c3' name='content' placeholder='想说些什么…' placeholder-class='fr28 cb3' maxlength='500' bindinput='textInput'></textarea>
+      <view class='text-total fr28 cc'>{{ textLength }}/500</view>
+    </view>
+
+    <block wx:if='{{ typeArray[typeIndex].id === 1 }}'>
+      <view class='label fr24 c3'>想要展示的图片</view>
+      <view class='img-box'>
+        <view wx:for="{{ myImgs }}" wx:key="index" class='img img2' data-index='{{ index }}' bindlongpress='deleteMyImgs'>
+          <image mode='aspectFill' wx:if='{{ item.status === 2 }}' src='{{ item.url }}?imageView2/1/w/226/h/226"' data-index='{{ index }}' catchtap='previewMyImgs'></image>
+          <view wx:if='{{ item.status === 1 }}' class='progress-view'>
+            <progress percent='{{ item.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+          </view>
+          <view wx:if='{{ item.status === -1 }}' class='imgError flexcColumn fr24' data-index='{{ index }}' catchtap='reUploadMyImgs'>
+            {{ item.errorMsg }}
+            <br/>点击重新上传
+          </view>
+        </view>
+        <view wx:if='{{ myImgs.length < 9 }}' class='img img-add img2' catchtap="uploadMyImgs">
+          <i class='iconfont icon-add:before'></i>
+        </view>
+      </view>
+      <view class='info fr24 c9'>最多可添加9张图片，最佳图片尺寸为1:1</view>
+    </block>
+
+    <block wx:else>
+      <view class='label fr24 c3'>想要展示的视频</view>
+      <view class='border background noPadding'>
+        <view wx:if='{{ video.status === 0 }}' class='videoHolder flexcColumn' catchtap='uploadVideo'>
+          <i class='iconfont icon-shangchuan:before cb3 fr50 marginbottom'></i>
+          <view class='fr26 cb3 marginbottom2'>点击可以从相册中选择要上传的视频</view>
+          <view class='fr26 cb3'>3分钟内</view>
+        </view>
+        <view wx:if='{{ video.status === 1 }}' class='videoHolder'>
+          <view class='progress-view'>
+            <progress percent='{{ video.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+          </view>
+        </view>
+        <!-- <view wx:if='{{ video.status === -1 }}' class='imgError flexcColumn fr24 videoHolder' data-index='{{ index }}' catchtap='reUploadVideo' bindlongpress='deleteVideo'>
+          {{ video.errorMsg }}
+          <br/>点击重新上传
+        </view> -->
+        <view wx:if='{{ video.fileId }}' class='flexcColumn videoHolder noPadding'>
+          <!-- <i class='iconfont icon-gouxuan4 cb3 fr50 marginbottom' style='color: {{ extConfig.themeColor }}' ></i>
+          <view class='fr26 c3 marginbottom2'>视频上传成功，视频时长{{ video.time }}</view> -->
+          <video class='videoLayout' src='{{ video.videoUrl }}'></video>
+        </view>
+        <view wx:if='{{ video.status === 3 }}' class='flexcColumn fr24 videoHolder' bindlongpress='deleteVideo'>
+          <image src='/imgs/loading.gif' class='marginbottom loading'></image>
+          <view class='fr26 cb3'>正在转码，请稍后…</view>
+        </view>
+      </view>
+      <view wx:if='{{ video.status === 2 || video.status === 3 }}' class='submit fr34 cf reuploadvideo' style='background-color: {{ extConfig.themeColor }}' catchtap='deleteVideo'>重新上传</view>
+
+      <view class='label fr24 c3'>视频封面</view>
+      <view class='videoHolder border background margin-bottom noPadding'>
+        <view wx:if='{{ videoCover.status === 0 }}' class='videoHolder flexcColumn' catchtap='uploadVideoCover'>
+          <i class='iconfont icon-add cb3 fr50 marginbottom'></i>
+          <view class='fr26 cb3 marginbottom2'>上传的图片将作为视频的封面图，及海报封面</view>
+          <view class='fr26 cb3'>最佳比例为16:9</view>
+        </view>
+        <view wx:if='{{ videoCover.status === 1 }}' class='videoHolder' bindlongpress='deleteVideoCover'>
+          <view class='progress-view'>
+            <progress percent='{{ videoCover.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+          </view>
+        </view>
+        <view wx:if='{{ videoCover.status === -1 }}' class='imgError flexcColumn fr24 videoHolder' data-index='{{ index }}' bindlongpress='deleteVideoCover' catchtap=''>
+          {{ videoCover.errorMsg }}
+          <br/>点击重新上传
+        </view>
+        <view wx:if='{{ videoCover.status === 2 }}' class='imgError flexcColumn fr24 videoHolder' bindlongpress='deleteVideoCover'>
+          <image mode='aspectFill' class='videoHolder' src='{{ videoCover.url }}'></image>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class='bcf padding-w margin-top'>
+    <view class='label2 fr24 c3'>选择需要发布的小组</view>
+    <view class='flex select fr30 c9'>
+      <view wx:for='{{ groups }}' wx:key='index' class='{{ item.checked ? "selected" : "" }} flexc' style='{{ item.checked ? "background-color: " + extConfig.themeColor : "" }}' data-index='{{ index }}' catchtap='groupCheck'>{{ item.name }}</view>
+    </view>
+    <view class='checkBox fr28 c3 flex' catchtap='isPublicCheck'><view class='checkIcon iconfont fr28 flexc {{ isPublic ? "icon-gouxuan4" : "border" }}' style='color: {{extConfig.themeColor}}'></view>同步发布到公共动态</view>
+  </view>
+  <view style="padding-bottom:{{isIphoneX?'68rpx':''}}">
+   <button class="submit fr34 cf" style='background-color: {{ extConfig.themeColor }}' form-type='submit'>发布帖子</button>
+  </view>
+</form>
+
+<component-messageToast></component-messageToast>
+

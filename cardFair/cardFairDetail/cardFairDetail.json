@@ -1,0 +1,15 @@
+{
+    "navigationBarTitleText": "我的名片",
+    "navigationBarBackgroundColor": "#000000",
+    "backgroundColor": "#000000",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "diy-card2": "/components/cardFairStyle2/card2",
+        "form-button": "/components/formButton/formButton",
+        "component-audioPlayer": "/components/audioPlayer/audioPlayer",
+        "component-remind": "/components/remind/remind",
+        "component-bless-bag-comm": "/components/blessBagComm/blessBagComm",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-menu": "/components/menu/menu"
+    }
+}

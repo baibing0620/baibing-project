@@ -1,0 +1,11 @@
+{
+    "enablePullDownRefresh": true,
+    "navigationBarTitleText": "专属相册",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-image": "/components/image/image",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

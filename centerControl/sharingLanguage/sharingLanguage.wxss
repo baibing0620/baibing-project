@@ -1,0 +1,66 @@
+page{
+    background-color: #fff;
+}
+.shopShare{
+    width: 690rpx;
+    height: 357rpx;
+    margin: 51rpx 30rpx 0 30rpx;
+}
+.serverShare{
+    width: 690rpx;
+    height: 357rpx;
+    margin: 51rpx 30rpx 0 30rpx;
+}
+.informationShare{
+    width: 690rpx;
+    height: 357rpx;
+    margin: 51rpx 30rpx 274rpx 30rpx;
+}
+.cover-view{
+    position: fixed;
+    width: 100%;
+    height: 98rpx;
+    bottom: 0;
+    left: 0;
+    /* border-radius: 0; */
+}
+.shareButton{
+    width: 100%;
+    height: 100%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    line-height: 98rpx;
+    text-align: center;
+    background-color: #ff9b1f;
+    color: #fff;
+}
+.shareTitle{
+    font-size: 38rpx;
+    color: #333;
+    font-weight: bolder;
+    line-height: 100%;
+}
+.shareDes{
+    color: #ff9b1f;
+    font-size: 28rpx;
+    line-height: 100%;
+    margin-top: 22rpx;
+    margin-bottom: 32rpx;
+}
+.shareMessage{
+    width: 690rpx;
+    height: 240rpx;
+    border: solid 1rpx #d9d9d9;
+    background-color: #f7f7f7;
+    border-radius: 6rpx;
+    box-sizing: border-box;
+}
+.shareMessage2{
+    width: 630rpx;
+    height: 178rpx;
+    margin: 31rpx 30rpx 0 30rpx;
+    font-size: 32rpx;
+    color: #1a1a1a;
+    font-weight: lighter;
+}

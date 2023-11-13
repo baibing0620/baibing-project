@@ -1,0 +1,62 @@
+<include src="../../comm/comm.wxml" />
+<view wx:for="{{ list }}" wx:key="id" class='paddingH fr24 bcf margin-bottom'>
+  <view class='paddingV'>
+    <view class='relative'>
+      <view>
+        <view class="{{ item.status === '2' || item.status === 2 ? 'c9' : 'c3' }}">{{ item.type === "1" ? "平台线下付款" : "企业付款到零钱" }}</view>
+        <view class="c9 margin-top">{{ item.create_time }}</view>
+      </view>
+      
+      <view wx:if="{{ item.status === '0' || item.status === 0 }}" class='tag cf bc-green'>提现中</view>
+      <view wx:if="{{ item.status === '1' || item.status === 1 }}" class='tag cf bc-main'>提现成功</view>
+      <view wx:if="{{ item.status === '2' || item.status === 2 }}" class='tag cf bc-fail'>提现失败</view>  
+      
+    </view>
+
+    <view class="price fr60 {{ item.status === '0' || item.status === 0 ? 'ce6' : item.status === '1' || item.status === 1 ? 'c4d' : 'cb3' }}">
+      {{ item.price }}
+      <view class='fr24'>元</view>
+    </view>
+
+
+    <view>
+      <view class="others flex {{ item.status === '2' || item.status === 2 ? 'c9' : c3 }}">
+        提现金额：
+        <view class="c9">{{ item.pay_money }}元</view>
+      </view>
+      <view class="others flex {{ item.status === '2' || item.status === 2 ? 'c9' : c3 }}">
+        手续费：
+        <view class="c9">{{ item.poundage }}元</view>
+      </view>
+
+        <view class="others flex {{ item.status === '2' || item.status === 2 ? 'c9' : c3 }}" wx:if="{{ item.type == 1 && withdraw_meth != 0 }}">
+            打款方式： 
+            <view class="c9" wx:if="{{ item.withdraw_meth == 1 }}">微信转账</view>
+            <view class="c9" wx:if="{{ item.withdraw_meth == 2 }}">支付宝转账</view>
+            <view class="c9" wx:if="{{ item.withdraw_meth == 3 }}">银行卡转账</view>
+        </view>
+
+        <view class="others flex {{ item.status === '2' || item.status === 2 ? 'c9' : c3 }}" wx:if="{{ item.type == 1 && withdraw_meth != 0 }}">
+            打款账号： 
+            <view class="c9" wx:if="{{ item.withdraw_meth == 3 }}">{{ item.account.bank + '/' + item.account.account }}</view>
+            <view class="c9" wx:else>{{ item.account.account }}</view>
+        </view>
+
+      <view wx:if="{{ item.status === '1' || item.status === 1 }}" class='others flex'>
+        到账时间：
+        <view class="c9">{{ item.userRemit.update_time }}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ item.status === '2' || item.status === 2 || servicePhone }}" class='detail' catchtap='makePhoneCall'><i class="iconfont icon-dianhua margin-right"></i>了解详情</view>
+
+</view>
+
+<!-- <compnent-loading wx:if='{{ loading }}'></compnent-loading> -->
+
+<view class='none' wx:if='{{ list.length < 1 && !loading }}'>
+  <image src="https://facing-1256908372.file.myqcloud.com/image/20200917/xu23gs2hjbd23fd4.png"></image>
+  <view>暂无数据</view>
+</view>
+
+<component-messageToast></component-messageToast>

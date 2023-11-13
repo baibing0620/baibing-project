@@ -1,0 +1,24 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" /> 
+<include src="../../comm/comm.wxml" />
+<view class="new-group-box-content flexb" wx:for="{{goodsGroupBuyList}}" wx:key="id">
+  <view class="content-user flex">
+    <view class="content-user-head flex" style="width: {{item.userHead.length*62}}rpx">
+      <block wx:for="{{item.userHead}}" wx:for-item="itemHead" wx:for-index="headIndex">
+        <image class="{{headIndex == 0? '':'content-user-head-img'}}" wx:if="{{itemHead.id}}" src="{{ShowImg.cropImgWH(itemHead.head,80,80)}}" style="left: {{60*(headIndex)}}rpx"></image>
+        <view wx:else class="content-user-head-add flexc" style="left: {{60*(headIndex)}}rpx">
+          <text class="iconfont icon-tianjia cf fr36"></text>
+        </view>
+      </block>
+    </view>
+    <view class="content-user-info flexColumn" wx:if="{{canBuy!=0 && item.status=='1' && item.type == 1}}">
+      <view class="fr26" style="color:#656565"> <text class="content-user-info-name fr30 bold c3" style="margin-right:20rpx">{{item.users[0].name}}</text> 还差{{item.subUserCount}}人成团 </view>
+      <view class="fr26 c9 flex" style="margin-top:10rpx">
+      {{item.timeShown}}:<frame-ms height='40rpx'></frame-ms>
+      </view>
+    </view>
+    <view wx:else class="content-user-info fr30 bold c3" style="margin-right:20rpx">{{item.users[0].name}}</view>
+  </view>
+  <view wx:if="{{canBuy!=0 && item.status=='1'}}" class="content-join fr26" data-gb-id="{{item.id}}" catchtap="toGroupBuy">去参团</view>
+  <view wx:elif="{{canBuy!=0 && item.status=='2'}}" class="content-join fr26" catchtap="toGroupBuy">去开团</view>
+</view>

@@ -1,0 +1,29 @@
+<!--components/signOnline/signOnline.wxml-->
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<form>
+  <block>
+    <view class='layout-S flex bcf'>
+      <view class='input-layout-S flex flex1'>
+        <view class='search-S iconfont icon-sousuo2 flexc c9 fr30' bindtap='handleSearch'></view>
+        <input class='search-input-S flex1 c3 fr24' type="text" value='{{searchValue}}' placeholder='请输入关键字搜索...' placeholder-class='cc' bindinput='handleInput' bindconfirm='handleSearch' />
+        <view class='search-delete-S' bindtap='handleDelete'></view>
+      </view>
+    </view>
+    <view>
+      <view wx:for="{{signOnlineList}}" wx:key="index" class="signOnlineList {{actvieIndex==index?'boxShow':''}}">
+        <view class="c0 fr32 marb10">{{item.title}}</view>
+        <view class="flexb" style="margin: 14rpx 0 10rpx;">
+          <view>
+            <text class="cbd fr28">签署文件</text>
+          </view>
+          <view class="cmain fr28" style="margin: 14rpx 10rpx 10rpx 0;" data-index="{{index}}" data-item="{{item}}" bindtap="goContract">发起签约</view>
+        </view>
+      </view>
+    </view>
+    <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+  </block>
+  <component-remind wx:if='{{ showRemind }}'></component-remind>
+  <component-messageToast></component-messageToast>
+</form>

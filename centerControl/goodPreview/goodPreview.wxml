@@ -1,0 +1,302 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src="../../template/initShow/initShow.wxml" />
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1&&!goods.id}}" />
+
+    <block wx:else>
+
+      <view class="container w100">
+          <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+          
+          <modal-video src="{{videoSrc}}" bind:closeMe="closeVideo" wx:if="{{playVideo}}" />
+
+          <swiper indicator-dots indicator-color="rgba(0,0,0,0.3)" indicator-active-color="#f74c31" autoplay="{{true}}" circular="{{true}}"
+            style="height:750rpx;width:100%;">
+            <block wx:for="{{banners}}" wx:key="{{index}}">
+              <swiper-item style="position: relative;">
+                <view class="action-play flexc" bindtap="showVideo" wx:if="{{item.src}}" data-src="{{item.src}}">
+                  <image class="play-img" src="{{playUrl}}" />
+                </view>
+                <image src="{{ShowImg.cropImgWH(item.url,750,750)}}" class="slide-image" mode="aspectFill" bindtap="previewImage" data-img-index="{{index}}"/>
+              </swiper-item>
+            </block>
+          </swiper>
+          <open-vip vipPrice="{{vipInfo.vipPrice}}" wx:if="{{vipInfo&&vipInfo.userIsVip==0}}"/>
+          <view class="goods-info w100">
+            <view class="title flexb fr30 c3">
+              <text class="ellipsis1 flex1">{{goods.title || '--'}}</text>
+              <!-- <button class="iconfont icon-share c9 fr30" open-type="share"></button> -->
+            </view>
+            <view class="price-sales" wx:if="{{isFrom=='integralMall'}}">
+              <view class="fr24 c9">销量{{!goods.sales && goods.sales != 0 ? '--' : goods.sales}}件
+                <text class="line"> ￥{{!goods.price && goods.price != 0 ? '--' : goods.price}}</text>
+              </view>
+              <!-- 拼团价  -->
+              <view class="fr32 c-danger">
+                {{!costCredit && costCredit != 0 ? '--' : costCredit}}积分
+              </view>
+            </view>
+            <view class="price-sales" wx:elif="{{isGroupBuy==1}}">
+              <view class="fr24 c9">已团{{!goods.sales && goods.sales != 0 ? '--' : goods.sales}}件
+                <text class="line">原价:￥{{goods.price}}</text>
+              </view>
+              <!-- 拼团价  -->
+              <view class="fr26 c-danger flex">
+                拼团价:￥
+                <view class="fr36">{{groupBuyPrice}}</view>
+              </view>
+            </view>
+            <view class="price-sales" wx:elif="{{is_bargain==1}}">
+              <view class="fr24 c9">销量{{goods.sales}}件
+                <text style="margin-left: 10rpx;" class="line"> ￥{{goods.price}}</text>
+              </view>
+              <!-- 砍价  -->
+              <view class="fr26 c-danger flex">
+                砍完价:￥
+                <text class="fr36">{{bargain_price}}</text>
+              </view>
+            </view>
+            <view class="price-sales" wx:elif="{{vipInfo&&vipInfo.userIsVip==1}}">
+              <view class="sales c9 fr28 flex">已售 {{!goods.sales && goods.sales != 0 ? '--' : goods.sales}} 件
+                <view class="c6" style="padding-left: 40rpx;">原价:￥{{!goods.price && goods.price != 0 ? '--' : goods.price}}</view>
+              </view>
+              <view class="price flex">
+                <view class="fr24 flex">
+                  <view class="vip-price-tags">会员价</view>
+                  ￥
+                  <view class="fr40">{{!vipInfo.vipPrice && vipInfo.vipPrice != 0 ? '--' : vipInfo.vipPrice}}</view>
+                </view>
+              </view>
+
+            </view>
+            <view class="price-sales" wx:else>
+              <view class="sales c9 fr28">已售 {{!goods.sales && goods.sales != 0 ? '--' : goods.sales}} 件
+                <text class="fr26 c9 line" wx:if="{{goods.marketPrice>0}}">市场价￥{{goods.marketPrice}}</text>
+              </view>
+
+              <view class="price flex">
+                <view class="fr36">￥{{!goods.price && goods.price != 0 ? '--' : goods.price}}
+                </view>
+              </view>
+
+            </view>
+            <!--<view class="express">48小时内发货，包邮之类的</view>-->
+            <view class="cutdown-box fr28 flex {{times[0].timeActive}}" wx:if="{{goods.istime==1 && times[0].timeShown}}">
+              {{times[0].timeShown}}
+            </view>
+          </view>
+          <view class="group-buying-info w100 flexaColumn fr28" wx:if="{{isGroupBuy==1}}">
+            <text>{{groupBuyLimitNum}}人团/已参团{{groupBuyNum}}人</text>
+            <text>拼团截止时间：{{Format.formatDate(groupBuyDeadline*1000)}}</text>
+          </view>
+
+          <view class="fr24 c9 tags-box w100 flexb" wx:if="{{tags.length>0}}" bindtap="showServiceBox">
+            <view class='ellipsis1 flex flex1'>
+              <block wx:for="{{tags}}" wx:key="{{item.index}}">
+                <text class="iconfont icon-gouxuan fr24 c-main">
+                  <text class="c9" style="padding-left: 4rpx;"> {{item}}</text>
+                </text>
+              </block>
+            </view>
+            <text class="iconfont icon-you" style='margin-right:0;'></text>
+          </view>
+          <view style="margin-top: 10rpx;" class="w100" wx:if="{{related_virtual_goods&&isVirtualGoods==1}}">
+            <course-detail detail="{{related_virtual_goods}}" />
+          </view>
+
+          <view class="goods-desc c6" wx:if="{{goods.desc&&goods.desc.length>0}}">
+            <view class="fr32 ">商品简介:</view>
+            <view class="goods-desc-context fr28" wx:for="{{goods.desc}}" wx:for-item="goodsDes" wx:key="{{index}}">{{goodsDes}}</view>
+          </view>
+          <view class="menu flex w100">
+            <view class="menu-item {{(optionDesc.length>0||isOpenComment==1)&&menuActiveType==0?'active':''}}" data-type='0' bindtap="tapChange">
+              <view class="title">商品详情</view>
+            </view>
+            <view class="menu-item {{menuActiveType==1?'active':''}}" data-type='1' bindtap="tapChange" wx:if="{{optionDesc.length>0}}">
+              <view class="border"></view>
+              <view class="title">规格参数</view>
+            </view>
+            <view class="menu-item {{menuActiveType==2?'active':''}}" data-type='2' bindtap="tapChange" wx:if="{{isOpenComment==1}}">
+              <view class="border"></view>
+              <view class="title">评价</view>
+            </view>
+          </view>
+          <view wx:if="{{menuActiveType==0}}" class="w100">
+            <diy-rich-text InRichTextData="{{detailImgs}}" wx:if="{{desType==0}}" />
+            <block wx:else>
+              <image src="{{ShowImg.cropImgW(item.url,750)}}" mode="widthFix" class="goods-detail-item" bindtap="previewDetailImage" data-index="{{index}}"
+                wx:for="{{detailImgs}}" wx:key="{{index}}"/>
+            </block>
+          </view>
+          <view wx:elif="{{menuActiveType==1}}" class="goods-specifications-box w100">
+            <image src="{{ShowImg.cropImgW(optionDesc,750)}}" class="goods-detail-item" mode="widthFix" wx:if="{{optionDescType==1}}"
+              bindtap="previewDesImg" data-preview-url="{{optionDesc}}"/>
+            <block wx:else>
+
+              <view class="goods-specifications-item fr28 c6" wx:for="{{optionDesc}}" wx:key="{{index}}">
+                {{item}}
+              </view>
+            </block>
+
+          </view>
+          <block wx:elif="{{menuActiveType==2}}">
+            <view class="goods-evaluate flex">
+              <view class="goods-evaluate-rate flexcColumn">
+                <view class="fr40">{{commentTotal.rate == null?0:commentTotal.rate}}%</view>
+                <view class="fr26">好评率</view>
+              </view>
+              <view class="flex1 flex fr24" style="flex-wrap: wrap;">
+                <view data-type='all' class="goods-evaluate-category {{checkCommentType == 'all'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                  全部 {{commentTotal.all}}
+                </view>
+                <view data-type='good' class="goods-evaluate-category {{checkCommentType == 'good'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                  好评 {{commentTotal.good}}
+                </view>
+                <view data-type='middle' class="goods-evaluate-category {{checkCommentType == 'middle'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                  中评 {{commentTotal.middle}}
+                </view>
+                <view data-type='bad' class="goods-evaluate-category {{checkCommentType == 'bad'?'comments-active':''}} flexc" bindtap="tapCommentChange">
+                  差评 {{commentTotal.bad}}
+                </view>
+              </view>
+            </view>
+            <block wx:for="{{comments}}" wx:for-item="itemComment" wx:key="{{index}}">
+              <view class="flexb" style="margin: 32rpx 30rpx">
+                <view class="flexb">
+                  <image class="goods-img-box" src="{{ShowImg.cropImgWH(itemComment.user.avatar,100,100)}}"></image>
+                  <view class="flexbColumn" style="height:70rpx;margin-left: 20rpx">
+                    <view class="fr26 c3">{{itemComment.user.nickname}}</view>
+                    <view class="fr24 c9">{{Format.formatDate(itemComment.createtime*1000)}}</view>
+                  </view>
+                </view>
+                <view class="fr28">
+                  <block wx:for="{{[1,2,3,4,5]}}" wx:key="{{item}}">
+                    <text data-index="{{index+1}}" class="iconfont {{index < itemComment.rate?'icon-star-solid-copy':'icon-shoucang1'}}" bindtap="changeXing"
+                      style="margin-left: 8rpx;color:#f2df0b"></text>
+                  </block>
+                </view>
+              </view>
+              <view class="fr28 goods-evaluate-content">{{itemComment.comment}}</view>
+            </block>
+            <view class="fr26 c9 flexc" wx:if="{{comments.length==0}}" style="margin-top: 20rpx;">无相关评论信息</view>
+            <template is="moreData" data="{{loadStyle:loadStyle}}" wx:if="{{comments.length!=0}}" />
+          </block>
+          <!-- <view class="bottom-bar-box {{isIphoneX?'fix-iphonex-button':''}}" wx:if="{{has_virtual_goods_order>0}}">
+            <view class="bottom-bar" bindtap="toCourse" hover-class="active-btn">
+              <view class="buy-btn bc-danger " style="font-size: 32rpx;">
+                查看课程
+              </view>
+            </view>
+          </view>
+          <view class="bottom-bar-box {{isIphoneX?'fix-iphonex-button':''}}" wx:elif="{{isFrom=='integralMall'}}">
+            <view class="cannot-buy-reason" wx:if="{{saleState.canBuy==0}}">
+              {{saleState.reason}}
+            </view>
+            <view class="bottom-bar">
+              <view class="buy-btn fr32 {{saleState.canBuy==1?'bc-danger':'btn-disable'}}" bindtap="toggleCartPanel">
+                立即兑换
+              </view>
+            </view>
+          </view>
+          <view class="bottom-bar-box {{isIphoneX?'fix-iphonex-button':''}}" wx:elif="{{isGroupBuy==1}}">
+            <view class="cannot-buy-reason" wx:if="{{saleState.canBuy==0}}">
+              {{saleState.reason}}
+            </view>
+            
+          </view> -->
+          
+
+          
+          <!-- <view style='height:{{isIphoneX?"188rpx":"120rpx"}}'></view> -->
+        </view>
+        <!-- </button>
+      </form> -->
+
+      <!--弹框-->
+      <view class="page-mask" wx:if="{{showDialog}}">
+        <view class="flex1" bindtap="toggleCartPanel"></view>
+        <view class="dialog1">
+          <view class="flexb media">
+            <view class="media-body flex">
+              <image class="img-thumbnail" src="{{ShowImg.cropImgWH(goodsThumb,160,160)}}"   bindtap="previewDesImg" data-preview-url="{{goodsThumb}}"/>
+              <view class="media-context flexaColumn fr28">
+                <view class="c-waring" wx:if="{{isFrom=='integralMall'}}">积分:{{costCredit}}</view>
+                <view class="c-waring" wx:elif="{{vipInfo&&vipInfo.userIsVip==1}}">￥{{vipInfo.vipPrice}}</view>
+                <view class="c-waring" wx:else>￥{{addCartPrice}}</view>
+                <view class="flex fr26">
+                  <view style="padding-right: 20rpx;">库存:{{addCartStocks}} </view>
+                  <view>{{Format.showWeight(weight)}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="media-close flexc" bindtap="toggleCartPanel">
+              <text class="iconfont icon-x" style="width:60rpx;height:60rpx;font-size:50rpx; color:#999999;"></text>
+            </view>
+          </view>
+          <view class="options fr28" wx:if="{{options.length>0}}">
+            <block wx:for="{{options}}" wx:for-item="spec" wx:key="{{index}}">
+              <view>{{spec.title}}</view>
+              <view class="item-values">
+                <view wx:for="{{spec.items}}" wx:for-item="item" data-spec-id="{{spec.id}}" wx:key="{{item.id}}" data-item-id="{{item.id}}" class="values {{item.isSelected ?'active' : ''}}"
+                  bindtap="selectSpecItem">
+                  {{item.title}}
+                </view>
+              </view>
+            </block>
+          </view>
+          <view class="buy-num fr28 c-danger " wx:if="{{bargainDialog}}">
+            一次只可砍价1件
+          </view>
+          <!-- <view class="buy-num fr28 c-danger " wx:elif="{{isVirtualGoods==1}}">
+                  数量：1
+              </view> -->
+          <view class="buy-num flexb fr32" wx:elif="{{isVirtualGoods!=1}}">
+            <view>{{isFrom=='integralMall'?'兑换':'购买'}}数量：</view>
+            <view class="quantity flex">
+              <text class="minus" bindtap="changeCartGoodsNum" data-type="minus">-</text>
+              <input class="num" value="{{buyNum}}"  type="number" bindblur="changeBuyNum" />
+              <text class="plus" bindtap="changeCartGoodsNum" data-type="plus">+</text>
+            </view>
+          </view>
+          <view class="dialog1-btn-box" wx:if="{{isFrom=='integralMall'}}">
+            <view class="buy-btn bc-danger" bindtap="exchangeGoods">立即兑换</view>
+          </view>
+          <view class="dialog1-btn-box" wx:elif="{{bargainDialog}}">
+            <view class="buy-btn bc-danger" bindtap="bargainNow">立即发起砍价</view>
+          </view>
+          <view class="dialog1-btn-box" wx:else>
+            <view class="bc-waring buy-btn" bindtap="addToCart" hidden="{{isVirtualGoods==1||hasForm==1||customization}}">加入购物车</view>
+            <view class="bc-danger buy-btn" bindtap="buyNow">{{customization?'去定制':'立即购买'}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="modal-service-box" wx:if="{{showModalService}}">
+        <view class="close-service fr24 c3" bindtap="closeServiceBox"></view>
+        <view class="service-box fr28 c6 w100">
+          <view class="service-title">服务说明</view>
+          <view class="service-item" wx:for="{{tags}}" wx:key="{{index}}">
+            <text class="iconfont icon-gouxuan fr28 c-main"> </text> {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="showTip">
+          仅为浏览效果
+      </view>
+      <button type='primary' class="selectBtn" wx:if="{{hasBtn}}" bindtap="selectGood">选择</button>
+
+
+      <view class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+        <component-poster src='{{ image }}' themeColor='#fd9a33' bind:close='coverHide'></component-poster>
+      </view>
+
+    </block>
+
+    <component-remind wx:if="{{ showRemind }}"></component-remind>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

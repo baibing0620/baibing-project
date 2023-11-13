@@ -1,0 +1,8 @@
+{
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-poster": "/components/poster/poster",
+        "component-toHomePage": "/components/toHomePage/toHomePage",
+        "component-messageToast": "/components/messageToast/messageToast"
+      }
+}

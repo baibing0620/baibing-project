@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "立即提现",
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

@@ -1,0 +1,58 @@
+page{
+  background-color: #fff;
+}
+.tab-bar {
+  height: 90rpx;
+  text-align: center;
+  box-shadow: 0 0 10rpx rgba(0,0,0,0.15)
+}
+
+.tab-bar>view:last-of-type{
+  border-right-style: none;
+}
+
+.tab-bar-item {
+   border-right: 1rpx solid #f0f0f0;
+}
+.change-goods-show{
+  width: 150rpx;
+  line-height: 92rpx;
+  font-size: 36rpx;
+}
+.serviceList{
+	padding: 32rpx 24rpx;
+  height: 263rpx;
+  box-sizing: border-box;
+}
+.container>view:not(:last-of-type){
+	border-bottom: 1rpx solid #e6e6e6;
+}
+.img{
+	width: 200rpx;
+	height: 200rpx;
+
+}
+.shop-img{
+	width: 200rpx;
+	height: 200rpx;
+}
+.resevation-info{
+	background-color: rgba(0,0,0,0.6);
+	color: #fff;
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+  height: 38rpx;
+  line-height: 38rpx;
+}
+.content-itro{
+	margin-left: 20rpx;
+	height: 200rpx;
+}
+.fw600{
+	font-weight: 600;
+}
+.c-main{
+    color: #ff9b1f;
+}

@@ -1,0 +1,84 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml" />
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <view class="flexcColumn">
+      <view class="header-img">
+        <view wx:if="{{fromShare}}" class='flexb' style="padding: 10rpx 40rpx;">
+          <view class="fr28 cf receive-card flex" bindtap='navHomePage'>
+            <i style="padding-left:12rpx" class="iconfont icon-shouqi_m-copy"></i>
+            <i style="line-height:28rpx">TA的名片</i>
+          </view>
+          <view class="fr26 cf" style="float:right;" bindtap='navMyReceiveLog'>福袋记录</view>
+        </view>
+        <view wx:else class="fr26 cf" bindtap='navMyReceiveLog' style="text-align: right;padding: 20rpx 40rpx 0">福袋记录</view>
+        <view class="flexc"> 
+          <image src="{{ShowImg.cropImgWH(cardInfoData.card.avatar_url,130,130)}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="fr32 c3 fw600" style="margin-top: 92rpx;">{{cardInfoData.card.name}}的福袋</view>
+      <view class="fr24 c6 ellipsis" style='width:520rpx;margin:20rpx 0 50rpx;text-align: center;'>{{cardInfoData.card.position}}/{{cardInfoData.card.company}}</view>
+      <view class="fr80 cbless-primay" wx:if="{{cardInfoData.activity.has_join != 0}}">
+        <block wx:if="{{recevieData.type==1}}">
+          <text class="fw600">{{recevieData.money?recevieData.money:'0'}}</text>
+          <text class="fr30">元</text>
+        </block>
+        <block wx:else>
+          <text class="fw600">{{recevieData.credit?recevieData.credit:'0'}}</text>
+          <text class="fr30">积分</text>
+        </block>
+       
+      </view>
+      <view wx:if="{{recevieData.type==1}}" style="margin: 20rpx 0 60rpx;" class="fr26 c9">已存入账户可提现至微信零钱
+        <text style='color: #65c1f8;' bindtap='goToWithdrawal'>立即提现 </text>
+      </view>
+      <view wx:else style="margin: 20rpx 0 60rpx;" class="fr26 c9">积分已直接放入个人中心 
+        <text style='color: #65c1f8;' bindtap='goToIntegral'>我的积分 </text>
+      </view>
+      <view class="flex share-btn">
+        <button class="share-btn-circle" bindtap='navBlessBagTotal'>领取总排行</button>
+        <button class="share-btn-friends" bindtap='showShareModal'>分享给好友</button>
+      </view>
+      <view class="fr26 c3" style="margin:40rpx 0">邀请一个新用户可额外获得分享{{recevieData.type==1?'金':'积分'}}哦</view>
+      <view class="receive-record fr24 flexb cb3">
+        <view class='fr24 c6'>排行榜TOP50</view>
+        共<block wx:if="{{recevieData.type==1}}">{{cardInfoData.activity.money}}元</block><block wx:else>{{cardInfoData.activity.credit}}积分</block>，已被领取{{cardInfoData.hasGrantInfo.receive_count}}/{{cardInfoData.activity.packet_num}}个
+      </view>
+    </view>
+    <component-switchTab shadow-class="shadow-bless" props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+    <view class="bless-record" hidden="{{tabIndex!=0}}">
+      <view class="flexb" wx:for="{{blessInfoData.receive_log}}">
+        <view class="flex flex1">
+          <image src="{{ShowImg.cropImgWH(item.member.avatar,80,80)}}" mode="aspectFill"></image>
+          <view class="flex1" style="margin:0 30rpx">
+            <view class="fr28 c3 ellipsis1">{{item.member.nickname}}</view>
+            <view style="margin-top:8rpx" class="fr24 c9">{{item.create_time}}</view>
+          </view>
+        </view>
+        <view wx:if="{{item.reward_type == 1}}" class="fr32 c3">{{item.money}}元</view>
+        <view wx:else class="fr32 c3">{{item.credit}}积分</view>
+      </view>
+      <view class='fr24 cb3 flexc'>没有更多了</view>
+    </view>
+    <view class="bless-ranking-list" hidden="{{tabIndex!=1}}">
+      <view class="flexb" wx:for="{{blessInfoData.packet_count_ranking_list}}">
+        <view class="flex flex1">
+          <view style="margin-right:30rpx;" class="fr40 c3 fw600">{{index+1}}</view>
+          <image src="{{ShowImg.cropImgWH(item.member.avatar,80,80)}}" mode="aspectFill"></image>
+          <view class="flex1 ellipsis1 fr28 c6" style="margin:0 30rpx">
+            {{item.member.nickname}}
+          </view>
+        </view>
+        <view class="fr30 {{index<3?'cbless-primay':'c6'}}">{{item.count}}个</view>
+      </view>
+      <view class='fr24 cb3 flexc'>没有更多了</view>
+    </view>
+
+
+    <view class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+        <component-poster src='{{ palette }}' themeColor='#fd9a33' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+    </view>
+    <component-messageToast></component-messageToast>
+  </button>
+</form>

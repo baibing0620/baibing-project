@@ -1,0 +1,39 @@
+.layout {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.position {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: .3s;
+    display: block;
+}
+
+.layoutAutoHeight {
+    height: auto !important;
+}
+
+.layoutAutoHeight .image {
+    height: auto;
+}
+
+.placeholder {
+    height: 100%;
+    width: 100%;
+    background-color: #EEEEEE;
+    opacity: 1;
+    transition: .3s;
+}
+
+.hide {
+    opacity: 0;
+}

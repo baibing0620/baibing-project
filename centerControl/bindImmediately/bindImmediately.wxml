@@ -1,0 +1,11 @@
+<include src="/comm/comm.wxml" />
+
+<view class='container'>
+    <view class='fr46 c3 bold' style='margin:100rpx 0 40rpx'>{{cardInfo.name}}</view>
+    <view class='fr26 c80'>{{cardInfo.position}}</view>
+     <image catchlongtap='saveQRCode' class='qr-code' src="{{qrCodeURL}}" mode='aspectFit'/>
+     <view class='fr28 cmain'>员工微信扫码即可绑定名片</view>
+</view>
+
+
+<component-messageToast></component-messageToast>

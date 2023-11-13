@@ -1,0 +1,125 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <!-- <wxs module="Color">
+            function statusColor(num){ switch ( num.toString() ) { case '-1': return 'c3'; break; default: return 'c-orange'; } } module.exports = { statusColor: statusColor };
+        </wxs> -->
+        <view class="container w100">
+            <view class="order-tab fr24 c6 flex">
+                <block wx:for="{{tabBar}}" wx:key="index">
+                    <view bindtap="tabChange" data-status="{{item.status}}" class="flex1" hidden="{{(isOpenComment==0&&index==5)||(selfPickUp==0&&index==3)}}">
+                        <text class="{{item.status==activeStatus?'active-tab':''}}">{{item.title}}</text>
+                    </view>
+                </block>
+            </view> 
+            <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关订单信息'}}" wx:if="{{showStyle!=1&&orderList.length==0}}" />
+            <view wx:else class="order-list">
+                <block wx:for="{{orderList}}" wx:key="id">
+                    <view class="order-item w100 ">
+                        <!--订单详情跳转-->
+                        <view data-id="{{item.id}}" class=" w100" bindtap="toOrderDetail">
+                            <view class="item-title fr24 c3 flexb">
+                                <text>订单编号：{{item.ordersn}}</text>
+                                <text class="c-orange">{{item.statusName}}</text>
+                            </view>
+                            <block wx:for="{{item.goods}}" wx:for-item="goods" wx:key="goodsid">
+                                <view class="order-detail flex fr24 ">
+                                    <image class="order-pic" src="{{ShowImg.cropImgWH(goods.thumb,160,160)}}"></image>
+                                    <view class="flexaColumn flex1 order-text ">
+                                        <view class="flexb w100 fr24 c3">
+                                            <view class="ellipsis2" style="width:362rpx">
+                                                {{goods.title}}
+                                            </view>
+                                            <view class="price asfs">￥{{goods.price}}</view>
+                                        </view>
+                                    
+                                        <view class="flexb c9 w100">
+                                        <view wx:if="{{goods.optionname}}" class="c6">
+                                            规格 {{goods.optionname}}
+                                        </view>
+                                            <view class="{{goods.optionname ?'':'w100'}}" style="text-align:right">×{{goods.total}}</view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </block>
+                            <view class="item-total flex fr24 c3">
+                                <!-- <view wx:if="{{item.paytype==3}}">
+                                    支付方式：会员卡支付
+                                </view>
+                                <view wx:elif="{{item.paytype==4}}">
+                                    支付方式：积分兑换
+                                </view>
+                                <view wx:else>
+                                    支付方式：微信支付
+                                </view> -->
+                                <view class="flexe w100" >
+                                    <text>共{{item.goodsTotal}}件商品</text>
+                                    <!-- <view wx:if="{{item.coupon_id>0}}" class='ml10'>优惠
+                                        <text class="cf7">￥-{{item.coupon_money}} </text>
+                                    </view> -->
+                                    <view  hidden="{{item.paytype==4}}">（含运费￥{{item.dispatchprice}}）
+                                    </view>
+                                    <view class='ml30' wx:if="{{item.paytype==4}}"> 总计积分
+                                        <text class="c-orange">{{item.credit}}</text>
+                                    </view>
+                                    <view class='ml30' wx:if="{{item.paytype==4}}"> 总计金额
+                                        <text class="c-orange">￥{{item.price_credit}}</text>
+                                    </view>
+                                    <view class='ml30' wx:else> 总计 :
+                                    <text class="c-orange">￥{{item.price}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+
+                        <view class="order-do w100 flexe" wx:if="{{item.status==0}}">
+                            <button style="border:1rpx solid #b3b3b3;color:#b3b3b3;background-color:#fff;" data-id="{{item.id}}" catchtap="orderCancel">取消订单</button>
+                            <form report-submit="true" catchsubmit="orderPay" data-id="{{item.id}}" data-paytype="{{item.paytype}}" data-pricecredit="{{item.price_credit}}">
+                                <button class="bc-main cf" formType="submit">去付款</button>
+                            </form>
+                        </view>
+
+                    
+
+                        <!--  <view wx:if="{{item.status==3}}">
+                        
+
+                    </view> -->
+                        <!--  <view class="order-do" wx:if="{{item.status==3&&item.hasCommentFinished==0}}">
+                        <navigator url="../orderDetail/orderDetail?id={{item.id}}">
+                            <button style="background:#f74c31;">去评价</button>
+                        </navigator> 
+                        
+                    </view> -->
+                        <!-- <view class="order-do"  wx:elif="{{item.status==1}}"> -->
+                        <!-- <button style="background:#01b9f0;">提醒发货</button> -->
+                        <!-- <button style="background:#f9c00f;" data-id="{{item.id}}" catchtap="refund">申请退款</button> -->
+                        <!-- </view> -->
+                        <view class="order-do w100 flexe" wx:elif="{{item.status==2}}">
+                            <button style="border:1rpx solid #b3b3b3;color:#b3b3b3;background-color:#fff;" open-type='contact'>联系商家</button>
+                            <form report-submit="true" catchsubmit="confirmReceive" data-id="{{item.id}}">
+                                <button class="c-orange" style="border:1rpx solid #ff3600;background-color:#fff;" formType="submit">确认收货</button>
+                            </form>
+                            <!--  <button style="background:#f9c00f;" data-id="{{item.id}}" catchtap="returnGoods">申请退货</button> -->
+                        </view>
+
+                        <view class="order-do w100 flexe" wx:if="{{item.status==3&&item.iscomment==0&&isOpenComment==1}}">
+                            <button style="border:1rpx solid #b3b3b3;color:#b3b3b3;background-color:#fff" open-type='contact'>联系商家</button>
+                            
+                            <button class="c-orange" style="border:1rpx solid #ff3600;background-color:#fff" catchtap="toComment" data-id="{{item.id}}">去评论</button>
+                            
+                        </view>
+                    </view>
+                </block>
+                <template is="moreData" data="{{loadStyle:loadStyle}}" />
+            </view>
+        </view>
+
+        <component-remind wx:if="{{ showRemind }}"></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

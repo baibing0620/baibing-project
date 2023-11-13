@@ -1,0 +1,23 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" wx:if="{{ showStyle != 1&&serviceList.length==0 }}"  data="{{ showStyle: showStyle, showNoMsg: '暂无相关预约服务',showImg:'https://facing-1256908372.file.myqcloud.com//image/20181129/f3b5880517b1df06.png'}}"/>
+<block wx:else>
+    <view class='input-layout'>
+        <view class='input-box flexb'>
+            <input class='fr24 input' value='{{ name }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='输入微信昵称进行搜索'></input>
+            <view class='iconfont icon-sousuo search' bindtap='search'></view>
+        </view>
+    </view>
+    <view wx:for="{{serviceList}}" wx:key="id" class="container flex active" data-id="{{item.id}}" bindtap="navDetail">
+        <image src="{{ShowImg.cropImgWH(item.member.avatar,200,200)}}"></image>
+        <view class="flex1 flexbColumn">
+            <view class="flexb">
+                <view class="fr28 c3 bold ellipsis1 flex1">{{item.member.nickname}}</view>
+                <view class="fr26 c6 ml">{{item.create_time}}</view>
+            </view>
+            <view class="fr28 c3 ellipsis2">申请服务：{{item.goods.service_name}}</view>
+        </view>
+    </view>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+</block>

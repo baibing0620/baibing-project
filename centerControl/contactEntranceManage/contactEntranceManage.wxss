@@ -1,0 +1,51 @@
+/* centerControl/contactEntranceManage/contactEntranceManage.wxss */
+
+.manage-item {
+  height:150rpx;
+  background:#fff;
+  border-bottom: 1rpx solid #F5F5F5;
+  box-sizing: padding-box;
+  padding: 0 30rpx;
+}
+.item-title {
+  color: #1a1a1a;
+  font-size:32rpx;
+}
+
+.switch-box-diy{
+  background: rgba(0,0,0,0);
+  overflow: hidden;
+  transition: all 0.3s ease-in 0s;
+  height:36rpx;
+  width:60rpx;
+  border-radius: 36rpx
+  
+}
+.circle-box{
+    transition: all 0.3s ease-in 0s;
+    background: #ccc;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+   
+  }
+.circle-box .circle{
+    margin-left: 4px;
+    transform: translateX(-6rpx);
+    border-radius: 50%;
+    background: #ffffff;
+    width:32rpx;
+    height:32rpx
+  }
+.switch-box-open{
+  background:  #30bf48;
+}
+ .switch-box-open .circle-box{
+    background: rgba(0,0,0,0);
+  }
+
+.opentype {
+  font-size: 26rpx;
+}

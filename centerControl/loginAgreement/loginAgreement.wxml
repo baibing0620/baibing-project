@@ -1,0 +1,15 @@
+<view class="agreen-title fr32 bold">登录后您将获得以下权益：</view>
+<view class="flexcColumn">
+    <view class="fr46 bold"><text style="color:#ff5500">专属</text>客服</view>
+    <view style="margin:20rpx 0 67rpx" class="fr28 c6">一对一专属客服，消息极速处理，享受快速通道</view>
+    <image mode="widthFix" style="width:100vw" src="https://facing-1256908372.file.myqcloud.com//image/20190902/7ca655c104108846.png"></image>
+     <view class="fr46 bold"><text style="color:#ff5500">获得</text>名片主信息</view>
+    <view style="margin:20rpx 0 67rpx" class="fr28 c6">更了解手机对面的TA，对交易更放心</view>
+    <image mode="widthFix" style="width:100vw" src="https://facing-1256908372.file.myqcloud.com//image/20190902/4c9d468107342cc4.png"></image>
+</view>
+<view class="flexa login-agree-btn">
+     <!-- <navigator target="miniProgram" class="getuser_info_cancel" open-type="exit">暂不登录</navigator> -->
+     <button bindtap="noLogin" class="getuser_info_cancel">暂不登录</button>
+     <button class="land" hover-class="button_hover" wx:if="{{userProfileAble}}" bindtap="getUserProfile"> 登录 </button>
+     <button class="land" wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo" hover-class="button_hover">登录</button>
+</view>

@@ -1,0 +1,61 @@
+@import '/comm/base.wxss';
+@import '/iconfont/iconfont.wxss';
+.course-details {
+    padding: 36rpx 20rpx;
+}
+
+.lh28 {
+    line-height: 28rpx;
+}
+
+.lh24 {
+    line-height: 24rpx;
+}
+
+.course-text-before {
+    width: 8rpx;
+    height: 28rpx;
+    line-height: 28rpx;
+    background-color: #ff4d1d;
+    margin-right: 10rpx;
+    display: inline-block;
+}
+
+.course-check {
+    color: #ff4d1d;
+}
+
+.course-develop {
+    margin-left: 10rpx;
+}
+
+.course-item {
+    margin-top: 40rpx;
+}
+
+.course-image-box {
+    width: 200rpx;
+    height: 150rpx;
+    position: relative;
+    margin-right: 20rpx;
+}
+
+.course-photo {
+    display: block;
+    width: 200rpx;
+    height: 150rpx;
+}
+
+.course-photo-cover {
+    position: absolute;
+    bottom: 0;
+    line-height: 42rpx;
+    color: white;
+    height: 42rpx;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.course-content {
+    height: 150rpx;
+}

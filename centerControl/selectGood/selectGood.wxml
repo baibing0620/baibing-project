@@ -1,0 +1,70 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="search-box flexc w100 bc-1F94FD">
+    <view class="search-goods flexb fr24" catchtap="search">
+        <input style="display: block;color:#fff" class='flex1 cf' placeholder='请输入商品名称' placeholder-style='color: rgba(255,255,255,0.5)' confirm-type="搜索" bindconfirm="search" bindinput="bindKeywords" />
+        <icon type="search" size="15" color="rgba(255,255,255,0.7)" />
+    </view>
+</view>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'选品商品列表暂无商品',showImg:'https://facing-1256908372.file.myqcloud.com//image/20201127/d54845534cdcc819.png', showBtn:'立即挑选商品',btnBcColor: '#1F94FD'}}" wx:if="{{showStyle!=1&&myGoodsList.length==0&&statusIndex==0&&typeIndex==0&&categoryIndex==0}}"
+/>
+<block wx:else>
+    <view class='tab-box flexb bold fr28 c6' style='color:{{diyConfig.themeColor}}'>
+        <view class='flex1 {{statusIndex == 0?"c9 ":""}}' catchtap='changeStatus'>{{statusList[statusIndex].title}}
+            <text class='iconfont icon-xiala1 fr22'></text>
+        </view>
+        <view class='border'></view>
+        <!-- <view class='flex1 {{typeIndex == 0?"c9 ":""}}' catchtap='changeType'>{{typeList[typeIndex].title}}
+            <text class='iconfont icon-xiala1 fr22'></text>
+        </view> -->
+        <view class='border'></view>
+        <picker mode="selector" range-key="title" value="{{categoryIndex}}" range="{{categoryList}}" class='flex1 {{categoryIndex == 0?"c9 ":""}}' bindchange='changeCategory'>{{categoryList[categoryIndex].title}}
+            <text class='iconfont icon-xiala1 fr22'></text>
+        </picker>
+    </view>
+    <view class='container' wx:for="{{myGoodsList}}" wx:key="{{inde}}">
+        <view class='flex' style='padding: 30rpx;position:relative'>
+            <image src="{{ShowImg.cropImgWH(item.url,170,170)}}" style='position:relative'>
+                <view class="flag fr22 cf flexc" wx:if="{{item.goodsType}}">
+                    {{item.goodsType}}
+                </view>
+                <!-- <view class="sortFlag">
+                    <view>商品排序: </view>
+                    <view style="color: #ff9b1f;margin-left: 12rpx">{{item.displayorder}}</view>
+                </view> -->
+            </image>
+            <view class='flex1'>
+                <view class='fr27 c3 bold ellipsis2'>{{item.title}}</view>
+                <view style='margin:20rpx 0 10rpx' class='fr25 c9'>类别 :
+                    <text class='c3 ml10'>{{item.categoryName}}{{item.childCategoryId && item.childCategoryId != '0'?'>>'+item.childCategoryName :''}}</text>
+                </view>
+                <view class='fr25 c9' wx:if="{{item.hasoption != 1}}">价格 :
+                    <text class='c3 ml10'>￥{{item.price}}</text>
+                </view>
+                <view style='margin-top:10rpx' class='fr25 c9'>库存 :
+                    <text class='c3 ml10' style="{{item.total == 0 ? 'color: red' : ''}}">{{item.total}}</text>
+                </view>
+                 <view style='margin-top:10rpx' class='fr24 c9' wx:if="{{item.hasoption == 1}}"> 多规格
+                </view>
+            </view>
+
+            <view wx:if="{{item.total == 0 && item.status != 0}}" style='background:#f0f0f0;color:#999999' class='revover-type fr24'>已售罄</view>
+            <view wx:else class='revover-type fr24' style='background:{{item.status == 0?"#44d66b":item.status == 1?"#ff9b1f":"#d9d9d9"}}'>{{item.status == 0?"未上架":item.status == 1?'已上架':'已下架'}}</view>
+        </view> 
+        <view class='operation flex fr28 cb3'>
+            <view class='flex1' bindtap='delRule' data-id="{{item.goods_id}}" data-index="{{index}}">
+                <text class='iconfont icon-shanchu1 fr26'></text>删除</view>
+            <view class='flex1' bindtap='changeSale' data-id="{{item.goods_id}}" data-index="{{index}}">
+                <text class='iconfont {{item.status !=1?"icon-shangjia1":"icon-xiajia"}} fr26'></text>{{item.status ==1?"下架":"上架"}}</view>
+            <view class='flex1' bindtap='editRule' data-index="{{index}}">
+                <text class='iconfont icon-bianji1 fr26'></text>编辑</view>
+        </view>
+    </view>
+    <view wx:if="{{myGoodsList.length==0}}" style='margin-top:30rpx' class='fr24 c6 flexc'>暂无我的商品</view>
+    <template wx:else is="moreData" data="{{loadStyle:loadStyle,loadOverText:'已显示全部选品商品'}}" />
+    <view class="message-btn {{isIphoneX?'fix-iphonex-button':''}} bc-1F94FD" wx:if="{{isOpenSelectGoods && selected_products_object}}"><button catchtap='navAdd' class=" fr34 cf bc-1F94FD">挑选商品</button></view>
+    <view style='height:{{isIphoneX?"100rpx":"0"}}'></view>
+</block>
+
+<component-messageToast></component-messageToast>

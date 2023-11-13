@@ -1,0 +1,38 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<view class="bg">
+    <view class="header">
+        <image src="{{ShowImg.cropImgWH(userInfo.avatar,100,100)}}"></image>
+        <view class="c3 fr28 nick-name">{{userInfo.nickname}}</view>
+        <view class="flexa fr26 c9 mb34">
+            <view>我的排名：<text class="c-main fr34 bold">{{rank}}</text></view>
+            <view>好友助力：<text class="c-main fr34 bold">{{inviter_num}}</text></view>
+        </view>
+        <view class="flexb rank">
+            <view class="fr24 c9">
+            <block wx:if="{{needToInviterNum > 0}}">再邀请{{needToInviterNum}}位即可进入中奖名单</block>
+            <block wx:else>您已在中奖名单内，请继续保持</block>
+            </view>
+            <view bindtap="invitationFriends" class="btn fr24 cf flexc">邀请好友助力</view>
+        </view>
+    </view>
+</view>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关助力信息'}}" wx:if="{{showStyle!=1&&rankList.length==0}}"
+/>
+<block wx:else>
+    <view wx:for="{{rankList}}" class="flexb container">
+        <view class="flex flex1">
+            <view class="row-number flexc">
+                <image wx:if="{{index<3}}" src="{{flag[index]}}"></image>
+                <view class="fr30 c3" wx:else>{{index+1}}</view>
+            </view>
+            <image src="{{ShowImg.cropImgWH(item.userInfo.avatar,100,100)}}"></image>
+            <view class="fr28 c3 bold flex1 ellipsis1" style="margin-left:22rpx">{{item.userInfo.nickname}}</view>
+        </view>
+        <view class="fr24 c6">{{item.inviter_num}}位好友助力</view>
+    </view>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+</block>
+
+<share show-share="{{showShare}}" img-code="{{QRcode}}"></share>

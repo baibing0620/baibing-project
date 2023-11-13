@@ -1,0 +1,19 @@
+    <view class='card pl54 pr54 pt50 pb40'>
+        <view class='card-name fr40 c-404040 bold mb10 ellipsis1'>{{ cardInfo.name }}</view>
+        <view class='card-position fr28 c-666666 mb46 ellipsis1'>{{ cardInfo.position }}</view>
+        <view class='flex-c-s c-666666 mb10'>
+            <view class='card-info-icon flex-c-c iconfont icon-chongzhi1 fr26 mr16'></view>
+            <view class='card-info-title fr24 c6 ellipsis1'>{{ cardInfo.mobile || '--' }}</view>
+        </view>
+        <view class='flex-c-s c-666666 mb10'>
+            <view class='card-info-icon flex-c-c iconfont icon-weixin fr26 mr16'></view>
+            <view class='card-info-title fr24 c6 ellipsis1'>{{ cardInfo.wechat || '--' }}</view>
+        </view>
+        <view class='flex-c-s c-666666 mb10'>
+            <view class='card-info-icon flex-c-c iconfont icon-gongsi2 fr26 mr16'></view>
+            <view class='card-info-title fr24 c6 ellipsis1'>{{ cardInfo.company || '--' }}</view>
+        </view>
+        <view class='card-avatar'>
+            <component-avatar src='{{ cardInfo.avatar_url }}' name='{{ cardInfo.name }}' />
+        </view>
+    </view>

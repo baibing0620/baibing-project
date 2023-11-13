@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "公共商品",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

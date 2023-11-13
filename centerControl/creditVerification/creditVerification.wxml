@@ -1,0 +1,18 @@
+
+<wxs src="../../tools/showImg.wxs" module="showImg" />
+<include src="../../comm/comm.wxml"/>
+<import src="../../template/initShow/initShow.wxml" />
+
+<view class="container flexColumn">
+    <view class="c1a fr40 text-center mt106">积分核销码</view>
+    <view class="c9 fr26 text-center mt24">当前剩余积分<text class="fr26 cmain">{{credit}}</text></view>
+    <view class="triangle flexc"></view>
+    <view class="imgBorder">
+        <image class="horizontal-qrcode-image" wx:if="{{qrcode}}" src="{{showImg.cropImgWH(qrcode,230,230)}}"></image>
+    </view>
+    <view class="infoTip fr32">请出示核销码给工作人员</view>
+</view>
+
+
+
+

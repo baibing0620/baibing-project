@@ -1,0 +1,62 @@
+<wxs module='format'>
+  function voiceTime (time) {
+    var min = parseInt(parseInt(time) / 60)
+    var sec = parseInt(parseInt(time) % 60)
+    return double(min) + "'" + double(sec) + "''"
+  }
+
+  function double(num) {
+    return parseInt(num) < 10 ? '0' + num : '' + num
+  }
+
+  module.exports = {
+    voiceTime: voiceTime
+  }
+</wxs>
+<block wx:if='{{ type == "tiny" }}'>
+  <view wx:if='{{ buttonStyle === "暂停" }}' class='tinyPlayer iconfont icon-bofang7' bindtap="audioPause"></view>
+  <view wx:else class='tinyPlayer iconfont icon-bofangyinle' bindtap="audioPlay"></view>
+</block>
+<view  wx:elif='{{ type == "voice" }}' class='flex'>
+  <view class='voicePlayer flex' catchtap='{{ buttonStyle === "播放" ? "audioPlay" : "audioStop"}}'>
+    <view class='{{ buttonStyle === "暂停" ? "voicePlayer-icon-play" : ""}} iconfont icon-saying c1a fr30'></view>
+    <view wx:if='{{ buttonStyle === "播放" }}' class='flex1 flexe c1a fr24'>{{ format.voiceTime(audioLength) }}</view>
+    <view wx:else class='flex1 flexe c1a fr24'>{{ format.voiceTime(audioLength - currentTime) }}</view>
+  </view>
+</view>
+<view wx:else class='border' style='background-color: {{ backgroundColor }}; border-color: {{ themeColor }}'>
+  <view class='view'>
+    <view class='button-view'>
+      <view wx:if='{{ buttonStyle === "播放" }}' class='button' bindtap="audioPlay">
+        <i class='iconfont icon-bofang2' style='color: {{ themeColor }}'></i>
+      </view>
+      <view wx:if='{{ buttonStyle !== "播放" }}' class='button' bindtap="audioPause">
+        <i class='iconfont icon-zanting' style='color: {{ themeColor }}'></i>
+      </view>
+    </view>
+    <view class='info'>
+      <view class='label'>
+        <view class='title fr26 c3' style='color: {{ color }}'>{{ title }}</view>
+        <view wx:if="{{ !dontNeedCount }}" class='count fr24 c9'>{{ count }}次播放</view>
+      </view>
+      <view class='progress width100'>
+        <slider class='slider width100' bindchanging='progressChanging' bindchange='progressChange' backgroundColor="{{slideColor}}" activeColor='{{ themeColor }}' block-color='{{ themeColor }}' block-size='12' step='1' value='{{ currentTime }}' max='{{ audioLength }}' />
+      </view>
+      <view class='time-view width100 fr20 c9'>
+        <view class="time-start">{{ currentTime_show }}</view>
+        <view class="time-end">{{ audioLength_show }}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 
+    传入：
+        type: ""              // 播放器类型: tiney, voice, [默认]
+        src: ""               // 播放链接
+        title: ""             // 标题
+        playCount: ""         // 播放总数
+        color: ""             // 标题颜色
+        themeColor： ""       // 主题颜色
+        backgroundColor： ""  // 背景颜色
+ -->

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "开通名片",
+  "navigationBarTextStyle": "black",
+  "backgroundTextStyle": "dark",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

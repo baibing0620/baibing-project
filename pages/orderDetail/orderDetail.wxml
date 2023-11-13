@@ -1,0 +1,211 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1&&orderDetail.id==0}}" />
+        <view class="container" wx:else>
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+            <view class="order-status flexb" style="background-color:#fd9a33">
+                <view class='fr34 cf fw600'>{{dataDelivery?dataDelivery.result.statusMsg:orderDetail.statusName}}</view>
+                <image src="https://facing-1256908372.file.myqcloud.com//image/20180314/609e0d358e10782d.png"></image>
+            </view>
+            <block wx:if="{{dataDelivery&&dataDelivery.result.status>0}}">
+                <view class="order-situation">
+                    <!-- type == 0商家配送 --> 
+                    <block wx:if="{{delivery_type == 0}}">
+                        <view class="order-situation-top flexb fr32 c3" bindtap="openLocation">
+                            <view class="flex fw600">
+                                <image src="https://facing-1256908372.file.myqcloud.com//image/20180205/7c054de600373e48.gif?imageView2/1/w/80/h/80"></image>
+                                <text>商家配送中...</text>
+                            </view>
+                        </view>
+                        <view class="flexb flex1" style="height: 87rpx;">
+                            <view class="fr24" style="color:#b3b3b3">外卖小哥正在飞奔向你，稍等哦！</view>
+                            <button data-phone="{{dataDelivery.service_phone}}" bindtap="makePhone" class="order-situation-btn fr24 c9">联系商家</button>
+                        </view>
+                    </block>
+                    <!-- type == 1达达配送 type==2 蜂鸟配送-->
+                    <block wx:else>
+                        <view wx:if="{{dataDelivery.result.thridCode != 0}}">
+                            <view class="order-situation-top-fail flexc fr30 c9">
+                                <text class="iconfont icon-xiangqing1" style="margin-right: 18rpx;"></text>
+                                <text>获取骑手信息失败，请尝试下拉刷新</text>
+                            </view>
+                        </view>
+                        <!-- 获取第三方配送信息成功-->
+                        <block wx:else>
+                            <block wx:if="{{dataDelivery.result.status == 1}}">
+                                <view class="order-situation-top flex">
+                                    <text class="iconfont icon-shangjia fr32"></text>
+                                    <text class="fr32 c3 fw600">商家已接单</text>
+                                </view>
+                                <view class="flexb flex1" style="height: 87rpx;">
+                                    <view class="fr24" style="color:#b3b3b3"> 商家正在准备,请耐心等待!</view>
+                                    <button data-phone="{{dataDelivery.service_phone}}" bindtap="makePhone" class="order-situation-btn fr24 c9">联系商家</button>
+                                </view>
+                            </block>
+                            <block wx:if="{{dataDelivery.result.status == 2 || dataDelivery.result.status == 3}}">
+                                <view class="order-situation-top flexb fr32 c3" bindtap="openLocation">
+                                    <view class="flex fw600">
+                                        <image src="https://facing-1256908372.file.myqcloud.com//image/20180205/7c054de600373e48.gif?imageView2/1/w/80/h/80"></image>
+                                        <text wx:if="{{dataDelivery.result.status == 2}}" class="fr32 c3 fw600">骑手正在赶往商家</text>
+                                        <block wx:if="{{dataDelivery.result.status == 3}}">
+                                            <text wx:if="{{dataDelivery.type == 1}}">达达骑手正在配送中...</text>
+                                            <text wx:if="{{dataDelivery.type == 2}}">蜂鸟骑手正在配送中...</text>
+                                        </block>
+                                    </view>
+                                    <view class="fr24 flex" style="color:#23beff">
+                                        <text class="iconfont icon-weizhi1" style="margin-right: 7rpx"></text>查看位置</view>
+                                </view>
+                                <view class="flexb flex1" style="height: 87rpx;">
+                                    <view wx:if="{{dataDelivery.result.status == 2}}" class="fr24" style="color:#b3b3b3">外卖小哥已接单，请耐心等待</view>
+                                    <view wx:if="{{dataDelivery.result.status == 3}}" class="fr24" style="color:#b3b3b3">外卖小哥正在飞奔向你，稍等哦！</view>
+                                    <button wx:if="{{dataDelivery.result.status == 2}}" data-phone="{{dataDelivery.service_phone}}" bindtap="makePhone" class="order-situation-btn fr24 c9">联系商家</button>
+                                    <button wx:if="{{dataDelivery.result.status == 3}}" data-phone="{{dataDelivery.result.phone}}" bindtap="makePhone" class="order-situation-btn fr24 c9">联系骑手</button>
+                                </view>
+                            </block>
+                        </block>
+                    </block>
+                </view>
+            </block>
+            <block wx:if="{{orderDetail.order_type!=7}}">
+            <view class="order-receipt flex c6" wx:if="{{orderDetail.status==5}}">
+                <view class="flexaColumn fr24 flex1">
+                    <view class="flexb">
+                        <view class="ellipsis1" style="width:440rpx">收货人：{{orderDetail.address_realname}}</view>
+                        <view>{{orderDetail.address_mobile}}</view>
+                    </view>
+                    <view class="ellipsis2" style="margin-top: 16rpx;line-height: 40rpx">取货地址：{{orderDetail.address}}</view>
+                </view>
+            </view>
+            <view class="order-receipt flex c6" wx:else>
+                <view class="fr50 iconfont icon-dizhi" style="margin-right:30rpx"></view>
+                <view class="flexaColumn fr24 flex1">
+                    <view class="flexb">
+                        <view class="ellipsis1" style="width:440rpx">收货人：{{orderDetail.address_realname}}</view>
+                        <view>{{orderDetail.address_mobile}}</view>
+                    </view>
+                    <view class="ellipsis2" style="margin-top: 16rpx;line-height: 40rpx">收货地址：{{orderDetail.address}}</view>
+                </view>
+            </view>
+            </block>
+
+            <view class="goods-box">
+                <block wx:for="{{orderDetail.goods}}" wx:for-item="goods" wx:key="goodsid">
+                    <view class="order-detail flex fr24 " bindtap='toGoods' data-id="{{goods.goodsid}}">
+                        <image class="order-pic" src="{{ShowImg.cropImgWH(goods.thumb,160,160)}}"></image>
+                        <view class="flexaColumn flex1 order-text ">
+                            <view class="flexb w100 fr24 c3">
+                                <view class="ellipsis2" style="width:362rpx">
+                                    {{goods.title}}
+                                </view>
+                                <view class="price asfs">￥{{goods.price}}</view>
+                            </view>
+                            <view class="flexb c9 w100">
+                                <view wx:if="{{goods.optionname !=''&&goods.optionname!=null}}" class="c6 ellipsis2" style="width:362rpx">
+                                    规格 {{goods.optionname}}
+                                </view>
+                                <view class="{{goods.optionname ?'':'w100'}}" style="text-align:right">×{{goods.total}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+                <view class="item-total fr24 c9 w100"  wx:if="{{orderDetail.paytype!=4}}">
+                    <view class="total-item">
+                        <view>
+                            商品小计：
+                        </view>
+                        <view>
+                            ￥{{Format.float2(orderDetail.goodsTotalMoney)}}
+                        </view>
+                    </view>
+                    <view class="total-item">
+                        <view>
+                            运费：
+                        </view>
+                        <view>
+                            ￥{{orderDetail.dispatchprice}}
+                        </view>
+                    </view>
+                    <view class="total-item">
+                        <view>
+                            优惠：
+                        </view>
+                        <view>
+                            ￥{{orderDetail.coupon_id == 0 ?'0.00': Format.float2(orderDetail.coupon_money)}}
+                        </view>
+                    </view>
+                </view>
+                <view class="pay-total fr28 c6">
+                    <text style="margin-right: 45rpx">共{{orderDetail.goodsTotal}}件商品</text>
+                    实付 :
+                    <text class="c-danger"  wx:if="{{orderDetail.paytype==4}}"> 
+                        <text>积分{{orderDetail.credit}} </text>  
+                        <text  wx:if="{{orderDetail.paytype==4&&orderDetail.price_credit!=0}}">+￥{{orderDetail.price_credit}}</text>    
+                    </text>
+                    <text class="c-orange" wx:else> ￥{{orderDetail.price}} </text>
+                </view>
+            </view>
+
+            <view class="order-info fr24 c9">
+                <view>订单编号:
+                    <text class="c-black"> {{orderDetail.ordersn}}</text>
+                </view>
+                <view>下单时间:
+                    <text class="c-block"> {{orderDetail.createtime}}</text>
+                </view>
+                <view wx:if="{{orderDetail.price != 0}}">支付方式:
+                    <text wx:if="{{orderDetail.paytype==0}}">微信支付</text>
+                    <text wx:elif="{{orderDetail.paytype==3}}"> 会员卡余额支付</text>
+                    <text wx:elif="{{orderDetail.paytype==4}}">积分兑换</text>
+                </view>
+            </view>
+            <view class="order-bottom flexe fr30 c3">
+                <button wx:if="{{orderDetail.delivery_type<0&&orderDetail.logisticalStaute=='已发货'&&orderDetail.order_type!=7}}" bindtap="toExpressInfo" class="bcf c3" style="border:1rpx solid #333">查看物流</button>
+                <button wx:if="{{orderDetail.consume_code&&orderDetail.consume_code.id}}" bindtap="goConsumptionCode" data-consumecode="{{orderDetail.consume_code.consume_code}}"
+                    class="bcf c-orange" style="border:1rpx solid #ff3600;box-sizing: border-box;">消费码</button>
+                <form wx:if="{{orderDetail.status==0}}" report-submit="true" catchsubmit="payOrder">
+                    <button class="cf bc-main" formType="submit">去付款</button>
+                </form>
+                <form wx:elif="{{orderDetail.status==2}}" report-submit="true" catchsubmit="confirmReceive">
+                    <button formType="submit" class="bcf c-orange" style="border:1rpx solid #ff3600">确认收货</button>
+                </form>
+                <button class="bcf c-orange" style="border:1rpx solid #ff3600" bindtap="toComment" wx:elif="{{orderDetail.status==3&&isOpenComment==1}}">{{orderDetail.iscomment==0?'去评论':'查看评论'}}</button>
+            </view>
+            <block wx:if="{{orderDetail.hasRedPack==1}}">
+                <button class="red-packet-btn" wx:if="{{payOver!=1&&orderDetail.status>0}}" open-type="share">
+                    <image src="{{redPacketUrl}}" class="red-packet" />
+                </button>
+                <view class="red-envelope-share-bg flexcColumn" wx:if="{{payOver==1&&orderDetail.status>0}}">
+                    <text class="iconfont icon-shanchu2" bindtap="colseRedPacket"></text>
+                    <view class="red-envelope-share-img-bg flexcColumn jcfs">
+                        <view class="red-envelope-share-content-top w100 fr40 ellipsis1">{{redPacketInfo.title}}</view>
+                        <view class="fr26" style="color:rgba(0,0,0,0.6)">分享给好友，大家一起抢</view>
+                        <button class="red-envelope-share-content-btn fr28" open-type="share">分享红包给好友</button>
+                    </view>
+                </view>
+            </block>
+        </view>
+
+        <view class="receiveCredit flexc" wx:if="{{creditBoxShowIf}}"> 
+            <view class="credit-box flexColumn">
+                <view class="title-img">
+                    <component-image src="https://facing-1256908372.file.myqcloud.com//image/20200721/56e57c1008f5cbe1.png"> </component-image>
+                </view>
+                <view class="credit-number c3 fr36 bold">恭喜您获得{{orderDetail.payOrderGetCredit.handle_credit}}积分</view>
+                <view class="help-credit-info c6 fr30">订单完成后，积分将存入个人中心 -> 我的积分</view>
+                <view class="credit-btn-box flexb">
+                    <view class="credit-btn fr30 btn-left" bindtap="closeCreditBox">继续逛逛</view>
+                    <view class="credit-btn fr30 btn-right" bindtap="navIntegralMall">积分兑换</view>
+                </view>
+            </view>
+        </view>
+
+
+        <component-remind wx:if="{{ showRemind }}"></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

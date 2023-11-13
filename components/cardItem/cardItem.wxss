@@ -1,0 +1,161 @@
+
+@import '/iconfont/iconfont.wxss';
+@import '/comm/base.wxss';
+.iconfont{
+  font-size: 28rpx;
+}
+.oneself-card{
+    box-sizing: border-box;
+    padding-left: 40rpx;
+    padding-top: 42rpx;
+    height: 362rpx;
+    /* background: url("https://facing-1256908372.file.myqcloud.com//image/20190416/9cbb3892e4eff162.png");
+    background-size: 100% 361rpx; */
+    background: #fff;
+    border-radius: 20rpx;
+    box-shadow: 0px 0px 16rpx 0px rgba(204, 204, 204, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 
+.user-avator{
+    width: 140rpx;
+    height: 140rpx;
+    position: absolute;
+    top: 60rpx;
+    right: 60rpx;
+    border: 1px solid #ccc;
+}
+.star-icon{
+  position: absolute;
+  padding: 20rpx;
+  right: 0;
+  bottom:0;
+  font-size: 36rpx;
+}
+.my-card-notice{
+  width:160rpx;
+  color:white;
+  position: absolute;
+  right: 0;
+  bottom:0;
+  border-top-left-radius:20rpx;
+  border-bottom-right-radius:10rpx;
+  height:46rpx;
+}
+.phone-share{
+  margin-top: 8rpx;
+}
+
+.phone-share .phone, .phone-share .share{
+  width: 48rpx;
+  height: 48rpx;
+  padding: 0;
+  margin: 0;
+  line-height: 100%;
+}
+
+.phone-share .phone{
+  margin-right: 30rpx;
+}
+
+.phone-share image {
+  height: 100%;
+  width: 100%;
+} */
+
+.user-avator {
+    width: 130rpx;
+    height: 128rpx;
+    border-radius: 65rpx;
+    border: 1px solid #ccc;
+}
+
+.user-name{
+    color: #333;
+    line-height: 50rpx;
+    font-weight: 800;
+    font-size: 40rpx;
+    width: 300rpx;
+}
+.topBox {
+    margin-bottom: 54rpx;
+}
+
+.my-card-notice {
+    width: 192rpx;
+    height: 60rpx;
+    background: rgba(24, 144, 255, 0.1);
+    border-radius: 30rpx 0px 0px 30rpx;
+    position: absolute;
+    top: 54rpx;
+    right: 0;
+    color: #1890FF;
+    line-height: 60rpx;
+    box-sizing: border-box;
+    padding-left: 20rpx;
+    font-weight: 500;
+}
+.icon-you {
+    margin-left: 6rpx;
+}
+
+.star-icon{
+    position: absolute;
+    padding: 20rpx;
+    top: 60rpx;
+    right: 20rpx;
+    font-size: 46rpx;
+    color: #e6e6e6;
+}
+
+.phone-share {
+    position: absolute;
+    top: 183rpx;
+    right: 40rpx;
+}
+
+.phone-share .phone, .phone-share .share{
+    width: 50rpx;
+    height: 50rpx;
+    padding: 0;
+    margin: 0;
+    background: #FFFFFF;
+    border: 1rpx solid #1890FF;
+    border-radius: 50%;
+    text-align: center;
+    color: #1F94FD;
+    font-size: 30rpx;
+    box-sizing: border-box;
+}
+
+.phone-share .phone {
+    margin-bottom: 30rpx;
+    line-height: 46rpx;
+}
+.phone-share .share {
+    line-height: 49rpx;
+}
+.phone-share .phone .iconfont, .phone-share .share .iconfont{
+    font-size: 30rpx;
+    line-height: 100%;
+}
+
+.icon-chongzhi1 {
+    font-size: 30rpx;
+}
+
+.avatarBox {
+    width: 130rpx;
+    height: 128rpx;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.componey {
+    width: 500rpx;
+}
+.position {
+    margin-top: 20rpx;
+}

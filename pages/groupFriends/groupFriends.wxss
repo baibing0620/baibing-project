@@ -1,0 +1,443 @@
+page{
+    background:linear-gradient(83deg,rgba(255,145,95,1) 0%,rgba(255,75,13,1) 100%);
+}
+.goods-info {
+    margin: 30rpx auto;
+    width:690rpx;
+    height:230rpx;
+    background:rgba(255,255,255,1);
+    border-radius:30rpx;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.goods-detail {
+    padding: 0 30rpx;
+    width: 100%;
+    height: 230rpx;
+    box-sizing: border-box;
+}
+.goods-detail image {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 10rpx;
+}
+.goods-content {
+    padding-left: 30rpx;
+    height: 160rpx;
+}
+.goods-content-price {
+    padding-top: 8rpx;
+    color: #FF3636;
+}
+.discount-box {
+    margin-left: 4rpx;
+    padding: 2rpx 10rpx;
+    background:rgba(255,54,54,.2);
+    border-radius:4rpx;
+    color: #FF3636;
+}
+.goods-info-guarantee {
+    padding-left: 30rpx;
+    width: 100%;
+    height: 60rpx;
+    background:rgba(255,90,31,.08);
+    line-height: 60rpx;
+    color: #FF3636;
+}
+
+.group-info {
+    margin: 0 auto;
+    padding: 30rpx 0;
+    width:690rpx;
+    background-color: #ffffff;
+    border-radius:30rpx;
+    box-sizing: border-box;
+}
+.group-limit {
+    padding: 10rpx 0 30rpx 0;
+    width: 100%;
+}
+.group-limit image {
+    width: 25rpx;
+    height: 25rpx;
+}
+.group-info-card {
+    position: relative;
+    margin-bottom: 53rpx;
+    width:630rpx;
+    background:rgba(255,54,54,.06);
+    border-radius:20rpx;
+}
+.card-title {
+    padding: 40rpx 0 30rpx;
+    width: 100%;
+    text-align: center;
+}
+.countdown-box {
+    padding-bottom: 30rpx;
+    width: 100%;
+}
+.countdown-time {
+    padding: 0 20rpx;
+}
+.countdown-sign {
+    width: 53rpx;
+    height: 3rpx;
+    background-color: rgba(51,51,51,.4);
+}
+.friends-list {
+    padding: 0 30rpx 30rpx;
+    width: 100%;
+    box-sizing: border-box;
+    white-space:nowrap;
+    text-align: center;
+}
+.friends-item {
+    position: relative;
+    display: inline-block;
+    margin-right: 14rpx;
+    width: 70rpx;
+    height: 120rpx;
+}
+.friends-item image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 50%;
+}
+.add-friends {
+    position: absolute;
+    top: 0;
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+.friends-name {
+    position: absolute;
+    bottom: 0;
+    width: 70rpx;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+.dotted-line {
+    position: absolute;
+    bottom: 70rpx;
+    left: 30rpx;
+    width: 570rpx;
+	height: 2rpx;
+	background-image: linear-gradient(to right, rgba(255,54,54,.2) 0%, rgba(255,54,54,.2) 50%, transparent 50%);
+	background-size: 8rpx 1rpx;
+	background-repeat: repeat-x;
+}
+.group-guarantee {
+    padding-left: 30rpx;
+    line-height: 70rpx;
+}
+.half-circle {
+    position: absolute;
+    bottom: 60rpx;
+    width: 20rpx;
+    height: 20rpx;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+.half-circle-left {
+    left: -10rpx;
+}
+.half-circle-right {
+    right: -10rpx;
+}
+.group-info-invitation {
+    position: relative;
+    width:580rpx;
+    height:80rpx;
+    background:linear-gradient(-3deg,rgba(238,65,48,1) 0%,rgba(255,125,46,1) 100%);
+    box-shadow:0px 4rpx 18rpx 0px rgba(252,114,47,0.5);
+    border-radius:40rpx;
+    letter-spacing: 4rpx;
+}
+.group-info-invitation-tip {
+    position: absolute;
+    right: 0;
+    top: -20rpx;
+    padding: 0 16rpx;
+    height:40rpx;
+    background:rgba(0,0,0,.6);
+    border-radius:20rpx 20rpx 20rpx 0px;
+    letter-spacing: normal
+}
+/* 分享海报遮罩 */
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    animation: myfirst 0.3s;
+    z-index: 130;
+}
+.share {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    bottom: -400rpx;
+    width:750rpx;
+    height:326rpx;
+    background:#F7F7F7;
+    border-radius:20rpx 20rpx 0px 0px;
+    z-index: 131;
+}
+.share-box {
+    bottom: 0;
+    animation: mysecond 0.3s;
+}
+.un-share-box {
+    animation: unmysecond 0.3s;
+}
+@keyframes mysecond {
+    from {
+        bottom: -326rpx;
+    }
+    to {
+        bottom: 0;
+    }
+}
+@keyframes unmysecond {
+    from {
+        bottom: 0;
+    }
+    to {
+        bottom: -326rpx;
+    }
+}
+.share-box-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    height: 206rpx;
+    border-radius:20rpx 20rpx 0px 0px;
+}
+.share-box-content image {
+    width: 60rpx;
+    height: 60rpx;
+}
+.share-button {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    border: none;
+}
+
+.closeShare {
+    width: 100%;
+    height: 106rpx;
+    background-color: white;
+    line-height: 106rpx;
+    text-align: center;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+}
+.new-poster-box {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 750rpx;
+    z-index: 131;
+}
+.new-poster {
+    width:580rpx;
+    height:810rpx;
+    background:rgba(255,255,255,1);
+    border-radius:20rpx;
+    overflow: hidden;
+}
+.show-poster {
+    animation: showPoster 0.3s;
+}
+@keyframes showPoster {
+    from {
+      transform:scale(0.1,0.1);
+    }
+    to {
+      transform:scale(1,1);
+    }
+}
+.new-poster-img {
+    width: 100%;
+    height: 100%;
+}
+.new-poster-img image {
+    width: 100%;
+    height: 100%;
+}
+.new-poster-download {
+    padding-top: 55rpx;
+}
+.action-play {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+/* 分享海报遮罩 */
+.new-purchase-box {
+    position: fixed;
+    bottom: -1000;
+    left: 0;
+    width: 750rpx;
+    border-radius:20rpx 20rpx 0px 0px;
+    z-index: 131;
+    overflow: hidden;
+}
+.show-new-purchase-box {
+    bottom: 0;
+    animation: purchaseAnimation 0.3s;
+}
+@keyframes purchaseAnimation {
+    from {
+        bottom: -900rpx;
+    }
+    to {
+        bottom: 0;
+    }
+}
+.new-purchase-box-head {
+    position: relative;
+    height: 220rpx;
+    width: 100%;
+    border-bottom: 1px solid #F7F7F7;
+}
+.new-purchase-box-head-info {
+    padding: 30rpx;
+}
+.new-purchase-box-head-info-img {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius:10rpx;
+    overflow: hidden;
+}
+.new-purchase-box-head-info-img image {
+    width: 160rpx;
+    height: 160rpx;
+}
+.new-purchase-box-head-info-detail {
+    margin-left: 30rpx;
+    width: 490rpx;
+}
+.new-purchase-box-head-close {
+    position: absolute;
+    right: 30rpx;
+    top: 30rpx;
+    color: #CBCBCB;
+}
+
+.new-options {
+    padding: 30rpx 0;
+    width: 750rpx;
+    max-height: 400rpx;
+    background: white;
+    border-bottom: 1rpx solid #F7F7F7;
+}
+.new-options-title {
+    padding:0 30rpx;
+}
+.new-list {
+    padding:0 30rpx;
+}
+.new-item-values {
+    display: flex;
+    flex-wrap: wrap;
+}
+.new-values {
+    margin: 30rpx 30rpx 30rpx 0;
+    padding: 13rpx 20rpx;
+    background:#F4F4F4;
+    border-radius:10rpx;
+}
+.new-active {
+    position: relative;
+    color: var(--theme-color);
+    background-color: white;
+}
+.new-active .new-active-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-color);
+    opacity:0.2;
+    border-radius:10rpx;
+}
+.new-buy-num {
+    padding: 30rpx 0;
+}
+.new-buy-num-content {
+    padding:30rpx;
+}
+.new-control {
+    width:66rpx;
+    height:50rpx;
+    background:rgba(255,255,255,1);
+    border:1px solid rgba(204,204,204,1);
+    text-align: center;
+    line-height: 48rpx;
+}
+.new-plus {
+    border-radius:0px 6rpx 6rpx 0px;
+}
+.new-num {
+    min-width:66rpx;
+    border: none;
+    border-top: 1px solid rgba(204,204,204,1);
+    border-bottom: 1px solid rgba(204,204,204,1);
+}
+.new-num-ios {
+    padding-top: 2rpx;
+    height: 46rpx;
+  }
+.new-minus {
+    border-radius:6rpx 0px 0px 6rpx;
+}
+.new-disable {
+    background:rgba(238,238,238,1);
+}
+.new-buy-bottom {
+    padding: 56rpx 30rpx 20rpx;
+}
+.new-buy-bottom-theme {
+    padding: 0;
+    width: 100%;
+    height: 74rpx;
+    background-color: var(--theme-color);
+    border-radius: 37px;
+}
+.new-buy-bottom-w {
+    width:345rpx;
+    height:74rpx;
+}
+.new-buy-bottom-w-all {
+    width: 690rpx;
+    height:74rpx;
+    border-radius:37rpx;
+    background:var(--theme-color);
+}
+.new-minus-text {
+    width: 18rpx;
+	height: 2rpx;
+	background-color: #666666;
+}

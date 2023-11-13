@@ -1,0 +1,18 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<view wx:if='{{ showStyle == 1 }}'>
+    <view class='layout bcf'>
+        <view class='label fr32 c6'>核销信息</view>
+        <view class='content fr32 c1a'>{{ description }}</view>
+    </view>
+    <view class='layout bcf'>
+        <view class='label fr32 c6'>核销备注</view>
+        <view>
+            <textarea class='content fr32 cla normal textarea' value='{{ remark }}' placeholder-class='cc' bindinput="handleInput" auto-height placeholder='填写备注…' />
+        </view>
+    </view>
+    
+    <view bindtap="handleConfirm" class='confirm flexc fr32 cf'>确认核销</view>
+</view>
+<component-messageToast></component-messageToast>

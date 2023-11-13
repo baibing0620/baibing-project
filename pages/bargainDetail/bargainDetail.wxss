@@ -1,0 +1,241 @@
+.page{
+  background-image:url('https://facing-1256908372.file.myqcloud.com//image/20171122/d68468a0df76523b.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width:100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.container{
+ width: 100%;
+ padding-bottom: 100rpx;
+}
+.main{
+  width:644rpx;
+  margin: 0 auto; 
+  padding-top:50rpx;
+  padding-bottom: 60rpx;
+  background-color:rgba(255,255,255,0.94);
+  
+}
+.introduce{
+  display: flex;
+  align-items: center;
+  margin:0 49rpx 38rpx 49rpx;
+  height: 100rpx;
+  border:1rpx solid #ccc;
+  border-radius: 70rpx;
+}
+.introduce image{
+  height: 82rpx;
+  width: 82rpx;
+  border-radius: 50%;
+  margin-left: 30rpx;
+}
+.introduce>view{
+  flex: 1;
+  height: 60rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pic{
+  width: 180rpx; 
+  height: 180rpx;
+}
+.header{
+  margin:0rpx 49rpx ;
+  display: flex;
+  justify-content: space-around;
+}
+.header-right{
+  margin-left: 30rpx;
+  flex: 1;
+}
+.header-right>view:last-of-type{
+  display: flex;
+  justify-content: space-between;
+}
+.ellipsis2{
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 2;
+ overflow: hidden;
+}
+
+.spellgroup{
+  margin-top: 45rpx;
+  text-align: center;
+  color: #ff4715;
+  font-weight: 500;
+}
+.spellgroupcase{
+  margin-top: 52rpx;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  color: #333;
+  text-align: center;
+}
+.bargain{
+  margin-top: 60rpx;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #666;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.scroll-view_H{
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+  
+}
+.lack{
+  margin-top: 38rpx;
+  font-size: 30rpx;
+  color: #4d4d4d;
+  font-weight: 500;
+  text-align: center;
+}
+.btn{
+  margin:0 auto;
+  background-color: #fff;
+  border-radius: 6rpx;
+  text-align:center;
+  width: 545rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  color: #ee3130;
+  margin-top: 43rpx;
+  box-sizing: border-box;
+ 
+}
+.bgred{
+ background-color: #ee4130;
+ color: #fff;
+ font-size: 34rpx;
+}
+.footer{
+  display: flex;
+  width: 100%;
+  height: 100rpx;
+  font-size: 26rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+}
+.footer>navigator{
+  flex: 1;
+  display: flex;
+  line-height: 100rpx;
+  justify-content: center;
+  font-size: 56rpx;
+}
+.footer>view:last-of-type{
+  display: flex;
+  flex: 4;
+  line-height: 100rpx;
+  background-color: #ff9300;
+  color: #fff;
+  justify-content: center;
+  font-size: 34rpx;
+}
+.scroll-view-item_H {
+  display: inline-block;
+  width: 22%;
+  height: 124rpx;
+  text-align: center;
+}
+.scroll-view-item_H>view{
+  height: 124rpx;
+}
+.posparent{
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+ 
+}
+.viewimg{
+  display: block;
+  width:84rpx;
+  height:84rpx;
+  border-radius:50%
+}
+.viewimg-tips{
+  font-size: 22rpx;
+  color: #15a4ff;
+  border-radius: 22rpx; 
+}
+button{
+  border: none;
+}
+
+.fr30{
+  font-size: 30rpx;
+}
+
+.fr26{
+  font-size:26rpx;
+}
+.fr18{
+  font-size: 18rpx;
+}
+.fr20{
+  font-size: 20rpx;
+}
+.bargain-dialog{
+  position: fixed;
+  top:0; 
+  left: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 200;
+  background-color: rgba(0,0,0,0.3);
+}
+.bargain-content{
+  position: relative;
+  width: 610rpx;
+  box-sizing: border-box;
+  padding: 60rpx 0;
+  background-color: white;
+  margin-bottom: 100rpx;
+}
+.bargain-btn{
+  width: 460rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  margin-top: 58rpx;
+
+}
+.close-btn{
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  text-align: center;
+  line-height: 30rpx;
+  top: 0px;
+  right: 0px;
+  padding: 20rpx;
+}
+.cff{
+  color: #ff4715;
+}
+.mt38{
+  margin-top: 38rpx;
+}
+.button[disabled][type="default"], wx-button[disabled]:not([type]){
+  background-color: #cccccc;
+  color: white;
+  
+}

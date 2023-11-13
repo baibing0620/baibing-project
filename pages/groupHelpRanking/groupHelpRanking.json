@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "助力排行榜",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "share": "/components/share/share"
+    }
+}

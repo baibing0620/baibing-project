@@ -1,0 +1,54 @@
+.fr24, .fr28, .fr36 {
+    line-height: 100%;
+}
+
+.item {
+    margin-bottom: 10rpx;
+    border-top: 1rpx solid #ebebeb;
+    border-bottom: 1rpx solid #ebebeb;
+    padding: 0 30rpx 0 26rpx;
+}
+
+.item:first-child {
+    border-top: 0;
+}
+
+.item:last-child {
+    margin-bottom: 0;
+    position: relative;
+}
+
+.top {
+    padding: 46rpx 0 40rpx 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.avatar {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    margin-right: 26rpx;
+    background-color: #ccc;
+}
+
+.nickname {
+    margin-bottom: 34rpx;
+}
+
+.moneyInfo {
+    position: absolute;
+    right: 30rpx;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.money {
+    margin-bottom: 14rpx;
+}
+
+.timeInfo {  
+    margin-top: 34rpx;
+}
+
+

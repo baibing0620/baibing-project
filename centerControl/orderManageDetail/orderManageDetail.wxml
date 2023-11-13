@@ -1,0 +1,326 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{showStyle:showStyle}}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:else>
+    <view class="userInfoBox">
+        <view class="userInfo">
+            <view class="userName fr34 c3">
+                <text class="iconfont icon-geren mr23"></text>
+                {{ data.delivery_type == '4' ? '自提人' : '收货人' }}: {{ data.address_realname || data.name }}
+            </view>
+        </view>
+        <view class="otherInfo">
+            <view class="fr30 c6 ellipsis">
+                <text class="iconfont icon-dianhua01 mr23"></text>
+                电话: {{ data.address_mobile || data.mobile }}
+            </view>
+            <view wx:if="{{ mode === 'appointment' }}">
+                <view class="fr30 c6 ellipsis">
+                    <text class="iconfont icon-yuyueshijian mr23"></text>
+                    预约时间: {{ data.appointment_time }}
+                </view>
+            </view>
+            <view wx:else>
+                <view class="fr30 c6 ellipsis2" style="line-height: 40rpx;">
+                    <text class="iconfont icon-dizhi3 mr23"></text>
+                    {{ data.delivery_type == '4' ? '自提门店' : '收货地址' }}: {{ data.address }}</view>
+            </view>
+            <view>
+                <view class="fr30 c6 ellipsis" style="line-height: 40rpx;">
+                    <text class="iconfont icon-beizhu fr28 mr23"></text>
+                    订单备注: {{ data.remark || '无' }}
+                </view>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{ mode === 'retail' }}" class="box bf">
+        <view class="info-label fr30">
+            <view class="c6">共{{ data.goodsTotal }}件商品</view>
+            <view class="modeType modeTypeColor" wx:if="{{data.selected_products_type == 3}}">自营商品订单</view>
+            <view class="modeType" wx:if="{{data.selected_products_type == 1}}">平台商品订单</view>
+        </view>
+
+        <view class="goods-list-group">
+            <view wx:for="{{data.goods}}" wx:key="index" class="goods-item">
+                <image mode="aspectFill" src="{{ ShowImg.cropImgWH(item.thumb, 180, 180) }}"></image>
+                <view class="goods-item-info">
+                    <view class="goods-item-title">
+                        <text>{{item.title}}</text>
+                        <text wx:if="{{item.optionname}}" class="goods-item-standard">规格：{{item.optionname}} </text>
+                    </view>
+                    <view class="goods-item-price">
+                        <text>￥{{ data.groupBuy ? item.groupbuy_price : item.price }}</text>
+                        <text>x{{item.total}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view wx:elif="{{ mode === 'restaurant' }}" class="box bf">
+        <view class="c6 info-label fr30">共{{ data.goods.length }}份菜品</view>
+        <view class="goodsInfo-box">
+            <view wx:for="{{ data.goods }}" wx:key="{{ index }}" class="flex foodsInfo">
+                <image mode="aspectFill" class="image restaurant-image" src="{{ ShowImg.cropImgWH(item.thumb, 180, 180) }}"></image>
+                <view class="flex1">
+                <view class="fr30 c3 flexb goodsName restaurant-goodsName">
+                    <view class="goodsTitle ellipsis2 fr36">{{ item.title }}</view>
+                    <view class="c3 foodPrice flexb">￥{{ item.price }}<view>x{{ item.total }}</view></view>
+                </view>
+            </view>
+        </view>
+        <view class="foodsPriceMore fr28 c3">
+            <view class="flexb">餐盒费<view>￥{{ data.box_total_money }}</view></view>
+            <view class="flexb">配送费<view>￥{{ data.dispatchprice }}</view></view>
+        </view>
+    </view>
+    </view>
+    <view wx:elif="{{ mode === 'appointment' }}" class="box bf">
+        <view class="fr30 c3 info-label">TA预约的商品</view>
+        <view class="goodsInfo-box">
+            <view class="flex goodsInfo">
+                <image mode="aspectFill" class="image" src="{{ ShowImg.cropImgWH(data.appointment_item_thumb.imgUrl, 180, 180) }}"></image>
+                <view class="flex1">
+                    <view class="fr30 c3 flexb goodsName">
+                        <view class="goodsTitle ellipsis2">{{ data.appointment_goods_title }}</view>
+                        <view class="c3">￥{{ data.price }}</view>
+                    </view>
+                    <view class="fr36">{{ data.appointment_item_title }}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="orderInfo bf fr30 c9">
+        <block wx:if="{{ mode === 'retail' }}">
+					<view class="flexb mb20">
+						<view>订单编号</view>
+						<view class="c6 fr28">{{ data.ordersn || "无" }}</view>
+					</view>
+					<view class="flexb mb20">
+						<view>下单时间</view>
+						<view class="c6 fr28">{{ data.create_time || data.createtime || "无" }}</view>
+					</view>
+					<view class="flexb mb20">
+						<view>商品金额</view>
+						<view class="c6 fr28">{{ data.goodsPrice || 0 }}元</view>
+					</view>
+					<view class="flexb mb20">
+						<view>快递类型</view>
+						<view class="c6 fr28">{{ data.dispatch_name || "无" }}</view>
+					</view>
+					<view class="flexb mb20">
+						<view>快递金额</view>
+						<view class="c6 fr28">{{ data.dispatchprice || 0 }}元</view>
+					</view>
+					<view class="flexb mb20">
+						<view>订单总额</view>
+						<view class="c6 fr28" wx:if="{{data.paytype == 4}}">
+							<text>{{data.goods[0].consume_integral}}积分</text>  
+							<text  wx:if="{{data.paytype==4&&data.goods[0].consume_price!=0}}">+{{data.goods[0].consume_price}}元</text>
+						</view> 
+						<view class="c6 fr28" wx:else>{{ data.price || 0 }}元</view>
+					</view>
+
+					<view class="flexb mb20" wx:if="{{ data.replace_order == 1 && data.voucher_url }}">
+						<view>下单凭证</view>
+						<view class="voucher_box ml20">
+							<component-image src="{{ data.voucher_url }}" catchtap='previewImage' data-preview-url="{{data.voucher_url}}"></component-image>
+						</view>
+					</view>
+
+          <block wx:if="{{ data.replace_order == 1 }}">
+            <view class="flexb" >
+              <view>下单员工</view>
+              <view class="c6 fr28">{{ data.card.name }}</view>
+            </view>
+
+            <view class="flexb">
+              <view>客户来源</view>
+              <view class="c6 fr28">{{ data.replace_order_from }}</view>
+            </view>
+          </block>
+					
+        </block>
+        <block wx:elif="{{ mode === 'restaurant' }}">
+					<view class="flexb mb20">
+						<view>订单编号</view>
+						<view class="c6 fr28">{{ data.ordersn || "无" }}</view>
+					</view>
+					<view class="flexb mb20">
+						<view>下单时间</view>
+						<view class="c6 fr28">{{ data.create_time || data.createtime || "无" }}</view>
+					</view>
+					<view class="flexb mb20">
+						<view>订单金额</view>
+						<view class="c6 fr28">{{ data.price || 0 }}元</view>
+					</view>
+        </block>
+        <block wx:elif="{{ mode === 'appointment' }}">
+						<view class="flexb mb20">
+							<view>订单编号</view>
+							<view class="c6 fr28">{{ data.ordersn || "无" }}</view>
+						</view>
+						<view class="flexb mb20">
+							<view>下单时间</view>
+							<view class="c6 fr28">{{ data.create_time || data.createtime || "无" }}</view>
+						</view>
+						<view class="flexb mb20">
+							<view>订金</view>
+							<view class="c6 fr28">{{ data.price || 0 }}元</view>
+						</view>
+        </block>
+    </view>
+
+    <view class="popupShipped" wx:if="{{isShow}}">
+        <view class="cancellationText">取消订单</view>
+        <view class="cancellationReason">填写退款原因</view>
+        <textarea  placeholder="请填写退款原因" class="cancellationInput" placeholder-style="font-size:26rpx;font-weight:normal;color:gray;" bindinput="bindTextAreaBlur"  catchtouchmove="preventTouchMove" 
+    fixed="true"/>
+        <view class="btnCancellation" bindtap="bindFormSubmit">确认</view>
+    </view>
+    <view class="mcl" wx:if="{{isShow}}" bindtap="mcl"></view> 
+
+    <view class="bottom-button-holder"></view>
+        <view wx:if="{{data.cancel_check_status == 1}}" class="platformReject"><icon type="warn" size="15" color="red" style="vertical-align:middle;"/> <text style="vertical-align:middle;margin-left:12rpx;">平台拒绝取消该订单，如有疑问请联系平台</text></view>
+        
+    <view class="box bottom-button flex bf fr30">
+        <!-- 自营商品 -->
+        <block wx:if="{{ mode === 'retail' && (data.selected_products_type == 3 || data.hasPersonalGoods) }}"> 
+            <view wx:if="{{ data.status != -1 && data.status != -6 && data.status != 3 && data.cancel_check_status == 0 && order_type !=7 && data.paytype != 4 && data.status != 4 }}" class="c9 flexc active" catchtap="cancelCheck">取消订单</view>
+            <view wx:if="{{ data.cancel_check_status !=2 && (data.status == 1 || data.status == 2) }}" class="confirm flexc active" catchtap="showSendExpress">{{ data.status == 2 ? "重新发货" : "发货" }}</view>
+            <view wx:if="{{ data.cancel_check_status !=2 && data.status == 2 }}" class="confirm flexc active" catchtap="confirmGoodsFinished">确认完成</view>
+
+						<view class="c6 flexc active" wx:if="{{ data.status == 4 && (privilege & 32) }}" bindtap="rejectOrder">审核拒绝</view>
+						<view class="confirm flexc active" wx:if="{{ data.status == 4 && (privilege & 32) }}" bindtap="approveOrder">审核通过</view>
+        </block>
+        <!-- 平台商品 -->
+        <block wx:elif="{{ mode === 'retail' && data.selected_products_type == 1 && data.cancel_check_status == 0 && data.paytype != 4}}">
+					<block wx:if="{{ order_type !=7 }}">
+						<view wx:if="{{ data.status != -1 && data.status != -6 && data.status != 4 }}" class="c6 flexc active" catchtap="cancelCheck">取消订单</view>
+					</block>
+					<view class="c6 flexc active" wx:if="{{ data.status == 4 && (privilege & 32) }}" bindtap="rejectOrder">审核拒绝</view>
+					<view class="confirm flexc active" wx:if="{{ data.status == 4 && (privilege & 32) }}" bindtap="approveOrder">审核通过</view>
+        </block>
+        <block wx:elif="{{ mode === 'appointment' }}">
+            <view wx:if="{{ data.status != -1 && data.status != -2 && data.status != 1 && data.status != 3 }}" class="c9 flexc active" catchtap="showCancelAppointment">取消订单</view>
+            <view wx:if="{{ data.status == 1 }}" class="c9 flexc active"  catchtap="showRefuseAppointment">拒绝</view>
+            <view wx:if="{{ data.status == 1 }}" class="confirm flexc active" catchtap="acceptAppointment">接受</view>
+            <view wx:if="{{ data.priceNumber > 0 && (data.status == -1 || data.status == -2) && (data.refund_status == 0 || data.refund_status == 3) }}" class="confirm flexc active" catchtap="showRefundModel">退款</view>
+            <view wx:if="{{ data.status == 2 }}" class="confirm flexc active" catchtap="finishAppointment">确认完成</view>
+        </block>
+        <block wx:elif="{{ mode === 'restaurant' }}">
+            <view wx:if="{{ data.status != -1 && data.status != -6 && data.status != 3 }}" class="c9 flexc active" catchtap="cancelCheck">取消订单</view>
+            <view wx:if="{{ data.status == 1 && data.delivery_type == 0 }}" class="confirm flexc active" catchtap="startDelivery">立即配送</view>
+            <view wx:if="{{ data.status == 2 }}" class="confirm flexc active" catchtap="confirmGoodsFinished">确认完成</view>
+        </block>
+
+    </view>
+
+    <block wx:if="{{ mode === 'appointment' }}">
+        <view wx:if="{{ data.status == 0 }}" class="order-status order-status-1 flexc">待付款</view>
+        <view wx:if="{{ data.status == 1 }}" class="order-status order-status-1 flexc">待审核</view>
+        <view wx:elif="{{ data.status == 2 }}" class="order-status order-status-2 flexc">已接受</view>
+        <view wx:if="{{ data.status == 3 }}" class="order-status order-status-5 flexc">已完成</view>
+        <view wx:elif="{{ data.status == -1 }}" class="order-status order-status-3 flexc">已拒绝</view>
+        <view wx:elif="{{ data.status == -2 }}" class="order-status order-status-6 flexc">已取消</view>
+    </block>
+    <block wx:elif="{{ mode === 'restaurant' }}">
+        <view wx:if="{{ data.status == 0 }}" class="order-status order-status-1 flexc">待付款</view>
+        <view wx:elif="{{ data.status == 1 }}" class="order-status order-status-1 flexc">待配送</view>
+        <view wx:elif="{{ data.status == 2 }}" class="order-status order-status-3 flexc">配送中</view>
+        <view wx:if="{{ data.status == 3 }}" class="order-status order-status-5 flexc">已完成</view>
+        <view wx:if="{{ data.status == 5 }}" class="order-status order-status-1 flexc">待自提</view>
+        <view wx:elif="{{ data.status == -1 }}" class="order-status order-status-6 flexc">已取消</view>
+        <view wx:elif="{{ data.status == -6 }}" class="order-status order-status-6 flexc">已退款</view>
+    </block>
+    <block wx:elif="{{ mode === 'retail' }}">
+        <view wx:if="{{ data.status == 0 }}" class="order-status order-status-1 flexc">待付款</view>
+        <block wx:if="{{ data.status == 1 }}">
+            <view wx:if="{{ data.cancel_check_status == 2 }}" class="order-status order-status-1 flexc"  style="background-color:#d8636b;">审核中</view>
+            <view wx:else class="order-status order-status-2 flexc">待发货</view>
+        </block>
+        <view wx:elif="{{ data.status ==2 }}">
+             <view wx:if="{{ data.cancel_check_status == 2 }}" class="order-status order-status-1 flexc"  style="background-color:#d8636b;">审核中</view>
+             <view wx:else class="order-status order-status-3 flexc">待收货</view>
+        </view>
+        <view wx:if="{{ data.status == 3 }}" class="order-status order-status-5 flexc">已完成</view>
+        <view wx:elif="{{ data.status == -1 }}" class="order-status order-status-6 flexc">已取消</view>
+        <view wx:elif="{{ data.status == -6 }}" class="order-status order-status-6 flexc">已退款</view>
+        
+    </block>
+
+    <block>
+        <view wx:if="{{ dialogMode === 'express' }}" class='dialog {{ showCover ? "" : "dialog-hide" }} bf'>
+            <block wx:if="{{ express.length > 0 }}">
+                <view class="dialog-this-title c3 fr28">快递发货</view>
+                <view class="dialog-this-label fr24 c9 flex">快递名称</view>
+                <view>
+                    <picker bindchange="bindExpressPickerChange" value="{{ expressIndex }}" range="{{ express }}" range-key="name">
+                        <view class="dialog-this-input dialog-this-picker iconfont flex fr27 c3">
+                            {{ express[expressIndex].name }}
+                        </view>
+                    </picker>
+                </view>
+                <view class="dialog-this-label fr24 c9 flex">快递单号</view>
+                <view class="dialog-this-input flex fr27 c3">
+                    <input type="number" placeholder="请输入快递单号"  placeholder-class="cb3" value="{{ expressSn }}" bindinput="expressSnInput"></input>
+                </view>
+                <view class="getQRCode fr27 flexc" catchtap="expressQRCode">
+                    <view class="iconfont icon-saoma fr27"></view>
+                    扫描上传快递单号
+                </view>
+                <view wx:if="{{ expressSn.length > 0 }}" class="dialog-this-submit flexc fr30 cf" catchtap="sendExpress">立即发货</view>
+            </block>   
+            <block wx:elif="{{ express.length < 1 && expressGetting }}">
+                <view class="expressLoading flexc">
+                    <image src="/imgs/loading.gif"></image>
+                </view>
+            </block>
+            <block wx:elif="{{  express.length < 1 && !expressGetting  }}">
+                <view class="expressLoading flexc fr26 c4d">请通过后台管理系统配置快递模版</view>
+            </block>
+        </view>
+        <view wx:elif="{{ dialogMode === 'cancel' }}" class='dialog {{ showCover ? "" : "dialog-hide" }} bf'>
+            <view class="dialog-this-title c3 fr28">取消订单</view>
+            <view class="dialog-this-label fr24 c9 flex">选择退款原因</view>
+            <view>
+                <picker bindchange="bindRefundPickerChange" value="{{ refundIndex }}" range="{{ mode === 'retail' ? refundCauseOptions : refundFoodsCauseOptions }}">
+                    <view class="dialog-this-input dialog-this-picker iconfont flex fr27 c3">
+                        {{ mode === 'retail' ? refundCauseOptions[refundIndex] : refundFoodsCauseOptions[refundIndex] }}
+                    </view>
+                </picker>
+            </view>
+            <view class="dialog-this-submit flexc fr30 cf" catchtap="cancelOrder">立即退款</view>
+        </view>
+        <view wx:elif="{{ dialogMode === 'refuseAppointment' || dialogMode === 'cancelAppointment' }}" class='dialog {{ showCover ? "" : "dialog-hide" }} bf'>
+            <view class="dialog-this-title c3 fr28">{{ dialogMode === 'refuseAppointment' ? "拒绝订单" : "取消订单" }}</view>
+            <view class="dialog-this-label fr24 c9 flex">{{ dialogMode === 'refuseAppointment' ? "选择拒绝理由" : "选择取消原因" }}</view>
+            <view>
+                <picker bindchange="bindRefusePickerChange" value="{{ refuseIndex }}" range="{{ refuseReason }}">
+                    <view class="dialog-this-input dialog-this-picker iconfont flex fr27 c3">
+                        {{ refuseReason[refuseIndex] }}
+                    </view>
+                </picker>
+            </view>
+            <view class="dialog-this-submit flexc fr30 cf" catchtap="{{ dialogMode === 'refuseAppointment' ? 'refuseAppointment' : 'cancelAppointment' }}">{{ dialogMode === 'refuseAppointment' ? "拒绝订单" : "取消订单" }}</view>
+        </view>
+        <view wx:elif="{{ dialogMode === 'refundAppointment' }}" class='dialog {{ showCover ? "" : "dialog-hide" }} bf'>
+            <block wx:if="{{ refundCheckGetting }}">
+                <view class="expressLoading flexc">
+                    <image src="/imgs/loading.gif"></image>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="dialog-this-title c3 fr28">订单退款</view>
+                <view class="dialog-this-refund fr26 c3">
+                    退款金额：<text>{{ refundCheck.refundMoney || 0 }}</text>元
+                </view>
+                <view class="fr24 checkMsg">{{ refundCheck.msg }}</view>
+                <view wx:if="{{ refundCheck.refundNumber > 0 }}" class="dialog-this-submit flexc fr30 cf" catchtap="refundAppointment">退款</view>
+            </block>
+        </view>
+        <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap="closeDialog"></view>
+    </block>
+</block>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,13 @@
+<wxs src="../../tools/showImg.wxs" module="showImg" />
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<view class="container flexColumn">
+    <view class="imgBorder">
+        <image class="horizontal-qrcode-image" wx:if="{{qrcode}}" src="{{showImg.cropImgWH(qrcode,230,230)}}" bindtap="showPayCode"></image>
+    </view>
+    <view class="infoTip fr32">请出示核销码给工作人员</view>
+     <image class="horizontal-url" mode="widthFix" wx:if="{{url}}" src="{{showImg.cropImgWH(url,230,230)}}"></image>
+</view>
+<view class="modal-box flexc w100" bindtap="closeModel" wx:if="{{showQRCode}}">
+    <image wx:if="{{showQRCode}}" class="modal-image-qrcode" src="{{showImg.cropImgWH(qrcode,622,622)}}"></image>
+</view>

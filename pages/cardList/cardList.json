@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "card-item": "/components/cardItem/cardItem",
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

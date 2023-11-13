@@ -1,0 +1,51 @@
+<import src="../../template/initShow/initShow.wxml" />
+<template name="initMessageShow">
+  <view style="font-size: 12px;color: #666666;margin-top: 260rpx; text-align:center;" wx:if="{{showStyle==0}}">
+    <image style="width:160rpx;height:160rpx;" src="/imgs/pageLoading.gif" />
+  </view>
+  <view style="font-size: 12px;color: #666666;margin-top: 200rpx; text-align:center;" wx:if="{{showStyle==2}}">
+    <image style='width:310rpx;height:310rpx' src="https://facing-1256908372.file.myqcloud.com//image/20181023/e0dcc9ed9f837c5f.png?imageView2/1/w/310/h/310"></image>
+    <view class='fr24 c9' style='margin-top:60rpx'>温馨提示</view>
+    <view class='fr30 c9' style='margin-top:28rpx'>消息推送请勿太多频繁!</view>
+    <button class='fr34 cf' catchtap='navMessagePush' style='margin-top:118rpx; width:536rpx;height:90rpx;background:#1F94FD;'>推送消息</button>
+  </view>
+  <view style="font-size: 12px;color: #cccdce;margin-top: 200rpx; text-align:center;" wx:if="{{showStyle==3}}">
+    <view>
+      <text class="iconfont icon-wuxian" style="font-size:160rpx;"></text>
+    </view>
+    <view>网络连接错误</view>
+    <view style="margin-top:50rpx;">
+      <button bindtap="networkFaildRealod" style="margin:auto;width:260rpx; heigh:60rpx;line-height:60rpx;font-size:30rpx; border-radius:30rpx;color:#FD9A33;border:1rpx solid #FD9A33;">刷新</button>
+    </view>
+  </view>
+</template>
+<template is="initMessageShow" data="{{showStyle:showStyle,showNoMsg:'暂无人领取哦'}}" wx:if="{{showStyle!=1&&messageList.length==0}}" />
+<block wx:else>
+<view style='padding:20rpx'>
+  <view class='continer' wx:for="{{messageList}}" catchtap='navMessageDetail' data-id="{{item.id}}">
+    <view class='flex'>
+      <text class='iconfont icon-biaoti cb3 fr32'></text>
+      <text class='fr28 cb3'>推送标题：</text>
+      <text class="fr28 c3 flex1 ellipsis1">{{item.title}}</text>
+    </view>
+    <view>
+      <text class='iconfont icon-shijian1 cb3 fr32'></text>
+      <text class='fr28 cb3'>推送时间：</text>
+      <text class="fr28 c3">{{item.push_time}}</text>
+    </view>
+    <view class="flex">
+        <text class='iconfont icon-ren cb3 fr32'></text>
+        <text class='fr28 cb3'>推送人数：</text>
+        <text class="fr28 c3">{{item.push_user_num}}人</text>
+      <view class='message-status fr24 flex' style="{{item.status==1?'color:#44d66a;  background: #e3f9e9;':'color:#1F94FD;background: #1F94FD20;'}}"><text class="iconfont {{item.status==1?'icon-tuisong':'icon-dui'}}"></text><text class="bold"> {{item.status==1?'发送中':'已发送'}}</text></view>
+    </view>
+  </view>
+  </view>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+   <view class="message-btn {{isIphoneX?'fix-iphonex-button':''}}">
+     <button catchtap='navMessagePush' class="btn fr34 cf ">推送消息</button>
+   </view>
+   <view style='height:{{isIphoneX?"68rpx":"0"}};'></view>
+</block>
+
+<component-messageToast></component-messageToast>

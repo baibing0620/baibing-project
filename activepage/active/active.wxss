@@ -1,0 +1,50 @@
+.active-bg {
+  width: 100%;
+  height: 900rpx;
+}
+.text {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  text-align: center;
+  color: #fd5026;
+  font-weight: 600;
+  margin-bottom: 32rpx;
+}
+.button-wrapper {
+  margin: 0 24rpx;
+  border-radius: 16rpx;
+  background-color: #ff6a2b;
+  padding: 18rpx;
+  height: 326rpx;
+  margin-bottom: 24px;
+}
+.active-content {
+  background-color: #fefaf3;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 267rpx;
+}
+.active-certificate {
+  width: 100%;
+  height: 154rpx;
+}
+.active-button {
+  width: 360rpx;
+  height: 80rpx;
+  margin-top: 32rpx;
+}
+.active-path {
+  margin: 0 24rpx;
+  height: 268rpx;
+  width: 702rpx;
+  margin-bottom: 24rpx;
+}
+.active-rule {
+  margin: 0 24rpx;
+  height: 800rpx;
+  width: 702rpx;
+  margin-bottom: 76rpx;
+}

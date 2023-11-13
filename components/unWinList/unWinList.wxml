@@ -1,0 +1,53 @@
+<!-- 私密团中奖和未中奖时的弹窗 -->
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" /> 
+
+<view class="box" wx:if="{{show}}"></view>
+<view class="content" wx:if="{{show}}">
+    <view class="main">
+        <view class="title c3 fr34 bold tac">
+            <view class="line"></view>
+            <view style="margin: 0 10rpx" class="lh1">中奖名单</view>
+            <view class="line"></view>
+        </view>
+        <view class="name-list {{showStyle!=1&&winningList.length==0?'no-win-list-h': ''}}" style="margin-top: 20rpx;">
+            <template is="initShow" data="{{showStyle:showStyle, showNoMsg:showErrorMsg?showErrorMsg:'无相关记录信息'}}" wx:if="{{showStyle!=1&&winningList.length==0}}" />
+            <block wx:else>
+                <scroll-view scroll-y="true" class="scroll-view-h {{length<=3? 'scroll-view-h'+length: 'scroll-view-h3'}} {{!selfInviter.member?'scroll-view-h-win': ''}}">
+                    <view class="name-item" wx:for="{{winningList}}">
+                        <view>{{index + 1}}</view>
+                        <view class="name-info">
+                            <view class="avatar-list">
+                                <scroll-view scroll-x="true" class="scroll-view-x">
+                                    <image class="avatar" src="{{ShowImg.cropImgWH(imgSrc, 70, 70)}}" wx:for="{{item.avatar}}" wx:for-item="imgSrc"></image>
+                                </scroll-view>
+                            </view>
+                            <view class="fr24 c6">
+                                <view class="tar">已邀请{{item.inviter_num}}位好友</view>
+                                <view class="tar">开团成功</view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+                <view class="name-item last" wx:if="{{selfInviter.avatar}}">
+                    <view>{{selfInviter.rank}}</view>
+                    <view class="name-info">
+                        <view class="avatar-list">
+                            <scroll-view scroll-x="true" style="width: 100%; white-space: nowrap;">
+                                <image class="avatar" src="{{ShowImg.cropImgWH(item, 70, 70)}}" wx:for="{{selfInviter.avatar}}"></image>
+                            </scroll-view>
+                        </view>
+                        <view class="fr24 c6" style="line-height: 70rpx;">
+                            <text>仅差邀请{{selfInviter.needToInviterNum}}人即可获奖</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+        
+    </view>
+
+    <view class="my-icon">
+        <text class="iconfont icon-shanchu2 my-guanbi" bindtap="close"></text>
+    </view>
+</view>

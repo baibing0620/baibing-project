@@ -1,0 +1,16 @@
+.item {
+    width: 750rpx;
+    margin-bottom: 10rpx;
+    padding: 32rpx 30rpx;
+    box-sizing: border-box;
+}
+
+.info {
+    display: flex;
+    line-height: 46rpx;
+    margin-top: 8rpx;
+}
+
+.info:first-child {
+    margin-top: 0;
+}

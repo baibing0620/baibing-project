@@ -1,0 +1,98 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1 }}"/>
+<block wx:else>
+    <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+
+    <view wx:if='{{ distribution_reward_type == 2 && moneyCount > 0 }}' class='card-layout bcf pb60 mb14'>
+        <view class='bg'></view>
+        <view class='card'>
+            <view class='card-bg op04'>
+                <component-image src='https://facing-1256908372.file.myqcloud.com//image/20200717/157e81ff71d82d8a.png'></component-image>
+            </view>
+            <view class='flex w100 pl52 pr60 borderBox short-line relative'>
+                <view class='flex1 pt50 pb44'>
+                    <view class='fr60 cf'>{{ moneyCount }}</view>
+                    <view class='fr30 cf op06 mt20'>累计分销佣金(元)</view>
+                </view>
+                <view class='fr30 cf flexc button button-style-1' data-pack='pages' data-page='myWallet' catchtap='navigate'>立即提现</view>
+            </view>
+            <view class='flex w100 pl52 pr60 relative'>
+                <view class='flex1 pt44 pb50'>
+                    <view class='fr60 cf'>{{ creditCount }}</view>
+                    <view class='fr30 cf op06 mt20'>历史所得积分</view>
+                </view>
+                <view wx:if='{{ is_open_consumption_shopping == 1 }}' class='fr30 c-283A62 flexc button button-style-2' data-pack='pages' data-page='integralMall' catchtap='navigate'>立即使用</view>
+            </view>
+        </view>
+        <view class='mt30 fr34 cf flexc button-large button-style-3' catchtap='previewImage'>立即分享</view>
+    </view>
+
+    <view wx:else class='card-layout bcf pb18'>
+        <view class='bg'></view>
+        <view class='card pt80 pb50'>
+            <view class='card-bg op04'>
+                <component-image src='https://facing-1256908372.file.myqcloud.com//image/20200717/157e81ff71d82d8a.png'></component-image>
+            </view>
+            <block wx:if='{{ distribution_reward_type == 2 }}'>
+                <view class='fr80 cf'>{{ moneyCount }}</view>
+                <view class='fr34 cf op06 mt30'>历史所得积分</view>
+                <view class='card-control flexc mt60 relative'>
+                    <view class='fr30 cf flexc button button-style-1' data-pack='pages' data-page='integralMall' catchtap='navigate'>立即使用</view>
+                    <view class='fr30 c-283A62 flexc button button-style-2' catchtap='previewImage'>立即分享</view>
+                </view>
+            </block>
+            <block wx:else>
+                <view class='fr80 cf'>{{ moneyCount }}</view>
+                <view class='fr34 cf op06 mt30'>累计分销佣金(元)</view>
+                <view class='card-control flexc mt60 relative'>
+                    <view class='fr30 cf flexc button button-style-1' data-pack='pages' data-page='myWallet' catchtap='navigate'>立即提现</view>
+                    <view class='fr30 c-283A62 flexc button button-style-2' catchtap='previewImage'>立即分享</view>
+                </view>
+            </block>
+        </view>
+    </view>
+
+    <view>
+        <view class="item flexb active" data-page="distributionTeam" catchtap="navigate">
+            <view class="fr30 c3 flex">
+                <text class="iconfont icon-fenxiao1 fr38 icon-color-1"></text>
+                分销团队
+            </view>
+            <text class="iconfont icon-jinru fr20 c9"></text>
+        </view>
+        <view class="item item-bigMargin flexb active" data-page="distributionLog" catchtap="navigate">
+            <view class="fr30 c3 flex">
+                <text class="iconfont icon-wodeyongjin fr38 icon-color-2"></text>
+                分销佣金记录
+            </view>
+            <text class="iconfont icon-jinru fr20 c9"></text>
+        </view>
+    </view>
+    <view wx:if="{{ isAdmin }}">
+        <view class="item flexb active" data-page="distributionCustomer" catchtap="navigate">
+            <view class="fr30 c3 flex">
+                <text class="iconfont icon-kehu fr38 icon-color-3"></text>
+                我的客户
+            </view>
+            <text class="iconfont icon-jinru fr20 c9"></text>
+        </view>
+        <view class="item flexb active" data-page="distributionBonusLog" catchtap="navigate">
+            <view class="fr30 c3 flex">
+                <text class="iconfont icon-yongjinshezhi fr38 icon-color-4"></text>
+                业务提成记录
+            </view>
+            <text class="iconfont icon-jinru fr20 c9"></text>
+        </view>
+    </view>
+
+    <view class="fr26 cbf rule flexc" data-page="distributionRules" catchtap="navigate">查看分销规则，赚取更多佣金</view>
+
+    <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='coverHide'>
+        <component-poster src='{{ palette }}' themeColor='{{ extConfig.themeColor }}' bind:close='coverHide'></component-poster>
+    </view>
+    
+    </block>
+
+<component-messageToast></component-messageToast>

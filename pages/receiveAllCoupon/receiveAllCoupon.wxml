@@ -1,0 +1,21 @@
+<include src="../../comm/comm.wxml"/>
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关优惠券'}}" wx:if="{{showStyle!=1&&couponList.length==0}}" />
+<view class="container" wx:else>
+	<block wx:for="{{couponList}}" wx:key="id">
+		<view class="coupon-item" catchtap='navCouponDetail' data-id="{{item.id}}">
+			<view class="coupon-des flexc">
+				<view>优惠券</view>
+				<view class="flexColumn">
+          <view class="fr30" wx:if="{{item.name}}">{{item.name}}</view>
+					<view class="fr24" wx:if="{{item.type == 1}}">满{{item.sale_to}}元可用</view>
+          <view class="fr24" wx:else>任意金额可使用</view>
+					<view class="fr24" style="opacity: 0.7">有效期至{{item.end_date}}</view> 
+				</view>
+			</view>
+			<view class="flexc flex1 {{item.cutdown.length>=4?'coupon-num-small':'coupon-num'}}"> <text>￥</text> {{item.cutdown}}</view>
+		</view>
+	</block>
+	<button class="bt-coupon fr30" hover-class="btn-active" catchtap="navBack">一键领取去消费</button>
+	
+</view>

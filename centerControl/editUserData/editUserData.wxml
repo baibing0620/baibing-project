@@ -1,0 +1,127 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<wxs module="formatTag">
+  function showTag(type) {
+    type = parseInt(type)
+    switch (type) {
+      case 1:
+        return '#59d14c'
+        break;
+      case 2:
+        return '#46d7c8'
+        break;
+      case 3:
+        return '#d1c94c'
+      case 4:
+        return '#5c7df8'
+      case 5:
+        return '#ff69ac'
+      default:
+        return '#ff9b1f'
+    }
+
+  }
+  module.exports = {
+    showTag: showTag
+  }
+</wxs>
+<view class="header flex">
+    <image class="user-avator" src='{{ShowImg.cropImgWH(customData.member.avatar,120,120)}}' mode="aspectFill" />
+    <view class="flexaColumn flex1" style="height: 120rpx">
+        <view class="fr36 c3 fw600">{{customData.member.nickname}}</view>
+        <view class="fr24" style="color: {{ themeColor }}">{{customData.event_type.tpl1}}</view>
+    </view>
+    <switchView wx:if="{{crmlimit}}" height="40" width="110" checked="{{customData.disabled}}" bgColor="#ff9b1f" unBgColor="#d9d9d9" bind:change="forbiddenChange" onText="解禁" offText="禁用" ></switchView>
+</view>
+<form bindsubmit="formSubmit">
+    <view class="order-form flex">
+        <view class="c9 fr24">客户姓名</view>
+        <input placeholder="请输入客户姓名" placeholder-class="input-placeholder" name="customerName" value="{{customData.name}}" />
+    </view>
+     <view class="order-form flex">
+        <view class="c9 fr24">客户生日</view>
+        <picker name="birthday" mode="date" bindchange="bindBirthdayChange" value="{{birthday}}" >
+           <view class="input-placeholder" wx:if="{{!birthday}}">
+                请选择客户生日
+            </view>
+            <view wx:else>
+                {{birthday}}
+            </view>
+        </picker>
+    </view>
+    <view class="order-form flex">
+        <view class="c9 fr24">公司名称</view>
+        <input placeholder="请输入公司名称" placeholder-class="input-placeholder" name="company" value="{{customData.company}}" />
+    </view>
+    <view class="order-form flex">
+        <view class="c9 fr24">手机号</view>
+        <input placeholder="请输入手机号" placeholder-class="input-placeholder" name="phone" value="{{customData.phone}}" style="margin-left: 60rpx" />
+    </view>
+    <view class="order-form flex">
+        <view class="c9 fr24">邮箱</view>
+        <input placeholder="请输入邮箱账户" placeholder-class="input-placeholder" name="email" style="margin-left: 80rpx" value="{{customData.email}}" />
+    </view>
+    <view class="order-form flex">
+        <view class="c3 fr24">年龄</view>
+        <picker class="fr28 c3" name="age" style="margin-left: 80rpx;flex:1" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+            <view class="picker flex">
+                <text class="input-placeholder flex1" wx:if="{{!index&&index!='0'}}">请选择客户年龄段</text>
+                <text class="flex1">{{array[index]}}</text>
+                <view class="iconfont icon-xiala fr26 c9"></view>
+            </view>
+        </picker>
+    </view>
+      <view class="order-form flex">
+        <view class="c3 fr24">性别</view>
+        <picker class="fr28 c3" name="gender" style="margin-left: 80rpx;flex:1" bindchange="bindSexChange" value="{{sexIndex}}" range="{{sexArray}}">
+            <view class="picker flex">
+                <text class="input-placeholder flex1" wx:if="{{!sexIndex&&sexIndex!='0'}}">请选择客户性别</text>
+                <text class="flex1">{{sexArray[sexIndex]}}</text>
+                <view class="iconfont icon-xiala fr26 c9"></view>
+            </view>
+        </picker>
+    </view>
+    <!-- <view class="order-form flex">
+        <view class="c3 fr24">城市</view>
+    <picker name="city" class="fr28 c3" style="margin-left: 80rpx;flex:1" mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+          <view class="picker flex fr26">
+           <text class="input-placeholder flex1" wx:if="{{region.length == 0}}">请选择客户所在城市</text>
+           <text class="flex1"> {{region}}</text>
+            <view class="iconfont icon-xiala fr26 c9"></view>
+          </view>
+        </picker>
+    </view> -->
+    <view class="bcf fr24 order-form flex">
+        <view class="c3">备注</view>
+        <textarea class='font-normal' value='{{customData.remark}}' placeholder-style="font-weight:300;color: #b3b3b3;font-size: 28rpx;" placeholder="请输入备注" style='height:36rpx' maxlength="-1" name="remark" />
+    </view>
+    <!-- <view class="bcf fr24 order-form flex">
+        <view class="c3">禁用</view>
+        <switch style='margin-left:80rpx' color='#ff9b1f' checked="{{customData.forbidden}}" bindchange="forbiddenChange" />
+    </view> -->
+<view class="user-tag">
+    <view class="fw600 fr28 c4d">客户标签</view>
+    <view class="my-tag flex" bindtap='navTag'>
+        <!-- <view class="text-box fr24" wx:for="{{tag}}" wx:key="{{index}}" data-index='{{index}}' style="position: relative;">
+            <text style="color: {{themeColor}}">{{item}}</text>
+            <view class="text-box-bc" style="background: {{themeColor}}"> </view> -->
+            <!-- <view style="color: {{themeColor}}" wx:if="{{pressIndex}}" class="user-tag-del iconfont icon-shanchu" data-tag="{{item}}"  catchtap="deleteTag"></view> -->
+        <!-- </view> -->
+        <!-- <input value="{{addTag}}" class="tag-input" bindblur='addTag' placeholder-class="tag-placeholder" placeholder="+ 添加标签" /> -->
+    <!-- </view> -->
+     <!-- <view class='info' style='padding-top: 0'>已添加标签可点击删除</view> -->
+ <view wx:for='{{customData.tags}}' wx:key='index' class='fr24 tag' style="background:{{formatTag.showTag(item.type)}}">
+          {{ item.name }}
+        </view>
+        <view  wx:if='{{ customData.tags.length == 0 }}' class='tag-placeholder fr28 flex1'>+ 添加标签</view>
+ 
+    </view>
+</view>
+<button class="save-btn" style="background-color: {{themeColor}}" formType="submit">
+    保存
+</button>
+</form>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

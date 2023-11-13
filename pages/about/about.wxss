@@ -1,0 +1,54 @@
+@import "../../template/index/index.wxss";
+.model-notice{
+  top: 0;
+  border-radius: 0;
+  position: fixed;
+  z-index: 200;
+  width: 100%;
+  height:100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background:rgba(0,0,0,0.3);
+}
+.notice-img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.back-shop{
+  position: fixed;
+  bottom: 150rpx;
+  left: 30rpx;
+  z-index: 100;
+}
+.suspension-box{
+  position: fixed;
+  right: 20rpx;
+  bottom: 120rpx;
+}
+
+.qrcode {
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 50%;
+  line-height: 100%;
+  background-color: rgba(255,255,255,0.9);
+  border: 1rpx solid #dbdbdb;
+}
+
+.qrcode>view {
+  margin-top: 10rpx;
+  line-height: 100%;
+}
+
+.about-bless{
+  position: fixed;
+  right: 14rpx;
+  bottom: 220rpx;
+  z-index: 200;
+}
+
+.suspension-menu, .suspension-menu view {
+  overflow: visible;
+}

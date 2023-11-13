@@ -1,0 +1,5 @@
+/* pages/chooseCoupon/chooseCoupon.wxss */
+@import '../myCoupon/myCoupon.wxss';
+.c3a{
+    color:#3a211a;
+}

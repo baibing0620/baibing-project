@@ -1,0 +1,94 @@
+
+/* 福袋 */
+@import '/comm/base.wxss';
+@import '/iconfont/iconfont.wxss';
+.modal-box-diy {
+  top:0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background:rgba(0,0,0,0.3);
+}
+.blessing-bag{
+  width: 600rpx;
+  height: 837rpx;
+  background: url("https://facing-1256908372.file.myqcloud.com//image/20180919/966d3ba54bf66c2c.png");
+  background-size: cover;
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.cbless{
+  color: #f9ff63;
+}
+.blessing-bag-title{
+  margin:60rpx 0 26rpx;
+  width:440rpx;
+  text-align: center;
+}
+.explore{
+  margin-top: 130rpx;
+  height: 340rpx;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+}
+.explore>view:not(:first-of-type){
+  margin-top: 30rpx;
+}
+.explore>view>view:first-of-type{
+  
+}
+.border-check{
+  margin-right: 22rpx;
+  font-size: 24rpx;
+  color: #f9ff63;
+}
+.explore-check{
+  width:10rpx;
+  height:10rpx;
+  border-radius:50%;
+  margin-right:30rpx !important;
+  background:#f9ff63;
+}
+.belss-bag-btn{
+  width: 316rpx;
+  height: 90rpx;
+  background: url(https://facing-1256908372.file.myqcloud.com//image/20180918/e00132fb93f24c3f.png);
+  background-size: cover;
+  font-size: 37rpx;
+  line-height: 80rpx;
+  color: #f50200;
+  text-align: center;
+  margin-top: 30rpx;
+}
+.fr80{
+  font-size: 80rpx;
+  line-height: 70rpx;
+}
+.fr55{
+  font-size: 55rpx;
+}
+.fr21{
+  font-size: 21rpx;
+}
+.ellipsis-bless {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.blessing-bag .fr26,.fr24,.fr28,.fr30.fr34{
+  line-height:100%;
+}
+.ccheck{
+  color: #f9ff63;
+}

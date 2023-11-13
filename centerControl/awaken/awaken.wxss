@@ -1,0 +1,36 @@
+page {
+    background: #f7f7f7;
+}
+
+.container {
+    height: 360rpx;
+    background-color: #fff;
+}
+
+.container>view {
+    height: 120rpx;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+}
+
+.container>view{
+    border-bottom: 1rpx solid #e6e6e6;
+}
+
+.c-open {
+    color: #3bcaff;
+}
+
+.container>view>view:first-child>text {
+    margin-right: 18rpx;
+}
+
+.container>view>view:last-child>text {
+    margin-left: 10rpx;
+}
+
+.tip {
+    padding: 40rpx 30rpx 0;
+    box-sizing: border-box;
+    line-height: 56rpx;
+}

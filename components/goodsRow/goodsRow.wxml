@@ -1,0 +1,39 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module = 'price'>
+  var change = function(money){
+  var _money = money.split(".")[0]
+  var price = money
+  if(_money.length>3){
+    price = parseFloat(_money).toLocaleString()+'.'+money.split(".")[1]
+  }
+    return price
+  }
+
+  module.exports = {
+  change: change,
+};
+</wxs>
+<view class="w100">
+    <block wx:for="{{goodsList}}" wx:key="id" >
+        <view class="goods-item w100 flex" catchtap='toGoodsDetail' data-goods-id="{{item.id}}">
+            <image src="{{ShowImg.cropImgWH(item.thumb,250,250)}}" class="goods-img" />
+            <view class="des-item flex1 flexbColumn w100">
+                <view class="goods-title fr30 c3 ellipsis2">{{item.title}}</view>
+                <view class="flex">
+                    <view class="fr24 c9">销量{{item.sales}}</view>
+                    <view class="before-price fr26 c9" hidden="{{item.marketprice==0}}">￥{{price.change(item.marketprice)}}</view>
+                </view>
+                <view class="c-main fr28">￥{{price.change(item.productprice)}}</view>
+            </view>
+            <view class="cover-flag" wx:if="{{item.istime==1}}">
+                秒杀
+            </view>
+            <view class="cover-flag" wx:if="{{item.is_bargain==1}}">
+                砍价
+            </view>
+            <view class="cover-flag" wx:if="{{item.is_groupbuy!=0}}">
+                拼团
+            </view>
+        </view>
+    </block>
+</view>

@@ -1,0 +1,157 @@
+page {
+  background-color: #f0f0f0;
+}
+.container{
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 120rpx;
+}
+.tab-bar-box{
+  height: 100rpx;
+  background: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 4rpx;
+}
+.active-tab>text{
+  font-size: 30rpx;
+  line-height: 30rpx;
+  color: #333333;
+  padding: 10rpx;
+  border-bottom: 4rpx solid red;
+}
+.choose-address {
+  background:white;
+  padding:20rpx 10rpx;
+  color: #999999;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #f8f8f8;
+}
+.address-info{
+  height: 184rpx;
+  background-color: #fff;
+  padding: 0 30rpx;
+}
+.border-line{
+  height: 6px;
+  width: 100%;
+  background-image: url(https://facing-1256908372.file.myqcloud.com//image/20180315/5116e6df761d6cad.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.table{
+  width: 100%;
+  background:white;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  padding:30rpx;
+  box-sizing: border-box;
+
+}
+.table-num{
+  padding-right:10rpx;
+}
+.table input{
+  height: 80rpx;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  font-size: 32rpx;
+  line-height: 40rpx;
+  align-items: center;
+  background:#ececec;
+  padding:0 20rpx;
+  color: #333333;
+}
+.img-scan-box{
+  display:flex;
+  color: white;
+  /*justify-content: center;*/
+  align-items: center; 
+  padding:0 30rpx;
+  height: 80rpx;
+}
+.icon-saoma{
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.goods-list {
+  background-color: white;
+  margin: 10rpx 0;
+}
+.total-money{
+  text-align: right;
+  padding: 30rpx;
+  font-size: 16px;
+  border-bottom: 1rpx solid #f8f8f8;
+  align-self: flex-end;
+}
+.discount-des{
+  text-align: left;
+  flex: 1;
+}
+.goods-info{
+  width: 690rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  margin: 0 auto;
+}
+.goods-img{
+  width: 110rpx;
+  height: 110rpx;
+  margin-right: 30rpx;
+}
+.goods-item{
+  margin: 0 30rpx;
+  border-bottom:1rpx solid #f8f8f8;
+  height: 110rpx;
+}
+.textarea-box {
+  width: 100%;
+  box-sizing: border-box;
+  background: white;
+}
+.beizhu-input{
+  width: 100%;
+  box-sizing: border-box;
+  height: 200rpx;
+  padding:20rpx;
+  font-size: 28rpx;
+}
+.bt-area{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+button::after {
+  border:none;
+}
+.bt-area button {
+  z-index: 100;
+	color: white;
+	font-size: 34rpx;
+	height: 90rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 0;
+  margin: 0 30rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+.radio{
+  margin:20rpx 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

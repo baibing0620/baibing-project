@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "component-poster": "/components/poster/poster"
+    }
+}

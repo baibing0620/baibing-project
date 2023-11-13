@@ -1,0 +1,147 @@
+<!--pages/poolDetail/poolDetail.wxml-->
+<wxs module="formatTag">
+    function showTag(type) {
+        type = parseInt(type)
+        switch (type) {
+            case 1:
+                return '#59d14c'
+                break;
+            case 2:
+                return '#46d7c8'
+                break;
+            case 3:
+                return '#d1c94c'
+                break;
+            case 4:
+                return '#5c7df8'
+                break;
+            case 5:
+                return '#ff69ac'
+                break;
+            case 6:
+                return '#6b48ff'
+                break;
+            case 7:
+                return '#e59572'
+                break;
+            default:
+                return '#ff9b1f'
+                break;
+        }
+
+    }
+    module.exports = {
+        showTag: showTag
+    }
+</wxs>
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src='../../template/initShow/initShow.wxml' />
+<view class="poolDetail">
+  <view class="simple_introduce">
+    <!-- <view style="margin: 0 20rpx 0 0;">
+      <image src="" style="width: 100rpx; height: 100rpx; background: skyblue; border-radius: 50rpx;"></image>
+    </view> -->
+    <view>
+      <view>
+        <text class="fw600 fr36">{{detail.name}}</text>
+        <!-- <text class="tac cf bcy fr26" style="border-radius: 20rpx; padding: 5rpx 10rpx; margin: 0 0 0 20rpx;">已跟进</text> -->
+      </view>
+      <!-- <view class="B0 fr28">地址：{{detail_msg.wx}}</view> -->
+      <view class="B0 fr28">最近跟进时间：{{detail.c_time}}<text class="iconfont icon-lianxi bcy cf tac go_tpl" bindtap="makePhoneCall" wx:if="{{type==1}}">呼叫</text></view>
+      <view wx:if="{{type==1}}">
+        <text class="fr26 cf" style="border-radius: 30rpx; padding: 5rpx 10rpx; margin: 0 20rpx 0 0; display: inline-block; background:{{item.color}};" wx:for="{{label}}" wx:key="index">{{item.name}}</text>
+        <text class="cbd fr26" style="border: 1rpx solid #f2f2f2;line-height: 30rpx;width: 30rpx;height: 30rpx;display: inline-block;text-align: center;" catchtap="goToLabel">+</text>
+      </view>
+    </view>
+  </view>
+  <view style="display: flex; justify-content: space-around; border-bottom: 1rpx solid #f2f2f2; padding-bottom: 20rpx;">
+    <block wx:for="{{contentList}}" wx:key="index">
+      <view class="category-item {{actvieIndex==index?'cmain':''}}" data-index="{{index}}" bindtap="activeTap" style="color:{{actvieIndex==index?cmain:''}}">
+        <view class="fw600 fr34 showTop">{{item.name}}</view>
+        <view wx:if="{{ actvieIndex==index }}" class="fr32 {{ actvieIndex==index?'shows':'hides' }}"></view>
+      </view>
+    </block>
+  </view>
+  <view class="detail">
+    <view wx:if="{{actvieIndex==0}}" class="p20">
+      <view wx:for="{{customerRecord}}" wx:key="index" class="detail_detail" style="{{index==len?'margin-bottom: 130rpx;':''}}">
+        <view class="record_time fr30">
+          <view style="width: 180rpx;">{{item.c_time}}</view>
+          <view class="record_time_line {{index!=len?'bgf2':''}}"></view>
+        </view>
+        <view class="record_msg">
+          <view wx:if="{{item.type==0}}" class="fr34 fw600">普通跟进</view>
+          <view wx:if="{{item.type==1}}" class="fr34 fw600">新建客户</view>
+          <view wx:if="{{item.type==2}}" class="fr34 fw600">退回</view>
+          <view wx:if="{{item.type==3}}" class="fr34 fw600">转交</view>
+          <view class="fr30 B0 record_msg_msg">{{item.msg}}</view>
+          <view class="fr30 B0">操作人：{{item.c_name||''}}</view>
+        </view>
+      </view>
+      <template is="moreData" data="{{loadStyle:loadStyle}}" />
+    </view>
+    <view wx:if="{{actvieIndex==1}}" class="detail_msg">
+      <view class="p20"><text class="B0 fr34">客户姓名</text><text class="c0 fr34">{{detail_msg.name}}</text></view>
+      <view class="p20"><text class="B0 fr34">联系电话</text><text class="c0 fr34">{{detail_msg.tel}}</text></view>
+      <view class="p20"><text class="B0 fr34">客户来源</text><text class="c0 fr34">{{detail_msg.c_from}}</text></view>
+      <view class="p20"><text class="B0 fr34">客户等级</text><text class="c0 fr34">{{detail_msg.lv}}</text></view>
+      <view style="height: 10rpx; width: 100%;" class="bgf2"></view>
+      <view class="p20"><text class="B0 fr34">公司名称</text><text class="c0 fr34">{{detail_msg.c_name}}</text></view>
+      <view class="p20">
+        <view>
+          <text class="B0 fr34">微信号</text>
+          <text wx:if="{{detail_msg.wx}}" class="fr24 cbd" style="margin-left: 20rpx; border-radius: 10rpx; border: 1rpx solid skyblue; padding: 2rpx 10rpx;" bindtap="copyText">复制</text>
+        </view>
+        <text class="c0 fr34">{{detail_msg.wx}}</text>
+      </view>
+      <view class="p20"><text class="B0 fr34">年龄</text><text class="c0 fr34">{{detail_msg.age}}</text></view>
+      <view class="p20"><text class="B0 fr34">性别</text><text class="c0 fr34">{{detail_msg.sex}}</text></view>
+      <view class="p20"><text class="B0 fr34">职业</text><text class="c0 fr34">{{detail_msg.job}}</text></view>
+    </view>
+    <view wx:if="{{type==0}}" class="bc-main cf fr38 tac allClaim" bindtap="allClaims">认领客户</view>
+    <view wx:if="{{type==1}}" class="allClaim1">
+      <view style="display: flex;flex-direction: column; width: 25%;" wx:for="{{footerBtn}}" wx:key="index" data-index="{{index}}" data-type="{{item.type}}" bindtap="active">
+        <view style="width: 100%;text-align: center;">
+          <image style="width: 50rpx; height: 50rpx;" src="{{item.url}}"></image>
+        </view>
+        <text class="c6 fr30">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 添加跟进 -->
+  <form bindsubmit='addCrmUserFollowList'>
+    <view wx:if="{{addUpInput}}" class="addUp input-view {{ addUpInput ? '' : 'input-view-hide' }}">
+      <view class="addUpInput">
+        <view class="close" bindtap="close">
+          <text class="iconfont icon-x" style="width:25px;height:25px;font-size:21px; color:#ccc;"></text>
+        </view>
+        <view class="title c6">添加跟进</view>
+        <view class="input_textarea">
+          <textarea name='content' class='c3 fr26' maxlength="-1" value='{{ content }}' placeholder-class='cc' bindinput="contentInput" placeholder='请输入跟进信息...'></textarea>
+        </view>
+        <button class='input-view-btn cf fr26' style='background-color: {{ contentLength > 0 ? "#ff9300" : "#ccc" }}' form-type='submit'>
+          保存
+        </button>
+      </view>
+    </view>
+  </form>
+  <!-- 退回客户 -->
+  <form bindsubmit='backCrmUser'>
+    <view wx:if="{{backPool}}" class="backPool" catchtap="{{!backPool}}">
+      <view>
+        <view class="fr40 fw600 tac">退回</view>
+        <view class="fr30 B0 tac" style="padding: 20rpx 0;">退回客户将回到客户公海</view>
+        <view class="input_textarea">
+          <textarea name='content' class='c3 fr26' maxlength="-1" value='{{ content }}' placeholder-class='cc' bindinput="contentInput" placeholder='请输入跟进信息...'></textarea>
+        </view>
+        <view class="save_close">
+          <text class="fr34 cmain tac" catchtap="save">保存</text>
+          <text class="fr34 B0 tac" catchtap="close">取消</text>
+        </view>
+      </view>
+    </view>
+  </form>
+</view>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

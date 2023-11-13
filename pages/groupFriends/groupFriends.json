@@ -1,0 +1,11 @@
+{
+    "enablePullDownRefresh": true,
+    "navigationBarTitleText": "好友参团",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "frame-ms": "/components/frame-ms/frame-ms",
+        "share": "/components/share/share",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+} 

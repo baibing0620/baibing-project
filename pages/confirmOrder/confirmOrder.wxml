@@ -1,0 +1,338 @@
+<wxs module="util">
+    var formatDistance = function(distance) {
+        if (distance < 1000) {
+            return distance + 'm'
+        } else {
+            return (distance / 1000).toFixed(2) + 'km'
+        }
+    }
+
+    module.exports = {
+        formatDistance: formatDistance
+    }
+</wxs>
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="showImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关交易信息'}}" wx:if="{{showStyle!=1}}" />
+<view class="container" wx:else>
+    <form report-submit="true" catchsubmit="buyNow">
+        <view class="tab-bar-box" wx:if="{{isVirtualGoods!=1 && tabBarList.length === 2}}">
+            <view class="{{item.type==deliveryType?'active-tab':''}}" wx:for="{{tabBarList}}" wx:key="type" data-type="{{item.type}}" catchtap="changeDeliveryType">
+                {{item.name}}
+            </view>
+        </view>
+
+        <!-- 选择自提点 -->
+        <block wx:if="{{isVirtualGoods!=1}}">
+            <view wx:if="{{deliveryType==4}}" class="pick-place-box">
+                <view class="pick-place">
+                    <view class="fr50 iconfont icon-dizhi21" style="margin-right:30rpx; color: #FE3636;"></view>
+                    <view class="select-box">
+                        <view catchtap="openMask">
+                            <text>{{ shopSelfLift.store_name || '选择自提点: ' }}</text>
+                            <text class="iconfont icon-you c9"></text>
+                        </view>
+                        <view>
+                            <text>{{shopSelfLift.fullAddress || '请选择自提点'}}</text>
+                            <text wx:if="{{shopSelfLift.distance>=0}}" class="address-distance">据您{{ util.formatDistance(shopSelfLift.distance) }}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="name">
+                    <text>姓名: </text>
+                    <input class="input" type="text" placeholder="请填写取货人姓名" name="realname" value="{{userInfo?userInfo.realname:''}}" />
+                </view>
+                <view class="mobile">
+                    <text>手机: </text>
+                    <input class="input" type="number" placeholder="请填写取货人手机号" name="mobile" value="{{userInfo?userInfo.mobile:''}}" />
+                </view>
+            </view>
+            <block wx:else>
+            <!--  -->
+                <view class="userInfo-box w100 flexc" catchtap="chooseAddress" wx:if="{{!userInfo}}">
+                    <view class="no-userInfo flexc flex1 c3 fr32">
+                        <text class="tac" style="line-height:80rpx;">
+                          <text style="padding-right: 10rpx;" class="fr40">
+                            <text class="fr35 iconfont icon-jia c-orange"></text>
+                          </text>
+                          添加收货地址
+                        </text>
+                    </view>
+                </view>
+                <view class="userInfo-box flex c6" catchtap="chooseAddress" wx:else>
+                    <view class="fr50 iconfont icon-dizhi" style="margin-right:30rpx"></view>
+                    <view class="flexaColumn fr24 flex1">
+                        <view class="flexb">
+                            <view class="ellipsis1" style="width:400rpx">收货人：{{userInfo.realname}}</view>
+                            <view>{{userInfo.mobile}}</view>
+                        </view>
+                        <view class="flexb" style="margin-top: 16rpx;line-height: 40rpx">
+                            <view class="ellipsis2 flex1">收货地址：{{userInfo.fulladdress}}</view>
+                            <view class="iconfont icon-you asfs"></view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <view class="border-line" style="margin: -5rpx 0 20rpx 0;"></view>
+
+        <!-- 商品列表 -->
+        <!-- 平台商品 -->
+        <block wx:if="{{platformGoodsItems.length != 0}}">
+            <view class="goods-list-group">
+                <view class="mailWay" wx:if="{{personalGoodsItems.length}}">以下商品由总部发货</view>
+                <view wx:for="{{platformGoodsItems}}" wx:key="index" class="goods-item">
+                    <image src="{{showImg.cropImgWH(item.thumb_url,180,180)}}"></image>
+                    <view class="goods-item-info">
+                        <view class="goods-item-title">
+                            <text>{{item.title}}</text>
+                            <text wx:if="{{item.optionname}}" class="goods-item-standard">规格：{{item.optionname}} </text>
+                        </view>
+                        <view class="goods-item-price">
+                            <text>￥{{item.productprice}}</text>
+                            <text>x{{item.total}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 买家留言 -->
+            <view class="other-group" wx:if="{{ platformGoodsItems.length != 0 }}">
+                <view class="item-box">
+                    <text class="c3">买家留言</text>
+                    <input class="input" type="text" placeholder-class="input-placeholder" placeholder="请输入留言信息" bindblur="afterInput" bindconfirm="afterInput" />
+                </view>
+
+                <block wx:if="{{ options.isPoints != 1 }}">
+                    <view class="item-box" wx:if="{{deliveryType==3}}">
+                        <text class="c3">配送方式</text>
+                        <view class="flex">
+                            <picker value="{{pickerIndex}}" range="{{express}}" range-key="show" bindchange="pickExpress">
+                                {{express[pickerIndex].name}} ￥{{express[pickerIndex].price}}
+                            </picker>
+                            <text class="iconfont icon-you c9 fr32"></text>
+                        </view>
+                    </view>
+                    <view class="item-box" catchtap="toCoupon" wx:if="{{options.isGrounp ==0 ||options.isBargain!=1}}">
+                        <text class="c3">优惠券</text>
+                        <view class="c3 fr30">
+                            {{ coupon.des }}
+                            <text class="iconfont icon-you c9"></text>
+                        </view>
+                    </view>
+                    <view class="item-box" wx:if="{{vipInfo.open_vip == 1&&options.isGrounp == 0}}">
+                        <text class="c3">会员折扣: </text>
+                        <view class="c3 fr30">
+                            {{vipInfo.discount==10?'无折扣':vipInfo.discount+'折'}}
+                        </view>
+                    </view>
+                </block>
+             
+                <view class="price-info c9 fr30">
+                    共{{ platformGoodsTotal }}件商品
+                    <text wx:if="{{options.isGrounp!=0}}">拼团合计：</text>
+                    <text wx:elif="{{options.isBargain==1}}">砍价后：</text>
+                    <text wx:else>合计：</text><text wx:if="{{options.isPoints==1}}"><text class="c3 fr34">{{credit}}积分</text><text class="c3 fr34" wx:if="{{credit_price!=0}}">+{{credit_price}}元</text></text><text class="c3 fr34" wx:elif="{{options.isGrounp!=0}}">￥{{Format.float2(groupGoodstotalmoney)}}</text>
+                    <text class="c3 fr34" wx:elif="{{options.isBargain==1}}">￥{{Format.float2(platformGoodsItems[0].now_price)}}</text>
+                    <text class="c3 fr34" wx:else>￥{{Format.float2( (platformTotalMoney*1 - reduceCouponMoney*1) < 0 ? '0.01' : (platformTotalMoney*1 - reduceCouponMoney*1) )}}</text>
+                </view>
+            </view>
+
+        </block>
+
+        <!-- 以下代码重复(个人商品) -->
+        <block wx:if="{{personalGoodsItems.length != 0}}">
+            <view class="goods-list-group">
+                <view class="mailWay" wx:if="{{platformGoodsItems.length}}">以下商品由总部发货</view>
+                <view wx:for="{{personalGoodsItems}}" wx:key="index" class="goods-item">
+                    <image src="{{showImg.cropImgWH(item.thumb_url,180,180)}}"></image>
+                    <view class="goods-item-info">
+                        <view class="goods-item-title">
+                            <text>{{item.title}}</text>
+                            <text wx:if="{{item.optionname}}" class="goods-item-standard">规格：{{item.optionname}} </text>
+                        </view>
+                        <view class="goods-item-price">
+                            <text>￥{{item.productprice}}</text>
+                            <text>x{{item.total}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+
+            <view class="other-group" wx:if="{{ personalGoodsItems.length != 0  }}">
+                <view class="item-box">
+                    <text class="c3">买家留言</text>
+                    <input class="input" type="text" placeholder-class="input-placeholder" placeholder="请输入留言信息" bindblur="afterInput2" bindconfirm="afterInput2" />
+                </view>
+
+                <block wx:if="{{ options.isPoints != 1 }}">
+                    <view class="item-box" wx:if="{{deliveryType==3}}">
+                        <text class="c3">配送方式</text>
+                        <view class="flex">
+                            <picker value="{{pickerIndex2}}" range="{{expressSelected}}" range-key="show" bindchange="pickExpressSelected">
+                                {{expressSelected[pickerIndex2].name}} ￥{{expressSelected[pickerIndex2].price}}
+                            </picker>
+                            <text class="iconfont icon-you c9 fr32"></text>
+                        </view>
+                    </view>
+                    <view class="item-box" catchtap="toCoupon" hidden="{{options.isGrounp!=0||options.isBargain==1}}">
+                        <text class="c3">优惠券</text>
+                        <view class="c3 fr30">
+                            <text class="price-item-right">{{coupon.des}}</text>
+                            <text class="iconfont icon-you c9 fr32"></text>
+                        </view>
+                    </view>
+                    <view class="item-box" wx:if="{{vipInfo.open_vip == 1&&options.isGrounp == 0}}">
+                        <text class="c3">会员折扣: </text>
+                        <view class="flex">
+                            <text class="price-item-right">
+                                {{vipInfo.discount==10?'无折扣':vipInfo.discount+'折'}}
+                            </text>
+                        </view>
+                    </view>
+                </block>
+
+                <view class="price-info c9 fr30 w100">
+                    共
+                    <text style="margin-right:40rpx">{{personalGoodsTotal}}件商品</text>
+                    <text wx:if="{{options.isGrounp!=0}}">拼团合计：</text>
+                    <text wx:elif="{{options.isBargain==1}}">砍价后：</text>
+                    <text wx:else>合计：</text><text wx:if="{{options.isPoints==1}}"><text class="c-orange">{{credit}}积分</text><text class="c-orange" wx:if="{{credit_price!=0}}">+{{credit_price}}元</text></text><text class="c-orange" wx:elif="{{options.isGrounp!=0}}">￥{{Format.float2(groupGoodstotalmoney)}}</text><text class="c-orange" wx:elif="{{options.isBargain==1}}">￥{{Format.float2(personalGoodsItems[0].now_price)}}</text>
+                    <text class="c-orange" wx:else>￥{{Format.float2( (personalTotalMoney*1 - reduceCouponMoney*1) < 0 ? '0.01' : (personalTotalMoney*1 - reduceCouponMoney*1) )}}</text>
+                </view>
+            </view>
+
+        </block>
+
+        <view class="form-box w100" wx:if="{{formData.length>0}}">
+            <template wx:for="{{formData}}" is="{{item.formType}}" wx:key="id" data="{{itemData:item}}"></template>
+        </view>
+        
+        <view class="confirm-pay flexe w100 fr34" wx:if="{{options.isPoints==1}}">
+            <button class="credit-pay bc-main" formType="submit" wx:if="{{credit_price==0}}">立即兑换</button>
+            <button class="credit-pay bc-main" formType="submit" wx:else>立即换购</button>
+        </view>
+        <view class="confirm-pay w100 fr34" wx:elif="{{vipInfo.open_vip==1&&vipInfo.discount!=10&&options.isGrounp == 0}}">
+            <view class="c3 fr28" wx:if="{{options.isBargain==1}}">
+                折后： ￥
+                <text class="price">{{Format.totalMoney(goodsItems[0].now_price,deliveryType==4?0:(goodsItems.selected_products_type == 1 ? express[pickerIndex].price : expressSelected[pickerIndex2].price),coupon.num,10)}}</text>
+            </view>
+            <view class="c3 fr28" wx:else>
+                折后： ￥
+                <text class="price">{{Format.totalMoney(goodstotalmoney,deliveryType==4?0:(goodsItems.selected_products_type == 1 ? express[pickerIndex].price : expressSelected[pickerIndex2].price),coupon.num,vipInfo.discount)}}</text>
+            </view>
+            <button class="nowPay bc-main" formType="submit">立即支付</button>
+        </view>
+        <view class="confirm-pay w100  fr34" wx:else>
+            <view class="c3 fr28" wx:if="{{options.isGrounp!=0}}">
+                合计：
+                <text class="price">￥{{Format.totalMoney(groupGoodstotalmoney,deliveryType==4?0:(goodsItems.selected_products_type == 1 ? express[pickerIndex].price : expressSelected[pickerIndex2].price),0,10)}}</text>
+            </view>
+            <view class="c3 fr28" wx:elif="{{options.isBargain==1}}">
+                合计：
+                <text class="price">￥{{Format.totalMoney(goodsItems[0].now_price,deliveryType==4?0:(goodsItems.selected_products_type == 1 ? express[pickerIndex].price : expressSelected[pickerIndex2].price),coupon.num,10)}}</text>
+            </view>
+            <view class="c3 fr28" wx:else>
+                合计：
+                <text class="price">￥{{Format.totalMoney(totalMoney - reduceCouponMoney,deliveryType==4?0:0, 0 ,10)}}</text>
+            </view>
+            <button class="nowPay bc-main" formType="submit">立即支付</button>
+        </view>
+    </form>
+
+
+    <!-- 自提地点弹窗 -->
+    <view wx:if="{{showMask}}" class="mask">
+        <view class="mask-box" catchtap="openMask"></view>
+        <view class="wrapper">
+            <view class="title">选择自提地址</view>
+            <view class="address-list">
+                <view wx:for="{{ storeList }}" wx:key="id" class="address-item" data-id="{{item.id}}" catchtap="selectStore">
+                    <radio color="#FE3636" checked="{{item.value}}" class="radio" />
+                    <view class="address-item-info">
+                        <view>
+                            <text class="c3 blod fr34">{{ item.store_name }}</text>
+                            <text class="c9 fr26">
+              <text class="iconfont icon-dizhi3" style="font-size: 24rpx;"></text> 据您{{ util.formatDistance(item.distance) }}
+                            </text>
+                        </view>
+                        <view class="c6 fr28">{{ item.fullAddress }}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="btn-box">
+                <button class="btn c3 fr30" catchtap="confirmStore">确定</button>
+            </view>
+        </view>
+
+    </view>
+
+</view>
+<!-- 表单模板 -->
+<template name="text">
+    <view class="form-item">
+        <text class="item-title-input">{{itemData.title}}</text>
+        <input placeholder="{{itemData.tipText}}" value="{{itemData.value}}" data-id="{{itemData.id}}" bindinput="inputChange" placeholder-class="fr24 c9" />
+    </view>
+</template>
+<template name="textarea">
+    <view class="form-item ">
+        <text class="item-title-input">{{itemData.title}}</text>
+        <textarea placeholder="{{itemData.tipText}}" maxlength="-1" value="{{itemData.value}}" data-id="{{itemData.id}}" bindinput="inputChange" placeholder-class="fr24 c9" />
+    </view>
+</template>
+<template name="region">
+    <view class="form-item">
+        <text class="item-title-input">{{itemData.title}}</text>
+        <picker mode="region" bindchange="regionChange" data-id="{{itemData.id}}">
+            <view class="{{itemData.value?'':'c9 fr24'}}">
+                {{itemData.value?itemData.value:itemData.tipText}}
+            </view>
+        </picker>
+        <text class="iconfont icon-xiala c9" style="font-size: 26rpx;padding-right: 20rpx;"></text>
+    </view>
+</template>
+<template name="date">
+    <view class="form-item">
+        <text class="item-title-input">{{itemData.title}}</text>
+        <picker bindchange="dateChange" mode='date' data-id="{{itemData.id}}">
+            <view class="{{itemData.value?'':'c9 fr24'}}">
+                {{itemData.value?itemData.value:itemData.tipText}}
+            </view>
+        </picker>
+        <text class="iconfont icon-xiala c9" style="font-size: 26rpx;padding-right: 20rpx;"></text>
+    </view>
+</template>
+<template name="radio">
+    <view class="form-item" name="radio" wx:if="{{itemData.controlStyle!='dropDown'}}">
+        <text class="item-title-input">{{itemData.title}}</text>
+        <radio-group bindchange="radioChange" data-id="{{itemData.id}}">
+            <label class="radio" wx:for="{{itemData.options}}">
+                <radio value="{{item.name}}" /> {{item.name}}
+            </label>
+        </radio-group>
+    </view>
+    <view class="form-item" wx:else>
+        <text class="item-title-input">{{itemData.title}}</text>
+        <picker bindchange="regionRadioChange" range="{{itemData.options}}" data-id="{{itemData.id}}" range-key="name">
+            <view class="{{itemData.value?'':'c9 fr24'}}">
+                {{itemData.value?itemData.value:itemData.tipText}}
+            </view>
+        </picker>
+        <text class="iconfont icon-xiala c9" style="font-size: 26rpx;padding-right: 20rpx;"></text>
+    </view>
+</template>
+<template name="checkbox">
+    <view class="form-item">
+        <text class="item-title-input">{{itemData.title}}</text>
+        <checkbox-group bindchange="checkboxChange" data-id="{{itemData.id}}">
+            <label class="radio" wx:for="{{itemData.options}}">
+                <checkbox value="{{item.name}}" checked="{{item.checked}}" /> {{item.name}}
+            </label>
+        </checkbox-group>
+    </view>
+</template>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

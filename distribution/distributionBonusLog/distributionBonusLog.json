@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "业务提成记录",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-image": "/components/image/image"
+    }
+}

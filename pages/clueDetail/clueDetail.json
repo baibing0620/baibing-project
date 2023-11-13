@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "线索详情",
+  "usingComponents": {
+    "component-switchTab": "./../../components/switchTab/switchTab",
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  },
+  "enablePullDownRefresh": true
+}

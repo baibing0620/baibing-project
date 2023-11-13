@@ -1,0 +1,141 @@
+var showBcImg = function(url, w, h) {
+    if (url == '') {
+        return ''
+    }
+    var _url = cropImgWH(url, w, h);
+    return 'background-image:url(' + _url + ')';
+};
+var cropImgW = function(url, width) {
+    if (!url) return '';
+    width = parseFloat(width.toFixed(2));
+    var cropUrl = url + '?imageView2/2/w/' + width;
+    return cropUrl;
+};
+var cropImgWH = function(url, width, height) {
+    if (!url) return '';
+    height = parseFloat(height.toFixed(2));
+    width = parseFloat(width.toFixed(2));
+    var cropUrl = url + '?imageView2/1/w/' + width + '/h/' + height;
+    return cropUrl;
+};
+var cropGoodsPic = function(url, layout) {
+    if (!layout) {
+        return url
+    }
+    var layoutWH = {
+        '1': {
+            w: 700,
+            h: 700,
+        },
+        '2': {
+            w: 360,
+            h: 360,
+        },
+        '3': {
+            w: 710,
+            h: 332,
+        },
+        '4': {
+            w: 280,
+            h: 280,
+        }
+    }
+    if (!url) return '';
+    layout = layout.toString();
+    var height = parseFloat(layoutWH[layout].h.toFixed(2));
+    var width = parseFloat(layoutWH[layout].w.toFixed(2));
+    var cropUrl = url + '?imageView2/1/w/' + width + '/h/' + height;
+    return cropUrl;
+
+}
+var cropPic = function(url, layout) {
+    if (!layout) {
+        return url
+    }
+    var layoutWH = {
+        '1': {
+            w: 750,
+            h: 750,
+        },
+        '2': {
+            w: 750,
+            h: 375,
+        },
+        '3': {
+            w: 375,
+            h: 750,
+        },
+        '4': {
+            w: 750,
+            h: 188,
+        },
+        '5': {
+            w: 375,
+            h: 375,
+        },
+        '6': {
+            w: 375,
+            h: 188,
+        },
+        '7': {
+            w: 188,
+            h: 375,
+        },
+        '8': {
+            w: 188,
+            h: 188,
+        },
+
+
+    }
+    if (!url) return '';
+    layout = layout.toString();
+    var height = parseFloat(layoutWH[layout].h.toFixed(2));
+    var width = parseFloat(layoutWH[layout].w.toFixed(2));
+    var cropUrl = url + '?imageView2/1/w/' + width + '/h/' + height;
+    return cropUrl;
+};
+function  pictureArrayItemStyle(componentInfo,index){
+    var length = componentInfo.data.length,
+        index = parseInt(index),
+        flexNum = parseFloat(componentInfo.data[index].flexNum)*2,
+        maxWidth = 0;
+        if(componentInfo.flexDirection<2){
+            maxWidth = (375/length - parseFloat(componentInfo.padding_left ) - parseFloat(componentInfo.padding_right ))*2;
+        }
+        else{
+            maxWidth = (375- parseFloat(componentInfo.padding_left ) - parseFloat(componentInfo.padding_right ))*2;
+        }
+       
+        maxWidth = maxWidth < 0 ? 0 :maxWidth;
+    var itemWidth =flexNum>0&&flexNum<=maxWidth?flexNum:maxWidth,
+        itemHeight = itemWidth*parseFloat(componentInfo.data[index].oriHeight)/parseFloat(componentInfo.data[index].oriWidth);
+        itemWidth = itemWidth.toFixed(2);
+        itemHeight = itemHeight.toFixed(2);
+    return 'height:'+itemHeight+"rpx;width:"+itemWidth+'rpx';
+}
+
+function switchTabPicList(componentInfo, index) {
+  var length = componentInfo.data.length,
+    index = parseInt(index),
+    picWidth = parseFloat(componentInfo.width) * 2,
+    picHeight = parseFloat(componentInfo.height) * 2,
+    maxWidth = 0;
+  var itemWidth = picWidth == 0 ?  750 : picWidth ,
+    itemHeight = picHeight == 0 ? itemWidth * parseFloat(componentInfo.data[index].oriHeight) / parseFloat(componentInfo.data[index].oriWidth) : picHeight;
+  itemWidth = itemWidth.toFixed(2);
+  itemHeight = itemHeight.toFixed(2);
+  return 'height:' + itemHeight + "rpx;width:" + itemWidth + 'rpx';
+}
+
+
+
+module.exports = {
+    showBcImg: showBcImg,
+    cropImgWH: cropImgWH,
+    cropPic: cropPic,
+    cropGoodsPic:cropGoodsPic,
+    cropImgW:cropImgW,
+    pictureArrayItemStyle:pictureArrayItemStyle,
+  switchTabPicList: switchTabPicList
+}

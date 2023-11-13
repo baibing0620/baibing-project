@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "核销记录",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-switchTab": "./../../components/switchTab/switchTab",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

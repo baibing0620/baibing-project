@@ -1,0 +1,11 @@
+{ 
+    "navigationBarTitleText": "我的钱包",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

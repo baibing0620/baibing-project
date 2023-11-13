@@ -1,0 +1,18 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+    <block wx:for='{{tags}}' wx:key='index'>
+        <view class='input-layout flex'>
+            <view class='label fr28 c3'>标签{{index + 1}}</view>
+            <input class='input flex1 flex fr28 c1a' type='text' placeholder-class='fr28 c9' data-index='{{index}}' value='{{item}}' bindinput='handleInput' placeholder='请编辑标签内容' />
+            <view wx:if='{{item}}' class='delete iconfont icon-cha1 fr30 cc flexc' data-index='{{index}}' bindtap='handleDelete'></view>
+        </view>
+    </block>
+
+    <view class='submit fr30 cf flexc' bindtap='handleSubmit'>保存设置</view>
+</block>
+
+<component-messageToast></component-messageToast>

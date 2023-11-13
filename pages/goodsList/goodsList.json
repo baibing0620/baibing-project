@@ -1,0 +1,14 @@
+{
+	"navigationBarTitleText": "我的商城",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-good-row": "/components/goodsRow/goodsRow",
+    "component-good-column": "/components/goodscategory/goodscategory",
+    "component-remind": "/components/remind/remind",
+    "component-toHomePage": "/components/toHomePage/toHomePage",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

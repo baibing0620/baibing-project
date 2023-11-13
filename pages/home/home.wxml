@@ -1,0 +1,545 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<import src="home.skeleton.wxml"/>
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module="page">
+    function transformPage(type,activityType){
+        switch(type){
+            case 1:
+                return 'about'
+                break;
+            case 2:
+                return 'mall'
+                break;
+            case 3:
+                return 'bbs'
+                break;
+            case 4:
+                return 'takeAwayMenu'
+                break;
+            case 5:
+                return 'reservationServiceList'
+                break;
+            case 6:
+                return 'news'
+                break;
+            case 7:
+                return 'cardFairIndex'
+                break;
+            case 8:
+                return 'serviceCommodityList'
+                break;  
+            case 9:
+                switch (parseInt(activityType)){
+                    case 1:
+                        return 'marketWheel'
+                        break;  
+                    case 2:
+                        return 'marketScratch'
+                        break;  
+                    case 3:
+                        return 'marketSlotMachine'
+                        break;  
+                    case 4:
+                        return 'marketShake'
+                        break;  
+                    case 5:
+                        return 'marketFruitMachine'
+                        break;  
+                    case 6:
+                        return 'marketEgg'
+                        break;  
+                    default:
+                        return 'marketingActivities'
+                        break;  
+                }
+            case 12:
+				return 'integralMall'
+        }
+    }
+    module.exports = {
+    transformPage: transformPage
+}
+</wxs>
+<block wx:if="{{noCard}}">
+	<view class="fr28 cf card-list" style="color:{{diyConfig.themeColor}}" catchtap="toCardList">
+		<text class="iconfont icon-fanhui1 fr26"></text>
+		名片列表
+	</view>
+	<image src='/imgs/bitmap.png' class='no-card' />
+	<view class='fr26 c9 flexc'>您还未添加任何名片</view>
+</block>
+<block wx:else>
+	<template is='skeleton' wx-if='{{ showStyle == 0 }}' />
+	<template wx:elif='{{ showStyle != 1 }}' is='initShow' data='{{ showStyle: showStyle, showNoMsg: "无相关信息" }}' />
+	<block wx:else>
+		<component-navigateBar title='{{ baseInfo.name ? (isCurrentCardManage == 1 ? "我" : baseInfo.name) + "的名片" : "" }}' backgroundColor='{{ styleId == 0 ? "#2A3542" : "#FFFFFF" }}' color='{{ styleId == 0 ? "#FFFFFF" : "" }}' cardList center bindgetUserInfo='getUseAuthorize' />
+		<view class='bcf' data-skeleton-hide='baseInfo.id'>
+			<view wx:if='{{ styleId == 0 }}' class='flex-c-c pt30 pb20 relative'>
+				<view class='card-style1-bg'>
+					<component-image src='https://facing-1256908372.file.myqcloud.com//image/20201105/6d5734a070b61b83.png'></component-image>
+				</view>
+				<view class='relative'>
+					<diy-card />
+				</view>
+			</view>
+			<view wx:elif='{{ styleId == 1 }}' class='flex-c-c pt30 pb20'>
+				<diy-card2 />
+			</view>
+			<view wx:elif='{{ styleId == 2 }}' class='flex-c-c pt30 pb20'>
+				<diy-card3 />
+			</view>
+			<view wx:elif='{{ styleId == 3 }}' class='flex-c-c pt30 pb20'>
+				<diy-card4 />
+			</view>
+			<view class='w100 infoTag scrollbar-hidden'>
+				<view wx:if='{{ baseInfo.mobile }}' class='flexc infoTag-item' bindtap='{{ baseInfo.mobile_is_show ? "makePhoneCall" : "getPhoneChat" }}'>
+					<view class='fr26 c-1890FF iconfont icon-dianhua5 infoTag-item-icon'></view>
+					<view class='fr26 c3 infoTag-item-label'>{{ baseInfo.mobile }}</view>
+				</view>
+				<view wx:if='{{ baseInfo.wechat }}' class='flexc infoTag-item' data-type='wechat' bindtap='copyText'>
+					<view class='fr26 c-1890FF iconfont icon-weixin infoTag-item-icon'></view>
+					<view class='fr26 c3 infoTag-item-label'>{{ baseInfo.wechat }}</view>
+				</view>
+				<view wx:if='{{ beseInfo.email }}' class='flexc infoTag-item' data-type='email' bindtap='copyText'>
+					<view class='fr26 c-1890FF iconfont icon-youxiang1 infoTag-item-icon'></view>
+					<view class='fr26 c3 infoTag-item-label'>{{ baseInfo.email }}</view>
+				</view>
+				<view wx:for='{{ baseInfo.address }}' wx:key='*this' wx:if='{{ item }}' class='flexc infoTag-item' data-index='{{ index }}' data-type='address' bindtap='{{ baseInfo.lnglat[index][0] && baseInfo.lnglat[index][1] ? "openLocation" : "copyAddress" }}'>
+					<view class='fr26 c-1890FF iconfont icon-dizhi2 infoTag-item-icon'></view>
+					<view class='fr26 c3 infoTag-item-label'>{{ item }}</view>
+				</view>
+				<view wx:for='{{ baseInfo.card_ext_info }}' wx:key='*this' wx:if='{{ item.val }}' class='flexc infoTag-item' data-index='{{ index }}' data-title='{{ item.title }}' data-value='{{ item.val }}' bindtap='copyExtension'>
+					<view class='fr26 c-1890FF iconfont {{ item.icon_app }} infoTag-item-icon'></view>
+					<view class='fr26 c3 infoTag-item-label'>{{ item.val }}</view>
+				</view>
+				<view class='infoTag-holder'></view>
+			</view>
+
+			<view class='share-and-save w100 flexb'>
+				<view class='button button-phone' catchtap='shareCard'>分享名片</view>
+				<view wx:if='{{ baseInfo.mobile_is_show && baseInfo.mobile }}' class='button button-phone' bindtap='addPhoneContact'>存入手机通讯录</view>
+                <view wx:elif='{{ globalData.userInfo.mobile }}' bindtap='addPhoneContact' class='button button-phone' >存入手机通讯录</view>
+				<button wx:else class='button button-phone clean-btn' open-type='getPhoneNumber' bindgetphonenumber='getPhoneNumber'>交换手机号</button>
+			</view>
+		</view>
+		<view class='content w100'>
+			<!-- 点赞 -->
+			<view class='card-like bcf w100 flexb' wx-if='{{baseInfo.record_is_show == 1}}' data-skeleton-hide='likeInfo.likeList'>
+				<view class='flex pr30' bindtap='navCustomerList'>
+					<view class='card-like-avatar' wx:for='{{ likeInfo.likeList }}' wx:key='avatar_url' wx:if='{{ index <= 6 }}' >
+						<component-avatar src='{{ item.avatar_url }}' />
+					</view>
+					<view class='iconfont icon-sangedian fr14 c9 card-like-dots' wx:if='{{ likeInfo.likeList.length > 6 }}'></view>
+					<view class='fr24 c6'>{{ likeInfo.viewNum }}人浏览</view>
+				</view>
+				<view class='flex'>
+					<view class='fr26 c6'>靠谱{{ likeInfo.likeNum }}</view>
+					<view class='{{ likeInfo.hasLike == 1 && likeInfo.hasClick ? "isLike" : "" }}' style='color:{{ likeInfo.hasLike == 1 ? diyConfig.themeColor : "" }}'>
+						<view class='iconfont fr28 c-1F94FD card-like-icon {{ likeInfo.hasLike == 1 && likeInfo.hasClick ? "great icon-dianzan2" : "icon-like" }}' bindtap='changeLike'></view>
+					</view>
+				</view>
+			</view>
+
+			<!-- 企微入口 -->
+			<block wx:if='{{home_page_contact_open == 1 && !has_add_wechat}}'>
+				<view class='devide' />
+				<view class='pt30 pb30 pl30 pr30 flex-c-s bc-FFFFFF' bindtap='navAddWechat'>
+					<view class='qyWechat-avatar mr18'>
+						<component-avatar src='{{ baseInfo.avatarUrl || baseInfo.qyStaffDetail.avatar }}' name='{{ baseInfo.name || baseInfo.qyStaffDetail.name }}'></component-avatar>
+					</view>
+					<view class='flex-s-c flexColumn flex1'>
+						<view class='flex-e-s mb18'>
+							<view class='fr36 mr10 c-111111 line-height-100 bold'>{{ baseInfo.name || baseInfo.qyStaffDetail.name }}</view>
+							<view class='fr26 c-FF661A line-height-100'>{{ baseInfo.qyStaffDetail.corp_name }}</view>
+						</view>
+						<view class='fr26 c-999999 line-height-100'>添加企业微信，随时随地做您的私人顾问</view>
+					</view>
+					<view class='fr32 iconfont icon-arrow-right-move-circle-fill'></view>
+				</view>
+			</block>
+
+			<view class='bc-FFFFFF overflow-hidden flex-c-s flexColumn'>
+				<view wx:if='{{ swiperContent.length > 0 && swiperShow }}' class='marketing-gate'>
+					<swiper class='swiper' autoplay indicator-dots circular indicator-color='rgba(0, 0, 0, 0.3)' indicator-active-color='#f74c31' interval='{{ 1500 }}' duration='{{ 500 }}'>
+						<block wx:for='{{swiperContent}}' wx:key='id'>
+							<swiper-item class='swiper-item'>
+								<view class='swiper-item-image' data-link-type='{{ item.link_type }}' data-room-id='{{ item.live_id }}' data-eventparam='{{ item.event_param }}' data-url='{{ item.page }}' bindtap='handleSwiperClick'>
+									<component-image src='{{ item.img_url }}' placeholder></component-image>
+								</view>
+							</swiper-item>
+						</block>
+					</swiper>
+				</view>
+
+				<!-- <view wx-if='{{ has_running_activity == 1 }}' class='marketing-gate'>
+					<view class='luckDraw' bindtap='toDraw'>
+						<component-image src='https://facing-1256908372.file.myqcloud.com//image/20191118/957a8e818d6314cf.png' placeholder></component-image>
+					</view>
+				</view>
+
+				<view wx-if='{{open_self_card == 1}}' class='marketing-gate'>
+					<view class='opencard' bindtap='toOpenCard'>
+						<component-image src='https://facing-1256908372.file.myqcloud.com//image/20190409/4aaddaf6e8c5a91e.png' placeholder></component-image>
+					</view>
+				</view> -->
+
+				<view wx:if='{{ banner_status && open_distribution == 1 }}' class='marketing-gate'>
+					<view class='distribution' bindtap='toDistribution'>
+						<view wx:if='{{ distributionInfo.length < 1 }}' class='distribution-layout'>
+							<view class='fr40 cf lineHeight100'>
+								立即加入
+								<text class='cyellow'>分销</text>
+								团队
+							</view>
+							<view class='fr40 cf margintop26 lineHeight100'>
+								<text class='cyellow'>赚取</text>
+								超多
+								<text class='cyellow'>佣金</text>
+							</view>
+							<view class='fr34 iconfont icon-jinru distribution-none-icon lineHeight100'></view>
+						</view>
+						<view class='distributionInfo-box' wx:else>
+							<swiper class='distributionInfo' autoplay='{{ true }}' interval='{{ 2000 }}' vertical='{{ true }}' circular='{{ true }}'>
+								<block wx:for="{{ distributionInfo }}" wx:key="id">
+									<swiper-item>
+										<view class="distribution-layout">
+											<view class='fr26 c3 flex lineHeight100'>
+												<view class='distributions-avatar overflow-hidden'>
+													<component-avatar src='{{ item.distributor.avatar || item.distributor.avatar_url }}' name='{{ item.distributor.nickname }}'></component-avatar>
+												</view>
+												<view class='distribution-nickname'>{{ item.distributor.nickname }}</view>
+											</view>
+											<view class='margintop26 cf fr36 bold lineHeight100 distribution-zhuanqv'>
+												刚刚赚取佣金
+												<text class='cyellow'>{{ item.distribution_money }}元</text>
+											</view>
+										</view>
+									</swiper-item>
+								</block>
+							</swiper>
+							<view class='flex cyellow fr24 distribution-jinru'>
+								赚佣金
+								<text class='iconfont icon-jinru fr24'></text>
+							</view>
+							<view class='swiperCover'></view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 推荐服务 -->
+			<block wx:if='{{ openRecommend && recommendList.length }}'>
+				<view class='devide' />
+				<component-contain title='{{ recommendTitle }}' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/c918654cab4985eb.png' url='/pages/serviceCommodityList/serviceCommodityList' data-skeleton-hide='recommendList.length'>
+					<view class='pb30'>
+						<swiper indicator-dots='true' duration='{{ 300 }}' indicator-active-color="#1F94FD" indicator-color="#E6E6E6" class='swiper-box service-swiper'>
+							<swiper-item wx:for='{{ recommendList }}' wx:key='index'>
+								<view class='swiper-layout'>
+									<view wx:for='{{ item }}' wx:key='id' class='goods-item bcf' data-id='{{ item.id }}' bindtap='handleNavToDetail'>
+										<view class='service-thumb'>
+											<component-image src='{{ item.img_url.url }}' placeholder></component-image>
+										</view>
+										<view class='service-detail'>
+											<view class='service-title fr32 c-1d2023 fw500 ellipsis1'>{{ item.service_name }}</view>
+											<view class='service-content-layout'>
+												<view class='service-content fr26 c9 ellipsis2'>{{item.description}}</view>
+											</view>
+											<view class='service-other flex'>
+												<view class='service-tags-layout flex flex1'>
+													<view wx:for='{{ item.label }}' wx:key='*this' class='service-tags'>{{ item }}</view>
+												</view>
+												<view class='c-1890FF flex fr26'>
+													<view class='service-icon iconfont icon-dianzan2 fr22'></view>
+													{{item.like_number}}
+												</view>
+											</view>
+										</view>
+									</view> 
+								</view>
+							</swiper-item>
+						</swiper>
+					</view>
+				</component-contain>
+			</block>
+
+			<!-- 推荐商品 -->
+			<block wx:if='{{ openGoodsRecommend && goodsrecommendList.length }}' data-skeleton-hide='goodsrecommendList.length'>
+				<view class='devide' />
+				<component-contain title='{{ goodsrecommendTitle }}' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/cbcbef2778d95686.png' url='/pages/goodsList/goodsList'>
+					<view class='pb30'>
+						<swiper indicator-dots='true' duration='{{ 300 }}' indicator-active-color="#1F94FD" indicator-color="#E6E6E6" class='swiper-box goods-swiper'>
+							<swiper-item wx:for='{{ goodsrecommendList }}' wx:key='index'>
+								<view class='swiper-layout'>
+									<view wx:for='{{ item }}' wx:key='id' class='goods-item bcf' data-id='{{ item.id }}' bindtap='handleNavToGoodsDetail'>
+										<view class='goods-thumb'>
+											<component-image src='{{ item.thumb_url }}' placeholder></component-image>
+										</view>
+										<view class='goods-detail pl20 pr20'>
+											<view class='goods-title fr32 c-1d2023 fw500 ellipsis1'>{{item.title}}</view>
+											<view class='flex'>
+												<view class='goods-title-line-height c9 fr24 ellipsis1 flex1'>已售{{item.sales}}</view>
+												<view class='goods-text-line-height c fr34' style='color:red'>￥{{item.productprice}}</view>
+											</view>
+										</view>
+									</view>
+								</view>
+							</swiper-item>
+						</swiper>
+					</view>
+				</component-contain>
+			</block>
+
+			<!-- 推荐资讯 -->
+			<block wx:if='{{ openInfoRecommend && inforecommendList.length }}'>
+				<view class='devide' />
+				<component-contain title='{{ inforecommendTitle }}' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/ad8d1669a3530f0e.png' url='/pages/news/news' data-skeleton-hide='inforecommendList.length'>
+					<view class='pb30'>
+						<swiper indicator-dots='true' duration='{{ 300 }}' indicator-active-color="#1F94FD" indicator-color="#E6E6E6" class='swiper-box info-swiper'>
+							<swiper-item wx:for='{{ inforecommendList }}' wx:key='index'>
+								<view class='swiper-layout'>
+									<view wx:for='{{ item }}' wx:key='id' class='goods-item bcf' data-id='{{ item.id }}' bindtap='handleNavToInfoDetail'>
+										<view class='info-thumb'>
+											<component-image src='{{ item.thumb_url }}' placeholder></component-image>
+										</view>
+										<view class='info-detail pl20 pr20'>
+											<view class='goods-title-line-height fr32 c-1d2023 fw500 ellipsis1'>{{ item.title }}</view>
+											<view class='goods-text-line-height fr24 c9 ellipsis1'>浏览量{{ item.goods_view_num }}</view>
+										</view>
+									</view>
+								</view>
+							</swiper-item>
+						</swiper>
+					</view>
+				</component-contain>
+			</block>
+
+			<!-- 服务入口 -->
+			<block wx:if='{{ controlPanel.length }}'>
+				<view class='devide' />
+				<component-contain title='我的服务' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/7171fc335f96fc25.png' wx:if='{{ controlPanel.length }}' data-skeleton-hide='controlPanel.length'>
+					<view class='category-layout'>
+						<block wx:for='{{ controlPanel }}' wx:key='type' wx:if='{{ item.is_open && item.func_is_open == 1 }}'>
+							<view class='category flexcColumn' hover-class='category-hover'>
+								<view bindtap='navService' data-id='{{ item.module }}' data-page='{{page.transformPage(item.type, item.activityType)}}'>
+									<view class='category-thumb'>
+										<component-image src='{{ item.icon.url }}'></component-image>
+									</view>
+									<view class='category-title fr24 c3 ellipsis1'>{{ item.title }}</view>
+								</view>
+							</view>
+						</block>
+					</view>
+				</component-contain>
+			</block>
+
+			<!-- 个人简介 -->
+			<block wx:if='{{ mediaInfo.description || tag.length || mediaInfo.hasVoice }}'>
+				<view class='devide' />
+				<component-contain title='个人介绍' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/91e6b04078db0d1a.png' data-skeleton-hide='mediaInfo.description || tag.length || mediaInfo.hasVoice'>
+					<view class='pb60'>
+						<view class='voice-box flex' wx:if='{{ mediaInfo.hasVoice }}'>
+							<view class='voice-avatar'>
+								<component-avatar src='{{ baseInfo.avatarUrl }}' name='{{ baseInfo.name }}'></component-avatar>
+							</view>
+							<component-audioPlayer src='{{ mediaInfo.voiceUrl.url }}' title='{{ mediaInfo.voiceUrl.id }}' themeColor='{{ diyConfig.themeColor }}' slideColor="{{ diyConfig.isWhiteBC?'#e6e6e6':'#4c4c4c' }}" color="{{ diyConfig.isWhiteBC?'':'#fff' }}" cardId='{{ cardId }}' playCount="{{ mediaInfo.voicePlayCount }}" type='voice'></component-audioPlayer>
+						</view>
+						<view class='pl30 pr30 introduce-item introduce-text'>
+							<text class='fr28 c6'>{{ mediaInfo.description }}</text>
+						</view>
+						<view class='introduce-tag-layout flex' wx:if='{{ tag.length }}'>
+							<view class='introduce-tag c-1F94FD flex' wx:for='{{ tag }}' wx:key='index' bindtap='likeTag' data-index='{{ index }}'>
+								<view class='introduce-tag-icon iconfont icon-dianzan2 fr34'></view>
+								<view class='fr24'>{{ item.tagName }}</view>
+								<view class='fr24 {{ item.isLike ? "isLike" : "" }}'>({{ item.likeNum }})</view>
+							</view>
+						</view>
+					</view>
+				</component-contain>
+			</block>
+
+			<!-- 视频 -->
+			<block wx:if='{{ videoList.length }}'>
+				<view class='devide' />
+				<component-contain title='我的视频' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/02134ed80f545c8f.png' data-skeleton-hide='videoList.length'>
+					<view class="my-video flex">
+						<view wx:if='{{ videoList.length == 1 && videoShowStyle == 2 }}' class="videoAlone" data-id='{{ videoList[0].id }}' bindtap="toVideoDetail">
+							<view class='videoAlone-image'>
+								<component-image src='{{ videoList[0].video_image_url }}' placeholder></component-image>
+							</view>
+							<view class="video-cover"></view>
+							<view class='video-shadow'></view>
+							<view class="iconfont icon-bofang6"></view>
+							<view class="videoAlone-title">{{ videoList[0].video_title }}</view>
+							<view class="videoAlone-bottomInfo flex">
+								<view class="flexc fr24 cf">
+									<text class="iconfont icon-bofang4 videoAlone-playCount fr24 cf"></text>
+									{{ videoList[0].play_num }}
+								</view>
+								<view class="flexc fr24 cf">
+									<text class="iconfont icon-dianzan21 videoAlone-likeCount fr24 cf"></text>
+									{{ videoList[0].like_num }}
+								</view>
+							</view>
+							<view class="videoAlone-time videoStyle2-time fr24 cf">
+								{{ videoList[0].video_duration }}
+							</view>
+						</view>
+						<scroll-view wx:elif='{{ videoShowStyle == 2 }}' class="videoStyle2 scrollbar-hidden" scroll-x bindscrolltolower="getMoreVideo">
+							<view wx:for="{{ videoList }}" wx:key="id" class='videoStyle2-box'>
+								<view data-id="{{ item.id }}" class="videoStyle2-item" bindtap="toVideoDetail">
+									<view class='videoStyle2-item-image'>
+										<component-image src='{{ item.video_image_url }}' placeholder></component-image>
+									</view>
+									<view class="video-cover"></view>
+									<view class='video-shadow'></view>
+									<view class="iconfont icon-bofang6"></view>
+									<view class="videoAlone-title videoStyle2-title">{{ item.video_title }}</view>
+									<view class="videoAlone-bottomInfo videoStyle2-bottomInfo flex">
+										<view class="flexc fr24 cf">
+											<text class="iconfont icon-bofang4 videoAlone-playCount videoStyle2-playCount fr24 cf"></text>
+											{{ item.play_num }}
+										</view>
+										<view class="flexc fr24 cf">
+											<text class="iconfont icon-dianzan21 videoAlone-likeCount videoStyle2-likeCount fr24 cf"></text>
+											{{ item.like_num }}
+										</view>
+									</view>
+									<view class="videoAlone-time videoStyle2-time fr24 cf">
+										{{ item.video_duration }}
+									</view>
+								</view>
+								<!-- <image class="shadowImage" src="/imgs/w-shadow.png"></image> -->
+							</view>
+						</scroll-view>
+						<scroll-view wx:elif='{{ videoShowStyle == 1 }}' class='videoStyle1 scrollbar-hidden' scroll-x bindscrolltolower='getMoreVideo'>
+							<view wx:for='{{ videoList }}' wx:key='id' data-id='{{ item.id }}' class='videoStyle1-item' bindtap='toVideoDetail'>
+								<view class='videoStyle1-item-image'>
+									<component-image src='{{ item.video_image_url }}' placeholder></component-image>
+								</view>
+								<view class='video-cover'></view>
+								<view class='video-shadow'></view>
+								<view class='iconfont icon-bofang5 flexc cf'></view>
+								<view class='videoAlone-title videoStyle1-title'>{{ item.video_title }}</view>
+								<view class='videoAlone-bottomInfo videoStyle1-bottomInfo flex'>
+									<view class='flexc fr24 cf'>
+										<text class='iconfont icon-bofang4 videoAlone-playCount videoStyle1-playCount fr24 cf'></text>
+										{{ item.play_num }}
+									</view>
+									<view class='flexc fr24 cf'>
+										<text class='iconfont icon-dianzan21 videoAlone-likeCount videoStyle1-likeCount fr24 cf'></text>
+										{{ item.like_num }}
+									</view>
+								</view>
+								<view class='videoAlone-time videoStyle1-time fr24 cf'>
+									{{ item.video_duration }}
+								</view>
+							</view>
+						</scroll-view>
+					</view>
+				</component-contain>
+			</block>
+
+			<!-- 短视频 -->
+			<block wx:if='{{ shortVideoList.length }}'> 
+				<view class='devide' />
+				<component-contain title='我的短视频' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/02134ed80f545c8f.png' data-skeleton-hide='shortVideoList.length'>
+					<view class='my-video flex'>
+						<scroll-view wx:if='{{ videoShowStyle == 1 }}' class='videoStyle1 scrollbar-hidden' scroll-x bindscrolltolower='getMoreShortVideo'>
+							<view wx:for='{{ shortVideoList }}' wx:key='id' data-id='{{ item.id }}' class='videoStyle1-item' bindtap='toshortVideoDetail'>
+								<!-- <image mode='aspectFill' src='{{  ShowImg.cropImgWH(item.img_url, 276, 410)  }}'></image> -->
+                <view class='videoStyle1-item-image'>
+									<component-image src='{{ item.img_url }}' placeholder></component-image>
+								</view>
+								<view class='video-cover'></view>
+								<view class='video-shadow'></view>
+								<view class='iconfont icon-bofang5 flexc cf'></view>
+								<view class='videoAlone-title videoStyle1-title'>{{ item.name }}</view>
+								<view class='videoAlone-bottomInfo videoStyle1-bottomInfo flex'>
+									<view class='flexc fr24 cf'>
+										<text class='iconfont icon-bofang4 videoAlone-playCount videoStyle1-playCount fr24 cf'></text>
+										{{ item.browse }}
+									</view>
+									<view class='flexc fr24 cf'>
+										<text class='iconfont icon-dianzan21 videoAlone-likeCount videoStyle1-likeCount fr24 cf'></text>
+										{{ item.zan }}
+									</view>
+									<view class='flexc fr24 cf'>
+										<text class='iconfont icon-pinglun2 videoAlone-likeCount videoStyle1-likeCount fr24 cf'></text>
+										{{ item.commentTotal }}
+									</view>
+								</view>
+								<!-- <view class="videoAlone-time videoStyle1-time fr24 cf">
+									{{ item.video_duration }}
+								</view> -->
+							</view>
+						</scroll-view>
+
+            <scroll-view wx:elif='{{ videoShowStyle == 2 }}' class="videoStyle2 scrollbar-hidden" scroll-x bindscrolltolower="getMoreShortVideo">
+							<view wx:for="{{ shortVideoList }}" wx:key="id" class='videoStyle2-box'>
+								<view data-id="{{ item.id }}" class="videoStyle2-item" bindtap="toshortVideoDetail">
+									<view class='videoStyle2-item-image'>
+										<component-image src='{{ item.img_url }}' ></component-image>
+									</view>
+									<view class="video-cover"></view>
+									<view class='video-shadow'></view>
+									<view class="iconfont icon-bofang5 flexc cf"></view>
+									<view class="videoAlone-title videoStyle2-title">{{ item.name }}</view>
+									<view class='videoAlone-bottomInfo videoStyle1-bottomInfo flex'>
+                    <view class='flexc fr24 cf'>
+                      <text class='iconfont icon-bofang4 videoAlone-playCount videoStyle1-playCount fr24 cf'></text>
+                      {{ item.browse }}
+                    </view>
+                    <view class='flexc fr24 cf'>
+                      <text class='iconfont icon-dianzan21 videoAlone-likeCount videoStyle1-likeCount fr24 cf'></text>
+                      {{ item.zan }}
+                    </view>
+                    <view class='flexc fr24 cf'>
+                      <text class='iconfont icon-pinglun2 videoAlone-likeCount videoStyle1-likeCount fr24 cf'></text>
+                      {{ item.commentTotal }}
+                    </view>
+                  </view>
+								</view>
+								<!-- <image class="shadowImage" src="/imgs/w-shadow.png"></image> -->
+							</view>
+						</scroll-view>
+					</view>
+				</component-contain>
+			</block>
+			
+			<!-- 相册 -->
+			<block wx:if='{{ mediaInfo.imageList.length }}'>
+				<view class='devide' />
+				<component-contain title='我的照片' icon='https://facing-1256908372.file.myqcloud.com//image/20201102/2f0f56dca411c715.png' data-skeleton-hide='mediaInfo.imageList.length'>
+					<view class='album-layout pb60'>
+						<view class='w100 {{ imageShowStyle == 2 ? "ablum-style-2" : imageShowStyle == 1 ? "ablum-style-1" : "" }}'>
+							<view wx:for='{{ mediaInfo.imageList }}' wx:key='*this' class='album-image' data-preview-url='{{ item }}' bindtap='previewImag'>
+								<component-image src='{{ item }}' mode='{{ imageShowStyle == 3 ? "widthFix" : "aspectFill" }}' placeholder></component-image>
+							</view>
+						</view>
+					</view>
+				</component-contain>
+			</block>
+		</view>
+		<!-- menu -->
+		<view class='suspension-menu flexcColumn'>
+			<component-bless-bag-comm pageRefresh='{{ pageRefresh }}' showBless='{{showBless}}'></component-bless-bag-comm>
+			<component-menu setting='{{ menuSetting }}' bindgetUserInfo='getUseAuthorize'></component-menu>
+		</view>
+	</block>
+</block>
+<view class='flexc w100' wx:if='{{ openTechSupport == 1 }}'>
+	<view class='fr26 cc' style='text-align: center;margin: 20rpx 0;'>{{techSupportText}}</view>
+</view>
+<!-- 点赞弹框提示 -->
+<view class='modal-box-diy modal-bg-transparent' wx:if='{{ showZanToast }}'>
+	<view class='warn-box'>
+		<i class='iconfont icon-xiaolian fr50 c-1F94FD'></i>
+		<view style='max-width:300rpx;margin-top:30rpx; text-align:left;'>您已经点过赞啦</view>
+	</view>
+</view>
+
+<component-remind coustom="coustom" wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>
+
+<painter palette="{{painting}}" class="canvasdrawer" bind:imgOK="eventGetImage"></painter>

@@ -1,0 +1,12 @@
+{
+    "navigationBarTitleText": "我的分类",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true,
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-switchTab": "./../../components/switchTab/switchTab",
+        "component-switchTabs": "./../../components/switchTab2/switchTab2"
+    }
+}

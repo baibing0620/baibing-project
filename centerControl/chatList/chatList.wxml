@@ -1,0 +1,40 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+ <view class="search-box flexc w100" style="background-color:{{ '#1F94FD' || diyConfig.navigationBarBC}}">
+    
+    <view class="search-goods flexb fr24" catchtap="search">
+      <input style="display: block;color:#333" class='flex1 cf' placeholder='请输入用户名搜索' placeholder-class='cf5' confirm-type="搜索" bindconfirm="search" bindinput="bindKeywords" />
+      <text class='iconfont  icon-sousuo' catchtap='search'></text>  
+    </view>
+</view>
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关客户信息'}}" wx:if="{{showStyle!=1&&clueList.length==0}}" />
+<block wx:else>
+  <view class='item bcf w100 flex active' wx:for="{{customerList}}" wx:key="index" catchtap='toDetail' data-index="{{index}}">
+    <view class='avatar-box'>
+      <image class='avatar' src='{{ShowImg.cropImgWH(item.avatar, 90, 90)}}' />
+      <view class='dot' wx:if="{{item.notReadTotal}}">{{item.notReadTotal>9?'9+':item.notReadTotal}}</view>
+    </view>
+
+    <view class='text-box'>
+      <view class='flexb fr30 c3 '>
+        <view class='flex1 ellipsis1'> {{item.name||item.nickname}}</view>
+        <view class='fr24 c9'>
+          {{item.createtime}}
+        </view>
+      </view>
+      <view class='fr24 c9 flex'>
+        <view class='flex1 ellipsis1'>
+          {{item.content}}
+        </view>
+      
+      </view>
+    </view>
+  </view>
+   <template is="moreData" data="{{loadStyle:loadStyle}}" />
+</block>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

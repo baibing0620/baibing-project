@@ -1,0 +1,22 @@
+page{
+    background: #f7f7f7;
+}
+.recommend-item {
+  margin-bottom: 20rpx;
+}
+.recommend-top{
+	height: 120rpx;
+	background-color: #ffffff;
+	box-shadow: 0px 1px 0px 0px#e5e5e5;
+  padding: 45rpx 20rpx 45rpx 30rpx; 
+  box-sizing: border-box;
+}
+.recommend-main{
+  height: 120rpx;
+	background-color: #ffffff;
+  border-bottom: 1px solid#f5f5f5;
+  padding: 0 30rpx;
+}
+.recommend-main>view>text{
+    padding-left: 10rpx;
+}

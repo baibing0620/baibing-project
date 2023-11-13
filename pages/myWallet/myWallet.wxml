@@ -1,0 +1,59 @@
+<include src="../../comm/comm.wxml" />
+<view class='top bg1'>
+  <image class='bg bg1' src='https://facing-1256908372.file.myqcloud.com//image/20180919/f39a672659f0fdec.png?imageView2/2/w/600'></image>
+  <view class='fr22 cf margin1 fw600'>提现中金额(元)</view>
+  <view class='fr50 c-1F94FD fb'>{{ withdrawing }}</view>
+</view>
+<view class='middle bcf'>
+  <view class='flexa middle-item bcf'>
+    <view>
+      <view class='fr30 c3 fb margin2 fw600'>{{ withdrawed }}</view>
+      <view class='fr22 c9'>已提现金额(元)</view>
+    </view>
+
+    <view>
+      <view class='fr30 c3 fb margin2 fw600'>{{ balance }}</view>
+      <view class='fr22 c9'>账户余额(元)</view>
+    </view>
+  </view>
+  <view class='fr30 cf fb bc-1F94FD btn' catchtap='goToWithdrawal'>立即提现</view>
+</view>
+<view class='fr28 c6 menu'>
+  <view class='menu-item bcf flexb' catchtap='goToBlessBagRecord'>
+    <view>
+      <i class="iconfont c-1F94FD icon-qianbao1"></i>我的福袋记录</view>
+    <i class="iconfont icon-you"></i>
+  </view>
+  <!-- <view class='menu-item bcf flexb' catchtap='goToCommission' wx:if="{{is_card_staff}}">
+    <view>
+      <i class="iconfont cbless icon-shouyixiangqingx"></i>我的分佣记录</view>
+    <i class="iconfont icon-you"></i>
+  </view> -->
+  <view class='menu-item bcf flexb' catchtap='goToDrawLog'>
+    <view>
+      <i class="iconfont c-1F94FD icon-jilu"></i>提现记录</view>
+    <i class="iconfont icon-you"></i>
+  </view>
+  <!-- <view class='menu-item bcf flexb' catchtap='goToRewardList'>
+    <view>
+      <i class="iconfont c-1F94FD icon-jianglijilu"></i>买单奖励记录</view>
+    <i class="iconfont icon-you"></i>
+  </view>
+  <view class='menu-item bcf flexb' catchtap='goToBankCard'>
+    <view>
+      <i class="iconfont c-1F94FD icon-yinhangqia"></i>我的银行卡</view>
+    <i class="iconfont icon-you"></i>
+  </view>
+  <view class='menu-item bcf flexb' catchtap='goToRecommendReward'>
+    <view>
+      <i class="iconfont c-1F94FD icon-zhuanyuanzhifu1"></i>推荐奖励记录</view>
+    <i class="iconfont icon-you"></i>
+  </view>
+  <view class='menu-item bcf flexb' catchtap='goToMyRecommendReward'>
+    <view>
+      <i class="iconfont c-1F94FD icon-shouyiguanli"></i>推广返佣记录</view>
+    <i class="iconfont icon-you"></i>
+  </view> -->
+</view>
+
+<component-messageToast></component-messageToast>

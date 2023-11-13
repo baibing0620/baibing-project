@@ -1,0 +1,298 @@
+.fr22, .fr26, .fr28, .fr30 {
+  line-height: 100%;
+}
+
+.color {
+  color: #ff9b1f;
+}
+
+.input-layout {
+  width: 100%;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 10rpx 30rpx 0 30rpx;
+  background-color: #ffffff;
+}
+
+.input-box {
+  box-sizing: border-box;
+  padding-left: 30rpx;
+  width: 100%;
+  height: 70rpx;
+  border-radius: 100rpx;
+  background-color: #f4f4f6;
+}
+
+.input {
+  color: #333333;
+  width: 540rpx;
+}
+
+.input-holder {
+  color: #cccccc;
+}
+
+.search {
+  padding: 0 40rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  color: #999999;
+  border-radius: 70rpx;
+}
+
+.scroll {
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.image {
+  height: 160rpx;
+  width: 160rpx;
+  background-color: #ccc;
+  margin-top: 20rpx;
+  box-shadow: 0 4rpx 10rpx 0 rgba(0, 0, 0, 0.4);
+  border-radius: 4rpx;
+}
+
+.avatar {
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 20rpx;
+}
+
+.scroll {
+  height: 346rpx;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 12rpx;
+  white-space: nowrap;
+}
+
+
+.scroll-item {
+  width: 200rpx;
+  height: 306rpx;
+  background-color: #f7f7f7;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.scroll-item:last-child {
+  margin-right: 20rpx;
+}
+
+.scroll-item-title {
+  margin-top: 30rpx;
+}
+
+.scroll-item-total {
+  margin-top: 18rpx;
+  color: #ff9b1f;
+  position: relative;
+}
+
+.scroll-item-total::after {
+  content: "";
+  background-color: #ff9b1f;
+  height: 8rpx;
+  width: 8rpx;
+  position: absolute;
+  top: 50%;
+  left: -16rpx;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.itemList {
+  box-sizing: border-box;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.item {
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100vw;
+  margin-bottom: 10rpx;
+  padding: 0 20rpx;
+  background-color: #fff;
+  transition: .3s;
+}
+
+.item:first-child {
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.info {
+  margin-top: 40rpx;
+}
+
+.title {
+  height: 70rpx;
+  line-height: 70rpx;
+  margin-top: -20rpx;
+  max-width: 610rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.createTime {
+  height: 70rpx;
+  line-height: 70rpx;
+  margin-top: -20rpx;
+}
+
+.tag {
+  margin-right: 10rpx;
+  padding: 0 10rpx;
+  font-size: 20rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background-color: hsla(31, 100%, 55%, 0.2);
+  color: #ff8e18;
+  border-radius: 4rpx;
+}
+
+.label {
+  margin-top: 24rpx;
+  line-height: 70rpx;
+  max-width: 710rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.content {
+  line-height: 50rpx;
+  margin-bottom: 20rpx;
+}
+
+.picture {
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.picture2 {
+  width: 470rpx;
+}
+
+.picture>image {
+  background-color: #ccc;
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;
+  height: 230rpx;
+  width: 230rpx;
+}
+
+.picture2>image:nth-child(2n+1) {
+  margin-left: 0;
+}
+
+.picture3>image:nth-child(3n+1) {
+  margin-left: 0;
+}
+
+.picture3>image:nth-last-child(-n+3) {
+  margin-bottom: 0;
+}
+
+.picture2>image:nth-last-child(-n+2) {
+  margin-bottom: 0;
+}
+
+.video {
+  width: 710rpx;
+  height: 400rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.play {
+  width: 710rpx;
+  height: 400rpx;
+  font-size: 100rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+
+.videoLayout {
+  width: 100%;
+  height: 100%;
+}
+
+.video>image{
+  width: 710rpx;
+  height: 400rpx;
+  background-color: #ccc;
+}
+
+.video-info {
+  font-size: 24rpx;
+  line-height: 100%;
+  position: absolute;
+  right: 20rpx;
+  bottom: 24rpx;
+  color: #fff;
+}
+
+.video-shadow {
+  height: 0rpx;
+  width: 710rpx;
+  box-shadow: 0 0 80rpx 20rpx rgba(0, 0, 0, .7);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  height: 90rpx;
+  box-sizing: border-box;
+  padding-top: 4rpx;
+}
+
+.button>.flex1 {
+  position: relative;
+  height: 86rpx;
+}
+
+.button>.flex1::after {
+  content: "";
+  width: 1rpx;
+  height: 30rpx;
+  background-color: #d9d9d9;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%)
+}
+
+.button>.flex1:last-child::after {
+  content: "";
+  width: 0;
+}
+
+.button .iconfont {
+  margin-right: 12rpx;
+  display: block;
+}
+
+.noBtn {
+  padding: 0;
+  border-radius: 0;
+  background-color: #fff;
+  height: 100%;
+}

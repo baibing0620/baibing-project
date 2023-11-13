@@ -1,0 +1,6 @@
+<view id='layout' class='layout {{ mode == "widthFix" ? "layoutAutoHeight" : "" }}'>
+    <div wx:if='{{ placeholder && mode !== "widthFix" }}' class='placeholder position {{ isLoadOver ? "hide" : "" }}'></div>
+    <image wx:if='{{ url }}' class='image {{ mode == "widthFix" ? "" : "position" }} {{ isLoadOver ? "" : "hide" }}' src='{{ url }}' mode='{{ mode }}' lazy-load='{{ lazyLoad }}' bindload='handleLoadOver'></image>
+</view>
+
+ 

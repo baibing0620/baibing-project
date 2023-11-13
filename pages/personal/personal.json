@@ -1,0 +1,12 @@
+{
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "个人中心",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-showToast": "/components/showToast/showToast",
+        "component-image": "/components/image/image"
+    }
+}

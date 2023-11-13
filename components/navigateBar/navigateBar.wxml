@@ -1,0 +1,28 @@
+<view class='stage c-1D2023 flex' style='padding-top: {{ menuButtonClientRect.top }}rpx; background-color: {{ float ? "transparent" : backgroundColor }}; color: {{ color }}'>
+    <view class='flex controller' style='height: {{ menuButtonClientRect.height }}rpx;'>
+        <view wx:if='{{ pageType === "fromShare" }}' class='iconfont icon-shouye fr30 pl30 pr24' style='line-height: {{ menuButtonClientRect.height }}rpx' bindtap='navToHome'></view>
+        <view wx:elif='{{ pageType === "default" }}' class='iconfont icon-fanhui fr30 pl30 pr24' style='line-height: {{ menuButtonClientRect.height }}rpx' bindtap='navBack'></view>
+        <view wx:else class='pl30'></view>
+        <view wx:if='{{ personalCenter }}' class='category flex mr24' data-url='/pages/personal/personal' catchtap='{{ hasAuthored ? "navigate" : "" }}'>
+            <view class='personal-avatar'>
+                <open-data type='userAvatarUrl' />
+            </view>
+            <view class='fr24 pl10 pr16'>个人中心</view>
+            <block wx:if='{{ !hasAuthored }}'>
+                <button  class='clean-btn personal-button' wx:if="{{userProfileAble}}" bindtap="getUserProfile"></button>
+                <button  class='clean-btn personal-button' wx:else open-type='getUserInfo' catchgetuserinfo='getUserInfo'></button>
+
+            </block>
+        </view>
+        <view wx:if='{{ cardList && !isCloseCardList }}' class='category flex mr10 pl18 pr18' data-url='/pages/cardList/cardList' catchtap='reLaunch'>
+            <view class='iconfont icon-mingpianjia1 fr30 {{ color ? "" : "category-icon" }}'></view>
+            <view class='fr24 ml12 pl10'>名片列表</view>
+        </view>
+    </view>
+    <view class='flex1 flex {{ center ? "title-center" : "" }}' style='height: {{ menuButtonClientRect.height }}rpx;'>
+        <view wx:if='{{ center }}' style='width: {{ 750 - menuButtonClientRect.right + menuButtonClientRect.width + 30 }}rpx'></view>
+        <view class='fr34 ls1 flex1 ellipsis flex title'>{{ title }}</view>
+        <view style='width: {{ 750 - menuButtonClientRect.right + menuButtonClientRect.width + 30 }}rpx'></view>
+    </view>
+</view>
+<view wx:if='{{ !float }}' class='holder' style='height: {{ menuButtonClientRect.bottom + 20 }}rpx'></view>

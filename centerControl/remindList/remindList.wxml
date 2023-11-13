@@ -1,0 +1,42 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src='../../template/initShow/initShow.wxml' /> 
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<view wx:else>
+    <view class="container flexcColumn">
+        <view  class="remind-item" wx:for="{{remindList}}">
+            <view class="message-top flexb">
+                <view class="c3 fr28 bold" wx:if="{{item.remind_type == 1}}">消费间隔提醒</view>
+                <view class="c3 fr28 bold" wx:if="{{item.remind_type == 2}}">客户生日提醒</view>
+                <view class="c3 fr28 bold" wx:if="{{item.remind_type == 3}}">特殊跟进提醒</view>
+                <view class="c9 fr26">{{item.createtime}}</view>
+            </view>
+            <view class="message-bottom">
+                <view class="message-item" data-id="{{item.crm_id}}" data-uid="{{item.uid}}" data-admin_uid="{{item.cardInfo.uid}}" 
+                data-remind_type="{{item.remind_type}}" data-cooperRate="{{item.cooperRate}}" catchtap="navToUserDetail">
+                    <text class="label c9">客户姓名: </text>{{item.user.nickname || '-'}}
+                </view>
+                 <view class="message-item" data-mobile="{{item.user.mobile}}"  catchtap="callUser">
+                    <text class="label c9">客户手机号: </text>{{item.user.mobile || '-'}}
+                </view>
+                <view class="message-item"  wx:if="{{item.remind_type == 1}}">
+                    <text class="label c9">上次购买时间: </text>{{Format.formatDay(item.order_create_time * 1000)}}
+                </view>
+                <view class="message-item"  wx:if="{{item.remind_type == 1}}"> 
+                    <text class="label c9">购买商品: </text>{{item.order_title}}
+                </view>
+                <view class="message-item"  wx:if="{{item.remind_type == 2}}">
+                    <text class="label c9">生日: </text>{{item.uid_birthday}}
+                </view>
+                <view class="message-item"  wx:if="{{item.remind_type == 3}}">
+                    <text class="label c9">提醒事宜: {{item.informationInfo.content}} </text>
+                </view>
+            </view>
+        </view>
+    </view>
+
+</view>
+
+
+<component-messageToast></component-messageToast>

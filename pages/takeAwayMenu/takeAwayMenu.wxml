@@ -1,0 +1,10 @@
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <include src="../../template/menu/menu.wxml" />
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

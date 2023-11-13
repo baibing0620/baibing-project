@@ -1,0 +1,199 @@
+.navigation {
+  height: 176rpx;
+}
+.wrapper,
+.cancel-wrapper {
+  margin-top: 40rpx;
+  background-color: #fff;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  padding: 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+}
+.wrapper .title {
+  font-weight: 500;
+  font-size: 32rpx;
+  text-align: center;
+  color: #333;
+  line-height: 44rpx;
+}
+.coupon {
+  width: 500rpx;
+  height: 400rpx;
+  margin-top: 32rpx;
+}
+.coupon-button {
+  width: 234rpx;
+  height: 72rpx;
+}
+.coupon-text {
+  margin-right: 24rpx;
+  margin-left: 24rpx;
+  height: 373rpx;
+  margin-top: 32rpx;
+  width: 700rpx;
+}
+.attention {
+  width: 702rpx;
+  margin-right: 24rpx;
+  margin-left: 24rpx;
+  height: 150rpx;
+  margin-top: 32rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+}
+.check-store {
+  width: 100%;
+  display: flex;
+  height: 250rpx;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48rpx;
+}
+
+.cancel-wrapper .title {
+  font-weight: 500;
+  font-size: 32rpx;
+  text-align: center;
+  width: 100%;
+  color: #333;
+  line-height: 44rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.check,
+.checked {
+  height: 56rpx;
+  border-radius: 115rpx;
+  line-height: 56rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #fff;
+}
+.check {
+  width: 140rpx;
+  background-color: #fd5026;
+}
+.checked {
+  background-color: #aaa;
+  width: 150rpx;
+}
+.notice {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #333;
+  margin-top: 48rpx;
+}
+.id {
+  color: #aaa;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin-top: 16rpx;
+}
+.used {
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-top: 16rpx;
+  margin-bottom: 32rpx;
+}
+.ercode {
+  margin-top: 16rpx;
+  width: 248rpx;
+  height: 248rpx;
+}
+.ercode-cover {
+  opacity: 0.5;
+  filter: blur(3rpx);
+}
+
+root-portal {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.popup {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  z-index: 5000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  background: rgba(51, 51, 51, 0.65);
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
+  transition: all 0.2s ease-in;
+  pointer-events: auto;
+}
+.modal-title {
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #333;
+}
+.check-modal {
+  width: 530rpx;
+  padding: 40rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 16rpx;
+}
+.check-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+  line-height: 44rpx;
+}
+.check-text {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin-top: 24rpx;
+  color: #777;
+  text-align: center;
+}
+.bottom-button {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 64rpx;
+}
+.cancle-button,
+.check-button {
+  font-size: 32rpx;
+  line-height: 44rpx;
+  width: 50%;
+  text-align: center;
+}
+.cancle-button {
+  color: #777;
+}
+.check-button {
+  color: #fd5026;
+}
+.receiveAgain {
+  text-decoration: underline;
+  color: #fd5026;
+  display: inline;
+}
+.notice-bottom {
+  width: 380rpx;
+  font-size: 24rpx;
+  color: #777;
+  text-align: center;
+  margin-top: 16rpx;
+}

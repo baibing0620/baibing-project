@@ -1,0 +1,97 @@
+page{
+  background: #f7f7f7;
+}
+.tab-bar {
+  height: 90rpx;
+  text-align: center;
+  box-shadow: 0 5rpx 8rpx 0rpx rgba(0, 0, 0, .1);
+  background: #fff;
+  position: sticky;
+}
+
+.tab-bar>view:last-of-type {
+  border-right-style: none;
+}
+
+.tab-bar-item {
+  line-height: 44rpx;
+  border-right: 1rpx solid #dbdbdb;
+}
+
+.change-goods-show {
+  width: 150rpx;
+  line-height: 92rpx;
+  font-size: 36rpx;
+}
+
+.cwaring {
+  color: #f74c31;
+}
+
+.downTriangle {
+  width: 0;
+  height: 0;
+  border-width: 10rpx;
+  border-style: solid;
+}
+
+.upperTriangle {
+  margin-bottom: 4rpx;
+  width: 0;
+  height: 0;
+  border-width: 10rpx;
+  border-style: solid;
+}
+
+.cd-downTriangle {
+  border-color: #cdcdcd transparent transparent transparent;
+}
+
+.cd-upperTriangle {
+  border-color: transparent transparent #cdcdcd transparent;
+}
+
+.cm-downTriangle {
+  border-color: #ff9b1f transparent transparent transparent;
+}
+
+.cm-upperTriangle {
+  border-color:  transparent transparent #ff9b1f transparent;
+}
+
+.c-main {
+  color: #ff9b1f;
+}
+.c-theme{
+  color: #ff9d2a
+}
+.receive{
+  border-bottom: 1rpx solid #ebebeb;
+  padding:24rpx 24rpx 0;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 6rpx;
+}
+.receive .img{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+.user-detail{
+  width: 130rpx;
+  height: 50rpx;
+  border-radius: 50rpx;
+  color:#ff9d2a;
+  border: 1rpx solid #ff9d2a;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 50rpx;
+}
+.bless-num{
+  margin-top:12rpx;
+  margin-left: 124rpx;
+  width: 600rpx;
+  border-top: 1rpx solid #f0f0f0;
+  height: 90rpx;
+}

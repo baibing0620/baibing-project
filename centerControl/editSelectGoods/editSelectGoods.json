@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "编辑商品",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+} 

@@ -1,0 +1,50 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow' data='{{ showStyle: showStyle, showNoMsg: "无相关客户信息" }}' wx:if='{{ showStyle != 1}}' />
+<block wx:else>
+    <template is='initShow' wx:if='{{ loadStyle != "loading" && list.length < 1 }}'  data='{{ showStyle: 2, showNoMsg: "您还没有业务提成记录", showImg: "https://facing-1256908372.file.myqcloud.com//image/20201110/924c1e48874fccc8.png" }}'/>
+    <block wx:else>
+        <view class='list'>
+            <view class='item bcf' wx:for='{{ list }}' wx:key='id' data-id='{{ item.order_id }}' catchtap='toDetail'>
+                <view class='top flex'>
+                    <view class='avatar'>
+                        <component-image src='{{ item.member.avatar }}' />
+                    </view>
+                    <view class='flex1 fr30 c3 bold'>{{ item.member.nickname }}</view>
+                    <view wx:if='{{ item.orderGoods.cancled == 1 }}' class='fr28 cred'>已退款</view>
+                </view>
+                <view class='middle flexcColumn'>
+                    <view class='flexc money fr30 bold'>
+                        <block wx:if='{{ item.distribution_type == 2 }}'>
+                            <view class='fr50 c3'>{{ item.distribution_credit }}</view>
+                            <view class='fr50 c3'>积分</view>
+                        </block>
+                        <block wx:else>
+                            <view class='fr50 c3'>{{ item.distribution_money }}</view>
+                            <view class='fr50 c3'>元</view>
+                        </block>
+                    </view>
+                    <view class='flexc fr24 c9'>
+                        业务提成，该订单成交金额
+                        <text class='{{ item.orderGoods.cancled == 1 ? "cbf" : "c-1F94FD" }}'>{{ item.order_money }}元</text>
+                        <text wx:if='{{ item.formula }}' class='iconfont icon-jieshi fr24 ccd' data-index='{{ index }}' catchtap='showCover'></text>
+                    </view>
+                </view>
+                <view class='bottom flexb fr26 c6'>
+                    {{ item.distribution_time }}
+                    <view class='detail'>订单详情<text class='iconfont icon-jinru fr26'></text></view>
+                </view>
+            </view>
+        </view>
+        <template is='moreData' data='{{ loadStyle: loadStyle }}' />
+    </block>
+    <view>
+        <view class='dialog {{ showCover ? "" : "dialog-hide" }} bf'>
+            <view class='dialog-this-title fr34 c3 flexc bold'>业务提成的计算方式</view>
+            <view class='dialog-this-formula fr26 c-1F94FD'>{{ list[currentIndex].formula }} = {{ list[currentIndex].distribution_money}}元</view>
+        </view>
+        <view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='hideCover'></view>
+    </view>
+</block>
+
+<component-messageToast></component-messageToast>

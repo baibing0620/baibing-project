@@ -1,0 +1,13 @@
+{
+    "navigationBarTitleText": "数据分析",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-switchTab": "./../../components/switchTab/switchTab",
+        "component-switchTabs": "./../../components/switchTab2/switchTab2",
+        "ec-canvas": "/centerControl/ec-canvas/ec-canvas",
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

@@ -1,0 +1,94 @@
+
+<view class='container' wx:if="{{ isOpenManage || isOpenSelectGoods || cardSelectGoodsCount != 0}}">
+    <view class='flex'>
+        <view style='margin-right:20rpx' class='flag'></view>
+        <view class='fr36 c4d bold'>自营商品管理</view>
+    </view>
+    <view catchtap='navPage' class='flexb active' data-page='myGoods' wx:if="{{isOpenManage}}">
+        <view class='fr28 c3'>个人商品</view>
+        <view class='fr24 cb3 flex'>{{myGoodsCount}}<text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+    </view>
+    <view catchtap='navPage' class='flexb active' data-page='selectGood' wx:if="{{isOpenSelectGoods || cardSelectGoodsCount != 0}}">
+        <view class='fr28 c3'>选品商品</view>
+        <view class='fr24 cb3 flex'>{{cardSelectGoodsCount}}<text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+    </view>
+      <view catchtap='navPage' class='flexb active' data-page='myCategoryList'>
+        <view class='fr28 c3'>自营商品分类</view>
+        <view class='fr24 cb3 flex'>
+        <!-- 狗血判断 -->
+        {{(isOpenSelectGoods == false && isOpenManage == true && cardSelectGoodsCount == 0) ? myCategoryCount :  
+          ((isOpenSelectGoods == true && isOpenManage == false) ? categoryListLength : myCategoryCount + categoryListLength)
+        }}
+        <text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+    </view>
+</view>
+<view class='container'>
+    <view class='flex'>
+        <view style='margin-right:20rpx' class='flag'></view>
+        <view class='fr36 c4d bold'>平台商品管理</view>
+    </view>
+    <view catchtap='navPage' class='flexb active' data-page="enterpriseGoods">
+        <view class='fr28 c3'>平台商品</view>
+        <view class='fr24 cb3 flex'>{{qyGoodsCount}}<text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+    </view>
+      <view catchtap='navPage' class='flexb active' data-page="enterpriseCategoryList">
+        <view class='fr28 c3'>平台商品分类</view>
+        <view class='fr24 cb3 flex'>{{qyCategoryCount}}<text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+    </view>
+</view>
+<view class='container' wx:if="{{isOpenSelectGoods}}">
+    <view catchtap='navPage' class='flexb active' data-page="selectGoods">
+            <view class="flexc">
+                    <view style='margin-right:20rpx' class='flag'></view>
+                    <view class='fr36 c4d bold'>选品池</view>
+            </view>
+            <view class='fr24 cb3 flex'>
+                    <!-- <span class="smalldot" wx:if="{{ isNeedShow}}">·</span> -->
+                    <text class="iconfont icon-hongdian" style="font-size: 20rpx; color: red; margin-top:2rpx;" wx:if="{{ isNeedShow }}"></text>
+                    <text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+        </view>
+</view>
+<view class='container' wx:if="{{ isOpenManage || isOpenSelectGoods || cardSelectGoodsCount != 0 }}">
+    <view catchtap='navPage' class='flexb active' data-page="goodsSort">
+            <view class="flexc">
+                    <view style='margin-right:20rpx' class='flag'></view>
+                    <view class='fr36 c4d bold'>商品排序</view>
+            </view>
+            <view class='fr24 cb3 flex'><text  style="margin-left:10rpx" class='iconfont icon-you fr24 c9'></text></view>
+        </view>
+</view>
+<view class="mask" catchtap='stopTap' wx-if="{{ firstEnter }}">
+    <view class="listMesssage first">
+            <view class='flexc firstTitle'>
+                    <view style='margin-right:20rpx' class='flag'></view>
+                    <view class='fr36 c4d bold'>自营商品管理</view>
+            </view>
+            <view class="dashLine"></view>
+            <view class="desWords">自营商品为个人发货</view>
+    </view>
+    <view class="listMesssage two">
+            <view class='flexc secondTitle'>
+                    <view class='fr28 c3'>个人商品</view>
+            </view>
+            <view class="dashLine"></view>
+            <view class="desWords">可以创建个人商品</view>
+    </view>
+    <view class="listMesssage three">
+            <view class='flexc secondTitle'>
+                    <view class='fr28 c3'>选品商品</view>
+            </view>
+            <view class="dashLine"></view>
+            <view class="desWords limitWidth">选品为平台设置，可从选品池中选择需要售卖的选品</view>
+    </view>
+    <view class="listMesssage four">
+            <view class='flexc firstTitle'>
+                    <view style='margin-right:20rpx' class='flag'></view>
+                    <view class='fr36 c4d bold'>平台商品管理</view>
+            </view>
+            <view class="dashLine"></view>
+            <view class="desWords">平台商品为平台发货</view>
+    </view>
+    <button class="knowBtn" bindtap="closeMask"> 知道了 </button>
+</view>
+
+<component-messageToast></component-messageToast>

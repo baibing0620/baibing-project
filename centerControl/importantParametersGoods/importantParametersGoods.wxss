@@ -1,0 +1,63 @@
+page{
+    padding-bottom: 130rpx;
+    background: #fff;
+}
+.container{
+    padding: 0 30rpx;
+}
+.title{
+    margin: 40rpx 0;
+}
+.container .input{
+    width: inherit;
+    height: 90rpx;
+    border: 1rpx solid #d9d9d9;
+    border-radius: 6rpx;
+    background: #f7f7f7;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+}
+.input-placeholder {
+  color: #cccccc;
+  font-size: 28rpx;
+}
+.form-picker {
+  width: inherit;
+  height: 90rpx;
+  border-radius: 4rpx;
+  padding: 0 30rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  box-sizing: border-box;
+}
+.message-btn{
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 0;
+  background-color: #ff9b1f;
+  position:fixed;
+  bottom:0;
+  width: 100%;
+}
+.btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.btn>button:first-of-type {
+    color: #ff9b1f;
+    background: #fff5e8;
+    border-top: 1rpx solid #ff9b1f;
+}
+
+.btn>button:last-of-type {
+    background: #ff9b1f;
+    color: #fff;
+}
+
+.btn>button {
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 0;
+}

@@ -1,0 +1,74 @@
+<include src="/comm/comm" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+
+<view class="container w100">
+
+    <view class="header">
+        <view class="mask-vip">
+            <view class="vip-box"> 
+                <image src="{{ ShowImg.cropImgWH(rights_style == 2 ? not_received_img_url : 'https://facing-1256908372.file.myqcloud.com//image/20210413/71e01f9fe4b28436.png',650,250) }}" class="vipImage"></image>
+                <view class="vipCard">{{ card_title }}</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="vip-rights">
+        <view class="vip-rights-title">
+            <view class="line circle-left"></view>
+            <view>会员权益</view>
+            <view class="line circle-right"></view>
+        </view>
+
+        <view class="icon-group">
+            <view wx:for="{{ levelData.level.vipRightsConfig }}" wx:key="id" class="icon-box" data-id="{{ item.id }}" bindtap="torightsdetail">
+                <view class="icon-item">
+                    <text class="iconfont {{ item.icon }}"></text>
+                </view>
+                <view class="icon-text ellipsis1">{{ item.rights_name }}</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="feature-box">
+        <view class="feature-item" bindtap="toPersonal">
+            <view class="item-title">个人中心</view>
+            <view class="item-entry">
+                进入
+                <text class="iconfont icon-xiangyou"></text>
+            </view>
+        </view>
+        <view class="feature-item" bindtap="toIndex">
+            <view class="item-title">首页</view>
+            <view class="item-entry">
+                进入
+                <text class="iconfont icon-xiangyou"></text>
+            </view>
+        </view>
+        <!-- <view class="feature-item">
+            <view class="item-title">充值</view>
+            <view class="item-entry">
+                进入
+                <text class="iconfont icon-xiangyou"></text>
+            </view>
+        </view> -->
+    </view>
+    <view class="footer flexcColumn">
+       <view class="content" bindtap="getButton"  wx:if="{{ levelData.is_pass_cond != 1 }}"> 
+            <view class="iconfont icon-xiangqing xiangqing"></view>
+            <view class="noUse" >尚未满足开卡条件</view>
+            <view class="iconfont icon-you you"></view>
+       </view>
+       <view class="vip-btn {{ levelData.is_pass_cond != 1 ? 'dis-btn' : '' }}" bindtap="navToReceiveVip">立即领取</view>
+    </view>
+ 
+    <view class='flexColumn hiddenbox' wx:if="{{hidden}}">
+        <view class=" flex1"  bindtap="disapper"></view>
+        <view class="hideView" >
+            <view class="openCondition" >开卡条件</view>
+            <view  wx:for="{{limitDataJson}}" wx:key="id" class="openConditionItem" >
+               {{item.num}}. {{item.name}}
+            </view>
+        </view>
+    </view>
+</view>

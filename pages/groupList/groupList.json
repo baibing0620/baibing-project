@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "正在拼单",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "frame-ms": "/components/frame-ms/frame-ms"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "navigationBarTitleText": "分销团队",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-switchTab": "/components/switchTab/switchTab",
+        "component-image": "/components/image/image"
+    }
+}

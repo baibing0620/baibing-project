@@ -1,0 +1,5 @@
+<view class="wrapper">
+    <image src="https://anhuidaowei.com/media/f91da6709e0b645915c4aeef41722a2.png" class="logo" mode="" />
+    <image src="https://anhuidaowei.com/media/0601429838a76e9d35377f06b56b84c.jpg" bind:tap="previewImage" class="attention" show-menu-by-longpress mode="" />
+    <view class="attention-text">长按识别二维码关注公众号</view>
+</view>

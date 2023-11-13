@@ -1,0 +1,35 @@
+<wxs src="../../tools/showTagBg.wxs" module="showTagBg" />
+<view class='continer'>
+    <view class='fr26 flex'>
+        <text class='c3 asfs'>推送人群</text>
+        <view class='tags flex1' wx:if="{{messageDetail.type == 2}}">
+            <view wx:for='{{messageDetail.tags}}' wx:key='{{ index }}' class='fr22 tag' style=" background:{{showTagBg.showBg(item.type)}}">
+                {{ item.name }}
+            </view>
+        </view>
+        <view wx:else class='c9 flex1'>全体用户</view>
+    </view>
+    <view class='fr26 flex active' catchtap='navNum'>
+        <text class='c3 asfs'>推送人数</text>
+        <view class='c9 flex1'>{{messageDetail.push_user_num}}人</view>
+        <view class='fr24 cb3 iconfont icon-jinru fr24'></view>
+    </view>
+    <view class='fr26 flex'>
+        <text class='c3 asfs'>推送标题</text>
+        <view class='c9 flex1'>{{messageDetail.title}}</view>
+    </view>
+    <view class='fr26 flex'>
+        <text class='c3 asfs'>推送时间</text>
+        <view class='c9 flex1'>{{messageDetail.push_time}}</view>
+    </view>
+    <view class='fr26 flex' style='line-height:2em'>
+        <text class='c3 asfs'>推送内容</text>
+        <text class='c9 flex1'>{{messageDetail.content}}</text>
+    </view>
+    <view wx:if="{{messageDetail.path}}" class='fr26 flex' style='line-height:2em'>
+        <text class='c3 asfs'>推送模块</text>
+        <text class='c9 flex1'>{{messageDetail.path}}</text>
+    </view>
+</view>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "CDKey绑定",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

@@ -1,0 +1,32 @@
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+frame-ms{
+  display: inline-block;
+}
+
+.list {
+  height: var(--height);
+  overflow: hidden;
+}
+
+.item-list {
+  animation: frames 1s steps(10) infinite;
+}
+
+@keyframes frames {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(var(--height) * -10));
+  }
+}
+
+.item {
+  height: var(--height);
+}

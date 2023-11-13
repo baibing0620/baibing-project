@@ -1,0 +1,132 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+<block wx:else>
+    <view class="goods-info" catchtap="toGoodsDetail">
+        <view class="goods-detail flex">
+            <image src="{{ShowImg.cropImgWH(goods.thumb_url,160,160)}}"></image>
+            <view class="flexbColumn goods-content">
+                <view class="c3 fr30 ellipsis2">{{goods.title}}</view>
+                <view class="flexColumn">
+                    <view class="c6 fr26">已拼{{goods.sales}}件</view>
+                    <view class="goods-content-price">
+                        <text class="fr26">¥</text>
+                        <text class="fr40 bold">{{goods.groupbuy_price}}</text>
+                        <text class="fr24 c9" style="padding-left:6rpx">¥{{goods.productprice}}</text>
+                        <text class="discount-box fr24 lh1">优惠¥{{goods.productprice-goods.groupbuy_price}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="group-info flexcColumn">
+        <view class="group-limit flexc">
+          <image src="https://facing-1256908372.file.myqcloud.com//image/20200824/25dd52e640bd076c.png"></image>
+          <view class="c3 fr40" style="padding: 0 50rpx">{{goods.limit_num}}人团</view>
+          <image src="https://facing-1256908372.file.myqcloud.com//image/20200824/25dd52e640bd076c.png"></image>
+        </view>
+        <view class="group-info-card">
+            <block wx:if="{{status == 2}}">
+              <view class="card-title c3 fr34 bold">
+                拼团成功
+              </view>
+            </block>
+            <block wx:elif="{{status == 0}}">
+              <view class="card-title c3 fr34 bold">
+                拼团失败
+              </view>
+            </block>
+            <block wx:else>
+              <view class="card-title c3 fr34 bold">
+                已开团，好友特享价
+                <text style="color: #FF3636">￥{{Format.float(goods.groupbuy_price)}}</text>
+              </view>
+              <view wx:if="{{groupbuytimes[0].timeType == 2}}" class="flexc countdown-box">
+                <view class="countdown-sign"></view>
+                <view class="fr26 c3 countdown-time flexc">
+                  优惠倒计时：<text wx:if="{{groupbuytimes[0].day>0}}">{{groupbuytimes[0].day}}天</text>{{groupbuytimes[0].hr}}：{{groupbuytimes[0].min}}：{{groupbuytimes[0].sec}}：<frame-ms height='40rpx'></frame-ms>
+                </view>
+                <view class="countdown-sign"></view>
+              </view>
+            </block>
+            <scroll-view class="friends-list" scroll-x>
+                <block wx:for="{{users}}">
+                  <view wx:if="{{item.id || status == 2}}" class="friends-item">
+                      <image src="{{ShowImg.cropImgWH(item.avatar,70,70)}}"></image>
+                      <view class="friends-name ellipsis1 c3 fr24">{{item.nickname}}</view>
+                  </view>
+                  <view wx:else class="friends-item">
+                      <view class="add-friends flexc">
+                          <text class="iconfont icon-tianjia cc fr28"></text>
+                      </view>
+                      <view class="friends-name c3 fr24"></view>
+                  </view>
+                </block>
+            </scroll-view>
+            <view class="dotted-line"></view>
+            <view class="group-guarantee c3 fr24">
+                邀请好友参团 · 人满发货 · 拼团失败退款
+            </view>
+            <view class="half-circle half-circle-left"></view>
+            <view class="half-circle half-circle-right"></view>
+        </view>
+        <view wx:if="{{status==2}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+            {{participate?'该团已满，立即重新开团':'该团已满，邀请好友开团'}}
+        </view>
+        <view wx:elif="{{status==0}}" class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+            {{participate?'该团已结束，立即重新开团':'该团已结束，邀请好友开团'}}
+        </view>
+        <view wx:elif="{{participate}}" class="group-info-invitation flexc cf fr34" catchtap="joinTheLeague">
+            立即参团
+        </view>
+        <view wx:else class="group-info-invitation flexc cf fr34" catchtap="invitationFriends">
+            <view wx:if="{{currentHeadcount == 1}}" class="group-info-invitation-tip cf fr20 flexc">私密团需要邀请才可成团</view>
+            <view wx:else class="group-info-invitation-tip cf fr20 flexc">仅差{{frequency}}位好友参团即可发货</view>
+            邀请好友助力({{currentHeadcount}}/{{goods.limit_num}})
+        </view>
+        <view class="fr26 c9" style="margin-top:20rpx">活动有效期内，每人只能购买一次商品</view>
+    </view>
+</block>
+<!-- 遮罩层 -->
+<view class="{{isMask}}" catchtap="hideMask"></view>
+<share show-share="{{showShare}}" img-code="{{QRcode}}"></share>
+<!-- 购买 加入购物车 弹窗 -->
+<view class="new-purchase-box bf {{purchaseBox? 'show-new-purchase-box': ''}}" wx:if="{{purchaseBox}}">
+  <view class="new-purchase-box-head">
+    <view class="new-purchase-box-head-info flexc">
+      <view class="new-purchase-box-head-info-img">
+        <image src="{{ShowImg.cropImgWH(goodsThumb,160,160)}}" mode="aspectFit" catchtap="previewDesImg" data-preview-url="{{goodsThumb}}"></image>
+      </view>
+      <view class="new-purchase-box-head-info-detail">
+        <view class="fr50 bold c-theme-color"><label class="fr34">¥</label>{{Format.float(goods.groupbuy_price)}}</view>
+        <view class="fr32 bold ellipsis2">{{goods.title}}</view>
+      </view>
+    </view>
+    <view class="new-purchase-box-head-close" catchtap="hideMask">
+      <text class="iconfont icon-close2 fr48"></text>
+    </view>
+  </view>
+  <scroll-view class="new-options fr28" wx:if="{{types.length>0}}" scroll-y="true">
+    <block wx:for="{{types}}" wx:for-item="spec" wx:key="index">
+      <view class="new-options-title fr32 bold">{{spec.title}}</view>
+      <view class="new-list" >
+        <view class="new-item-values">
+          <view wx:for="{{spec.items}}" wx:for-item="item" data-spec-id="{{spec.id}}" wx:key="id" data-item-id="{{item.id}}" class="fr26 c3 new-values {{item.isSelected ?'new-active' : ''}}"
+            catchtap="selectSpecItem">
+            <view class="new-active-bg" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}"></view>
+            <view class="new-active-title" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}">{{item.title}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <view class="new-buy-bottom">
+    <view class="flexc">
+      <view class="new-buy-bottom-w-all flexc cf fr30 bold lh1" bindtap="buyNow">立即参团</view>
+    </view>
+  </view>
+</view>
+
+<component-messageToast></component-messageToast>

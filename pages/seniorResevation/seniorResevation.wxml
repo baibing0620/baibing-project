@@ -1,0 +1,108 @@
+<wxs module="TimeClear">
+  var hideGoodItem = function(time, chooseday,days) {
+    var flag = false
+    var date = getDate();
+    var month = date.getMonth() + 1
+    var day = date.getDate();
+    var _date = [month, day].map(formatNumber).join("-")
+
+    if (chooseday != undefined && _date == chooseday && days.length>0) {
+      for (var i = 0; i < time.length; i++) {
+        if (([date.getHours(),date.getMinutes()].map(formatNumber).join(":")).toString() < time[i].endTime.toString()) {
+          flag = true;
+          break;
+        }
+      }
+    }else if(days.length == 0){
+      flag = false;
+    }else {
+      flag = true;
+    }
+    return flag
+  }
+
+  function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+  }
+  var showTip = function(appointmentItemList, chooseday,days){
+      var tip = false
+      if(appointmentItemList != undefined){
+        for(var i = 0;i<appointmentItemList.length;i++){
+          if(hideGoodItem(appointmentItemList[i].time, chooseday,days)){
+              tip = true
+              break;
+          }else{
+              tip = false
+          }
+      }
+      }
+      return tip
+  }
+  module.exports = {
+    hideGoodItem: hideGoodItem,
+    showTip:showTip
+
+  };
+</wxs>
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<include src="../../comm/comm.wxml"/>
+<component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+<view class="img" >
+  <swiper indicator-dots autoplay interval="{{5000}}">
+    <block wx:for="{{imgUrls}}" wx:key="index">
+      <swiper-item catchtap='previewImage' data-url="{{item.imgUrl}}">
+        <image src="{{ShowImg.cropImgWH(item.imgUrl,750,500)}}" class="slide-image" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="flex senior-title">
+  <view class="flex1 fr34 c3 ellipsis2">{{title}}</view>
+  <button open-type="share" class="asfs iconfont icon-share fr32 c6" style="background:transparent;"></button>
+</view>
+<view class="fr24 c80 senior-intro">
+  <text>{{briefIntroduction}}</text>
+  <text wx:if="{{showlast}}">{{briefIntroductionover}}</text>
+  <view bindtap="showData" wx:if="{{briefIntroductionover.length != 0}}" style="color:#4faeff;float: right" class="fr22">{{!showlast?'展开':'收起'}}</view>
+</view>
+<view style="position: relative;" wx:if="{{days.length > 0}}">
+  <view class="top-time">
+    <scroll-view scroll-x="{{true}}" class="top-choose-date" scroll-into-view="{{toDayView}}" wx:if="{{days.length>0}}">
+      <block wx:for="{{days}}" wx:key="index">
+        <view class="date-item fr24 c4d" id="{{'to_view'+index}}" catchtap="chooseDay" data-index="{{index}}">
+          <view style="{{item.day==chooseday?'color:#ff9b1f':''}}">{{item.week}}{{item.day}}</view>
+          <view class="{{item.day==chooseday?'date-item-active':''}}"></view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <view bindtap='navCalendar' class="calendar flexc iconfont icon-calendar fr36"></view>
+</view>
+<view class='main-bottom'>
+	<block wx:for="{{appointmentItemList}}" wx:key="index">
+		<view class="flexb main-content"   wx:if="{{TimeClear.hideGoodItem(item.time,chooseday,days)}}">
+    <view class="flex" bindtap="navSeniorDetail" data-id="{{item.id}}">
+      <view style="position: relative;height:150rpx;">
+        <image class="shop-img" src="{{ShowImg.cropImgWH(item.banner[0].imgUrl,150,150)}}"></image>
+        <view wx:if="{{item.people_num > 0}}" class="resevation-info fr20">{{item.people_num}}人约过</view>
+      </view>
+      <view class="flexaColumn content-itro">
+        <view style="color:#1a1a1a" class="fr30 ellipsis2">{{item.title}}</view>
+        <view class="ellipsis1 fr22 c9 ">{{item.introduce}}</view>
+        <view class="fr22 c3">预约价:
+          <text style="color:#fe5b36">￥{{item.deposit}}</text>
+        </view>
+      </view>
+    </view>
+    <view>
+      <button wx:if="{{item.is_limit == 0 || (item.is_limit == 1 && item.limit_num !=0)}}" bindtap="resevation" class="reseva-btn fr28 jcfe" data-id="{{item.id}}">预约</button>
+      <button wx:else style='background-color:#ccc' class="reseva-btn fr28 jcfe">约满</button>
+      <view wx:if="{{item.is_limit == 1}}" style="text-align: center;margin-top: 12rpx" class="fr24 c9">剩余{{item.limit_num}}</view>
+    </view>
+  </view>
+	</block>
+   <text style="margin-top:30rpx" class="fr24 flexc" wx:if="{{!TimeClear.showTip(appointmentItemList,chooseday,days)}}">该时间段暂无可预约商品</text>
+</view>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,6 @@
+{
+	"usingComponents": {
+		"diy-rich-text":"/components/richTextDIY/richTextDIY",
+		"component-messageToast": "/components/messageToast/messageToast"
+	}
+}

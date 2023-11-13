@@ -1,0 +1,14 @@
+{
+    "navigationBarTitleText": "客户管理",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance":500,
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-showToast": "/components/showToast/showToast",
+        "component-textareaDialog": "/components/textareaDialog/textareaDialog"
+    }
+}

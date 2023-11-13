@@ -1,0 +1,36 @@
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+		<view class="header">
+			<image src="{{ShowImg.cropImgWH(user.avatar,130,130)}}" mode="aspectFill"></image>
+			<view style="margin:40rpx 20rpx 50rpx;text-align: center;" class="fr28 cf fw600">{{user.nickname}}共收到</view>
+			<view class="flex" style="width: 100%">
+				<view class="flex1 flexcColumn" style="border-right: 1rpx solid #404a55">
+					<view class="fr50 crecord">{{countData.money?countData.money:0}}</view>
+					<view style="margin-top:26rpx;" class="fr24 c9">金额(元)</view>
+				</view>
+				<view class="flex1 flexcColumn">
+					<view class="fr50 crecord">{{countData.credit?countData.credit:0}}</view>
+					<view style="margin-top:26rpx;" class="fr24 c9">积分(分)</view>
+				</view>
+			</view>
+		</view>
+		<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无福袋记录'}}" wx:if="{{showStyle!=1&&recevieData.length==0}}" />
+		<block wx:else>
+		<view class="flexb content" wx:for="{{recevieData}}">
+			<view class="flex1">
+				<view style="padding-left: 20rpx" class="fr28 c3">【{{item.fromMember.nickname}}】  {{item.type == 1?'发给我的':'帮我赚取'}}</view>
+				<view style="margin-top: 20rpx;padding-left: 30rpx" class="fr24 c9">{{item.create_time}}</view>
+			</view>
+			<view wx:if="{{item.reward_type == 1}}" style="padding: 30rpx" class="fr32 crecord fw600">{{item.money}}元</view>
+			<view wx:else style="padding: 30rpx" class="fr32 crecord fw600">{{item.credit}}积分</view>
+		</view>
+		<template is="moreData" data="{{loadStyle:loadStyle}}" />
+		</block>
+
+		<component-messageToast></component-messageToast>
+	</button>
+</form>
+

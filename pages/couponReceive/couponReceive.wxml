@@ -1,0 +1,96 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'加载中'}}" wx:if="{{ showStyle!=1 }}" />
+<block wx:else>
+  <block wx:if="{{errcode != 0}}">
+    <view class="bgImgBox">
+      <component-image src='https://card-1259510193.image.myqcloud.com//image/20200522/7ad11650d6c49af6.png'></component-image>
+    </view>
+    <view class="defeatContainer">
+      <view class="defeat-result fr36">
+        <text wx:if="{{errcode == 101}}"> 您已经领取过了～ </text> 
+        <text wx:elif="{{errcode == 102 || errcode == 103 || errcode == 105}}"> 优惠券已领完 </text> 
+        <text wx:elif="{{errcode == 104}}"> 限新人领取 </text> 
+        <text wx:elif="{{errcode == 108}}"> 领取时间已结束 </text> 
+        <text wx:else>  </text> 
+      </view>
+      <view class="defeat-mark fr30">
+        <text wx:if="{{errcode == 101}}"> 您已领取过该优惠券，可去优惠券中心查看 </text> 
+        <text wx:elif="{{errcode == 102 || errcode == 103 || errcode == 105}}"> 优惠券已经没有了，下次要把握机会哦～ </text> 
+        <text wx:elif="{{errcode == 104}}" class="alignCenter"> 优惠券只有新用户才能领取哦~ </text> 
+        <text wx:elif="{{errcode == 107}}" class="alignCenter"> 用户无法领取自己分享的优惠券哦~ </text> 
+        <text wx:elif="{{errcode == 108}}"> 本次领取时间已结束，请关注下次优惠券发放哦～ </text> 
+      </view>
+
+      <view wx:if="{{errcode == 101}}" class="bottomContainer flexb">
+        <view class="bottom-btn flexc" bindtap="toMall">
+          <view class="cartImg">
+            <component-image src=' https://card-1259510193.image.myqcloud.com//image/20200522/b6535928661375c5.png'></component-image>
+          </view>
+          <text class="fr32">去商城逛逛</text>
+        </view>
+        <view class="bottom-btn flexc fr32" bindtap="toCouponList">查看我的优惠券</view>
+      </view>
+      <view wx:else class="singleToMall flexc" bindtap="toMall">
+        <view class="cartImg">
+          <component-image src=' https://card-1259510193.image.myqcloud.com//image/20200522/b6535928661375c5.png'></component-image>
+        </view>
+        <text class="fr32">去商城逛逛</text>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+      <view class="bgImgBox">
+        <component-image src='https://card-1259510193.image.myqcloud.com//image/20200522/c8d29940550b8ab5.png'></component-image>
+      </view>
+      <view class="receiveContainer">
+        <view class="coupon-detail flex">
+          <view class="coupon-left"> 
+            <block wx:if="{{type != 3}}">
+                <text class="fr80 coupon-money">{{cutdown}}</text>
+                <text class="fr36">元</text>
+            </block>
+            <block wx:if="{{type == 3}}">
+                <view class="fr40 ">商品</view>
+                <view class="fr40 ">抵扣券</view>
+            </block>
+           
+           
+          </view>
+          <view class="coupon-right">
+            <view class="coupon-title fr34 ellipsis1">{{name}}</view>
+            <view class="coupon-rules fr28 ellipsis1" wx:if="{{type == 3}}">可抵扣商品:{{exchange_goods[0].goodsName}}<text></text>  </view>
+            <view class="coupon-rules fr28" wx:if="{{type == 1}}">满{{sale_to}}可用</view>
+            <view class="coupon-rules fr28" wx:elif="{{type == 2}}">满任意金额可用</view>
+            <view class="coupon-time fr28" wx:if="{{time_type == 2}}">有限期至 {{endTime}}</view>
+            <view class="coupon-time fr28" wx:elif="{{time_type == 1}}">有限期：{{startTime}}-{{endTime}}</view>
+          </view>
+        </view>
+        <view class="receive-help-info">
+          优惠券已放入个人中心＞我的优惠券
+        </view> 
+        <view class="toCouponList flexc" bindtap="toCouponList">
+          <view class="cartImg">
+            <component-image mode='aspectFit' src='https://card-1259510193.image.myqcloud.com//image/20200530/07d53a1be8ac14cd.png'></component-image>
+          </view>
+          <text class="fr36">查看优惠券</text>
+        </view>
+        <view class="toMall flexc" bindtap="toMall">
+          <view class="cartImg">
+            <component-image mode='aspectFit' src='https://card-1259510193.image.myqcloud.com//image/20200522/26dd18e9ac8a2a53.png'></component-image>
+          </view>
+          <text class="fr36">去商城逛逛</text>
+        </view>
+      </view>
+
+  </block>
+
+
+</block>
+
+
+<component-messageToast></component-messageToast>
+

@@ -1,0 +1,12 @@
+@import '../../iconfont/iconfont.wxss';
+@import '../../comm/base.wxss';
+
+.form-picker {
+  width: inherit;
+  height: 90rpx;
+  border-radius: 4rpx;
+  padding: 0 30rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #d9d9d9;
+  box-sizing: border-box;
+}

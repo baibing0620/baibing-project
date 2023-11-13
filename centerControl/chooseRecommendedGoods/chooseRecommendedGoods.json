@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "选择推荐商品",
+  "navigationBarBackgroundColor": "#1F94FD",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+      "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

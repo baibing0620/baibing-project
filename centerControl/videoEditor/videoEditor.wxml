@@ -1,0 +1,83 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:else>
+    <view class='bcf padding-w {{ style ? "styleSecond" : "" }}'>
+        <view class='label fr24 c3'>视频名称</view>
+        <input class='input border fr26 c3 background' name='title' bindinput='titleInput' value='{{ title }}' placeholder='请输入视频名称' placeholder-class='fr28 cb3'></input>
+        <view class='label fr24 c3'>视频</view>
+        <view class="flex">
+            <view class='border background noPadding'>
+                <view wx:if='{{ video.status === 0 }}' class='videoHolder flexcColumn' catchtap='uploadVideo'>
+                    <i class='iconfont icon-shangchuan:before cc fr62 marginbottom'></i>
+                    <view class='fr24 c80 marginbottom2'>{{ style ? "点击上传视频" : "点击可以从相册中选择要上传的视频" }}</view>
+                    <view wx:if="{{ !style }}" class='fr26 cb3'>3分钟内</view>
+                </view>
+                <view wx:if='{{ video.status === 1 }}' class='videoHolder'>
+                    <view class='progress-view'>
+                        <progress percent='{{ video.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+                    </view>
+                </view>
+                <view wx:if='{{ video.status === -1 }}' class='imgError flexcColumn fr24 videoHolder' data-index='{{ index }}' catchtap='reUploadVideo' bindlongpress='deleteVideo'>
+                    {{ video.errorMsg }}
+                </view>
+                <view wx:if='{{ video.status === 2 }}' class='flexcColumn videoHolder noPadding'>
+                    <video class='videoLayout' src='{{ video.url }}'></video>
+                </view>
+                <view wx:if='{{ video.status === 3 }}' class='flexcColumn fr24 videoHolder' bindlongpress='deleteVideo'>
+                    <image src='/imgs/loading.gif' class='marginbottom loading'></image>
+                    <view class='fr24 c80'>正在转码，请稍后…</view>
+                </view>
+            </view>
+            <view wx:if="{{ style }}" class="side flex flex1">
+                <view class='fr24 c80 sideInfo'>
+                    从相册中选择要上传的视频
+                    <view>3分钟内</view>
+                </view>
+                <view wx:if='{{ video.status === 2 || video.status === 3 }}' class='sideReUpload fr30 cf flexc' catchtap='deleteVideo'>重新上传</view>
+            </view>
+        </view>
+        <view wx:if='{{ !style && (video.status === 2 || video.status === 3)}}' class='fr34 cf reuploadvideo flexc' style='background-color: {{ extConfig.themeColor }}' catchtap='deleteVideo'>
+            重新上传
+        </view>
+        <view class='label fr24 c3'>视频封面</view>
+        <view class="flex">
+            <view class='coverHolder border background noPadding'>
+                <view wx:if='{{ videoCover.status === 0 }}' class='{{ style ? "coverHolder" : "videoHolder" }} flexcColumn' catchtap='uploadVideoCover'>
+                    <i class='iconfont icon-add cc fr62 marginbottom'></i>
+                    <view class='fr24 c80 marginbottom2'>{{ style ? "点击上传视频封面" : "上传的图片将作为视频的封面图，及海报封面" }}</view>
+                    <view wx:if='{{ !style }}' class='fr26 cb3'>最佳比例为16:9</view>
+                </view>
+                <view wx:if='{{ videoCover.status === 1 }}' class='{{ style ? "coverHolder" : "videoHolder" }}' catchtap='deleteVideoCover'>
+                    <view class='progress-view'>
+                        <progress percent='{{ videoCover.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+                    </view>
+                </view>
+                <view wx:if='{{ videoCover.status === -1 }}' class='imgError flexcColumn fr24 {{ style ? "coverHolder" : "videoHolder" }}' data-index='{{ index }}' catchtap='deleteVideoCover'>
+                    {{ videoCover.errorMsg }}
+                    <br />
+                    点击重新上传
+                </view>
+                <view wx:if='{{ videoCover.status === 2 }}' class='imgError flexcColumn fr24 {{ style ? "coverHolder" : "videoHolder" }}' catchtap='deleteVideoCover'>
+                    <image mode='aspectFill' class='{{ style ? "coverHolder" : "videoHolder" }}' src='{{ videoCover.url }}'></image>
+                </view>
+            </view>
+            <view wx:if="{{ style }}" class="side flex flex1">
+                <view class='fr24 c80 sideInfo'>
+                    上传的图片将用作视频的封面图及海报封面，最佳比例为9:16
+                </view>
+            </view>
+        </view>
+        <view class='label fr24 c3'>分享语</view>
+        <view class='textarea border background margin-bottom'>
+            <textarea class='fr24 c3' name='content' placeholder-class='fr28 cb3' value="{{ content }}" placeholder='请输入分享视频给好友时的分享语' maxlength='20' bindinput='textInput'></textarea>
+            <view class='text-total fr28 cc'>{{ textLength }} / 20</view>
+        </view>
+    </view>
+    <cover-view class='submitBox fr34 cf flexc bc-1F94FD' catchtap='submit'>
+        <cover-image class="iconImage" src="/imgs/upload.png">{{ iconfont }}</cover-image>
+        <cover-view>{{ id ? "完成编辑" : "立即上传" }}</cover-view>
+    </cover-view>
+</block>
+<component-messageToast></component-messageToast>

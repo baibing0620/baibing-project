@@ -1,0 +1,63 @@
+.fr16 {
+    font-size: 16rpx;
+}
+
+.fr16, .fr20, .fr24, .fr26, .fr30, .fr40 {
+    line-height: 100%;
+}
+
+.input-layout {
+    width: 100vw;
+    height: 112rpx;
+    background-color: black;
+    position: relative;
+    z-index: 6;
+}
+
+.input {
+    height: 80rpx;
+    width: 690rpx;
+    background-color: #282828;
+    box-sizing: border-box;
+    border: 1rpx solid #675439;
+    border-radius: 4rpx;
+    padding: 0 30rpx;
+    position: relative;
+    color: #fff;
+}
+
+.input .iconfont {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 80rpx;
+    line-height: 80rpx;
+    width: 34rpx;
+    padding: 0 30rpx;
+    z-index: 2;
+}
+
+
+.label {
+    width: 690rpx;
+    padding-top: 60rpx;
+    padding-bottom: 30rpx;
+    border-bottom: 1rpx solid #ebebf0;
+    margin: 0 auto;
+}
+
+.tags-layout {
+    width: 720rpx;
+    overflow: hidden;
+    padding-top: 18rpx;
+    flex-wrap: wrap;
+}
+
+.tags {
+    margin-top: 30rpx;
+    margin-left: 30rpx;
+    height: 70rpx;
+    padding: 0 35rpx;
+    background-color: #f0f0f5;
+}
+    

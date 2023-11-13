@@ -1,0 +1,31 @@
+<view class='container' style='margin-bottom:10rpx'>
+    <view class='flexb'>
+        <view class='fr28 c3 bold'>
+            <text>AI回复</text>({{aiTips.awaken_time_type == 1?'3分钟':aiTips.awaken_time_type == 2?'2小时':'6天'}}左右)</view>
+        <view class='fr24 c-open'>
+            <switch color='#ff9b1f' checked="{{aiTips.awaken_time_type_if_open}}" bindchange="replyChange" />
+        </view>
+    </view>
+</view>
+<view wx:if="{{aiTips.awaken_time_type_if_open}}" class='container' style='border-top: 1rpx solid #e6e6e6;'>
+    <view class='flexb'>
+        <view class='fr28 c3 bold'>AI系统自动生成文案</view>
+        <view class='fr24 c-open'>
+            <switch color='#ff9b1f' checked="{{aiTips.content_if_auto}}" bindchange="autoChange" />
+        </view>
+    </view>
+    <view class='flexb'>
+        <view class='fr28 c3 bold'>类型</view>
+        <view class='fr24 c9'>
+            {{aiTips.content_if_auto?'自动生成':'自定义文案'}}
+        </view>
+    </view>
+    <view class='flexb' catchtap='navWritingSettings'>
+        <view class='fr28 c3 bold asfs'>文案内容</view>
+        <view style='margin-left:40rpx' class="fr24 c9 {{!aiTips.content_if_auto&&aiTips.content.length>22 ?'flex1':''}}">{{aiTips.content_if_auto?'文案内容将根据AI系统自动生成':aiTips.content?aiTips.content:'去编辑'}}
+        <text wx:if="{{!aiTips.content_if_auto && !aiTips.content}}" class='iconfont icon-you fr24 cb3'></text>
+        </view>
+    </view>
+</view>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,64 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class="oneself-card w100"> 
+        <!-- <view class="user-name fr46" >{{userInfo.name||'--'}}</view>
+        <view class="fr24" style="color:{{themeColor}};margin-top:20rpx;margin-bottom:34rpx;line-height:26rpx;">{{userInfo.position||'--'}}</view>
+        <view class="flex" style="margin-bottom: 12rpx">
+            <view class="iconfont icon-chongzhi1 " style="color:{{themeColor}};margin-right:16rpx;"></view>
+            <view class="fr24 c6">{{userInfo.mobile||'--'}}</view>
+        </view>
+        <view class="flex" style="margin-bottom: 30rpx">
+            <view class="iconfont icon-gongsi2" style="color:{{themeColor}};margin-right:16rpx;"></view>
+            <view class="fr24 c6">{{userInfo.company||'--'}}</view>
+        </view>
+        <view class="phone-share flex">
+            <view class="phone" catchtap='callPhone'>
+                <image src="/imgs/phone_with_border.png"></image>
+            </view>
+            <button class="share" hover-class="none" open-type="share" data-shareModel="{{userInfo}}" catchtap='stopP'>
+                <image src="/imgs/share_with_border.png"></image>
+            </button>
+        </view>
+        <image  class="user-avator" src='{{ ShowImg.cropImgWH(userInfo.avatar_url, 140, 140) }}' mode="aspectFill" />
+        <view wx:if="{{userInfo.isMyCard==1}}" class="my-card-notice fr24 flexc" style="background:{{themeColor}}">我的名片 <i class='iconfont icon-youbian fr20'></i></view>
+        <view wx:else class='iconfont icon-shoucang2 star-icon cc ' style="color:{{isStart==1?themeColor:''}}" catchtap='startTop'/> -->
+
+        <!-- <view class="flex w100 topBox">
+            <image  class="user-avator" src='{{ ShowImg.cropImgWH(userInfo.avatar_url, 140, 140) }}' mode="aspectFill" />
+            <view class="ml30">  
+                <view class="user-name fr40" >{{userInfo.name||'--'}}</view>
+                <view class="fr26 c6" style="margin-top:24rpx;line-height:24rpx;">{{userInfo.position||'--'}}</view>
+            </view>
+        </view> -->
+        <view class="flex w100 topBox">
+            <view class="avatarBox">
+                <avatar src="{{userInfo.avatar_url}}" name="{{userInfo.name}}"></avatar>
+            </view>
+            <view class="ml30">  
+                <view class="user-name fr40 ellipsis1" >{{userInfo.name||'--'}}</view>
+                <view class="fr26 c6 position" >{{userInfo.position||'--'}}</view>
+            </view>
+        </view> 
+
+        <view class="flex" style="margin-bottom: 24rpx">
+            <view class="iconfont icon-chongzhi1 c9  " style="margin-right:16rpx;"></view>
+            <view class="fr26 c6">{{userInfo.mobile||'--'}}</view>
+        </view>
+        <view class="flex aifs">
+            <view class="iconfont icon-gongsi2 c9" style="margin-right:16rpx;"></view>
+            <view class="fr26 c6 ellipsis2 componey">{{userInfo.company||'--'}}</view>
+        </view>
+
+
+        <view class="phone-share">
+            <view class="phone flex-c-c" catchtap='callPhone'>
+                <view class="iconfont icon-mobile"></view>
+            </view>
+            <button class="share flex-c-c" hover-class="none" open-type="share" data-shareModel="{{userInfo}}" catchtap='stopP'>
+                <view class="iconfont icon-cardshare"></view>
+            </button>
+        </view>
+
+        <view wx:if="{{userInfo.isMyCard==1}}" class="my-card-notice fr30 flexc" >我的名片 <i class='iconfont icon-you fr30'></i></view>
+        <view wx:else class='iconfont icon-shoucang2 star-icon  ' style="color:{{isStart==1? '#FFD34C':''}}" catchtap='startTop'/> 
+
+    </view>

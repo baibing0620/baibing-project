@@ -1,0 +1,95 @@
+.fr26, .fr30 {
+    line-height: 100%;
+}
+
+page {
+    background-color: #f5f5f5;
+}
+
+.input-layout {
+    width: 100%;
+    height: 100rpx;
+    box-sizing: border-box;
+    padding: 10rpx 30rpx 0 30rpx;
+}
+
+.input-box {
+    box-sizing: border-box;
+    padding-left: 30rpx;
+    width: 100%;
+    height: 70rpx;
+    border-radius: 100rpx;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.input {
+    color: rgba(255, 255, 255, 1);
+    width: 540rpx;
+}
+
+.input-holder {
+    color: #999ca0;
+}
+
+.search {
+    padding: 0 40rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    color: rgba(255, 255, 255, 0.3);
+    border-radius: 70rpx;
+}
+
+.item {
+    box-sizing: border-box;
+    height: 240rpx;
+    width: 100vw;
+    background-color: #fff;
+    padding: 0 26rpx;
+    margin-bottom: 1rpx;
+}
+
+.item-selected {
+    background-color: #f7f7f7;
+    transition: 0.3s;
+}
+
+.checkBox {
+    box-sizing: border-box;
+    width: 36rpx;
+    height: 36rpx;
+    border-radius: 50%;
+    border: 1rpx solid #ccc;
+    background-color: #fafafa;
+    margin-right: 30rpx;
+    font-size: 36rpx;
+    color: #ff9b1f;
+}
+
+.checkBox-selected {
+    border: 0;
+}
+
+.image {
+    width: 180rpx;
+    height: 180rpx;
+    border-radius: 10rpx;
+    background-color: #ccc;
+    margin-right: 30rpx;
+}
+
+.title {
+    line-height: 54rpx;
+}
+
+.holder {
+    height: 98rpx;
+}
+
+.btn {
+    height: 98rpx;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #ff9b1f;
+}

@@ -1,0 +1,26 @@
+@import '../../comm/base.wxss';
+.vip-box{
+    height: 100rpx;
+    position: relative;
+
+    background-image: url(https://facing-1256908372.file.myqcloud.com//image/20180413/8a5ad2e6f0c2026b.png);
+    background-size: cover;
+    color: #76390c;
+}
+.vip-tags{
+    height: 30rpx;
+    color: #76390c;
+    width: 80rpx;
+    background: #ffd151;
+    line-height: 30rpx;
+    text-align: center;
+    margin-bottom: 6rpx;
+    border-radius: 4rpx;
+}
+.open-vip{
+    width: 148rpx;
+    height: 100rpx;
+    padding-left: 20rpx;
+    line-height: 100rpx;
+    text-align: center;
+}

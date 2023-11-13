@@ -1,0 +1,10 @@
+<component-bless-bag wx:if="{{belssBagDialog == 1}}" bindcolse = "onColse" bindmyExplore="onmyExplore"  blessData="{{blessData}}"></component-bless-bag >
+<component-bless-bag-success wx:if="{{belssBagDialog == 2}}" bindcolse = "onColse" recevieData="{{recevieData}}" blessData="{{blessData}}"></component-bless-bag-success>
+<component-bless-bag-explore  wx:if="{{belssBagDialog == 3}}" bindcolse = "onColse" completeTask = "{{completeTask}}" blessData="{{blessData}}" ></component-bless-bag-explore>
+  <view class="bless-bag mb20 about-class" bindtap="showModel" wx:if="{{blessData}}"></view>
+ <view class="bless-message fr28 {{showMessage?'':'hide'}} c3">
+    <image src="https://facing-1256908372.file.myqcloud.com//image/20180921/276ebb8cb5bd7eb2.png"></image>
+    已完成{{blessBagTask[completeTask[0]]}}{{count != '0秒'?count:''}}的任务
+  </view>
+
+ 

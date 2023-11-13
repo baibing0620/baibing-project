@@ -1,0 +1,50 @@
+<!--centerControl/verificationList/verificationList.wxml-->
+<include src="/comm/comm" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" />
+
+ <template is="initShow" data="{{showStyle:2,showNoMsg:'暂无权限'}}" wx:if="{{!privilege}}" />
+
+<view class="container flexColumn" wx:else>
+  <view class="codeList flexb" catchtap="scanToUseCoupon" style="display:{{ privilege & 1 ? '' : 'none' }}">
+    <view class="flex">
+      <image class="typeImg " src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20191128/b4b2d9c2fcad7c8d.png',80,80) }}"></image>
+      <view class="typeTitle fr36">优惠券核销</view>
+    </view>
+    <view> <text class='iconfont icon-you'></text> </view>
+  </view>
+
+  <view bindtap="integralGive" class="codeList flexb" style="display:{{ privilege & 2 && is_open_credit ? '' : 'none' }}">
+    <view class="flex">
+      <image class="typeImg" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20191128/c8cec07ed9ae231a.png',80,80) }}"></image>
+      <view class="typeTitle fr36">积分核销</view>
+    </view>
+    <view><text class='iconfont icon-you'></text></view>
+  </view>
+ 
+  <view class="codeList flexb" catchtap="scanToUsePrize" style="display:{{ privilege & 4 ? '' : 'none' }}" >
+    <view class="flex">
+      <image class="typeImg" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20191128/76f5f74569ba4ac2.png',80,80) }}"></image>
+      <view class="typeTitle fr36">活动奖品核销</view>
+    </view>
+    <view><text class='iconfont icon-you'></text></view>
+  </view>
+
+  <view bindtap="bonusCodeModel" class="codeList flexb" style="display:{{ privilege & 8 && is_open_credit ? '' : 'none' }}">
+    <view class="flex">
+      <image class="typeImg" src="{{ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20191128/9bba840ce0813b73.png',80,80)}}"></image>
+      <view class="typeTitle fr36">积分赠送码</view>
+    </view>
+    <view><text class='iconfont icon-you'></text></view>
+  </view>
+
+  <view class='flexc toPrizeVerificationRecordLog fr30 c3' data-page='prizeVerificationRecordLog' bindtap='handleToNavigate'>
+    核销记录
+    <view class='iconfont icon-jinru fr30'></view>
+  </view>
+
+</view>
+<component-showToast title="{{title}}" placeholder="{{placeholder}}" btnVal="{{btnVal}}" tip="{{tip}}" wx:if="{{giveModel}}" bindcolse="closeModel" bindgetValue="onGetvalue"></component-showToast>
+<view class='cover {{ showCover ? "cover-show" : "" }}' catchtap='coverHide'>
+<component-poster src='{{ palette }}' themeColor='{{ extConfig.themeColor }}' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-poster>
+</view>

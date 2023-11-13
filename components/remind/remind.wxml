@@ -1,0 +1,4 @@
+<cover-view style="top:{{bottom || 0}}px" wx:if='{{ show }}' class='remindToAdd'>
+  <cover-image class='image' src='https://facing-1256908372.file.myqcloud.com//image/20200320/714f435c302fc4d0.png?imageView2/1/w/430/h/72'></cover-image>
+  <cover-view class='btn' catchtap='close'></cover-view>
+</cover-view>

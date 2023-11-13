@@ -1,0 +1,12 @@
+{
+    "navigationBarTitleText": "订单详情",
+		"navigationBarBackgroundColor": "#1F94FD",
+		"backgroundColor": "#1F94FD",
+		"navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+				"component-image": "/components/image/image",
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

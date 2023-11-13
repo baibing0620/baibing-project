@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "商品图文搭建",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-steps": "/components/steps/steps"
+    }
+}

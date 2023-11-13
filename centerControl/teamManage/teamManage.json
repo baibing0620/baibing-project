@@ -1,0 +1,14 @@
+{
+    "navigationBarTitleText": "团队管理",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-switchTab": "./../../components/switchTab/switchTab",
+        "team-manage-overview": "./../../centerControl/teamManageOverview/teamManageOverview",
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "jx-goodsRank": "../../components/goodsRanking/goodsRanking"
+    },
+    "enablePullDownRefresh": true
+}

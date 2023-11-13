@@ -1,0 +1,4 @@
+<web-view src="{{url}}" wx:if="{{url}}">
+</web-view>
+
+<component-messageToast></component-messageToast>

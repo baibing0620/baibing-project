@@ -1,0 +1,212 @@
+.container {
+    padding-bottom: 100rpx;
+}
+
+.order-status {
+    height: 200rpx;
+    padding-left: 98rpx;
+}
+
+.order-status image {
+    width: 331rpx;
+    height: 190rpx;
+}
+
+.order-receipt {
+    height: 184rpx;
+    background-color: #fff;
+    margin: 10rpx 0;
+    padding: 0 30rpx;
+}
+
+.goods-box {
+    box-sizing: border-box;
+    background: white;
+}
+
+.order-detail {
+    width: 690rpx;
+    margin: 0 auto;
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid #eaeaea;
+}
+
+.order-detail image.order-pic {
+    display: block;
+    width: 160rpx;
+    height: 160rpx;
+}
+
+.order-detail .order-text {
+    height: 160rpx;
+    padding-left: 20rpx;
+    align-items: flex-start;
+}
+
+.item-total {
+    padding: 28rpx 30rpx;
+    background: white;
+}
+
+.total-item {
+    display: flex;
+    justify-content: space-between;
+    line-height: 42rpx;
+}
+
+.pay-total {
+    border-top: 1rpx solid #eaeaea;
+    background: white;
+    text-align: right;
+    padding: 28rpx 0;
+    width: 690rpx;
+    margin: 0 auto;
+}
+
+.order-info {
+    background-color: #fff;
+    margin: 10rpx 0;
+    padding: 28rpx;
+    line-height: 42rpx;
+}
+
+.order-bottom {
+    height: 100rpx;
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 100;
+}
+
+.order-bottom button {
+    width: 180rpx;
+    height: 70rpx;
+    padding: 0;
+    margin: 0 15rpx;
+    font-size: 30rpx;
+    line-height: 70rpx;
+    border-radius: 6rpx;
+}
+
+.bcf {
+    background-color: #fff;
+}
+
+.red-packet-btn {
+    width: 118rpx;
+    height: 135rpx;
+    position: fixed;
+    right: 30rpx;
+    bottom: 135rpx;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    z-index: 50;
+}
+
+.red-packet {
+    width: 118rpx;
+    height: 135rpx;
+}
+
+.red-envelope-share-bg {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.red-envelope-share-img-bg {
+    background: url(https://facing-1256908372.file.myqcloud.com//image/20180124/7c362490cc2711a3.png) no-repeat;
+    width: 539rpx;
+    height: 496rpx;
+    background-size: cover;
+    margin-bottom: 200rpx;
+}
+
+.red-envelope-share-content-top {
+    margin-top: 242rpx;
+    margin-bottom: 20rpx;
+    padding: 0 20rpx;
+    color: #ffc303;
+    font-weight: 600;
+    text-align: center;
+}
+
+.red-envelope-share-bg>.icon-shanchu2 {
+    position: relative;
+    top: 40rpx;
+    left: 270rpx;
+    color: white;
+    font-size: 40rpx;
+    font-weight: 500;
+    padding: 40rpx;
+}
+
+.red-envelope-share-content-btn {
+    width: 400rpx;
+    height: 80rpx;
+    color: #f9353f;
+    background-color: #ffc303;
+    border-radius: 50rpx;
+    line-height: 80rpx;
+    margin-top: 22rpx;
+    box-shadow: 0 6rpx 0 6rpx #db2029;
+}
+
+/* // */
+
+.order-situation {
+    background: white;
+    padding: 0 20rpx;
+}
+
+.order-situation-top {
+    height: 132rpx;
+    border-bottom: 1rpx solid #f0f0f0;
+}
+
+.order-situation-top-fail {
+    height: 132rpx;
+    background-color: #fff;
+}
+
+.order-situation-top image {
+    width: 80rpx;
+    height: 80rpx;
+    margin-right: 20rpx;
+}
+
+.order-situation-top>text:first-of-type,
+.order-situation-complete-top text:first-of-type {
+    color: #ee4130;
+    margin-right: 18rpx;
+}
+
+.order-situation-btn {
+    width: 156rpx;
+    height: 54rpx;
+    line-height: 54rpx;
+    border-radius: 6rpx;
+    background-color: #fff;
+    border: 1rpx solid #ccc;
+    margin: 0;
+    padding: 0;
+}
+
+.order-situation-complete-top {
+    height: 160rpx;
+}
+
+.order-situation-complete-btn {
+    width: 200rpx;
+    height: 60rpx;
+    background-color: #ffd305;
+    border-radius: 8rpx;
+    line-height: 60rpx;
+    text-align: center;
+}

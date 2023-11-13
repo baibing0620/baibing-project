@@ -1,0 +1,138 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 30rpx 0 100rpx;
+}
+
+.header {
+  margin: 0 auto;
+  width: 690rpx;
+  height: 200rpx;
+  background: linear-gradient(93deg, #3B3E4A 0%, #404350 47%, #23262C 100%);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.header .image {
+  width: 110rpx;
+  height: 110rpx;
+  margin-left: 40rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.vip-info view {
+  line-height: 1;
+}
+.vip-info view:last-child {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-top: 30rpx;
+  letter-spacing: 6rpx;
+}
+
+.vip-rights-title {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #9B7C57;
+  margin-top: 80rpx;
+  margin-bottom: 33rpx;
+}
+.vip-rights-title .line {
+  position: relative;
+  width: 82rpx;
+  height: 1rpx;
+  background: #D9D9D9;
+}
+.vip-rights-title .circle-left::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  display: block;
+  content: " ";
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #D9D9D9;
+  z-index: 100;
+}
+.vip-rights-title .circle-right::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  display: block;
+  content: " ";
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #D9D9D9;
+  z-index: 100;
+}
+.vip-rights-title view:nth-child(2) {
+  margin: 0 30rpx;
+  font-size: 36rpx;
+  line-height: 1;
+}
+
+.info-box {
+  padding: 0 30rpx;
+}
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #F7F7F7;
+  padding: 40rpx 0;
+}
+.info-item-left {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+}
+.info-item-left text {
+  margin-right: 30rpx;
+  color: #999999;
+  font-size: 30rpx;
+}
+.info-item-right {
+  text-align: right;
+  font-size: 30rpx;
+  color: #333333;
+}
+.info-item-right button {
+  width: 120rpx;
+  height: 50rpx;
+  background: #07C261;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  line-height: 50rpx;
+  margin-left: 22rpx;
+}
+.info-item-right text {
+  color: #999999;
+  vertical-align: middle;
+}
+
+.vip-btn {
+  width: 690rpx;
+  height: 90rpx;
+  background: linear-gradient(90deg, #E0C192 0%, #CBA673 100%);
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #623E0F;
+  margin: 80rpx auto 0;
+  text-align: center;
+  line-height: 90rpx;
+}

@@ -1,0 +1,30 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle }}" wx:if="{{ showStyle != 1 }}"/>
+<block wx:else>
+    <component-switchTab props='{{ switchTab }}' bind:myevent="onTabClick"></component-switchTab>
+    <view class="list">
+        <view wx:for="{{ list }}" wx:key="{{ item.id }}" class="item bcf flex">
+            <image class="avatar" src="{{ item.member.avatar ? ShowImg.cropImgWH(item.member.avatar, 100, 100) : ShowImg.cropImgWH(item.member.avatar_url, 100, 100) }}" mode="aspectFill"></image>
+            <view class="top flex1">
+                <view class="nickname fr36 bold c3">{{ item.member.realname }}</view>
+                <view class="personMoney fr28 c6">
+                    个人累计消费<text class="cmain">{{ item.consumption }}元</text>
+                </view>
+                <view class="timeInfo fr24 cb3 flexb">
+                    加入时间 {{ item.create_time }}
+                </view>
+                <view class="moneyInfo">
+                    <view class="fr24 cb3 flexcColumn">
+                        <view class="fr36 cmain money bold">{{ item.distribution_money_count }}元</view>
+                        帮我赚取
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+</block>
+
+<component-messageToast></component-messageToast>    

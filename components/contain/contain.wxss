@@ -1,0 +1,28 @@
+@import './../../iconfont/iconfont.wxss';
+@import './../../comm/base.wxss';
+.layout {
+    width: 100%
+}
+
+.bar {
+    height: 142rpx;
+    padding-left: 30rpx;
+}
+
+.icon {
+    height: 48rpx;
+    width: 48rpx;
+}
+
+.title {
+    line-height: 58rpx;
+    font-weight: 800;
+}
+
+.navigate {
+    padding-right: 30rpx;
+}
+
+.navigate-icon {
+    margin-left: 12rpx;
+}

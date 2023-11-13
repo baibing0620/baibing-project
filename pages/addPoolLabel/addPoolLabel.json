@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "添加标签",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

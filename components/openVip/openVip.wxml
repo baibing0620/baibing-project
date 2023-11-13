@@ -1,0 +1,12 @@
+<view class="vip-box flexb w100">
+  <view class="cf fr30" style="padding: 0 26rpx;">￥
+    <text class="fr60 fw600">{{vipPrice}}</text>
+  </view>
+  <view class="flex1 flexaColumn">
+    <view class="vip-tags fr20">会员价</view>
+    <view class="fr24 cf">成为会员，享优惠折扣</view>
+  </view>
+  <view class="open-vip fr30" catchtap='toMembershipCard'>
+    开通会员
+  </view>
+</view>

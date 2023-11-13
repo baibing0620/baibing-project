@@ -1,0 +1,52 @@
+/* centerControl/businessWechatManage/businessWechatManage.wxss */ 
+@import '/comm/base.wxss';
+@import '/iconfont/iconfont.wxss';
+page {
+  background: #fff;
+}
+.headBg {
+  height: 400rpx;
+  background: url('https://facing-1256908372.file.myqcloud.com//image/20200211/e9c9f5748374ed2c.png');
+  background-size: 750rpx 400rpx;
+} 
+.icon-fanhui2 {
+  margin:0 10rpx 0 20rpx;
+}
+.mainTitle {
+  width: 100%;
+  text-align: center;
+  font-size: 68rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 40rpx;
+}
+.base-line {
+  margin: 48rpx auto 0;
+  width:110rpx;
+  height:6rpx;
+  background:rgba(255,255,255,1);
+  border-radius:3px;
+}
+
+.enterBox {
+  box-sizing: padding-box;
+  padding: 0 30rpx;
+  margin-top: 40rpx;
+}
+.enterItem {
+  height:150rpx;
+  background:rgba(247,248,250,1);
+  border-radius:10rpx;
+  box-sizing: padding-box;
+  padding: 0 30rpx;
+  margin-top: 20rpx;
+}
+.item-img {
+  width: 56rpx;
+  height: 56rpx;
+  margin-right: 20rpx;
+}
+.item-title {
+  color: #1a1a1a;
+  font-weight: 600;
+}

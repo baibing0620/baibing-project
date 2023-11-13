@@ -1,0 +1,44 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+
+  <view class='flexb bcf item active' catchtap='toNewPage' data-page="bar">
+    <view class='fr28 flex'>
+      <i class='iconfont icon-tiezi fr28 marginright c-1F94FD'></i>
+      动态帖子
+    </view>
+    <i class='iconfont icon-you fr28 cc'></i>
+  </view>
+
+  <view wx:if='{{ needAudit }}' class='flexb bcf item active' catchtap='toNewPage' data-page="commentModeration">
+    <view class='fr28 flex'>
+      <i class='iconfont icon-shenhe fr28 marginright c-1F94FD'></i>
+      评论审核
+    </view>
+    <i class='iconfont icon-you fr28 cc'></i>
+  </view>
+
+  <view class='flexb bcf item active' catchtap='toNewPage' data-page="bbsTagsEditor">
+    <view class='fr28 flex'>
+      <i class='iconfont icon-biaoqian1 fr28 marginright c-1F94FD'></i>
+      对外标签
+    </view>
+    <view class='flex'>
+      <view class='explain fr24 c9'>发帖时对外标签</view>
+      <i class='iconfont icon-you fr28 cc'></i>
+    </view>
+  </view>
+
+  <view class='flexb bcf item active'  bindtap='toEditor'>
+    <view class='fr28 flex'>
+      <i class='iconfont icon-tiezi fr28 marginright c-1F94FD'></i>
+      发布帖子
+    </view>
+    <i class='iconfont icon-you fr28 cc'></i>
+  </view>
+</block>
+
+<component-messageToast></component-messageToast>

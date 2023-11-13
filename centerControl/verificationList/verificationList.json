@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "业务核销",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "component-showToast": "/components/showToast/showToast",
+        "component-poster": "/components/poster/poster"
+    }
+}

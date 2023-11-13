@@ -1,0 +1,13 @@
+{
+    "navigationBarTitleText": "动态",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-toHomePage": "/components/toHomePage/toHomePage",
+        "component-bless-bag-comm":"/components/blessBagComm/blessBagComm",
+        "component-menu": "/components/menu/menu"
+    }
+}

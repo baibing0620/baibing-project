@@ -1,0 +1,3 @@
+<view class="modal-video" catchtap='close'>
+    <video id="myVideo" src="{{src}}" controls catchtap='block' show-progress show-play-btn class="my-video" autoplay></video>
+</view>

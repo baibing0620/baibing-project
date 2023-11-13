@@ -1,0 +1,56 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<view class='container'>
+    <view style='padding:0 50rpx;height:326rpx;' class='flex'>
+        <view class='flex1 fr26 c80'>
+            <view class='fr46 c3 bold'>{{info.name}}</view>
+            <view style='margin:48rpx 0 24rpx' wx:if="{{configCode}}">
+                <text class='iconfont icon-bumen fr26'></text>{{info.departmentInfo?info.departmentInfo.name:'--'}}
+            </view>
+            <block wx:else>
+                <view wx:if="{{info.gender==2}}" style='margin:48rpx 0 24rpx'>
+                    <text class='iconfont icon-nvsheng fr26'></text>女性</view>
+                <view wx:elif="{{info.gender==1}}" style='margin:48rpx 0 24rpx'>
+                    <text class='iconfont icon-nan1 fr26'></text>男性</view>
+                <view wx:else style='margin:48rpx 0 24rpx'></view>
+            </block>
+            <view>
+                <text class='iconfont icon-bumenfuzhi fr26'></text>{{info.position?info.position:'--'}}</view>
+            <view style='margin-top:24rpx'>
+                <text class='iconfont icon-hujiao fr26'></text>{{info.mobile?info.mobile:'--'}}</view>
+        </view>
+        <view style='{{!configCode?"height:220rpx":"height:160rpx;"}}'>
+            <image src="{{ShowImg.cropImgWH(info.avatar,140,140)}}"></image>
+        </view>
+        <view wx:if="{{info.opencard == 3}}" style='background:#54b5ff' class='{{!configCode?"status" :"public"}} cf fr28'>未开通</view>
+        <view wx:else style="background:{{status == 1?'#54e699':status == 2?'#cccccc':'#ff9b1f'}}" class='{{!configCode?"status" :"public"}}  cf fr28'>{{status == 3?'使用中':status == 2?'已关闭':'未绑定'}}</view>
+    </view>
+    <view wx:if="{{configCode}}" class='operation flex fr28 cb3'>
+        <view class='flex1' bindtap='delStaff' data-id="{{item.id}}" data-index="{{index}}">
+            <text class='iconfont icon-shanchu1 fr26'></text>删除</view>
+        <view class='flex1' bindtap='editStaff' data-id="{{item.id}}">
+            <text class='iconfont icon-bianji1 fr26'></text>编辑</view>
+    </view>
+</view>
+
+<!-- 未开通 -->
+<block wx:if="{{info.opencard == 3}}">
+    <view wx:if="{{number !=0}}" style='margin:80rpx 0 110rpx;text-align:center' class='fr26 cb3'>企业可用名片数量{{number}}张</view>
+    <view wx:else class='fr30 cmain' style='text-align:center'>
+        <view style="margin:100rpx 0 20rpx;">请联系企业管理员购买名片</view>
+        <view style='margin-bottom:100rpx'>购买完成后，即可进行名片开通和绑定</view>
+    </view>
+    <button catchtap='setCardOpen' disabled='{{number == 0}}' class='fr34 cf btn'>开通名片</button>
+</block>
+<block wx:else>
+    <block wx:if="{{status == 2}}">
+        <view style='margin:80rpx 0 110rpx;text-align:center' class='fr26 cb3'>开启后，该员工可重新使用该名片</view>
+        <button catchtap='setOpenCard' class='fr34 cf btn'>开启名片</button>
+    </block>
+    <view wx:else class='flex' style='margin-top:120rpx'>
+        <button catchtap='setColseCard' style="background:#ffffff;color:#ff9b1f;border:1rpx solid #ff9b1f;margin-right:30rpx" class='fr34 cf flex1 btn'>关闭名片</button>
+        <button catchtap='unBindCard' wx:if="{{status == 3}}" class='fr34 cf flex1 btn'>解除绑定</button>
+        <button catchtap='bindCard' wx:else class='fr34 cf flex1 btn'>绑定名片</button>
+    </view>
+</block>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,47 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is="initShow" data="{{ showStyle: showStyle }}" wx:if="{{ showStyle != 1 }}"/>
+<block wx:else>
+    <view class="title flexc cmain fr50 bold">分销规则</view>
+    <view class="flexc fr28 cf content">将该名片发送给您的好友</view>
+    <view class="flexc fr28 cf content">并促进您的好友在该名片内消费(必须购买商城内商品)</view>
+    <view class="flexc fr28 cf content">即可获得分销佣金</view>
+    <view class="flexa percents">
+        <view wx:for="{{ config.distribution_setting }}" wx:key="{{ index }}" class="flexcColumn percent">
+            <view class="flex fr40 cmain flexEnd">{{ item.rate }}<text class="fr24">{{ config.open_single_distribution == 1 ? "%" : "元/件" }}</text></view>
+            <view class="fr28 cf content">{{ item.level }}级分销</view>
+        </view>
+    </view>
+
+    <block wx:if="{{ goodsDistributionRate.length > 0 }}">
+        <view class="title2 fr36 cf flexc">特殊商品</view>
+        <view class="fr26 cblue flexc content">分销以下商品可获得更多佣金</view>
+    </block>
+    
+    <view class="goodList">
+        <view wx:for="{{ goodsDistributionRate }}" wx:key="{{ item.goodsId }}" class="flex goodItem">
+            <image class="goodImage" src="{{ ShowImg.cropImgWH(item.goodsImage, 170, 170) }}" mode="aspectFill"></image>
+            <view class="flex1 goodInfo">
+                <view class="goodTitle fr28 cf">
+                    {{ item.goodsName }}
+                    <view class="goodPrice">￥{{ item.goodsPrice }}</view>
+                </view>
+                <view class="flexc">
+                    <block wx:if="{{ item.rate_rule.length > 1 }}">
+                        <view wx:for="{{ item.rate_rule }}" wx:key="{{ item.index }}" wx:for-item="i" class="flexcColumn flex1 percent2">
+                            <view class="flex fr30 cmain flexEnd">{{ i.rate }}<text class="fr22">{{ item.open_single_distribution == 1 ? "%" : "元/件" }}</text></view>
+                            <view class="fr22 cblue">{{ i.level }}级分销</view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <view class="flex fr30 cblue flex1">{{ item.rate_rule[0].level }}级分销<view class="flex fr30 cmain flexEnd">{{ item.rate_rule[0].rate }}<text class="fr22">{{ item.open_single_distribution == 1 ? "%" : "元/件" }}</text></view></view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+
+<component-messageToast></component-messageToast>
+

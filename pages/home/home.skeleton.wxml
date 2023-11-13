@@ -1,0 +1,305 @@
+<!--
+此文件为开发者工具生成，生成时间: 2020/11/6 下午4:49:47 
+使用方法：
+在 C:\Projects\cardApp\pages\home\home.wxml 引入模板
+
+```
+<import src="home.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" />
+```
+
+在 C:\Projects\cardApp\pages\home\home.wxss 中引入样式
+```
+@import "./home.skeleton.wxss";
+```
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<template name="skeleton">
+  <view class="sk-container">
+    <view is="components/navigateBar/navigateBar">
+      <view class="navigateBar--stage navigateBar--c-1D2023 navigateBar--flex" style="padding-top: 48px; background-color: #FFFFFF; color: ">
+        <view class="navigateBar--flex navigateBar--controller" style="height: 32px;">
+          <view class="navigateBar--pl30"></view>
+          <view class="navigateBar--category navigateBar--flex navigateBar--mr10 navigateBar--pl18 navigateBar--pr18" data-url="/pages/cardList/cardList" style="border: none;">
+            <view class="navigateBar--iconfont navigateBar--icon-mingpianjia1 navigateBar--fr30 navigateBar--category-icon sk-pseudo sk-pseudo-circle sk-image"></view>
+            <view class="navigateBar--fr24 navigateBar--ml12 navigateBar--pl10 sk-transparent sk-text-14-2857-451 sk-text">名片列表</view>
+          </view>
+        </view>
+        <view class="navigateBar--flex1 navigateBar--flex navigateBar--title-center" style="height: 32px;">
+          <view style="width: 113px"></view>
+          <view class="navigateBar--fr34 navigateBar--ls1 navigateBar--flex1 navigateBar--ellipsis navigateBar--flex navigateBar--title sk-transparent sk-text-14-2857-699 sk-text">我的名片</view>
+          <view style="width: 113px"></view>
+        </view>
+      </view>
+      <view class="navigateBar--holder" style="height: 91px"></view>
+    </view>
+    <view class="bcf" hidden="{{baseInfo.id}}">
+      <view class="flex-c-c pt30 pb20">
+        <view is="components/card3/card3">
+          <view class="card3--card card3--pl54 card3--pr54 card3--pt50 card3--pb40 sk-image">
+            <view class="card3--card-name card3--fr40 card3--c-FFFFFF card3--bold card3--mb10 card3--ellipsis1 sk-transparent sk-text-16-6667-725 sk-text">EE</view>
+            <view class="card3--card-position card3--fr28 card3--c-FFFFFF card3--mb46 card3--ellipsis1 sk-transparent sk-text-21-1538-68 sk-text">前端开发工程师</view>
+            <view class="card3--flex-c-s card3--c-FFFFFF card3--mb10">
+              <view class="card3--card-info-icon card3--flex-c-c card3--iconfont card3--icon-chongzhi1 card3--fr26 card3--mr16 sk-pseudo sk-pseudo-circle"></view>
+              <view class="card3--card-info-title card3--fr24 card3--ellipsis1 sk-transparent sk-text-22-9167-268 sk-text">15991126732</view>
+            </view>
+            <view class="card3--flex-c-s card3--c-FFFFFF card3--mb10">
+              <view class="card3--card-info-icon card3--flex-c-c card3--iconfont card3--icon-weixin card3--fr26 card3--mr16 sk-pseudo sk-pseudo-circle"></view>
+              <view class="card3--card-info-title card3--fr24 card3--ellipsis1 sk-transparent sk-text-22-9167-45 sk-text">wechat</view>
+            </view>
+            <view class="card3--flex-c-s card3--c-FFFFFF card3--mb10">
+              <view class="card3--card-info-icon card3--flex-c-c card3--iconfont card3--icon-gongsi2 card3--fr26 card3--mr16 sk-pseudo sk-pseudo-circle"></view>
+              <view class="card3--card-info-title card3--fr24 card3--ellipsis1 sk-transparent sk-text-22-9167-845 sk-text">直面科技(成都)有限公司</view>
+            </view>
+            <view class="card3--card-avatar" style="border: none;">
+              <view is="components/avatar/avatar">
+                <view class="avatar--layout">
+                  <view class="avatar--avatar">
+                    <view is="components/image/image">
+                      <view class="image--layout">
+                        <div class="image--placeholder image--position image--hide"></div>
+                        <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                      </view>
+                    </view>
+                  </view>
+                  <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="w100 infoTag scrollbar-hidden">
+        <view class="flexc infoTag-item" style="border: none;">
+          <view class="fr26 c-1890FF iconfont icon-dianhua5 infoTag-item-icon sk-pseudo sk-pseudo-circle"></view>
+          <view class="fr26 c3 infoTag-item-label sk-transparent sk-text-14-2857-277 sk-text">15991126732</view>
+        </view>
+        <view class="flexc infoTag-item" data-type="wechat" style="border: none;">
+          <view class="fr26 c-1890FF iconfont icon-weixin infoTag-item-icon sk-pseudo sk-pseudo-circle"></view>
+          <view class="fr26 c3 infoTag-item-label sk-transparent sk-text-14-2857-679 sk-text">wechat</view>
+        </view>
+        <view class="flexc infoTag-item" data-index="0" data-type="address" style="border: none;">
+          <view class="fr26 c-1890FF iconfont icon-dizhi2 infoTag-item-icon sk-pseudo sk-pseudo-circle"></view>
+          <view class="fr26 c3 infoTag-item-label sk-transparent sk-text-14-2857-261 sk-text">四川省成都市武侯区浆洗街30号</view>
+        </view>
+      </view>
+      <view class="share-and-save w100 flexb">
+        <view class="button button-phone sk-transparent sk-image">分享名片</view>
+        <button class="button button-phone clean-btn sk-transparent sk-image" open-type="getPhoneNumber">交换手机号</button>
+      </view>
+    </view>
+    <view class="content w100">
+      <view class="card-like bcf w100 flexb" hidden="{{likeInfo.likeList}}" style="border: none;">
+        <view class="flex pr30">
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="card-like-avatar">
+            <view is="components/avatar/avatar">
+              <view class="avatar--layout">
+                <view class="avatar--avatar">
+                  <view is="components/image/image">
+                    <view class="image--layout">
+                      <div class="image--placeholder image--position image--hide"></div>
+                      <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+              </view>
+            </view>
+          </view>
+          <view class="iconfont icon-sangedian fr14 c9 card-like-dots sk-pseudo sk-pseudo-circle"></view>
+          <view class="fr24 c6 sk-transparent sk-text-14-2857-68 sk-text">26人浏览</view>
+        </view>
+        <view class="flex">
+          <view class="fr26 c6 sk-transparent sk-text-14-2857-123 sk-text">靠谱6</view>
+          <view style="color:">
+            <view class="iconfont fr28 c-1F94FD card-like-icon icon-like sk-pseudo sk-pseudo-circle"></view>
+          </view>
+        </view>
+      </view>
+      <view class="bc-FFFFFF overflow-hidden flex-c-s flexColumn">
+        <view class="marketing-gate sk-pseudo sk-pseudo-circle">
+          <swiper autoplay="false" circular="true" indicator-dots="true" class="swiper" duration="500" indicator-active-color="#f74c31" indicator-color="rgba(0, 0, 0, 0.3)" interval="1500" current="0"></swiper>
+        </view>
+        <view class="marketing-gate">
+          <view class="distribution sk-image">
+            <view class="distributionInfo-box">
+              <swiper autoplay="false" circular="true" class="distributionInfo" interval="2000" vertical="true" current="0">
+                <swiper-item style="position: absolute; width: 100%; height: 100%; transform: translate(0px, 0%) translateZ(0px);">
+                  <view class="distribution-layout">
+                    <view class="fr26 c3 flex lineHeight100">
+                      <view class="distributions-avatar overflow-hidden">
+                        <view is="components/avatar/avatar">
+                          <view class="avatar--layout">
+                            <view class="avatar--avatar">
+                              <view is="components/image/image">
+                                <view class="image--layout">
+                                  <div class="image--placeholder image--position image--hide"></div>
+                                  <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                                </view>
+                              </view>
+                            </view>
+                            <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="distribution-nickname sk-transparent sk-text-0-0000-587 sk-text">🍋 银莕</view>
+                    </view>
+                    <view class="margintop26 cf fr36 bold lineHeight100 distribution-zhuanqv sk-transparent">
+                      刚刚赚取佣金
+                      <text class="cyellow sk-transparent sk-text-0-0000-255 sk-text">0元</text>
+                    </view>
+                  </view>
+                </swiper-item>
+                <swiper-item style="position: absolute; width: 100%; height: 100%; transform: translate(0px, 100%) translateZ(0px);">
+                  <view class="distribution-layout"></view>
+                </swiper-item>
+                <swiper-item style="position: absolute; width: 100%; height: 100%; transform: translate(0px, -100%) translateZ(0px);">
+                  <view class="distribution-layout">
+                    <view class="fr26 c3 flex lineHeight100">
+                      <view class="distributions-avatar overflow-hidden">
+                        <view is="components/avatar/avatar">
+                          <view class="avatar--layout">
+                            <view class="avatar--avatar">
+                              <view is="components/image/image">
+                                <view class="image--layout">
+                                  <div class="image--placeholder image--position image--hide"></div>
+                                  <image class="image--image image--position sk-image" mode="aspectFill"></image>
+                                </view>
+                              </view>
+                            </view>
+                            <view class="avatar--placeholder avatar--flex-c-c avatar--c-FFFFFF avatar--placeholder-hidden"></view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="distribution-nickname sk-transparent sk-text-0-0000-644 sk-text">Yu</view>
+                    </view>
+                    <view class="margintop26 cf fr36 bold lineHeight100 distribution-zhuanqv sk-transparent">
+                      刚刚赚取佣金
+                      <text class="cyellow sk-transparent sk-text-0-0000-97 sk-text">0.65元</text>
+                    </view>
+                  </view>
+                </swiper-item>
+              </swiper>
+              <view class="flex cyellow fr24 distribution-jinru sk-transparent">
+                赚佣金
+                <text class="iconfont icon-jinru fr24 sk-pseudo sk-pseudo-circle"></text>
+              </view>
+              <view class="swiperCover"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="devide"></view>
+    </view>
+    <view class="suspension-menu flexcColumn">
+      <view is="components/blessBagComm/blessBagComm">
+        <view class="blessBagComm--bless-message blessBagComm--fr28 blessBagComm--hide blessBagComm--c3 sk-transparent">
+          <image class="sk-image"></image>
+          已完成的任务
+        </view>
+      </view>
+      <view is="components/menu/menu">
+        <view class="menu--menu-layout">
+          <view class="menu--menu-item menu--menu-item-margin menu--iconfont menu--icon-gerenzhongxin menu--fr50 sk-pseudo sk-pseudo-circle" data-name="个人中心" style="color: rgb(31, 148, 253); border: none;"></view>
+          <view class="menu--menu-item menu--menu-item-margin menu--iconfont menu--icon-shezhi menu--fr50 sk-pseudo sk-pseudo-circle" data-name="管理中心" style="color: rgb(31, 148, 253); border: none;">
+            <view class="menu--iconfont menu--icon-dian1 sk-pseudo sk-pseudo-circle" style="position:absolute;right:0;top:0;line-height:18px;font-size:20px;color:#fe0002"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view is="components/painter/painter" class="canvasdrawer">
+      <view canvas-id="k-canvas" style="true" class="sk-image"></view>
+    </view>
+  </view>
+</template>

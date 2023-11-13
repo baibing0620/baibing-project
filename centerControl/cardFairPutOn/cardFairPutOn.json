@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "投放信息",
+    "navigationBarBackgroundColor": "#000000",
+    "backgroundColor": "#000000",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

@@ -1,0 +1,59 @@
+.fr28, .fr30, .fr32 {
+    line-height: 100%;
+}
+
+.c-ff8100 {
+    color: #ff8100;
+}
+
+.bc-ff8100 {
+    background-color: #ff8100;
+}
+
+.mt40 {
+    margin-top: 40rpx;
+}
+
+.mt28 {
+    margin-top: 28rpx;
+}
+
+.block {
+    padding: 60rpx 30rpx 95rpx;
+}
+
+.input-layout {
+    width: 100%;
+    box-sizing: border-box;
+    height: 98rpx;
+    border: 1rpx solid #1a1a1a;
+    border-radius: 8rpx;
+}
+
+.input {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 36rpx;
+}
+
+.unit {
+    height: 100%;
+    width: 130rpx;
+    border-left: 1rpx solid #1a1a1a;
+}
+
+.button {
+    margin: 80rpx auto 0;
+    width: 690rpx;
+    height: 98rpx;
+    background: rgba(255, 129, 0, 1);
+    border-radius: 10rpx;
+}
+
+.button-disabled {
+    background: rgba(177, 177, 177, 1);
+}
+
+.test {
+    height: 200vh;
+}

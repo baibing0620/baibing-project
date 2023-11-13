@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "完善资料",
+    "usingComponents": {
+        "component-remind": "/components/remind/remind",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "switchView": "../../components/switchView/switchView"
+    }
+}

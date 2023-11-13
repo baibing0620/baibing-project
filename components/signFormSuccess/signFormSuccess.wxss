@@ -1,0 +1,33 @@
+/* components/signFormSuccess/signFormSuccess.wxss */
+page{
+  background: #f7f7f7;
+  font-family: 'Microsoft YaHei';
+}
+.successBtn{
+  margin: auto;
+  width: 90%;
+  padding: 24rpx 0;
+  border-radius: 10rpx;
+}
+.successBtnlog{
+  margin: auto;
+  width: 120rpx;
+  height: 120rpx;
+  background: #7EB374;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 120rpx;
+  color: white;
+  font-size: 62rpx!important;
+}
+.successBtnlog1{
+  margin: auto;
+  width: 150rpx;
+  height: 150rpx;
+  background: #23DC94;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 150rpx;
+  color: white;
+  font-size: 62rpx!important;
+}

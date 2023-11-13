@@ -1,0 +1,38 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:if='{{ showStyle == 1 }}'>
+
+  <view class='input-layout' style='background-color: {{ extConfig.navigationBarBC }}'>
+    <view class='input-box flexb'>
+      <input class='fr24 input' value='{{ posterName }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='搜索帖子'></input>
+      <view class='iconfont icon-sousuo search' catchtap='search'></view>
+    </view>
+  </view>
+
+  <view class="item bcf" wx:for='{{ postList }}' wx:key='id' data-id='{{ item.id }}' data-index='{{ index }}' catchtap='toDetail'>
+    <view class='time fr24 c9'>{{ item.createtime }} 发布</view>
+    <view class='title fr30 c3 bold'>{{ item.title }}</view>
+    <view class='content fr24 cb3 ellipsis2'>{{ item.content }}</view>
+    <view class='bar flexb'>
+      <view class='fr26 flex c9'>
+        <view class='flex'><i class='iconfont icon-share'></i>{{ item.relay_num || 0 }}</view>
+        <view class='flex'><i class='iconfont icon-pinglun1'></i>{{ item.comment_num || 0 }}</view>
+        <view class='flex'><i class='iconfont icon-like'></i>{{ item.like_num || 0 }}</view>
+      </view>
+      <view class='delete fr28' data-id='{{ item.id }}' data-video_id='{{ item.video_id }}' data-index='{{ index }}' catchtap='deletePost'>删除</view>
+    </view>
+  </view>
+
+  <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+
+  <view class='holder'></view>
+
+  <!-- <view class='post' bindtap='toEditor'>发布帖子</view> -->
+  
+</block>
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

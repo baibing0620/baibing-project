@@ -1,0 +1,63 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1}}" />
+        <block wx:else>
+            <view class="header">
+                <view class="header-cardcase flexc fr26 cf" bindtap="navigate" data-page="cardFairCardCase">
+                    <text class="iconfont icon-icon fr26"></text>名片夹
+                </view>
+                <view class="fr30 header-button flexc" bindtap="navigate" data-page="cardFairCardList">行业名片</view>  
+                <image class="header-bg" src="https://facing-1256908372.file.myqcloud.com//image/20181217/744a0aea4db95405.png"></image>
+            </view>
+
+            <view class="sort bcf flexb">
+                <view class="flex">
+                    <view class="flexc sort-item c3 bold 36rpx" data-mode="default" bindtap="bindSortClick">
+                        <view>人脉智能推荐</view>
+                    </view>
+                    <view class="flexc sort-item fr28 {{ sortMode === 'page_views' ? 'c3' : 'c9' }}" data-mode="page_views" bindtap="bindSortClick">
+                        <view>浏览量</view>
+                    </view>
+                    <view class="flexc sort-item fr28 {{ sortMode === 'collection_num' ? 'c3' : 'c9' }}" data-mode="collection_num" bindtap="bindSortClick">
+                        <view>收藏量</view>
+                    </view>
+                </view>
+                <view class="search fr34 active" bindtap="navigate" data-page="cardFairSearch">搜索<text class="iconfont icon-sousuo fr34"></text></view>
+            </view>
+
+            <template is="initShow" wx:if="{{ loadStyle != 'loading' && list.length < 1 }}" data="{{ showStyle: 2, showNoMsg:'',showImg:'https://facing-1256908372.file.myqcloud.com//image/20181224/e68c85c15c03dfc3.png'}}"/>
+            <block wx:else>
+                <view wx:for="{{ list }}" wx:key="{{ item.id }}" class="card bcf" data-cardid="{{ item.card_id }}" data-beid="{{ item.beid }}" bindtap="toDetail">
+                    <image mode="aspectFill" src="{{ ShowImg.cropImgWH(item.card.avatar_url, 140, 140) }}" class="avatar"></image>
+                    <view class="name-layout flex">
+                        <view class="name fr40 c40 bold">{{ item.card.name }}</view>
+                        <view wx:if="{{ item.member.gender && item.member.gender != 0 }}" class="iconfont fr18 cf flexc {{ item.member.gender == 1 ? 'male icon-nan1' : 'female icon-nvsheng' }}"></view>
+                    </view>
+                    <view class="job fr26 c-fairMain">{{ item.card.position }}</view>
+                    <view class="company fr26 c3">{{ item.company }}</view>
+                    <view class="flex fr24 cb3 info">
+                        <view><text class="fr24 iconfont icon-yanjing"></text>{{ item.page_views }}</view>
+                        <view><text class="fr24 iconfont icon-favorite"></text>{{ item.collection_num }}</view>
+                        <view><text class="fr24 iconfont icon-hangye"></text>{{ item.cindus_name }}</view>
+                    </view>
+                </view>
+
+                <block wx:if="{{ loadStyle === 'loadOver' }}">
+                    <view class="fr24 c9 flexc bottomHolder">行业精英的互动平台，欢迎您的加入</view>
+                </block>
+
+                <block wx:else>
+                    <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+                </block>
+
+            </block>
+
+        </block>
+
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

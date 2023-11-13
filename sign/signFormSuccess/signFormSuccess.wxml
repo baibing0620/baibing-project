@@ -1,0 +1,9 @@
+<!--sign/signFormSuccess/signFormSuccess.wxml-->
+<view style="margin-top: 40%;">
+  <view wx:if="{{authType!=1}}" class="tac c0 fw600 successBtnlog">√</view>
+  <view wx:if="{{authType!=1}}" class="tac c0 fr40 fw600 successBtn">签署成功</view>
+  <view wx:if="{{authType!=1}}" class="tac cf fr32 successBtn" style="background: #D44747;" bindtap="successBtn">返回</view>
+
+  <view wx:if="{{authType==1}}" class="tac c0 fw600 successBtnlog1">√</view>
+  <view wx:if="{{authType==1}}" class="tac c0 fr40 fw600 successBtn">提交成功</view>
+</view>

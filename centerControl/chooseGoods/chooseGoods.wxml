@@ -1,0 +1,172 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+
+<view class="tab-container flexc">
+  <view class="tabItem {{ index == activeIndex && 'active-tab' }} " wx:for="{{ tabSetting }}" data-index="{{index}}" bindtap="tabChange">
+    {{ item.name }}
+  </view>
+</view>
+
+<view class="search-container bcf flexb">
+	<picker bindchange='bindPickerChange' value='{{ pickerindex }}' range-key="label" range='{{ pickerlist }}' wx:if="{{ activeIndex == 0 }}">
+		<view class="picker flexc c3"> 
+			{{ pickerlist[pickerindex].label }}
+			<i class='iconfont icon-xiala1 fr20 ml12'></i>
+		</view>
+	</picker>
+  <view class="search-box flexb" style="width: {{ activeIndex == 0 ? '510rpx' : '100%' }}">
+    <input value="{{ keywords }}" placeholder="请输入商品名称" bindinput="changeKeyWords" placeholder-class="c9 fr26" class="c3 flex1"></input>
+    <text class="iconfont icon-sousuo c3" bindtap="goodsSearch"></text>
+  </view>
+</view>
+
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关商品信息'}}" wx:if="{{showStyle!=1&&goodsList.length==0}}" />
+<block wx:else>
+  <block wx:if="{{ activeIndex == 0 }}">
+    <view wx:for="{{goodsList}}"  wx:key="id" class="bcf goodsItem flex" bindtap="toPreview" data-id="{{item.id}}">
+      <view class="img-box mr30">
+        <component-image src="{{ item.thumb_url  ||'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKg0u5RbAnxgVeYuoiaKzrE3ehcdeHcUpjnxCQwUhtric7Z8F7RKskbibbx3tzYPyAjVvGbE0T1UL6yg/132' }}"></component-image>
+      </view>
+      <view class="goods-right flex1 flexbColumn">
+        <view class="flexb">
+          <view class="goods-name c3 flex1 ellipsis2 bold">{{ item.title }}</view>
+          <text class="iconfont icon-shoucang1 c9" wx:if="{{ item.isLike == 0 }}" data-index="{{ index }}" catchtap="toMycollection"></text>
+          <text class="iconfont icon-shoucang3" wx:else data-index="{{ index }}" catchtap="toMycollection"></text>
+        </view>
+        <view>
+          <view>
+            <view class="store_goods goods-tag" wx:if="{{ item.store_id != 0 && item.card_id == 0 }}">门店商品</view>
+            <view class="staff_goods goods-tag" wx:elif="{{ item.card_id != 0 }}">员工商品</view>
+            <view class="pc_goods goods-tag" wx:elif="{{ item.store_id == 0 && item.card_id == 0 }}">平台商品</view>
+          </view>
+          <view class="flexb">
+            <view class="goods-price fr30 bold">￥{{ item.productprice }}</view>
+            <view class="check-btn" catchtap="chooseGoods" data-id="{{ item.id }}">选择</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+	<block  wx:else>
+	 	<view wx:for="{{goodsList}}" wx:key="id" class="bcf goodsItem flex" bindtap="toPreview" data-id="{{item.goods.id}}">
+      <view class="img-box mr30">
+        <component-image src="{{ item.goods.thumb_url  ||'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKg0u5RbAnxgVeYuoiaKzrE3ehcdeHcUpjnxCQwUhtric7Z8F7RKskbibbx3tzYPyAjVvGbE0T1UL6yg/132' }}"></component-image>
+      </view>
+      <view class="goods-right flex1 flexbColumn">
+        <view class="flexb">
+          <view class="goods-name c3 flex1 ellipsis2 bold">{{ item.goods.title }}</view>
+          <text class="iconfont icon-shoucang1 c9" wx:if="{{ item.isLike == 0 }}" data-index="{{ index }}" catchtap="toMycollection"></text>
+          <text class="iconfont icon-shoucang3" wx:else data-index="{{ index }}" catchtap="toMycollection"></text>
+        </view>
+        <view>
+          <view>
+            <view class="store_goods goods-tag" wx:if="{{ item.goods.store_id == 0 && item.goods.card_id == 0 }}">门店商品</view>
+            <view class="staff_goods goods-tag" wx:elif="{{ item.goods.card_id != 0 }}">员工商品</view>
+            <view class="pc_goods goods-tag" wx:elif="{{ item.goods.store_id == 0 && item.goods.card_id == 0 }}">平台商品</view>
+          </view>
+          <view class="flexb">
+            <view class="goods-price fr30 bold">￥{{ item.goods.productprice }}</view>
+            <view class="check-btn" catchtap="chooseGoods" data-id="{{ item.goods.id }}">选择</view>
+          </view>
+        </view>
+       
+      </view>
+    </view>
+	</block>
+  <template is="moreData" data="{{loadStyle:loadStyle}}" />
+  
+  <view class="confirmBack" bindtap="navback">确定选择</view>
+</block>
+
+
+<view class="goods-purchase-container flexcColumn" wx:if="{{ purchaseBox }}" bindtap="closePurchase">
+	<view class="goods-purchase-box" catchtap="stopPro">
+		<view class="goods-purchase-box-head c3 fr36 bold">选择商品</view>
+
+		<view class="goods-purchase-box-goods flex">
+			<view class="goods-img mr30">
+				<component-image src="{{ goodsThumb  ||'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKg0u5RbAnxgVeYuoiaKzrE3ehcdeHcUpjnxCQwUhtric7Z8F7RKskbibbx3tzYPyAjVvGbE0T1UL6yg/132' }}"></component-image>
+			</view>
+			<view class="flex1">
+				<view class="c3 bold fr32 ellipsis2">{{ goods.title }}</view>
+				<view class="c3 bold c-FF3636 mt20"> <text class="fr30">￥</text> <text class="fr34">{{ addCartPrice }}</text> </view>
+			</view>
+		</view>
+
+		<scroll-view class="new-options fr28" wx:if="{{options.length>0}}" scroll-y="true">
+			<block wx:for="{{options}}" wx:for-item="spec" wx:key="index">
+				<view class="new-options-title fr32 bold">{{spec.title}}</view>
+				<view class="new-list">
+					<view class="new-item-values">
+						<view wx:for="{{spec.items}}" wx:for-item="item" data-spec-id="{{spec.id}}" wx:key="id" data-item-id="{{item.id}}" class="fr26 c3 new-values {{item.isSelected ?'new-active' : ''}}" catchtap="selectSpecItem">
+							<view class="new-active-bg" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}"></view>
+							<view class="new-active-title" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}">{{item.title}}</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</scroll-view>
+
+		<view class="new-buy-num">
+			<view class="new-buy-num-content flexb">
+					<view class="new-buy-num-content-stock">
+							<view class="new-buy-num-content-stock-title fr32 bold">购买数量</view>
+							<view class="new-buy-num-content-stock-num fr24 c9">库存{{addCartStocks}}件</view>
+					</view>
+					<view class="new-buy-num-content-control flexc">
+							<view class="new-control flexc new-minus {{buyNum <= 1? 'new-disable': ''}}" catchtap="changeCartGoodsNum" data-type="minus">
+									<text catchtap="changeCartGoodsNum" data-type="minus" class="new-minus-text"></text>
+							</view>
+							<input class="new-control new-num {{isIos?'new-num-ios':''}}" value="{{buyNum}}" type="number" bindblur="changeBuyNum" />
+							<view class="new-control flexc new-plus {{(buyNum >= addCartStocks||isgroup)? 'new-disable': ''}}" catchtap="changeCartGoodsNum" data-type="plus">
+									<text catchtap="changeCartGoodsNum" data-type="plus" class="iconfont icon-add fr20"></text>
+							</view>
+					</view>
+			</view>
+		</view>
+
+		<view class="confirm-btn fr30" catchtap="addGoods">	确定添加 </view>
+
+
+	</view>
+	
+</view>
+
+<!-- <view class="{{isMask}}" catchtap="hideMask"></view>
+<view class="new-purchase-box bf {{purchaseBox? 'show-new-purchase-box': ''}}" wx:if="{{purchaseBox}}">
+  <view class="new-purchase-box-head {{isVirtualGoods==1?'noBorder':''}}">
+    <view class="new-purchase-box-head-info flexc">
+      <view class="new-purchase-box-head-info-img">
+        <image src="{{ShowImg.cropImgWH(goodsThumb,160,160)}}" mode="aspectFit" catchtap="previewDesImg" data-preview-url="{{goodsThumb}}"></image>
+      </view>
+      <view class="new-purchase-box-head-info-detail">
+        <view class="fr40 bold">
+          <label class="fr34">¥</label>{{Format.float(addCartPrice)}}
+				</view>
+        <view class="fr32 bold ellipsis2">{{goods.title}}</view>
+      </view>
+    </view>
+    <view class="new-purchase-box-head-close" catchtap="hideMask">
+      <text class="iconfont icon-close2 fr48"></text>
+    </view>
+  </view>
+  <scroll-view class="new-options fr28" wx:if="{{options.length>0}}" scroll-y="true">
+    <block wx:for="{{options}}" wx:for-item="spec" wx:key="index">
+      <view class="new-options-title fr32 bold">{{spec.title}}</view>
+      <view class="new-list">
+        <view class="new-item-values">
+          <view wx:for="{{spec.items}}" wx:for-item="item" data-spec-id="{{spec.id}}" wx:key="id" data-item-id="{{item.id}}" class="fr26 c3 new-values {{item.isSelected ?'new-active' : ''}}" catchtap="selectSpecItem">
+            <view class="new-active-bg" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}"></view>
+            <view class="new-active-title" catchtap="selectSpecItem" data-spec-id="{{spec.id}}" data-item-id="{{item.id}}">{{item.title}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view> -->
+
+
+<component-messageToast></component-messageToast>

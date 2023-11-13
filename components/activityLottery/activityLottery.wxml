@@ -1,0 +1,13 @@
+<cover-view class="activity-model">
+    <cover-view class="activity">
+        <cover-view style="margin:52rpx 0 26rpx" class="fr30 flex normal">
+            <cover-view class="c3">可用积分</cover-view>
+            <cover-view class="cff2c">{{credit}}</cover-view>
+        </cover-view>
+        <cover-view  class="c3 fr30 normal">本次抽奖需要扣减{{requiredIntegral}}积分</cover-view>
+        <cover-view class="flexe fr28 activity-btn">
+            <cover-view class="activity-btn-cancel" bindtap="closeActivity">取消</cover-view>
+            <cover-view class="activity-btn-lottery" bindtap="instantLotteryActivity">立即抽奖</cover-view>
+        </cover-view>
+    </cover-view>
+</cover-view>

@@ -1,0 +1,9 @@
+{
+    "navigationBarBackgroundColor": "#ff3d3d",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "component-switchTab": "./../../components/switchTab/switchTab",
+        "component-messageToast": "/components/messageToast/messageToast",
+        "component-poster": "/components/poster/poster"
+    }
+}

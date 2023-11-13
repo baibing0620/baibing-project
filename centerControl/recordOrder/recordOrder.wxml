@@ -1,0 +1,142 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src='../../template/initShow/initShow.wxml' />
+
+<template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+
+<block wx:else>
+  <view class="bcf">
+    <view class="section-header box-border flex">
+      <view class="blue-divider"></view>
+      <text class="fr34 c3 bold title">下单客户</text>
+    </view> 
+    <view class="custom-box flexb" bindtap="toChooseCustomer">
+      <view wx:if="{{ !userInfo }}" class="flex" >
+				<view class="flexc user-Icon">
+					<text class="iconfont icon-laoban fr40"></text>
+				</view>
+				<text class="c9 fr30 ml20">请选择下单的客户</text>
+			</view>
+
+			<view wx:else class="flex" >
+				<view class="user-avatar">
+					<component-image src="{{ userInfo.member ? userInfo.member.avatar : '' }}"></component-image>
+				</view>
+				<view class="ml20">
+					<view class="user-name fr34 bold c3 mb10">{{ userInfo.name }}</view>
+					<view class="user-mobile fr26 c9" wx:if="{{ userInfo.phone }}">{{ userInfo.phone }}</view>
+				</view>
+			</view>
+
+      <text class="iconfont icon-you c9"></text>
+    </view>
+
+  </view>
+
+  <view class="bcf box" wx:if="{{ goodsList.length }}">
+    <view class="goodsList">
+      <view class="goodsItem flex" wx:for="{{ goodsList }}" wx:key="id">
+				<view class="img-box mr30">
+					<component-image src="{{ item.thumb_url  ||'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKg0u5RbAnxgVeYuoiaKzrE3ehcdeHcUpjnxCQwUhtric7Z8F7RKskbibbx3tzYPyAjVvGbE0T1UL6yg/132' }}"></component-image>
+				</view>
+				<view class="goods-right flex1 flexbColumn">
+					<view class="flexb">
+						<view class="goods-name c3 flex1 ellipsis2 bold">{{ item.title }}</view>
+						<text class="iconfont icon-shanchu1 c9" data-index="{{index}}" catchtap="delItem"></text>
+					</view>
+				<view>
+						<view class="c9 fr26 mb20" wx:if="{{ item.optionname }}">规格： <text>{{ item.optionname }}</text> </view>
+						<view class="flexb">
+							<view class="goods-price fr30 bold">￥{{ item.productprice }}</view>
+							<view class="c3 fr26">x{{ item.total }}</view>
+						</view>
+					
+					</view>
+				
+				</view>
+      </view>
+    </view> 
+		<view class="content-box flexb">
+        <view class="c3 fr30">订单总金额：￥{{ totalCount }}</view>
+        <view class="add-btn fr28" bindtap="toAddGoods">添加商品</view>
+		</view>
+  </view>
+
+	<view class="bcf box no-goods-box flexcColumn" wx:else>
+		<view class="no-goods-img-box">
+			<image class="no-goods-img" src="{{ ShowImg.cropImgWH('https://facing-1256908372.file.myqcloud.com//image/20210524/6741e8d5e9a399ba.png', 370, 200) }}"></image>
+		</view>
+		<view class="add-btn fr28" bindtap="toAddGoods">添加商品</view>
+  </view>
+
+	<view class="bcf box" wx:if="{{ open_voucher }}">
+		<view class="section-header flex">
+			<view class="blue-divider"></view>
+			<text class="fr34 c3 bold title">下单凭证</text>
+		</view>
+		<view class="certificate-box mt20">
+			<view class='payCertificate' >
+				<image wx:if='{{ avatar.status == 2 }}' src='{{avatar.url}}?imageView2/1/w/300/h/180"' catchtap='previewImage' data-preview-url="{{avatar.url}}"  bindlongpress='deleteCertificate'></image>
+				<view wx:if='{{ avatar.status === 1 }}' class='progress-view'>
+					<progress percent='{{ avatar.progress }}'></progress>
+				</view>
+				<view wx:if='{{ avatar.status === -1 }}' bindtap='uploadCertificate' class='imgError flexcColumn fr24'>{{ avatar.errorMsg }}
+					<br/>点击重新上传</view>
+				<view wx:if='{{ avatar.status === 0 }}' bindtap='uploadCertificate' class='c6 avatarDefalt flexcColumn'>
+					<i class='iconfont icon-image avatarIcon'></i>
+					点击上传图片
+				</view>
+			</view>
+		</view>
+  </view>
+
+	<view class="bcf box fr30" wx:if="{{ open_revise_price }}">
+		<view class="realPriceBox flex">
+      <view class="input-box w100 flex p30">
+        <view class="c3">实收金额：</view>
+        <input class="c3 ml30 flex1" type="digit" value="{{ realPrice }}" bindinput="priceChange" placeholder="请输入实收金额" placeholder-class="c9"></input>
+      </view>
+    </view> 
+    <view class="content-box flex">
+      <view class="flex p30">
+        <view class="c3">已经优惠：</view>
+        <view class="c3 ml30">￥{{ Format.float2(discount) }}</view>
+      </view>
+		</view>
+  </view>
+
+  <view class="bcf box fr30">
+    <view class="spec-box">
+      <view class="section-header flex">
+        <text class="c3">下单客户来源</text>
+      </view>
+      <view class="picker-box flex">
+        <view class="input-box w100 flexb p30">
+          <picker  class="flex1" bindchange="bindfromChange" value="{{ fromIndex }}" range="{{ customerFromOptions }}">
+            <!-- {{ customerFromOptions[fromIndex] ? customerFromOptions[fromIndex] : '' }} -->
+            <text  wx:if="{{ customerFromOptions[fromIndex] }}">{{ customerFromOptions[fromIndex] }}</text>
+            <text class="c9" wx:else>请选择客户来源</text>
+          </picker>
+          <text class="iconfont icon-xiala"></text>
+        </view>
+      </view> 
+    </view>
+    <view class="spec-box">
+      <view class="section-header flex">
+        <text class="c3">备注</text>
+      </view>
+      <view class="flex">
+        <view class="flex p30 w100">
+        <textarea class="c3 flex1 text-box" value="{{ remark }}" maxlength='-1' bindinput="changeRemark" placeholder="请输入备注内容" placeholder-class="c9"></textarea>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+	<view class="confirm-btn" catchtap="confirmRecord">确定下单</view>
+
+</block>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,16 @@
+{
+	"enablePullDownRefresh":true,
+	"navigationBarBackgroundColor": "#ffffff",
+	"backgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"usingComponents": {
+        "component-remind": "/components/remind/remind",
+		"diy-rich-text": "/components/richTextDIY/richTextDIY",
+        "component-bless-bag-comm": "/components/blessBagComm/blessBagComm",
+    	"component-menu": "/components/menu/menu",
+		"component-poster": "/components/poster/poster",
+		"component-messageToast": "/components/messageToast/messageToast",
+				"component-toHomePage": "/components/toHomePage/toHomePage",
+				"upload-img": "/components/uploadImg/uploadImg"
+	}
+}

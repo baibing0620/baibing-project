@@ -1,0 +1,42 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is="initShow" data="{{ showStyle: showStyle, showNoMsg: '无相关客户信息' }}" wx:if="{{ showStyle != 1}}" />
+        <block wx:else>
+            <view class="tabBar-layout flexb bcf">
+                <view class="flex1 flexc fr30 active {{ mode === 'viewed' ? 'c-fairMain' : 'c9' }}" bindtap="bindTabClick" data-mode="viewed">我浏览过</view>
+                <view class="flex1 flexc fr30 active {{ mode === 'collection' ? 'c-fairMain' : 'c9' }}" bindtap="bindTabClick" data-mode="collection">我收藏的</view>
+            </view>
+            <template is="initShow" wx:if="{{ loadStyle != 'loading' && list.length < 1 }}" data="{{ showStyle: 2, showNoMsg:'您的名片夹为空',showImg:'https://facing-1256908372.file.myqcloud.com//image/20181224/e68c85c15c03dfc3.png'}}"/>
+            <block wx:else>
+                <block wx:for="{{ list }}" wx:key="id">
+                    <view class="from flex fr24 c9">来自{{ item.fromUser.nickname }}{{ item.fromUser.id != 0 ? "的推荐" : "" }}</view>
+                    <view class="card bcf" data-cardid="{{ item.card_id }}" data-beid="{{ item.beid }}" bindtap="toDetail">
+                        <image mode="aspectFill" src="{{ ShowImg.cropImgWH(item.card.avatar_url, 140, 140) }}" class="avatar"></image>
+                        <view class="name-layout flex">
+                            <view class="name fr40 c40 bold">{{ item.card.name }}</view>
+                            <view wx:if="{{ item.member.gender && item.member.gender != 0 }}" class="iconfont fr18 cf flexc {{ item.member.gender == 1 ? 'male icon-nan1' : 'female icon-nvsheng' }}"></view>
+                        </view>
+                        <view class="job fr26 c-fairMain">{{ item.card.position }}</view>
+                        <view class="company fr26 c3">{{ item.card.company }}</view>
+                        <view class="tags fr30 bold">{{ item.tags }}</view>
+                        <view class="flex fr24 cb3 info">
+                            <view><text class="fr24 iconfont icon-yanjing"></text>{{ item.page_views }}</view>
+                            <view><text class="fr24 iconfont icon-favorite"></text>{{ item.collection_num }}</view>
+                        </view>
+                    </view>
+                </block>
+                <block wx:if="{{ loadStyle === 'loadOver' }}">
+                    <view class="fr24 c9 flexc bottomHolder">行业精英的互动平台，给一切更多可能</view>
+                </block>
+                <block wx:else>
+                    <template is="moreData" data="{{ loadStyle: loadStyle }}"/>
+                </block>
+            </block>
+        </block>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

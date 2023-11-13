@@ -1,0 +1,19 @@
+/* components/agreementMsg/agreementMsg.wxss */
+.ti40{
+  text-indent: 40rpx;
+}
+.ti50{
+  text-indent: 50rpx;
+}
+.ti60{
+  text-indent: 60rpx;
+}
+.ti70{
+  text-indent: 70rpx;
+}
+.ti80{
+  text-indent: 80rpx;
+}
+.ti90{
+  text-indent: 90rpx;
+}

@@ -1,0 +1,94 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<import src="../../template/initShow/initShow.wxml" />
+
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <component-toHomePage wx:if='{{ isFromShare && onLoad }}'></component-toHomePage>
+        <view class='input-layout'>
+            <view class='input-box flexb'>
+                <input class='fr24 input' value='{{ posterName }}' placeholder-class='input-holder' bindinput='bindInput' placeholder='搜索感兴趣的资讯'></input>
+                <view class='iconfont icon-sousuo search' bindtap='search'></view>
+            </view>
+        </view>
+        <view class="{{swiperContent.length > 0 ? 'swiper' : ''}}">
+            <swiper wx:if="{{swiperContent.length > 0 && swiperShow}}" class="swiper " autoplay indicator-dots circular indicator-color="rgba(0, 0, 0, .18)" indicator-active-color="rgba(0, 0, 0, .5)" interval="{{ 1500 }}" duration="{{ 500 }}">
+                <block wx:for="{{swiperContent}}" wx:key="{{item.id}}">
+                    <swiper-item class="swiper-item">
+                        <image src="{{ ShowImg.cropImgWH(item.img_url, 750, 370) }}" mode="aspectFill" class="swiper-item-image" data-url="{{item.page}}" bindtap="handleSwiperClick"/>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <view class="product-category flex w100" wx:if="{{categoryViewType==1}}">
+            <scroll-view class="category-box fr30 c9" scroll-y>
+                <block wx:for="{{contentList}}" wx:key="id">
+                    <view class="category-item {{actvieIndex==index?'c-danger':''}}" data-index="{{index}}" bindtap="activeTap" style="color:{{actvieIndex==index?mainColor:''}}">
+                        {{item.name}}
+                    </view>
+                </block>
+            </scroll-view>
+            <scroll-view class="product-box fr20" scroll-y upper-threshold="-10" bindscrolltoupper="refresh" scroll-into-view="{{toView}}">
+                <block wx:if="{{contentList.length>0}}">
+                    <block wx:for="{{contentList}}" wx:key="id">
+                        <view class="category-title" id="{{'view'+index}}">
+                            <text class="border-text"></text>
+                            <text class="title-text">{{item.name}}</text>
+                        </view>
+                        <view class="category-goods-box flexb">
+                            <block wx:if="{{contentList[index].goods.length>0}}">
+                                <block wx:for="{{contentList[index].goods}}" wx:key="id" wx:for-item="goddsItem">
+                                    <view class="product-item" data-id="{{goddsItem.id}}" bindtap="toContent">
+                                        <view class="goods-item">
+                                            <image src="{{ShowImg.cropImgWH(goddsItem.thumb_url,200,200)}}" mode="aspectFill" />
+                                            <view>
+                                                <text class="ellipsis1">{{goddsItem.title}}</text>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </block>
+                            </block>
+                            <view wx:else class="empty-fill">暂无该分类产品信息</view>
+                        </view>
+                    </block>
+                    <view style="height:20px;"></view>
+                </block>
+                <view wx:else style="margin-top: 100rpx;" class="c9">---暂无无相关数据---</view>
+            </scroll-view>
+        </view>
+        <block wx:elif="{{categoryViewType==2}}">
+            <scroll-view class="tab-box fr34 c9 w100 fw500" scroll-x="true" wx:if="{{categoryList.length>1}}">
+                <block wx:for="{{categoryList}}" wx:key="id">
+                    <view class="tab-item" data-index="{{index}}" bindtap="activeTopTap">
+                        <view style="background-color:{{actvieIndex==index?mainColor:''}}" class="{{actvieIndex==index?'news-item-active fw600':'fc333'}}">
+                            {{item.name}}
+                        </view>
+                    </view>
+                </block>
+            </scroll-view>
+            <block wx:for="{{goodsList}}" wx:key="id">
+                <view class="news-componet flexb" data-id="{{item.id}}" bindtap="toContent">
+                    <view class="flexbColumn flex1 news-context">
+                        <view class="ellipsis2 news-title c3 fr32">{{item.title}}</view>
+                        <view class="news-other flexb w100">
+                            <text class="fr20 news-tag" wx:if="{{item.recommand_title}}">{{item.recommand_title}}</text>
+                            <view class="fr24 c9">
+                                <text wx:if="{{item.description}}">{{item.description}} ·</text>
+                                <text>浏览 {{item.sales||0}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <image src="{{ShowImg.cropImgWH(item.thumb_url,250,160)}}" class="news-imgs" />
+                </view>
+            </block>
+            <template is="moreData" data="{{loadStyle:loadStyle}}" />
+        </block>
+        <view class="suspension-menu flexcColumn">
+            <component-bless-bag-comm wx:if='{{onLoad}}' pageRefresh="{{ pageRefresh }}"></component-bless-bag-comm>
+            <component-menu wx:if='{{onLoad}}' setting="{{ menuSetting }}"></component-menu>
+        </view>
+        <component-remind wx:if="{{ showRemind }}"></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

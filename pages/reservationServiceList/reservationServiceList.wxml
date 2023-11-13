@@ -1,0 +1,35 @@
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" />
+<include src="../../comm/comm.wxml" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关预约服务信息'}}" wx:if="{{showStyle!=1&&goodListData.length==0}}" />
+<view class="container" wx:else>
+  <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+  <view class="tab-bar flex fr24 c9 border-bottom">
+    <block wx:for="{{tabBar}}" wx:key="name">
+      <view data-index="{{index}}" class="tab-bar-item flex1 {{activeTabBarIndex==index?'c-main bold fr26':''}}" catchtap="tabBarClick">
+        {{item.name+item.typeText}}
+      </view>
+    </block>
+  </view>
+  <view class="serviceList flex" wx:for="{{goodListData}}" wx:key="id" bindtap='navSeniorResevation' data-id="{{item.id}}">
+      <view style="position: relative;height:200rpx;">
+        <image class="shop-img" src="{{ShowImg.cropImgWH(item.banner[0].imgUrl,200,200)}}"></image>
+        <view wx:if="{{item.people_num_total > 0}}" class="resevation-info fr20">{{item.people_num_total}}人约过</view>
+      </view>
+      <view class="flexbColumn content-itro flex1">
+        <view style="color:#1a1a1a" class="fr30 ellipsis2">{{item.title}}</view>
+        <view class="ellipsis1 fr22 c9 ">{{item.introduce}}</view>
+        <view class="fr24 c3">预约价低至:
+          <text class="fw600" style="color:#fe5b36">￥{{item.mini_price}}</text>
+        </view>
+      </view>
+  </view>
+  <template is="moreData" data="{{loadStyle:loadStyle}}" />
+
+  <view class="suspension-menu flexcColumn">
+      <component-bless-bag-comm pageRefresh="{{ pageRefresh }}"></component-bless-bag-comm>
+      <component-menu setting="{{ menuSetting }}"></component-menu>
+  </view>
+</view>
+
+<component-messageToast></component-messageToast>

@@ -1,0 +1,8 @@
+{
+  "component": true,
+"usingComponents": {
+  "component-bless-bag": "/components/blessBag/blessBag",
+  "component-bless-bag-success": "/components/blessBagSuccess/blessBagSuccess",
+  "component-bless-bag-explore": "/components/blessingBagExplore/blessingBagExplore"
+}
+}

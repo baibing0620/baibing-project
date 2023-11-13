@@ -1,0 +1,67 @@
+page {
+    background-color: #f0f0f5
+}
+
+.fr24, .fr32 {
+    line-height: 100%;
+}
+
+.item-box {
+    height: 150rpx;
+    padding: 0 30rpx;
+    border-bottom: 1rpx solid #f0f0f0;
+}
+
+.title .iconfont {
+    font-weight: normal;
+    margin-right: 30rpx;
+    width: 40rpx;
+    height: 40rpx;
+    font-size: 26rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 10rpx 0 10rpx;
+    color: #fff;
+}
+
+.bc1 {
+    background-color: #ff9b1f;
+}
+
+.bc2 {
+    background-color: #68b6ff;
+}
+
+.bc3 {
+    background-color: #ff6e6e;
+}
+
+.bc4 {
+    background-color: #dc91ff;
+}
+
+.bc5 {
+    background-color: #eacc7b;
+}
+
+.bc6{
+    background-color: #419df2;
+}
+
+.bc7{
+    background-color: #3ac962;
+}
+
+.mt20{
+    margin-top: 20rpx;
+}
+
+.icon-jinru {
+    line-height: 100%; 
+    font-size: 32rpx;
+}
+
+.info-text {
+    line-height: 32rpx;
+}

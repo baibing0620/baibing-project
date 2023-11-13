@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "续时名片",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

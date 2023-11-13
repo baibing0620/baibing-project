@@ -1,0 +1,27 @@
+page{
+    background: #F5F2F5;
+}
+.navigation{
+    height:439rpx;
+    background:linear-gradient(90deg,rgba(0,130,240,1) 0%,rgba(38,171,249,1) 100%);
+    clip-path: ellipse(300px 130px at 50% 20%);
+}
+.user-info-main{
+    background:linear-gradient(90deg,rgba(0,130,240,1) 0%,rgba(38,171,249,1) 100%);
+    color: #ffffff;
+    padding-left: 20rpx;
+}
+.qr-img{
+    display: flex;
+    width: 672rpx;
+    transform: translateY(-280rpx);
+    border-radius:0 0 10rpx 10rpx;
+    margin: 0 auto;
+    height: 1024rpx;
+    opacity: 0.3;
+    transition: opacity 1s;
+}
+.opacity{
+  opacity: 1;
+}
+

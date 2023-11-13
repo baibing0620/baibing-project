@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

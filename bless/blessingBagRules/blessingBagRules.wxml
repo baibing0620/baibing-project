@@ -1,0 +1,13 @@
+
+<form report-submit>
+  <button class='container w100 clean-btn' formType="submit">
+    <view class='contaner'>
+      <view class="title-tag fr28 c3 fw600" style="border-color:{{diyConfig.themeColor}}">
+        <view class="title-tag-text"> 活动规则</view>
+        </view>
+      <text class="fr26 c6">{{rules}}</text>
+    </view>
+  </button>
+</form>
+
+<component-messageToast></component-messageToast>

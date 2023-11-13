@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+    "component-switchTab": "./../../components/switchTab/switchTab",
+    "component-switchTabs": "./../../components/switchTab2/switchTab2",
+    "ec-canvas": "/centerControl/ec-canvas/ec-canvas"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "产品分享语",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

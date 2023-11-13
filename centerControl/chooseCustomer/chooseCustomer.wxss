@@ -1,0 +1,39 @@
+/* centerControl/chooseCustomer/chooseCustomer.wxss */
+
+.search-container {
+	width: 750rpx;
+	height: 120rpx;
+	box-sizing: border-box;
+	padding:20rpx 0 20rpx 24rpx 
+}
+
+.search-box {
+	width: 690rpx;
+	height: 80rpx;
+	background: #FFFFFF;
+	border: 1rpx solid #CCCCCC;
+	border-radius: 40rpx;
+	padding: 0 30rpx 0 40rpx;
+	box-sizing: border-box;
+}
+
+.customerItem {
+	width: 750rpx;
+	height: 180rpx;
+	padding: 0 30rpx;
+	box-sizing: border-box;
+	margin-top: 15rpx;
+
+}
+
+.icon-sousuo {
+	padding: 20rpx;
+}
+
+.user-avatar {
+	width: 120rpx;
+	height: 120rpx;
+	border-radius: 50%;
+	overflow: hidden;
+	background: #fff;
+}

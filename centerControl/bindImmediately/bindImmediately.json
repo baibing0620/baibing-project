@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "立即绑定",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

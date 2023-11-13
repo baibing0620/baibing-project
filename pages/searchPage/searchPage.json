@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

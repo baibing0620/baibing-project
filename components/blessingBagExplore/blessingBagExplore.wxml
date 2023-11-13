@@ -1,0 +1,36 @@
+<wxs src="../../tools/format.wxs" module="format" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs module="judea">
+var jude = function(completeTask,type){
+  if(completeTask && completeTask.length>0 ){
+    for(var i=0 ;i<completeTask.length;i++){
+      if(completeTask[i] == type){
+        return false
+      }
+    }
+    return true
+  }else{
+    return true
+  }
+}
+module.exports = {
+	jude : jude
+}
+</wxs>
+<view class="modal-box-diy" bindtap='closeBless'>
+    <view class='blessing-bag' catchtap='noClose'>
+        <view class="ellipsis-bless fr34 cbless blessing-bag-title fw600">{{blessData.card.name}}</view>
+        <view class='fr26 cf'>完成下面的任务即可获取福袋</view>
+        <!-- <view style="margin-top: 20rpx" class="fw600 cbless fr55">88.88
+            <text class="fr21">元</text>
+        </view> -->
+        <view class="explore">
+            <view class="flex fr28 " wx:for="{{blessData.activity.task}}">
+                <view class="{{judea.jude(completeTask,item.type)?'explore-check':'iconfont icon-duihao1 border-check'}}"></view>
+                <view class="{{judea.jude(completeTask,item.type)?'cf':'ccheck fw600'}}" >{{blessBagTask[item.type]}}{{item.detail.type !=1? item.detail.count:''}}</view>
+            </view>
+        </view>
+        <view class='belss-bag-btn' catchtap="immediatelyExplore">{{completeTask.length>0?completeTask.length == blessData.activity.task.length?'完成探险':'继续探险':'立即探险'}}</view>
+        <view class='fr26 cf' style='margin-top:29rpx' catchtap='navRule'>活动规则</view>
+    </view>
+</view>

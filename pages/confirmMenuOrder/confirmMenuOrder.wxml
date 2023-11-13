@@ -1,0 +1,101 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<view class="container">
+    <view class="tab-bar-box flex w100 c9 fr28" wx:if="{{noMenuType&&tabBarList.length>1}}">
+        <view class="flex1 flexc {{item.type==menuType?'active-tab':''}}" wx:for="{{tabBarList}}" wx:key="{{index}}" data-type="{{item.type}}"
+            catchtap="chooseMenuType">
+            <text>{{item.name}}</text>
+        </view>
+    </view>
+    <form bindsubmit="payOrder" report-submit="{{true}}">
+        <view class="choose-address" catchtap="chooseAddress" wx:if="{{menuType==3&&addressInfo==null}}">
+            <view style="text-align: center;" class="flex1">
+                <text class="fr35 iconfont icon-jia c-orange"></text> 请选择地址</view>
+            <text class="iconfont icon-you"></text>
+        </view>
+        <view class="address-info flex c6" wx:elif="{{menuType==3&&addressInfo!==null}}" catchtap="chooseAddress">
+            <view class="fr50 iconfont icon-dizhi" style="margin-right:30rpx"></view>
+            <view class="flexaColumn fr24 flex1">
+                <view class="flexb">
+                    <view class="ellipsis1" style="width:400rpx">收货人：{{addressInfo.realname}}</view>
+                    <view>{{addressInfo.mobile}}</view>
+                </view>
+                <view class="flexb" style="margin-top: 16rpx;line-height: 40rpx">
+                    <view class="ellipsis2 flex1">收货地址：{{addressInfo.fulladdress}}</view>
+                    <text class="iconfont icon-you asfs"></text>
+                </view>
+            </view>
+        </view>
+        <view class="table" wx:elif="{{menuType==2}}">
+            <view class="table-num">下单桌号 </view>
+            <input name="tableNo" type="number" confirm-type="done" placeholder="填写桌号" focus="{{false}}" value="{{tableNum}}" />
+            <view class="img-scan-box bc-main" catchtap="scanTable" style="background: {{mainColor}}">
+                <text class="iconfont icon-saoma" />
+                <text>扫描桌号</text>
+            </view>
+        </view>
+        <view class="border-line">
+        </view>
+        <view class="goods-list">
+
+            <block wx:for="{{cartList}}" wx:key="{{index}}" wx:for-item="goodsItem">
+                <view class="goods-info flexb fr24 c3">
+                    <view class='flex flex1'>
+                        <image class="goods-img" src="{{ShowImg.cropImgWH(goodsItem.url,110,110)}}"></image>
+                        <view class="flex1 flexbColumn" style='height:100rpx'>
+                            <view class="ellipsis2">{{goodsItem.title}}</view>
+                            <view wx:if="{{goodsItem.hasOption==1}}" class="c9 fr22">规格：{{goodsItem.selectedSpec.title}}</view>
+                            <view class="c9">X {{goodsItem.addNum}}</view>
+                        </view>
+                    </view>
+                    <view>￥ {{Format.getTotalMoney(goodsItem.addNum,goodsItem.price)}}</view>
+                </view>
+            </block>
+            <view class="goods-item flexb c3" wx:if="{{menuType==3 && is_open_box_money}}">
+                <view class="ellipsis2 fr28">餐盒费</view>
+                <view class="fr24">￥ {{boxPrice}}</view>
+            </view>
+            <view class="goods-item flexb c3" wx:if="{{menuType==3}}">
+                <view class="ellipsis2 fr28">配送费</view>
+                <view class="fr24">￥ {{deliveryPrice==null?'请选择地址':deliveryPrice}}</view>
+            </view>
+            <view class="goods-item flexb c3" wx:if="{{menuType==3 && isOpenCheckReceipt}}">
+                <text class="ellipsis2 fr28">收货时间</text>
+                <view class="flex fr24">
+                    <picker value="{{timeNodeIndex}}" range="{{timeNodeList}}" bindchange="timeChange">
+                        {{timeNodeList[timeNodeIndex]}}
+                    </picker>
+                    <text class="iconfont icon-you c9 fr24"> </text>
+                </view>
+            </view>
+            <!-- <view class="goods-item flexb" catchtap="toCoupon">
+                <view class="ellipsis1 fr28 c3">优惠券</view>
+                <view class="cWaring fr24 c9">
+                    <text style="font-size:12px;" class="cWaring">{{coupon.des}}</text>
+                    <text class="iconfont icon-you" style="color:#999999;padding-top:4rpx;"></text>
+                </view>
+            </view> -->
+            <view class="goods-item flexe c3 fr28">
+                <view class="godds-name ellipsis2 fr28" wx:if="{{shopOpenVipPay==1&&discount!=10}}">
+                    享受优惠:{{discount}}折
+                </view>
+                <view style="margin-left:30rpx">
+                    总计：
+                    <text class="c-orange"  wx:if="{{menuType==3&&is_open_box_money==1}}" >￥{{Format.totalMoney(totalMoney,menuType==3?deliveryPrice:0,coupon.num,discount,menuType==3?boxPrice:0)}}</text>
+                    <text class="c-orange" wx:else>￥{{Format.totalMoney(totalMoney,menuType==3?deliveryPrice:0,coupon.num,discount,menuType==3?boxPrice:0)}}</text>
+                   
+                </view>
+            </view>
+        </view>
+        <view class="textarea-box">
+            <textarea class="beizhu-input" placeholder="买家留言:" name="remark" placeholder-style="z-index:10" />
+        </view>
+
+        <view class="bt-area">
+            <button class="bc-main" formType="submit" hover-class="btn-active" style="background: {{mainColor}}">确定下单</button>
+        </view>
+    </form>
+</view>
+
+<component-messageToast></component-messageToast>

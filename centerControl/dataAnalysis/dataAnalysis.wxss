@@ -1,0 +1,83 @@
+.fr24, fr36 {
+  line-height: 100%;
+}
+
+.item {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 8rpx;
+  border-top: 1rpx solid #ebebeb;
+  border-bottom: 1rpx solid #ebebeb;
+  background-color: #fff;
+  padding: 50rpx 22rpx;
+  overflow: hidden;
+}
+
+.item:first-child {
+  border-top: 0;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.title {
+  font-size: 30rpx;
+  line-height: 30rpx;
+  font-weight: bold;
+  margin-bottom: 50rpx;
+  padding-left: 8rpx;
+}
+
+.count {
+  margin-top: 56rpx;
+}
+
+.count-item {
+  margin-bottom: 15px;
+  width: 235rpx;
+  height: 40px;
+  text-align: center;
+}
+
+.count-item>view {
+  margin-bottom: 20rpx;
+}
+/* 图表 */
+.canvas-line{
+  margin-top: 20rpx;
+  height: 460rpx;
+  width: 100%x;
+}
+
+.channel-percentage {
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 210rpx;
+  height: 210rpx;
+  border: 1px solid #E6E6E6;
+}
+.channel-value {
+  font-size: 40rpx;
+  line-height: 60rpx;
+}
+.channel-value0 {
+  color: #FF5673;
+}
+.channel-value1 {
+  color: #FFC12B;
+}
+.channel-value2 {
+  color: #495FFF;
+}
+.channel-label {
+  font-size: 28rpx;
+}

@@ -1,0 +1,79 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+        <block wx:if='{{ showStyle == 1 }}'>
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+            <view class='layout flex bcf'>
+                <view class='input-layout flex flex1'>
+                    <view class='search iconfont icon-sousuo2 flexc c9 fr30' bindtap='handleSearch'></view>
+                    <input class='search-input flex1 c3 fr24' type="text" value='{{searchValue}}' placeholder='请输入关键字搜索...' placeholder-class='cc' bindinput='handleInput' bindconfirm='handleSearch' />
+                    <view class='search-delete' bindtap='handleDelete'></view>
+                </view>
+            </view>
+            <swiper wx:if='{{showSwiper && swiperContent.length > 0}}' class='banner' autoplay circular indicator-dots indicator-color='rgba(255,255,255,.6)' indicator-active-color='#fff' interval='{{3000}}'>
+                <block wx:for='{{swiperContent}}' wx:key='id'>
+                    <swiper-item>
+                        <image class='banner' mode='aspectFill' src='{{ShowImg.cropImgWH(item.img_url, 750, 370)}}' data-page='{{item.page}}' bindtap='handleNavigate' />
+                    </swiper-item>
+                </block>
+            </swiper>
+            <swiper indicator-dots='{{category.length > 1?true:false}}' indicator-active-color="#f24c3c" indicator-color="#e6e6e6"  wx:if='{{categoryTotal > 0}}' class='{{categoryTotal <= 4 ? "category-swiper-less" : "category-swiper"}} bcf swiper-box'>
+                <block wx:for='{{category}}' wx:key='{{index}}'>
+                    <swiper-item>
+                        <view class='category-page flex'>
+                            <view wx:for='{{item}}' wx:key='{{item.id}}' data-id='{{item.id}}' class='category' hover-class='category-hover' bindtap='handleNaviToCategoryDetail'>
+                                <image class='category-icon' src='{{item.cover_url + "?imageView2/1/w/62/h/62"}}' />
+                                <view class='category-text fr26 c-18191a'>
+                                    {{item.service_group}}
+                                </view>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view class='label-layout'>
+                <image class='label-bg' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190424/db3784b61a90aeeb.png'></image>
+                <view class='label fr36 c-1d2023'>
+                    <image class='label-icon-1' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190424/e524019221dbb2e1.png'></image>
+                    {{group_field || '特别推荐'}}
+                    <image class='label-icon-2' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190424/e524019221dbb2e1.png'></image>
+                </view>
+            </view>
+            <view class='goods-list flex'>
+                <view wx:for='{{recommendList}}' wx:key='id' class='goods-item bcf' data-id='{{item.id}}' bindtap='handleNavToDetail'>
+                    <view wx:if='{{item.if_recommend == 1}}' class='goods-recommend flexc fr20 cf'>
+                        推荐
+                    </view>
+                    <image class='goods-thumb' mode='aspectFill' src='{{item.img_url.url + "?imageView2/1/w/340/h/237"}}'></image>
+                    <view class='goods-detail'>
+                        <view class='goods-title-layout flexb c-ff3e26'>
+                            <view class='goods-title fr32 c-1d2023 flex1'>
+                                {{item.service_name}}
+                            </view>
+                            <view class='goods-like flex fr26'>
+                                <view class='iconfont icon-dianzan2 fr22'></view>
+                                {{item.like_number}}
+                            </view>
+                        </view>
+                        <view class='goods-content fr22 ellipsis2'>{{item.description}}</view>
+                        <view class="goods-tags-layout flex">
+                            <view wx:for='{{item.label}}' wx:key='id' class="goods-tags">
+                                {{item}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+        </block>
+        <component-remind wx:if='{{ showRemind }}'></component-remind>
+        <component-messageToast></component-messageToast>
+        <view class="suspension-menu flexcColumn">
+          <component-bless-bag-comm pageRefresh="{{ pageRefresh }}"></component-bless-bag-comm>
+          <component-menu setting="{{ menuSetting }}" color="{{ '#1F94FD'  || extConfig.themeColor }}"></component-menu>
+        </view>
+    </button>
+</form>

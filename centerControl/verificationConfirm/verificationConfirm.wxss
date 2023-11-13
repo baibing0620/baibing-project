@@ -1,0 +1,30 @@
+.layout {
+    padding: 60rpx 30rpx 52rpx;
+    margin-top: 10rpx;
+}
+
+.layout:first-child {
+    margin-top: 0;
+}
+
+.label {
+    margin-bottom: 36rpx;
+}
+
+.content {
+    width: 700rpx;
+    line-height: 48rpx;
+}
+
+.textarea {
+    min-height: 160rpx
+}
+
+.confirm {
+    margin: 80rpx auto 0;
+    width: 690rpx;
+    height: 98rpx;
+    background-color: #ff8100;
+    border-radius: 10rpx;
+}
+

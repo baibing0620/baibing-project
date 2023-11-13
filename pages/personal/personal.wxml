@@ -1,0 +1,129 @@
+<include src="/comm/comm" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle}}" wx:if="{{showStyle!=1}}" />
+
+    
+<view class='container w100' wx:else>
+    <view class="header flexc bc-FFFFFF">
+        <view class="mask-img">
+            <component-image  src="{{maskUrl}}"></component-image>
+        </view> 
+       
+        <view class='user-img-box flex1 flex'>
+            <view class='img-border' bindtap='tapName'>
+                <!-- 微信2022年2月21关闭自动获取头像组件 -->
+                <!-- <open-data type="userAvatarUrl"></open-data> -->
+                <component-image wx:if="{{user.avatar}}" src="{{user.avatar}}"></component-image>
+                <component-image wx:else src="https://facing-1256908372.file.myqcloud.com/avatar/20220414/8827ee90af144306.jpg">
+                </component-image>
+            </view>
+            <view class='img-text'>
+                <view class='flex'>
+                    <view class='fr38 c3 bold flex'>
+                        <!-- <open-data type="userNickName"></open-data> -->
+                        {{user.nickname||'微信用户'}}
+                    </view>
+                </view>
+
+                <view wx:if="{{ is_open_credit }}" class="flex">
+                    <view bindtap="navCreditDetail" class='img-text-bottom fr24 cmain' >积分{{credit}}</view>
+                </view>
+            </view>
+        </view>
+
+        <view class="edit-btn" bindtap="navPersonInfo" >
+            <text class="iconfont icon-bianji2"></text>编辑
+        </view>
+
+        <view class="vip-level" data-vip="{{ vipInfo.is_vip || user.is_vip }}" bindtap="navVipDetail" wx:if="{{ open_vip == 1 }}">
+            <view>
+                <text class="iconfont icon-dengji2"></text>
+                <text>{{ (vipInfo.is_vip || user.is_vip) ? levelData.level.level_name : '获取会员专享权益' }}</text>
+            </view>
+            <view>
+                {{ (vipInfo.is_vip || user.is_vip) ? '距离下一等级'+ (vipInfo.grow_name || '成长值')+ '差' +levelData.nextLevelGrow : '立即领卡' }}
+                <text wx:if="{{!vipInfo.is_vip || !user.is_vip}}" class="iconfont icon-xiangyou" style="color: #E6CB9B;"></text>
+            </view>
+        </view>
+        
+    </view>
+    <view class='lineitem'>
+        <block wx:if="{{profileMenu.order&&profileMenu.order.isOpen}}">
+            <view class="order-item">
+                <view class='mylineitem' bindtap="toOrder" data-index="0">
+                    <view class='fr30 c4d fw'>{{profileMenu.order.title}}</view>
+                    <view class='fr26 c9'>查看全部
+                        <text class='iconfont icon-you'></text>
+                    </view>
+                </view>
+                <view class="lineitem-center mb20">
+                    <view data-index="1" bindtap="toOrder" class="flexcColumn active">
+                        <view class='orderImgBox' style="color: {{mainColor}}">
+                            <component-image src="https://facing-1256908372.file.myqcloud.com//image/20201103/78843fe930c36103.png"></component-image>
+                        </view>
+                        <view class='fr26 c5'>待付款</view>
+                    </view>
+                    <view data-index="2" bindtap="toOrder" class="flexcColumn active">
+                        <view class='orderImgBox' style="color: {{mainColor}}">
+                            <component-image src="https://facing-1256908372.file.myqcloud.com//image/20201103/ed27e3d9b7af0f6e.png"></component-image>
+                        </view>
+                        <view class='fr26 c5'>待发货</view>
+                    </view>
+                    <view data-index="3" bindtap="toOrder" class="flexcColumn active">
+                        <view class='orderImgBox' style="color: {{mainColor}}">
+                            <component-image src="https://facing-1256908372.file.myqcloud.com//image/20201103/43c0d8b394751dc7.png"></component-image>
+                        </view>
+                        <view class='fr26 c5'>待收货</view>
+                    </view>
+                </view>
+            </view>
+           
+        </block>
+
+
+        <view class="flex fw profileMenuArr-list"> 
+            <button open-type="openSetting" class=" opensettingbtn tac active flexcColumn">
+                <view class="iconfont icon-setting personalIcon"></view> 
+                <view class="fr26 pt20 personalTitle">授权设置</view>
+            </button>
+            <view wx:if="{{is_open_credit}}" style="width:25%;" class="active tac flexcColumn" bindtap="navCredit">
+                <view class="iconfont icon-creditQrCode personalIcon"></view>
+                <view class="fr26 pt20 personalTitle" >积分码</view>
+            </view>
+            <view wx:if="{{is_open_credit}}" style="width:25%;" class="active tac flexcColumn " bindtap="integralGive">
+                <view class="iconfont icon-creditSend personalIcon"></view>
+                <view class="fr26 pt20 personalTitle" >积分转增</view>
+            </view>
+            <block wx:for="{{profileMenuArr[0]}}" wx:key="id">
+                <view wx:if="{{item.isOpen}}" style="width:25%;" class="active tac flexcColumn " data-page="{{item.key}}" bindtap="navTo">
+                    <view class="iconfont {{item.icon}} personalIcon"></view>
+                    <view class="fr26 pt20 personalTitle" >{{item.title}}</view>
+                </view>
+            </block>
+        </view>
+        <view wx:if="{{profileMenuArr[1] && profileMenuArr[1].length>0 }}" class="flex fw profileMenuArr-list" >
+            <block wx:for="{{profileMenuArr[1]}}" wx:key="id">
+            <view wx:if="{{item.isOpen}}" style="width:25%;" class="active tac flexcColumn " data-page="{{item.key}}" bindtap="navTo">
+                <view class="iconfont {{item.icon}} personalIcon"></view>
+                <view class="fr26 pt20 personalTitle" >{{item.title}}</view>
+            </view>
+            </block>
+        </view>
+            <view wx:if="{{profileMenuArr[2] && profileMenuArr[2].length>0 }}" class="flex fw profileMenuArr-list" >
+            <block wx:for="{{profileMenuArr[2]}}" wx:key="{{ item.key }} ">
+            <view wx:if="{{item.isOpen}}" style="width:25%;" class="active tac flexcColumn " data-page="{{item.key}}" bindtap="navTo">
+                <view class="iconfont {{item.icon}} personalIcon"></view>
+                <view class="fr26 pt20 personalTitle" >{{item.title}}</view>
+            </view>
+            </block>
+        </view>
+        <view class="version flexc fr26">{{extConfig.version}}</view>
+    </view>
+</view>
+  
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>
+<component-showToast wx:if="{{giveModel}}" bindcolse="closeModel" bindgetValue="onGetvalue"></component-showToast>

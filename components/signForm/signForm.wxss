@@ -1,0 +1,28 @@
+/* components/signForm/signForm.wxss */
+page{
+  background: #f7f7f7;
+  font-family: 'Microsoft YaHei';
+}
+.signForm{
+  background: white;
+  margin: 20rpx;
+  border-radius: 14rpx;
+}
+.signbtn{
+  /* position: fixed; */
+  margin-left: calc(15% - 22rpx);
+  /* bottom: 10rpx; */
+  width: 70%;
+  padding: 20rpx;
+  border-radius: 40rpx;
+  z-index: 2021;
+}
+.signForm>view{
+  margin: 0 20rpx 20rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  padding: 20rpx 0;
+}
+.signForm>view>text{
+  display: inline-block;
+  width: 260rpx;
+}

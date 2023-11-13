@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText":"请选择到店日期",
+	"usingComponents": {
+		"component-messageToast": "/components/messageToast/messageToast"
+	}
+}

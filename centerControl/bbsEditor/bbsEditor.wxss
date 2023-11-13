@@ -1,0 +1,217 @@
+.fr24, .fr26, .fr28 {
+  line-height: 100%;
+}
+
+.padding-w {
+  box-sizing: border-box;
+  width: 100vw;
+  padding: 0 30rpx;
+  overflow: hidden;
+}
+
+.margin-top {
+  margin-top: 10rpx;
+}
+
+.label {
+  padding: 30rpx 0;
+  font-weight: bold;
+}
+
+.label2 {
+  padding: 40rpx 0;
+  font-weight: bold;
+}
+
+.border {
+  box-sizing: border-box;
+  border: 1rpx solid #d9d9d9;
+  border-radius: 4rpx;
+  padding: 0 30rpx;
+  overflow: hidden;
+}
+
+.background {
+  background-color: #f7f7f7;
+}
+
+.picker, .input {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.textarea {
+  padding: 30rpx 30rpx 88rpx 30rpx;
+  height: 400rpx;
+  position: relative;
+}
+
+.textarea textarea {
+  font-weight: normal;
+  height: 100%;
+  width: 100%;
+}
+
+.text-total {
+  position: absolute;
+  right: 30rpx;
+  bottom: 30rpx;
+}
+
+.select>view {
+  box-sizing: border-box;
+  width: 210rpx;
+  height: 60rpx;
+  text-align: center;
+  border-radius: 60rpx;
+  background-color: #f7f7f7;
+  border: 1rpx solid #e6e6e6;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+  transition: .3s;
+}
+
+.select>view:nth-child(-n+3) {
+  margin-top: 0;
+}
+
+.select>view:nth-child(3n) {
+  margin-right: 0;
+}
+
+.select .selected {
+  border: 0;
+  color: #fff;
+}
+
+.checkBox {
+  padding: 50rpx 0;
+}
+
+.submit {
+  height: 98rpx;
+  text-align: center;
+  line-height: 98rpx;
+  border-radius: 0;
+}
+
+.img-box {
+  margin-bottom: -6rpx;
+  overflow: hidden;
+}
+
+.img {
+  float: left;
+  box-sizing: border-box;
+  border: 1rpx solid #d9d9d9;
+  border-radius: 4rpx;
+  background-color: #f7f7f7;
+  overflow: hidden;
+}
+
+.img>image {
+  height: 100%;
+  width: 100%;
+}
+
+.img-add {
+  text-align: center;
+}
+
+.img-add>i {
+  font-weight: bold;
+  font-size: 50rpx;
+  line-height: 226rpx;
+  color: #999;
+}
+
+.img2 {
+  width: 226rpx;
+  height: 226rpx;
+  margin-right: 6rpx;
+  margin-bottom: 6rpx;
+}
+
+.img2:nth-child(3n) {
+  margin-right: 0;
+}
+
+.info {
+  padding: 30rpx 0;
+}
+
+.videoHolder {
+  height: 400rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.margin-bottom {
+  margin-bottom: 50rpx;
+}
+
+.checkIcon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 20rpx;
+  padding: 0;
+  border-radius: 50%;
+  transition: .3s;
+}
+
+.progress-view {
+  padding: 18rpx;
+  box-sizing: border-box;
+  margin-top: 50%;
+  transform: translateY(-50%);
+}
+
+.videoHolder .progress-view {
+  margin-top: 200rpx;
+}
+
+.marginbottom {
+  margin-bottom: 52rpx;
+}
+
+.marginbottom2 {
+  margin-bottom: 26rpx;
+}
+
+.loading {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.videoLayout {
+  width: 100%;
+  height: 100%;
+}
+
+.closeVideo {
+  content: "\e62a";
+  width: 50rpx;
+  height: 50rpx;
+  background-color: red;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.margintop {
+  margin-top: 10rpx;
+}
+
+.noBorderBottom {
+  border-bottom: 0;
+}
+
+.reuploadvideo {
+  border-radius: 6rpx;
+  margin-top: 20rpx;
+}
+

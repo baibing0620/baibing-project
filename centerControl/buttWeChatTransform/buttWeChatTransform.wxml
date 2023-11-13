@@ -1,0 +1,85 @@
+<!--centerControl/buttWeChatTransform/buttWeChatTransform.wxml-->
+
+
+  <view style="width:100%;{{'height: ' + statusBarHeight}}px"></view> 
+  <view bindtap="navBack" style="height:{{getMenuButtonBoundingClientRect}}px;color:#000" class="flex fr34">
+    <text class="iconfont icon-fanhui2"></text>
+    <text>{{ requireCardId ? '企微转化' : '转化效率' }}</text>
+  </view>
+
+  <view>
+    <view class="timeRange flexa">
+      <picker class="datepicker"  mode="date" value="{{beginTime}}" bindchange="bindStartChange">
+        <view class="datepicker">
+          {{beginTime}}
+        </view>
+      </picker>
+      <text class="fr22 c9">至</text>
+      <picker class="datepicker"  mode="date" value="{{endTime}}" start="{{beginTime}}" bindchange="bindEndChange">
+        <view class="datepicker">
+          {{endTime}}
+        </view>
+      </picker>
+    </view>
+  
+    <view class='item spec-item'>
+      <view class='title flexb' style='border-left: 8rpx solid #247CF6'>
+        <view class='c4d'>
+          企微转化图
+        </view>
+      </view>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-customer" canvas-id="mychart-customer" ec="{{ ec }}"></ec-canvas>
+      </view>
+      <view class="customer-info">
+        <view class="customer-item flex w100">
+          <view class="color-icon1"></view>
+          <view class="customer-main">名片->企微</view>
+          <view class="percent-type flex">
+            <view class="customer-title">转化率</view>
+            <view class="customer-value"> {{crmSourceRate[1]}}%</view>
+          </view>
+          <view class="flexb value-type">
+            <view class="customer-title">客户数量</view>
+            <view class="customer-value"> {{crmSourceData[1]}}</view>
+          </view>
+        </view>
+         <view class="customer-item flex w100">
+          <view class="color-icon2"></view>
+          <view class="customer-main">企微->名片</view>
+          <view class="percent-type flex">
+            <view class="customer-title">转化率</view>
+            <view class="customer-value"> {{crmSourceRate[2]}}%</view>
+          </view>
+          <view class="flexb value-type">
+            <view class="customer-title">客户数量</view>
+            <view class="customer-value"> {{crmSourceData[2]}}</view>
+          </view>
+        </view>
+         <view class="customer-item flex w100">
+          <view class="color-icon3"></view>
+          <view  class="customer-main">未转化(仅名片)</view>
+          <view class="percent-type flex">
+            <view class="customer-title">占比</view>
+            <view class="customer-value"> {{crmSourceRate[0]}}%</view>
+          </view>
+          <view class="flexb value-type">
+            <view class="customer-title">客户数量</view>
+            <view class="customer-value"> {{crmSourceData[0]}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='title flexb' style='border-left: 8rpx solid #247CF6'>
+        <view class='c4d'>
+          各入口引导效率
+        </view>
+      </view>
+      <view class="canvas-line">
+        <ec-canvas id="mychart-enter-efficiency" canvas-id="mychart-enter-efficiency" ec="{{ ec }}"></ec-canvas>
+      </view>
+    </view>
+  </view>
+

@@ -1,0 +1,32 @@
+<view class='card'>
+    <view class='card-avatar'>
+        <component-avatar src='{{ cardInfo.avatar_url }}' name='{{ cardInfo.name }}' />
+    </view>
+    <view class='card-info-layout'>
+        <view class='flex card-info-company-layout'>
+            <view class='card-info-logo'>
+                <component-image src='{{ cardInfo.company_logo }}' mode='aspectFit' />
+            </view>
+            <view class='f22 c1a ellipsis1 card-info-company'>{{ cardInfo.company_jc || '' }}</view>
+        </view>
+        <view class='card-info-name-bc'>
+            <view class='fr50 c0 ellipsis1 card-info-name'>{{ cardInfo.name }}</view>
+            <view class='fr24 c6 ellipsis1 card-info-position'>{{ cardInfo.position }}</view>
+        </view>
+        <view class='card-info-others'>
+            <view class='card-info-others-item'>
+                <view class='fr22 c3 ellipsis2 card-info-others-item-label'>{{ cardInfo.mobile || '--' }}</view>
+                <view class='fr18 iconfont icon-blackPhone card-info-others-item-icon'></view>
+            </view>
+            <view class='card-info-others-item'>
+                <view class='fr22 c3 ellipsis2 card-info-others-item-label'>{{ cardInfo.email || '--' }}</view>
+                <view class='fr18 iconfont icon-youxiang1 card-info-others-item-icon'></view>
+            </view>
+            <view class='card-info-others-item'>
+                <view class='fr22 c3 ellipsis2 card-info-others-item-label'>{{ cardInfo.address[0] || '--' }}</view>
+                <view class='fr20 iconfont icon-dizhi2 card-info-others-item-icon'></view>
+            </view>
+        </view>
+    </view>
+</view>
+

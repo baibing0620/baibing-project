@@ -1,0 +1,102 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+<view class="page">
+<view class="fix-home-page iconfont icon-shouye1 flexc fr36" bindtap='navHomePage'></view>
+<view wx:if='{{ activity.voice_url }}' class='fix-audioPlayer'>
+  <component-audioPlayer  dontNeedCount="true" type='tiny' src='{{ activity.voice_url }}'></component-audioPlayer>
+</view>
+<view class='cover {{ showCover ? "cover-show" : "" }}' bindtap='coverHide'>
+     <component-activity-post activity="{{activity}}" showCover="{{showCover}}" src='{{ image }}' themeColor='#fd9a33' bind:close='coverHide' bind:showSetting="showOpenSetting"></component-activity-post>
+</view>
+<view class="Sharing" wx:if='{{ activity.open_transmit == 0 }}' bindtap="toSharing"></view>
+    <view class="ShareToWechat" wx:if="{{isShow}}">
+        <view class="ShareToWechat-box flexa">
+            <view class="weixin shareTitle">
+                <button class="shareButton" open-type="share"></button>
+                <image src="https://facing-1256908372.file.myqcloud.com//image/20191118/74a9455b341713a4.png"></image>
+                <view>微信</view>
+            </view>
+            <view class="pengyouquan shareTitle" bindtap="previewQRCode">
+                <image src="https://facing-1256908372.file.myqcloud.com//image/20191118/74243d8e169e9076.png"></image>
+                <view >朋友圈</view>
+            </view>
+        </view>
+    </view>
+    <view class="mcl" wx:if="{{isShow}}" bindtap="close"></view>
+  <view class="header">
+    <view class="header-title">{{activity.title || '刮刮乐活动'}}</view>
+  </view>
+  <view class="red-body">
+    <view class="content-container">
+      <view class="content-header"></view>
+      <view class="content-padding-box">
+        <view class="description-container">
+           <!-- <text>{{activity.description || '暂无活动详情描述'}}</text> -->
+           <text wx:if="{{description_item.length == 0}}">暂无活动详情描述</text>
+            <view style="padding:0 20rpx;" wx:else>
+              <block wx:for="{{description_item}}" wx:key="{{index}}">
+                <image src="{{ShowImg.cropImgW(item.image.url,600)}}" mode="widthFix" style="width: 100%;margin-top:{{index && contentList[index-1].type=='text'?'10rpx':0}};" wx:if="{{item.type=='image'}}" data-preview-url="{{item.image.url}}" data-src="{{item.src}}" catchtap="previewImage" />
+                <block wx:if="{{item.type=='text'}}">
+                    <view class="image-text-text w100">
+                        <text selectable>{{item.content}}</text>
+                    </view>
+                </block>
+              </block>
+            </view>
+        </view>
+        <view class="scratch-container">
+          <canvas class="scratch {{scratch.class}}" style="width:{{canvas.width+'rpx'}}; height:{{canvas.height+'rpx'}};" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" canvas-id="scratch" disable-scroll="{{true}}">
+          </canvas>
+          <view class="scratch-content-container" style="width:{{canvas.width+'rpx'}}; height:{{canvas.height+'rpx'}}; left:{{content.left}}">
+            <view class="scratch-content">
+              {{scratch.resultMessage}}
+            </view>
+          </view>
+        </view>
+        <view hidden="{{activity.limit_freq==0 && activity.open_transmit == 0 && activity.free_times == 0&&activity.open_credit_transfer == 0}}" class="num-tip fr24">还有{{activity.activity_times_left}}次抽奖机会</view>     
+        <component-activityShareBoard openTransmit='{{ activity.open_transmit }}' openCreditTransfer='{{ activity.open_credit_transfer }}' activity="{{activity}}" activityId='{{ activity.id }}' my-board="share-board" share-name="share-name" share-num="share-num"></component-activityShareBoard>
+        <view class="winner-list" style='padding-bottom:60rpx'>
+          <view class="winner-list-header">中奖名单
+            <view class="winner-list-header-shadow"></view>
+          </view>
+          <view class="winner-list-container">
+            <view class="flexb winner-list-item-header">
+              <view class="flex1 text-center">用户昵称</view>
+              <view class="flex1 text-center">奖品</view>
+              <view class="flex1 text-center">中奖时间</view>
+            </view>
+               <view wx:if='{{activity.lottery_list_type==0}}'>
+                    <view class="flexb winner-list-item" wx:for="{{lotteryWinner}}" wx:key="{{item.name}}" >
+                      <view class="flex1 text-center">{{item.name}}</view>
+                      <view class="flex1 text-center">{{item.item}}</view>
+                      <view class="flex1 text-center">{{item.time}}</view>
+                    </view>
+                    <view wx:if='{{pageIndex>frequency}}' style='color:#fff;font-size:25rpx;padding:20rpx 0' class='flex1 text-center'>——没有更多啦——                       </view>
+                    <view wx:if='{{lotteryLoading}}' style='color:#fff;font-size:28rpx' class='flex1 text-center'>loading...</view>
+              </view>  
+
+                    <swiper wx:if='{{activity.lottery_list_type==1}}' class="swiperitem" style='height:100rpx' interval='1300' duration='1300' autoplay="{{true}}" vertical="true" circular="true">
+                      <block wx:key="{{item.name}}" wx:for="{{lotteryWinner}}">
+                        <swiper-item class="flexb winner-list-item">
+                          <view class="flex1 text-center">{{item.name}}</view>
+                          <view class="flex1 text-center">{{item.item}}</view>
+                          <view class="flex1 text-center">{{item.time}}</view>
+                        </swiper-item>
+                      </block>
+                    </swiper> 
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<component-activity-lottery bind:closeActivity="closeActivity" requiredIntegral="{{activity.credit}}" bindinstantLottery="instantLotteryActivity" wx:if="{{showLottery}}"></component-activity-lottery>  
+
+
+<view hidden="{{!resultVisible}}">
+    <component-award-results-dailog result_prize="{{result_prize}}" result_coupon="{{result_coupon}}" valide_time="{{valide_time}}" bind:close="closeResult"></component-award-results-dailog>  
+</view>
+
+<component-messageToast></component-messageToast>

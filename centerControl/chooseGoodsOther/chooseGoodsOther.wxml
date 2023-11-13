@@ -1,0 +1,43 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关信息'}}" wx:if="{{showStyle!=1 }}" />
+<block wx:else>
+  <block>
+    <view wx:for="{{goodsList}}"  wx:key="id" class="bcf goodsItem flexb" bindtap="toPreview" data-id="{{item.id}}">
+      <view class="">{{ item.series_name }}</view>
+      <view class="check-btn" catchtap="chooseGoods" data-index="{{ index }}" data-id="{{ item.id }}">选择</view>
+    </view>
+  </block>
+  <template is="moreData" data="{{loadStyle:loadStyle}}" />
+  
+  <view class="confirmBack" bindtap="navback">确定选择</view>
+</block>
+
+
+<view class="goods-purchase-container flexcColumn" wx:if="{{ purchaseBox }}" bindtap="closePurchase">
+	<view class="goods-purchase-box" catchtap="stopPro">
+		<view class="goods-purchase-box-head c3 fr36 bold">选择品类</view>
+
+		<view class="new-buy-num">
+			<view class="new-buy-num-content flexb">
+					<view class="new-buy-num-content-stock">
+							<view class="new-buy-num-content-stock-title fr32 bold">购买数量</view>
+					</view>
+					<view class="new-buy-num-content-control flexc">
+							<view class="new-control flexc new-minus {{buyNum <= 1? 'new-disable': ''}}" catchtap="changeCartGoodsNum" data-type="minus">
+									<text catchtap="changeCartGoodsNum" data-type="minus" class="new-minus-text"></text>
+							</view>
+							<input class="new-control new-num {{isIos?'new-num-ios':''}}" value="{{buyNum}}" type="number" bindblur="changeBuyNum" />
+							<view class="new-control flexc new-plus" catchtap="changeCartGoodsNum" data-type="plus">
+									<text catchtap="changeCartGoodsNum" data-type="plus" class="iconfont icon-add fr20"></text>
+							</view>
+					</view>
+			</view>
+		</view>
+		<view class="confirm-btn fr30" catchtap="addGoods">	确定添加 </view>
+	</view>
+</view>
+<component-messageToast></component-messageToast>

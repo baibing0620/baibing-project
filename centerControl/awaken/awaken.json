@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "AI唤醒",
+    "navigationBarBackgroundColor": "#1F94FD",
+    "backgroundColor": "#1F94FD",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+		"component-messageToast": "/components/messageToast/messageToast"
+	}
+}

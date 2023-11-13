@@ -1,0 +1,24 @@
+<include src="../../comm/comm.wxml" />
+<wxs src="../../tools/format.wxs" module="format" />
+<form bindsubmit="openCard">
+    <view class='continer'>
+        <view style='margin-bottom:30rpx' class='fr24 c3'>姓名</view>
+        <input name="name" value="{{name}}" class='fr28 c3' placeholder-class="input-placeholder" placeholder='请输入姓名' />
+        <view style='margin:30rpx 0' class='fr24 c3'>部门</view>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{pushTag}}" range-key="name">
+            <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 c9' wx:if="{{index == -1}}">请选择部门</text>
+                <text wx:else class='fr28 c3'>{{pushTag[index].name}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+        <view style='margin:30rpx 0' class='fr24 c3'>职位</view>
+        <input name="position" value="{{position}}" class='fr28 c3' placeholder-class="input-placeholder" placeholder='请输入职位' />
+        <view style='margin:30rpx 0' class='fr24 c3'>手机号</view>
+        <input name="mobile" value="{{mobile}}" class='fr28 c3' placeholder-class="input-placeholder" placeholder='请输入手机号' />
+        <view hidden='{{hideNumber}}' style='text-align: center;margin-top:100rpx' class='c9 fr24'>企业可用名片数量{{number||0}}张</view>
+    </view>
+    <button formType="submit" disabled='{{pushEnable}}' class='btn fr34 cf'>{{hideNumber?'编辑':'开通'}}</button>
+</form>
+
+<component-messageToast></component-messageToast>

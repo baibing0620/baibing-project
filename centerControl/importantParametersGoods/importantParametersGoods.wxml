@@ -1,0 +1,41 @@
+<include src="../../comm/comm.wxml" />
+<component-messageToast></component-messageToast>
+<component-steps chooseIndex="1" completeIndex="0"></component-steps>
+    <view class='container'>
+        <view class='fr24 {{sellingPrice?"cb3":"c3"}} bold title'>本店售价</view>
+        <view class='input flexb'>
+            <input type="digit" class='fr30 flex1 c3' value='{{sellingPrice}}' placeholder='请输入本店售价' bindinput="changeSellingPrice" />
+            <view class='fr28 c3'>元</view>
+        </view>
+        <view class='fr24 {{marketPrice?"cb3":"c3"}} bold title'>市场售价</view>
+        <view class='input flexb'>
+            <input type="digit" class='fr30 flex1 c3' value='{{marketPrice}}' placeholder='请输入市场售价'  bindinput="changeMarketPrice"/>
+            <view class='fr28 c3'>元</view>
+        </view>
+        <view class='fr24 {{weight?"cb3":"c3"}} bold title'>重量</view>
+        <view class='input flexb'>
+            <input type="digit" class='fr30 flex1 c3' value='{{weight}}' placeholder='请输入商品重量' bindinput="changeWeight"/>
+            <view class='fr28 c3'>克</view>
+        </view>
+        <view class='fr24 {{total?"cb3":"c3"}} bold title'>销量</view>
+        <view class='input flexb'>
+            <input type="digit" class='fr30 flex1 c3' value='{{total}}'  placeholder='请输入商品销量' bindinput="changeTotal"/>
+            <view class='fr28 c3'>件</view>
+        </view>
+        <view class='fr24 {{stock?"cb3":"c3"}} bold title'>库存设置</view>
+        <view class='input flexb'>
+            <input type="number" class='fr30 flex1 c3' value='{{stock}}'  placeholder='请输入商品库存' bindinput="changeStock"/>
+            <view class='fr28 c3'>件</view>
+        </view>
+        <view class='fr24 {{index != -1?"cb3":"c3"}} bold title'>减库存方式</view>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeStock}}">
+            <view class="form-picker flexb" style="color:{{componentInfo.fontColor}};">
+                <text class='fr28 {{index == -1?"cb3":"c3"}}'>{{index == -1?'请选择减库存方式':typeStock[index]}}</text>
+                <view class="iconfont icon-xiala1 c9 fr24"></view>
+            </view>
+        </picker>
+    </view>
+    <view class='btn flex'>
+        <button catchtap='backSteps' class='flex1 fr34'>上一步</button>
+        <button catchtap='nextSteps' style='flex:2'>下一步</button>
+    </view>

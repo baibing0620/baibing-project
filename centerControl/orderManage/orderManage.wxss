@@ -1,0 +1,34 @@
+
+.item-box{
+    width: 690rpx;
+    height: 300rpx;
+    margin: 0 auto;
+    margin-top: 30rpx;
+    border-radius: 10rpx;
+    color:white;
+    font-size: 40rpx;
+    font-weight: 800;
+    line-height: 300rpx;
+    background-size: 690rpx 300rpx;
+    text-align: left;
+  }
+  .item-box .iconfont{
+    font-weight: 400;
+  }
+  .item-box>text.iconfont{
+    margin-left: 80rpx;
+    margin-right: 20rpx;
+     font-size: 40rpx;
+  }
+  .item-box:nth-child(1){
+    background-image: url(https://facing-1256908372.file.myqcloud.com//image/20181114/7d59d5205f4355c9.png);
+  }
+  .item-box:nth-child(2){
+    background-image: url(https://facing-1256908372.file.myqcloud.com//image/20181114/71019e5664082714.png);
+  }
+  .item-box:nth-child(3){
+    background-image: url(https://facing-1256908372.file.myqcloud.com//image/20181114/82fb00094ad21c16.png);
+  }
+
+  
+  

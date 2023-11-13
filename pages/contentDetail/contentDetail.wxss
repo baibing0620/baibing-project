@@ -1,0 +1,393 @@
+page {
+  background-color: #fafafa;
+}
+
+.fr22,
+.fr30 {
+  line-height: 100%;
+}
+
+.container {
+  background: #fff;
+  padding-bottom: 120rpx;
+}
+
+.enter-service>image {
+  width: 53rpx;
+  height: 43rpx;
+  vertical-align: middle;
+}
+
+.consult-bt-box {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  height: 98rpx;
+  border-top: 1rpx solid #ebebeb;
+}
+
+.image-text-text {
+  display: block;
+  white-space: normal;
+  text-indent: 2em;
+  letter-spacing: 0.5px;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  word-break: break-all;
+}
+
+.bc-main {
+  background: #1F94FD;
+}
+
+.goods-tags {
+  box-sizing: border-box;
+  font-size: 22rpx;
+  color: #a7a9ab;
+  min-width: 95rpx;
+  height: 40rpx;
+  background-color: #f1f4f7;
+  border-radius: 18.5rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10rpx;
+  margin-top: 20rpx;
+  padding: 0 12rpx;
+  line-height: 100%;
+}
+
+.rich-text-view {
+  padding: 0 30rpx;
+}
+
+.content-title {
+  text-align: left;
+  line-height: 56rpx;
+  padding: 30rpx 0;
+}
+
+.content-other .icon-share {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-size: 40rpx;
+  margin-right: 30rpx;
+  line-height: 60rpx;
+  color: #ff9b1f;
+  font-weight: bolder;
+}
+
+.border-line>view {
+  flex: 1;
+  text-align: center;
+  height: 1rpx;
+  border-top: 1rpx solid #e4e4e4;
+}
+
+/* //bottom */
+.bottom-box {
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+}
+
+.bottom-box>view {
+  flex: 1;
+
+  height: 100%;
+  line-height: 100rpx;
+  text-align: center;
+  border-right: 1rpx solid white;
+}
+
+.bottom-box button {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  line-height: 100rpx;
+  color: white;
+  border-radius: 0;
+}
+
+.bottom-box>view:last-child {
+  border: none;
+}
+
+.content-zan {
+  margin-top: 40rpx;
+  padding-bottom: 50rpx;
+}
+
+.content-comment {
+  border-top: 10rpx solid #f5f5f5;
+  height: 100rpx;
+  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.15);
+  padding: 0 30rpx 0 20rpx;
+  box-sizing: border-box;
+}
+
+.content-btn {
+  width: 140rpx;
+  height: 56rpx;
+  border-radius: 50rpx;
+  padding: 0;
+  color: #f72930;
+  background-color: #fff;
+  border: 1rpx solid #f72930;
+  line-height: 54rpx;
+  margin: 0;
+}
+
+.content-communication {
+  padding: 30rpx 20rpx 0;
+}
+
+.content-communication>image {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+}
+
+.content-communication>view {
+  margin-left: 18rpx;
+}
+
+.label {
+  width: 6rpx;
+  height: 24rpx;
+  background-color: #f72930;
+  margin: 18rpx 10rpx 18rpx 0;
+
+}
+
+.content-no-communication-image {
+  width: 159rpx;
+  height: 151rpx;
+  margin: 65rpx 0 38rpx;
+
+}
+
+.flexeColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/*评论弹框*/
+.content-modal-box {
+  top: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.5);
+  padding-bottom: 100rpx;
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 20px;
+  background: #fff;
+  border-radius: 20rpx;
+  width: 660rpx;
+  height: 500rpx;
+  padding: 40rpx 0 50rpx;
+}
+
+.comment-box>textarea {
+  border: 1rpx solid #ccc;
+  height: 370rpx;
+  width: 580rpx;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.textarea-placeholder {
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+.comment-box>button {
+  width: 580rpx;
+  height: 80rpx;
+  background-color: #f72930;
+  border-radius: 8rpx;
+  color: #fff;
+  margin-top: 52rpx;
+}
+
+.fix-home-page {
+  position: fixed;
+  top: 220rpx;
+  right: 20rpx;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  border-radius: 50rpx;
+  color: white;
+  height: 70rpx;
+  min-width: 70rpx;
+  line-height: 70rpx;
+}
+
+.fixedButtons {
+  position: fixed;
+  right: 20rpx;
+  bottom: 200rpx;
+  z-index: 112;
+}
+
+.fixed-share {
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1rpx solid #dbdbdb;
+  padding: 0;
+  margin: 0;
+}
+
+.fixed-share>view {
+  margin-bottom: 10rpx;
+}
+
+.linkGoodsList {
+  margin-top: 30rpx;
+}
+
+.goodsDetail {
+  width: 630rpx;
+  height: 260rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  box-sizing: padding-box;
+  padding: 0 30rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0 0rpx 10rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid #f5f5f5;
+}
+
+.goodsDetail>.linkImg {
+  width: 180rpx;
+  height: 180rpx;
+  margin-right: 30rpx;
+}
+
+.goodsTitle {
+  color: #000;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  height: 60rpx;
+}
+
+.goodsSales {
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.realPrice {
+  color: #FF3600;
+}
+
+.productPrice {
+  color: #ccc;
+  font-weight: 400;
+  margin-left: 8rpx;
+  text-decoration: line-through;
+}
+
+.toCart {
+  width: 114rpx;
+  height: 40rpx;
+  background: linear-gradient(0deg, rgba(246, 97, 23, 1) 0%, rgba(248, 131, 17, 1) 100%);
+  border-radius: 20rpx;
+  color: #fff;
+  text-align: center;
+  padding: 0 8rpx;
+  box-sizing: border-box;
+  line-height: 40rpx;
+}
+
+.mlc {
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.linkBox {
+  position: fixed;
+  top: 360rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  width: 660rpx;
+  height: 500rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  align-items: center;
+}
+
+.linkContainer {
+  position: relative;
+  height: 100%;
+  align-items: center;
+}
+
+.linkTitle {
+  color: #000;
+  font-size: 44rpx;
+  font-weight: bold;
+  height: 160rpx;
+  line-height: 200rpx;
+}
+
+.linkUrl {
+  color: #666;
+  margin-bottom: 50rpx;
+  padding: 0 50rpx;
+}
+
+.linkInfo {
+  color: #B3B3B3;
+  padding: 0 50rpx;
+}
+
+.btnBottom {
+  border-top: 1rpx solid rgba(235, 235, 235, 1);
+  width: 660rpx;
+  height: 108rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.btnCancel {
+  color: #B3B3B3;
+  border-right: 1rpx solid rgba(235, 235, 235, 1);
+}
+
+.btnConfirm {
+  color: #FF9B1F;
+}
+
+.btnCancel,
+.btnConfirm {
+  text-align: center;
+  height: 108rpx;
+  line-height: 108rpx;
+}

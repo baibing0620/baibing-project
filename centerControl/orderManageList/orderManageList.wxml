@@ -1,0 +1,142 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<template is='initShow' data='{{showStyle:showStyle}}' wx:if='{{ showStyle != 1 }}'></template>
+<block wx:else>
+    <view class="switchTabs">
+        <view class="flex1 flexc switchTabLayout" wx:for="{{ switchTab.tabs }}" wx:key="index" data-index="{{ index }}" catchtap="switchTabOnClick">
+            <view class="flexc switchTab {{ switchTab.currentIndex === index ? 'switchTabSelected bold fr30' : 'c6 fr28' }}">
+                {{ item.title }}
+            </view>
+        </view>
+    </view>
+    
+    <view class="list">
+        <picker range="{{array}}" bindchange="bindPickerChange" wx:key="{{array}}" wx:if="{{mode === 'retail'}}">
+            <view class="downSelect">
+                <input placeholder="全部订单" class="input" type="number" value="{{orderType}}" disabled/>
+                <text class="downSelectUnit iconfont icon-you"></text>
+            </view>
+        </picker> 
+        <view wx:for="{{ list }}" wx:key="id" class="item" data-path="orderManageDetail" data-id="{{ item.id }}" catchtap="nav">
+            <view class="info-bottom fr30 c6 flexb">
+                下单时间:  {{ item.createtime || item.create_time }}
+                <view class="info-detail">
+                    <block wx:if="{{ mode === 'appointment' }}">
+                        <view wx:if="{{ item.status == 0 }}">待付款</view>
+                        <view wx:if="{{ item.status == 1 }}">待审核</view>
+                        <view wx:elif="{{ item.status == 2 }}">已接受</view>
+                        <view wx:if="{{ item.status == 3 }}">已完成</view>
+                        <view wx:elif="{{ item.status == -1 }}">已拒绝</view>
+                        <view wx:elif="{{ item.status == -2 }}">已取消</view>
+                        <view wx:elif="{{ item.status == 8 }}">待自提</view>
+                    </block>
+                    <block wx:elif="{{ mode === 'restaurant' }}">
+                        <view wx:if="{{ item.status == 0 }}">待付款</view>
+                        <view wx:elif="{{ item.status == 1 }}">待配送</view>
+                        <view wx:elif="{{ item.status == 2 }}">配送中</view>
+                        <view wx:if="{{ item.status == 3 }}">已完成</view>
+                        <view wx:if="{{ item.status == 5 }}">待自提</view>
+                        <view wx:elif="{{ item.status == -1 }}">已取消</view>
+                        <view wx:elif="{{ item.status == -6 }}">已退款</view>
+                    </block>
+                    <block wx:elif="{{ mode === 'retail' }}">
+                        <view wx:if="{{ item.status == 0 }}">待付款</view>
+                        <view wx:elif="{{ item.status == 1 }}">
+                            <view wx:if="{{item.cancel_check_status == 2 }}" style="background-color:#d8636b;">审核中</view>
+                            <view wx:else>待发货</view>
+                            
+                        </view>
+                        <!-- <view wx:elif="{{ item.status == 2 }}" class="info-status info-status-3 fr24 flexc">待收货 </view> -->
+                        <view wx:elif="{{ item.status == 2}}">
+                            <view wx:if="{{ item.cancel_check_status == 2}}" style="background-color:#d8636b;">审核中</view>
+                            <view wx:else>待收货</view>
+                        </view>
+                        <view wx:if="{{ item.status == 3 }}">已完成</view>
+                        <view wx:elif="{{ item.status == -1 }}">已取消</view>
+                        <view wx:elif="{{ item.status == -6 }}">已退款</view>
+                        <view wx:elif="{{ item.status == 4 }}">待审核</view>
+                    </block>
+                    <text class="iconfont icon-jinru c9 fr24" style="margin-left: 20rpx;"></text>
+                </view>
+            </view>
+            <view class="info-top">
+                <view class="info-info">
+                    <view class="labels fr26 c9">
+                        <block wx:if="{{ mode === 'appointment' }}">
+                            <view class="label">预约人</view>
+                            <view class="label">订金</view>
+                            <view class="label">预约项目</view>
+                        </block>
+                        <block wx:else>
+                            <view class="label">收货人</view>
+                            <view class="label">手机号</view>
+                        </block>
+                        <view wx:if="{{ mode === 'restaurant' }}" class="label">收货地址</view>
+                        <view wx:if="{{ mode === 'retail' }}" class="label">订单金额</view>
+                        <view wx:if="{{ mode === 'retail' }}" class="label">订单类型</view>
+                    </view>
+                    <view class="contents fr26 c3">
+                        <block wx:if="{{ mode === 'retail' }}">
+                            <view class="content">{{ item.address_realname }}</view>
+                            <view class="content">{{ item.address_mobile }}</view>
+                            <view class="content" wx:if="{{item.paytype == 4}}">
+                                <text>{{item.goods[0].consume_integral}}积分</text>  
+                                <text  wx:if="{{item.paytype==4&&item.goods[0].consume_price!=0}}">+{{item.goods[0].consume_price}}元</text>
+                            </view> 
+                            <view class="content" wx:else>{{ item.price }}元</view>
+                            <view class="content" wx:if="{{item.selected_products_type == 3}}"> <text style="color: #ff9b1f">自营商品订单</text></view>
+                            <view class="content" wx:if="{{item.selected_products_type == 1}}"> <text>平台商品订单</text></view>
+                        </block>
+                        <block wx:elif="{{ mode === 'restaurant' }}">
+                            <view class="content">{{ item.address_realname }}</view>
+                            <view class="content">{{ item.address_mobile }}</view>
+                            <view class="content content-address ellipsis">{{ item.address_province + " " + item.address_city + " " + item.address_area + " " + item.address_address }}</view>
+                        </block>
+                        <block wx:elif="{{ mode === 'appointment' }}">
+                            <view class="content">{{ item.name }}</view>
+                            <view class="content">{{ item.price }}</view>
+                            <view class="content">{{ item.appointment_item_title }}</view>
+                        </block>
+                    </view>
+                </view>
+
+                <!-- <block wx:if="{{ mode === 'appointment' }}">
+                    <view wx:if="{{ item.status == 0 }}" class="info-status info-status-1 fr24 flexc">待付款</view>
+                    <view wx:if="{{ item.status == 1 }}" class="info-status info-status-1 fr24 flexc">待审核</view>
+                    <view wx:elif="{{ item.status == 2 }}" class="info-status info-status-2 fr24 flexc">已接受</view>
+                    <view wx:if="{{ item.status == 3 }}" class="info-status info-status-5 fr24 flexc">已完成</view>
+                    <view wx:elif="{{ item.status == -1 }}" class="info-status info-status-3 fr24 flexc">已拒绝</view>
+                    <view wx:elif="{{ item.status == -2 }}" class="info-status info-status-6 fr24 flexc">已取消</view>
+                </block>
+                <block wx:elif="{{ mode === 'restaurant' }}">
+                    <view wx:if="{{ item.status == 0 }}" class="info-status info-status-1 fr24 flexc">待付款</view>
+                    <view wx:elif="{{ item.status == 1 }}" class="info-status info-status-1 fr24 flexc">待配送</view>
+                    <view wx:elif="{{ item.status == 2 }}" class="info-status info-status-3 fr24 flexc">配送中</view>
+                    <view wx:if="{{ item.status == 3 }}" class="info-status info-status-5 fr24 flexc">已完成</view>
+                    <view wx:if="{{ item.status == 5 }}" class="info-status info-status-1 fr24 flexc">待自提</view>
+                    <view wx:elif="{{ item.status == -1 }}" class="info-status info-status-6 fr24 flexc">已取消</view>
+                    <view wx:elif="{{ item.status == -6 }}" class="info-status info-status-6 fr24 flexc">已退款</view>
+                </block>
+                <block wx:elif="{{ mode === 'retail' }}">
+                    <view wx:if="{{ item.status == 0 }}" class="info-status info-status-1 fr24 flexc">待付款</view>
+                    <view wx:elif="{{ item.status == 1 }}">
+                        <view wx:if="{{item.cancel_check_status == 2 }}" class="info-status info-status-2 fr24 flexc" style="background-color:#d8636b;">审核中</view>
+                        <view wx:else class="info-status info-status-2 fr24 flexc">待发货</view>
+                        
+                    </view>
+                    <view wx:elif="{{ item.status == 2}}">
+                        <view wx:if="{{ item.cancel_check_status == 2}}" class="info-status info-status-3 fr24 flexc" style="background-color:#d8636b;">审核中</view>
+                        <view wx:else class="info-status info-status-3 fr24 flexc">待收货</view>
+                    </view>
+                    <view wx:if="{{ item.status == 3 }}" class="info-status info-status-5 fr24 flexc">已完成</view>
+                    <view wx:elif="{{ item.status == -1 }}" class="info-status info-status-6 fr24 flexc">已取消</view>
+                    <view wx:elif="{{ item.status == -6 }}" class="info-status info-status-6 fr24 flexc">已退款</view>
+                </block> -->
+                                
+            </view>
+        </view>
+    </view>
+    <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+</block>
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,13 @@
+{
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+      "diy-rich-text":"/components/richTextDIY/richTextDIY",
+      "component-remind": "/components/remind/remind",
+      "component-messageToast": "/components/messageToast/messageToast",
+      "component-toHomePage": "/components/toHomePage/toHomePage",
+      "upload-img": "/components/uploadImg/uploadImg"
+    }
+  }

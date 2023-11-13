@@ -1,0 +1,46 @@
+<include src="../../comm/comm.wxml" />
+<view class='container'>
+    <view class='fr24 c3'>选择匹配关系</view>
+    <view class='flex add-recover-match fr30 c9'>
+        <view bindtap='changeRelation' data-index="{{index}}" wx:for="{{matchingRelation}}" wx:key="this" class="{{matchingIndex == index?'bc-main':''}}">{{item}}</view>
+    </view>
+</view>
+<view class='container'>
+    <view style='margin-bottom:10rpx' class='fr24 c3'>匹配关键字段</view>
+    <view  class='flex' catchtap="hideDeleteTag">
+        <view style='position:relative' wx:for="{{keywords}}" wx:key="index" catchtap="showDeleteTag" class='tag fr24'>{{item}}
+             <view wx:if="{{pressIndex}}" class="user-tag-del iconfont icon-shanchu tag-color" data-index="{{index}}" catchtap="deleteTag"></view>
+        </view>
+    </view>
+    <input bindblur='addKeyWords' value="{{words}}" class='add-recover-match key-match fr30 c9' placeholder='+ 关键字段'/>
+</view>
+<view style=' padding: 40rpx 30rpx;'>
+    <view class='fr24 c3'>回复内容类型</view>
+    <view class='flex add-recover-match fr30 c9'>
+        <view bindtap='changeType' data-index="{{index}}" wx:for="{{contentType}}" wx:key="this" class="{{typeIndex == index?'bc-main':''}}">{{item}}</view>
+    </view>
+    <block wx:if="{{typeIndex == 0}}">
+        <view style='margin:30rpx 0' class='fr24 c3'>回复文字</view>
+        <view class='textarea-view'>
+            <textarea class='font-normal' name='pushInfo' bindinput="changeContent" value='{{ replayInfo }}' placeholder='请输入回复文字' placeholder-class='placeholder-color placeholder' maxlength='60'>
+                <text style='position:absolute;bottom:0;right:0'>{{replayInfo.length}}/60</text>
+            </textarea>
+        </view>
+    </block>
+    <block wx:else>
+        <view style='margin:30rpx 0' class='fr24 c3'>回复图片</view>
+        <view class='avatar' catchtap='uploadAvatar' bindlongpress='deleteAvatar'>
+            <image catchtap='previewImage' data-preview-url="{{replayImg.url}}" wx:if='{{ replayImg.status === 2 }}' src='{{ replayImg.url }}?imageView2/1/w/200/h/200"'></image>
+            <view wx:if='{{ replayImg.status === 1 }}' class='progress-view'>
+                <progress percent='{{ replayImg.progress }}' activeColor='{{ extConfig.themeColor }}'></progress>
+            </view>
+            <view wx:if='{{ replayImg.status === -1 }}' class='imgError flexcColumn fr24'>{{ replayImg.errorMsg }}
+                <br/>点击重新上传</view>
+            <view wx:if='{{ replayImg.status === 0 }}' class='c9 avatarDefalt flexcColumn'>
+                <i class='iconfont icon-add:before avatarIcon'></i>
+            </view>
+        </view>
+    </block>
+</view>
+<button catchtap='AddRecoveryRule' disabled='{{disabled}}' class='message-btn fr34 cf'>{{id?'确定编辑':'确定添加'}}</button>
+<component-messageToast></component-messageToast>

@@ -1,0 +1,47 @@
+page {
+    background-color: white;
+}
+.new-group-box-content {
+    padding: 30rpx;
+    width: 690rpx;
+    border-bottom: 1px solid rgba(247,247,247,1);
+}
+.content-user-head {
+    position: relative;
+}
+.content-user-head-img {
+    position: absolute;
+}
+.content-user-head image {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+}
+.content-user-head-add {
+    position: absolute;
+    left: 60rpx;
+    width:80rpx;
+    height:80rpx;
+    background:rgba(203,203,203,1);
+    border:4rpx solid rgba(255,255,255,1);
+    border-radius:50%;
+}
+.content-user-info {
+    margin-left: 22rpx;
+}
+.content-join {
+    width:140rpx;
+    height:60rpx;
+    background:var(--theme-color);
+    border-radius:30rpx;
+    text-align: center;
+    line-height: 60rpx;
+    color: white;
+}
+.content-user-info-name {
+    display: inline-block;
+    max-width: 100rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

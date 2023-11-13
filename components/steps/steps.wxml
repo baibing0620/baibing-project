@@ -1,0 +1,3 @@
+<view class="steps-container flexb fr26">
+    <view wx:for="{{stepsData}}" wx:key="{{index}}" class='steps-content flexc {{chooseIndex==index?"choose":completeIndex >= index?"choose-complete after":"cc"}}'>{{item}}</view>
+</view>

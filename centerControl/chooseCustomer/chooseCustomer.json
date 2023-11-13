@@ -1,0 +1,10 @@
+{
+	"navigationBarTitleText": "选择客户",
+	"navigationBarBackgroundColor": "#1F94FD",
+	"backgroundColor": "#1F94FD",
+	"navigationBarTextStyle": "white",
+	"usingComponents": {
+		"component-image": "/components/image/image",
+		"component-messageToast": "/components/messageToast/messageToast" 
+	}
+}

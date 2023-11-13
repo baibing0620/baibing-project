@@ -1,0 +1,66 @@
+@import '../../comm/base.wxss';
+.goods {
+
+  flex-wrap:wrap;
+  padding:0 20rpx;
+ 
+}
+.goods-item {
+  border:1rpx solid #eaeaea;
+  margin:0 0 20rpx 0;
+  border-radius: 10rpx;
+  position: relative;
+  width:345rpx;
+}
+.goods-img {
+  width: 345rpx;
+  height: 345rpx;
+  border-radius: 10rpx 10rpx 0 0;
+  overflow: hidden;
+}
+.goods-title{
+  box-sizing: border-box;
+  margin: 26rpx  20rpx 18rpx;
+  text-align: left;
+  
+}
+.goods-sale {
+  flex-wrap: wrap;
+  margin-bottom: 20rpx;
+  padding:0 20rpx;
+}
+.credit-sales {
+    flex-wrap: wrap;
+    margin-bottom: 18rpx;
+    padding:0 20rpx;
+}
+.credit-price {
+    flex-wrap: wrap;
+    margin-bottom: 20rpx;
+    padding:0 20rpx;
+}
+
+.goods-credit {
+    padding: 0 20rpx 0 60rpx;
+    height: 42rpx;
+    line-height: 42rpx;
+    background-color: rgba(266, 166, 7, 0.2);
+    border-radius: 20rpx;
+    position: relative;
+    margin: 0 16rpx 20rpx;
+    color: #ff8c1a;
+    letter-spacing: 1rpx;
+}
+
+.goods-credit::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top:-4rpx;
+    height: 43rpx;
+    width: 43rpx;
+    background: url(https://facing-1256908372.file.myqcloud.com//image/20191211/f30ed2991e66dbe9.png);
+    background-size: 100%;
+    border-radius: 50%;
+    border: 4rpx solid #fff;
+}

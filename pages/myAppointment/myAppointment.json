@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "我的预约",
+  "navigationBarBackgroundColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast",
+    "component-toHomePage": "/components/toHomePage/toHomePage"
+  }
+}

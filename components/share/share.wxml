@@ -1,0 +1,31 @@
+<!-- 遮罩层 -->
+<view class="{{isMask}}" catchtap="hideMask"></view>
+<!-- 分享的弹窗 -->
+<view class="share {{isTabbar?'share-box-b100':'share-box'}}" wx:if="{{isShare}}">
+  <view class="share-box-content">
+    <button class='share-button' open-type='share'>
+      <image src='https://facing-1256908372.file.myqcloud.com//image/20200629/7c97de1a2e981129.png'></image>
+      <text class="fr28 c3">分享好友</text>
+    </button>
+    <button class="share-button" catchtap="downloadPoster">
+      <image src='https://facing-1256908372.file.myqcloud.com//image/20200629/abb9c88f35ae4ac7.png'></image>
+      <text class="fr28 c3">分享到朋友圈</text>
+    </button>
+    <button class="share-button" catchtap="downloadPoster">
+      <image src='https://facing-1256908372.file.myqcloud.com//image/20200623/0fb830ca23b997ca.png'></image>
+      <text class="fr28 c3">保存到相册</text>
+    </button>
+  </view>
+  <view class="closeShare fr28" catchtap="hideMask">取消</view>
+</view>
+<!-- 海报 -->
+<view class="new-poster-box flexc" wx:if="{{showPost}}" style="top: {{top}}px;height: {{posterHeight}}rpx">
+  <view class="new-poster {{showPost?'show-poster':''}}"  style="height:{{imgHeight}}rpx; transform:scale({{posterScale}});">
+    <view class="new-poster-img">
+      <view wx:if='{{QRcodeLoadIf}}' class="action-play flexc">
+        <view class="loader"></view>
+      </view>
+      <image hidden="{{QRcodeLoadIf}}" src="{{imgCode}}" bindload="qRcodeShow" ></image>
+    </view>
+  </view>
+</view>

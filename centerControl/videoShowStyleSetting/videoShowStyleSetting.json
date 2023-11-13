@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "视频展示样式",
+    "usingComponents": {
+        "component-messageToast": "/components/messageToast/messageToast"
+    }
+}

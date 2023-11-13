@@ -1,0 +1,58 @@
+<include src='../../comm/comm.wxml' />
+<import src='../../template/initShow/initShow.wxml' />
+<wxs src='../../tools/showImg.wxs' module='ShowImg' />
+<form report-submit>
+    <button class='container w100 clean-btn' formType="submit">
+        <template is='initShow' data='{{ showStyle: showStyle }}' wx:if='{{ showStyle != 1 }}'></template>
+        <block wx:if='{{ showStyle == 1 }}'>
+            <component-toHomePage wx:if='{{ isFromShare }}'></component-toHomePage>
+            <swiper wx:if='{{showSwiper && categoryDetail.car_img_url.length > 0}}' class='banner' autoplay circular indicator-dots indicator-color='rgba(255,255,255,.6)' indicator-active-color='#fff' interval='{{3000}}'>
+                <block wx:for='{{categoryDetail.car_img_url}}' wx:key='{{index}}'>
+                    <swiper-item>
+                        <image class='banner image-block' mode='aspectFill' src='{{ShowImg.cropImgWH(item.url, 750, 400)}}' data-page='{{item.link}}' bindtap='handleNavigate' />
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view class='title-module bcf'>
+                <view class='title fr36 c-1d2023'>{{categoryDetail.description}}</view>
+                <view class='explain fr26 c-797c80'>{{categoryDetail.present}}</view>
+            </view>
+            <view class='label-layout'>
+                <image class='label-bg image-block' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190424/db3784b61a90aeeb.png'></image>
+                <view class='label fr36 c-1d2023'>
+                    <image class='label-icon-1 image-block' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190424/e524019221dbb2e1.png'></image>
+                    {{group_field || '特别推荐'}}
+                    <image class='label-icon-2 image-block' mode='aspectFill' src='https://facing-1256908372.file.myqcloud.com//image/20190424/e524019221dbb2e1.png'></image>
+                </view>
+            </view>
+            <view class='goods-list flex'>
+                <view wx:for='{{recommendList}}' wx:key='{{item.id}}' class='goods-item bcf' data-id='{{item.id}}' bindtap='handleNavToDetail'>
+                    <view wx:if='{{item.if_recommend == 1}}' class='goods-recommend flexc fr20 cf'>
+                        推荐
+                    </view>
+                    <image class='goods-thumb' mode='aspectFill' src='{{item.img_url.url + "?imageView2/1/w/340/h/237"}}'></image>
+                    <view class='goods-detail'>
+                        <view class='goods-title-layout flexb c-ff3e26'>
+                            <view class='goods-title fr32 c-1d2023 flex1'>
+                                {{item.service_name}}
+                            </view>
+                            <view class='goods-like flex fr26'>
+                                <view class='iconfont icon-dianzan2 fr22'></view>
+                                {{item.like_number}}
+                            </view>
+                        </view>
+                        <view class='goods-content fr22 ellipsis2'>{{item.description}}</view>
+                        <view class="goods-tags-layout flex">
+                            <view wx:for='{{item.label}}' wx:key='{{index}}' class="goods-tags">
+                                {{item}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <template is="moreData" data="{{ loadStyle: loadStyle }}" />
+        </block>
+        <component-remind wx:if='{{ showRemind }}'></component-remind>
+        <component-messageToast></component-messageToast>
+    </button>
+</form>

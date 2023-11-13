@@ -1,0 +1,206 @@
+page {
+  background-color: #fff;
+}
+
+.fr20,.fr24,.fr26,.fr28,.fr30,.fr32,.fr34 {
+  line-height: 100%;
+}
+
+.title {
+  height: 110rpx;
+  position: relative;
+  z-index: 101;
+}
+
+.title>view>.icon-xiala1 {
+  margin-left: 20rpx;
+}
+
+.picker, picker {
+  width: 100%;
+  height: 36rpx;
+}
+
+.picker .icon-xiala1 {
+  margin-left: 16rpx;
+}
+
+.sort {
+  height: 90rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sort>view {
+  height: 36rpx;
+  border-right: 1rpx solid #f0f0f0;
+}
+
+.sort>view:last-child {
+  border-right: 0;
+}
+
+.sort-item {
+  height: 150rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  padding-right: 30rpx;
+}
+
+.sort-item-card {
+  height: 150rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  padding: 0 30rpx;
+}
+
+.sort-item>view:first-child i {
+  display: block;
+  width: 146rpx;
+  text-align: center;
+}
+
+.sort-item>view:last-child i {
+  margin-left: 30rpx;
+  display: block;
+  width: 18rpx;
+}
+
+.sort-icon {
+  height: 58rpx;
+  width: 46rpx;
+}
+
+.back {
+  height: 80rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.back-tiny {
+  height: 100rpx;
+  padding-right: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-wrap: nowrap;
+}
+
+.input-box {
+  position: relative;
+  box-sizing: border-box;
+  width: 470rpx;
+  height: 58rpx; 
+  border-radius: 58rpx;
+  background-color: #f0f0f0;
+  padding-left: 40rpx;
+  transition: .3s;
+}
+
+.input-box>input {
+  height: 100%;
+  width: 296rpx;
+  transition: .5s;
+}
+
+.input-box-full {
+  width: 690rpx;
+}
+
+.input-box-full>input {
+  width: 416rpx;
+}
+
+.icon-sousuo {
+  width: 114rpx;
+  height: 100%;
+}
+
+.icon-fanhui1 {
+  margin-right: 10rpx;
+}
+
+.card-item {
+  height: 194rpx;
+  width: 100%;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.avatar {
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 30rpx;
+}
+
+.name {
+  padding-right: 20rpx;
+  border-right: 1rpx solid #f0f0f0;
+  margin-right: 20rpx;
+}
+
+.card-data {
+  margin-top: 30rpx;
+}
+
+.card-data>view {
+  margin-right: 70rpx;
+}
+
+.card-data>view:last-child {
+  margin-right: 0;
+}
+
+.card-data>view>view {
+  margin-bottom: 20rpx;
+}
+
+.dialog {
+  width: 600rpx;
+}
+
+.dialog-content {
+  height: 56vh;
+}
+
+.dialog-item {
+  height: 90rpx;
+  padding: 0 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.dialog-item:active {
+  background-color: #fafafa;
+}
+
+.active:active {
+  background-color: #fafafa;
+}
+
+.heightFull {
+  height: 100%;
+}
+
+.nowrap{
+  flex-wrap: nowrap; 
+  white-space: nowrap;
+} 
+
+.ellipsis {
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+}
+
+.nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.none {
+  margin-top: 260rpx;
+}
+
+.lock {
+  height: 100vh;
+  overflow: hidden;
+}
+
+

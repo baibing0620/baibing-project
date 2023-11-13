@@ -1,0 +1,50 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<wxs src="../../tools/showImg.wxs" module="ShowImg" />
+<wxs src="../../tools/format.wxs" module="Format" />
+
+<view class="container w100">
+  <view class="order-tab flex fr24 w100 c6">
+    <view catchtap="tabChange" data-status="{{item.status}}" class="flex1" wx:for="{{tabBar}}" wx:key="status">
+      <text class="{{activeStatus==item.status?'active-tab':''}}">{{item.title}}</text>
+    </view>
+  </view>
+  <template is="initShow" data="{{showStyle:showStyle,showNoMsg:'无相关砍价订单'}}" wx:if="{{showStyle!=1&&orderList.length==0}}" />
+  <view class="w100" wx:else>
+    <view wx:for="{{orderList}}" wx:key="id" class="order-item w100" catchtap="navToDetail" data-id="{{item.id}}">
+      <view class="item-title fr24 c3 flexb">
+        <text wx:if="{{item.status==0}}">已被取消</text>
+        <text wx:if="{{item.status==1}}">热砍中，还差{{item.last_num}}人</text>
+        <text wx:if="{{item.status==2}}">已经砍到最低价</text>
+        <text wx:if="{{item.status==3}}">砍价时间结束</text>
+        <text wx:if="{{item.status==4}}">砍价完成，已生成订单</text>
+        <text>已砍到 : <text class="fr34 c-orange">￥{{item.now_price}}</text></text>
+      </view>
+      <view class="order-detail w100 fr24 flex">
+        <image class="order-pic" src="{{ShowImg.cropImgWH(item.goods.thumb_url,160,160)}}"></image>
+        <view class="order-text flex1 flexaColumn">
+          <view class="order-goods-title ellipsis1">
+            {{item.goods.title}}
+          </view>
+          <view class="flexb">
+            <view class="c9">
+              ×1
+            </view>
+            <view class="c9">
+              ￥{{item.begin_price}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="item-total fr24 c3 flex jcfe">
+        截止时间： {{Format.formatDate(item.endtime*1000)}}
+      </view>
+    </view>
+    <template is="moreData" data="{{loadStyle:loadStyle}}" />
+  </view>
+</view>
+
+
+<component-remind wx:if="{{ showRemind }}"></component-remind>
+<component-messageToast></component-messageToast>

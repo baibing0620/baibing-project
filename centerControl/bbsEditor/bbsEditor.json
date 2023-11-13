@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "发布帖子",
+  "usingComponents": {
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

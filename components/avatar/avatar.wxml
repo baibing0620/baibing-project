@@ -1,0 +1,9 @@
+<view class='layout'>
+    <view class='avatar'>
+        <component-image src='{{ src }}' lazyLoad='{{ lazyLoad }}' placeholder bind:handleLoadOver='handleLoadOver' bind:handleResize='handleResize'></component-image>
+    </view>
+    <view class='placeholder flex-c-c c-FFFFFF {{ isLoadOver && src ? "placeholder-hidden" : "" }}'>
+        <view wx:if='{{ firstName && !src }}' class='name flex-c-c' style='font-size: {{ fontSize }}rpx'>{{ firstName }}</view>
+        <!-- <view wx:else class='icon iconfont {{ icon }} flex-c-c' style='font-size: {{ fontSize }}rpx'></view> -->
+    </view>
+</view>

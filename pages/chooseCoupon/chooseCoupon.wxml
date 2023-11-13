@@ -1,0 +1,123 @@
+<include src="../../comm/comm.wxml" />
+<import src="../../template/initShow/initShow.wxml" />
+<template is="initShow" data="{{showStyle:showStyle,showNoMsg:'暂无可用优惠券'}}" wx:if="{{showStyle!=1&&couponList.length==0}}"
+/>
+<view class="coupon-list" wx:else>
+    <view class="fr30 c6 flex nonuse-coupon" catchtap="noUseCoupon">
+        <text>不使用优惠券</text>
+    </view>
+    <!-- <block wx:for="{{couponList}}">
+        <view class="{{item.filterType!=0?'uncoupon':''}} coupon-container flexcColumn" catchtap="chooseCoupon" data-index="{{index}}"
+            data-id="{{item.couponInfo.id}}">
+            <view class="flexb" style="width:100%">
+                <view class="coupon-left flexColumn jcc flex1">
+                    <view class="fr30 fw600" style="margin-bottom:18rpx" wx:if="{{item.couponInfo.name}}">{{item.couponInfo.name}}</view>
+                    <view class="fr26" style="opacity: 0.7">
+                        <view>有效期至{{item.end_date}}</view> 
+                    </view>
+                </view>
+                <view class="fr30 flexc c4d coupon-right">
+                    <view class="fr24 coupon-price">
+                        <text>￥</text>
+                        <text class="fr65 fw600">{{item.cutdown}}</text>
+                        <view class="c3a" wx:if="{{item.type==1}}">满{{item.sale_to}}元可用</view>
+                        <view class="c3a" wx:else>任意金额可使用</view> 
+                    </view>
+                    <view wx:if="{{item.isCheck && item.filterType==0}}" class="iconfont icon-xuanzhong1 fr30 coupon-choose"></view>
+                </view>
+            </view>
+            <view class="fr24 ellipsis1 coupon-category">
+                <view class="fr24 ellipsis1" wx:if="{{item.filterType>0}}" style="color:red;padding-right:20rpx;">
+                    {{statueDes[item.filterType]}}
+                </view>
+                <view wx:if="{{item.couponInfo.scope.type == 2}}">限类别:
+                    <block wx:for="{{item.couponInfo.scope.cateList}}" wx:for-item="itemCate" wx:for-index="idxCate">
+                        <text wx:if="{{itemCate.ccid == 0 }}">{{itemCate.pcname}}</text>
+                        <text wx:else>{{itemCate.ccname}}</text>
+                        <text hidden='{{idxCate == item.couponInfo.scope.cateList.length-1}}'>、</text>
+                    </block>
+                </view>
+                <view wx:if="{{item.couponInfo.scope.type == 3}}">
+                    限商品:
+                    <block wx:for="{{item.couponInfo.scope.goodsList}}" wx:for-item="itemGood" wx:for-index="idxGood">
+                        {{itemGood.goodsTitle}}
+                        <text hidden='{{idxGood == item.couponInfo.scope.goodsList.length-1}}'>、</text>
+                    </block>
+                </view>
+            </view>
+
+      
+
+
+        </view>
+       
+
+    </block> -->
+
+    <block wx:for="{{couponList}}"> 
+            <view class="coupon-container" >
+                <view class="left-circle bg-circle"></view>
+                <view class="right-circle bg-circle"></view>
+                <view class="disMlc" wx:if="{{item.filterType!=0 }}"></view>
+
+                 <view wx:if="{{item.isCheck && item.filterType==0}}" class="iconfont icon-xuanzhong1 fr30 coupon-choose"></view>
+                <!-- <view class="coupon-bg">
+                    <component-image src='https://facing-1256908372.file.myqcloud.com//image/20200729/93c9bcb096036da3.png'></component-image>
+                </view> -->
+                <view class="coupon-detail" catchtap="chooseCoupon" data-index="{{index}}"
+            data-id="{{item.couponInfo.id}}">
+                    <view class="flexb coupon-info" style="padding-right: 50rpx">
+                        <view class="coupon-base">
+                            <view class="fr30 c3 bold ellipsis1" style="margin-bottom: 10rpx"> {{item.couponInfo.name}}</view>
+                            <view class="fr24 c6">
+                                有效期：{{item.begin_date}}-{{item.end_date}}
+                            </view>
+                        </view>
+                        <view class="coupon-money text-right" wx:if="{{item.type != 3}}">
+                            <view class="coupon-money-num">
+                                <text class="fr30">￥</text>
+                                <text class="fr50">{{item.cutdown}}</text>
+                            </view>
+                            <view>
+                                <view class="fr24 c6" wx:if="{{item.type==1}}">满{{item.sale_to}}元可用</view>
+                                <view class="fr24 c6" wx:else>任意金额可使用</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="line"></view>
+                    <view class="w100 flexb coupon-category">
+                         <view class="fr24 ellipsis1" wx:if="{{item.filterType>0}}" style="color:red;padding-right:20rpx;">
+                            {{statueDes[item.filterType]}}
+                        </view>
+                        <view class="goods fr22 c9 ellipsis1 flex1">    
+                            <block wx:if="{{item.type == 3}}">
+                                限抵扣商品【 {{item.couponInfo.exchange_goods[0].goodsName}} 】
+                            </block>
+                            <block wx:else>
+                                <text wx:if="{{item.couponInfo.scope.type == 1}}">全场无限制</text>
+                                <view wx:if="{{item.couponInfo.scope.type == 2}}">限类别:
+                                    <block wx:for="{{item.couponInfo.scope.cateList}}" wx:for-item="itemCate" wx:for-index="idxCate">
+                                        <text wx:if="{{itemCate.ccid == 0 }}">{{itemCate.pcname}}</text>
+                                        <text wx:else>{{itemCate.ccname}}</text>
+                                        <text hidden='{{idxCate == item.couponInfo.scope.cateList.length-1}}'>、</text>
+                                    </block>
+                                </view>
+                                <view wx:if="{{item.couponInfo.scope.type == 3}}">
+                                    限商品:
+                                    <block wx:for="{{item.couponInfo.scope.goodsList}}" wx:for-item="itemGood" wx:for-index="idxGood">
+                                        {{itemGood.goodsTitle}}
+                                        <text hidden='{{idxGood == item.couponInfo.scope.goodsList.length-1}}'>、</text>
+                                    </block>
+                                </view>
+                            </block>
+                        </view>
+                        <view class="sendBtn fr24" wx:if="{{item.is_user_give == 1 && item.status == 0}}">转赠</view>
+                    </view>
+                    
+                </view>
+                
+                <view wx:if="{{item.status == 2}}" class="iconfont icon-yiguoqi coupon-nouse" style="color:#333"></view>
+                <view wx:elif="{{item.status == 1}}" class="iconfont icon-yishiyong coupon-failuse" style="color:#333"></view>
+            </view>
+        </block>
+</view>

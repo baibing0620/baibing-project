@@ -1,0 +1,53 @@
+/* centerControl/verificationList/verificationList.wxss */
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  align-items: center;
+}
+
+.codeList {
+  width: 690rpx;
+  height: 220rpx;
+  border-radius: 20rpx;
+  background-size: cover;
+  box-sizing: border-box;
+  padding: 0 40rpx 20rpx;
+}
+
+.codeList:first-child {
+  margin-top: 20rpx;
+  background-image: url('https://facing-1256908372.file.myqcloud.com//image/20191128/a1ec2f81beb938da.png?imageView2/1/w/690/h/220');
+}
+
+.codeList:nth-child(2) {
+  background-image: url('https://facing-1256908372.file.myqcloud.com//image/20191128/f17ecfab784b8172.png?imageView2/1/w/690/h/220');
+}
+
+.codeList:nth-child(3) {
+  background-image: url('https://facing-1256908372.file.myqcloud.com//image/20191128/890d0221a00b8b8f.png?imageView2/1/w/690/h/220');
+}
+
+.codeList:nth-child(4) {
+  background-image: url('https://facing-1256908372.file.myqcloud.com//image/20191128/35b9d69475fd5640.png?imageView2/1/w/690/h/220');
+}
+
+.typeImg {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 30rpx;
+}
+
+.typeTitle {
+  color: #fff;
+  font-weight: bold;
+}
+
+.icon-you {
+  color: #fff;
+}
+
+.toPrizeVerificationRecordLog {
+  padding: 40rpx;
+}

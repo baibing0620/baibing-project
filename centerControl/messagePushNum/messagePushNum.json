@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "推送人数",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance":500,
+  "usingComponents": {
+    "component-remind": "/components/remind/remind",
+    "component-messageToast": "/components/messageToast/messageToast"
+  }
+}

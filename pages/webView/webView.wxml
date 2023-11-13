@@ -1,0 +1,4 @@
+<include src="../../comm/comm.wxml" />
+<web-view src="{{url}}">
+</web-view>
+<component-messageToast></component-messageToast>
